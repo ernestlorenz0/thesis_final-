@@ -1,8 +1,51 @@
 import React, { useEffect, useRef } from 'react';
 import Reveal from 'reveal.js';
 import 'reveal.js/dist/reveal.css';
+import * as ClassicClassroom from '../themes/ClassicClassroom';
+import * as STEMModern from '../themes/STEMModern';
+import * as PlayfulPrimary from '../themes/PlayfulPrimary';
+import * as AcademicMinimal from '../themes/AcademicMinimal';
+import * as ScholarlyElegant from '../themes/ScholarlyElegant';
+import * as DigitalChalkboard from '../themes/DigitalChalkboard';
+import * as ScienceSpectrum from '../themes/ScienceSpectrum';
+import * as HistoryHeritage from '../themes/HistoryHeritage';
+import * as ArtStudio from '../themes/ArtStudio';
+import * as MathMatrix from '../themes/MathMatrix';
+import * as LanguageLab from '../themes/LanguageLab';
+import * as TechTrends from '../themes/TechTrends';
+import * as ResearchReady from '../themes/ResearchReady';
+import * as CreativeCanvas from '../themes/CreativeCanvas';
+import * as YouthfulYellow from '../themes/YouthfulYellow';
+import * as CalmCyan from '../themes/CalmCyan';
+import * as ScholarGreen from '../themes/ScholarGreen';
+import * as VibrantViolet from '../themes/VibrantViolet';
+import * as OrangeOrbit from '../themes/OrangeOrbit';
+import * as BlueHorizon from '../themes/BlueHorizon';
 
-export default function RevealPreview({ slides, onClose }) {
+const themeComponents = {
+  'Classic Classroom': ClassicClassroom,
+  'STEM Modern': STEMModern,
+  'Playful Primary': PlayfulPrimary,
+  'Academic Minimal': AcademicMinimal,
+  'Scholarly Elegant': ScholarlyElegant,
+  'Digital Chalkboard': DigitalChalkboard,
+  'Science Spectrum': ScienceSpectrum,
+  'History Heritage': HistoryHeritage,
+  'Art Studio': ArtStudio,
+  'Math Matrix': MathMatrix,
+  'Language Lab': LanguageLab,
+  'Tech Trends': TechTrends,
+  'Research Ready': ResearchReady,
+  'Creative Canvas': CreativeCanvas,
+  'Youthful Yellow': YouthfulYellow,
+  'Calm Cyan': CalmCyan,
+  'Scholar Green': ScholarGreen,
+  'Vibrant Violet': VibrantViolet,
+  'Orange Orbit': OrangeOrbit,
+  'Blue Horizon': BlueHorizon,
+};
+
+export default function RevealPreview({ slides, selectedTemplate = 'ClassicClassroom', onClose }) {
   const deckRef = useRef();
 
   useEffect(() => {
@@ -32,18 +75,31 @@ export default function RevealPreview({ slides, onClose }) {
     };
   }, [slides]);
 
-  // Convert slides data to Reveal.js HTML
+  // Convert slides data to Reveal.js HTML using selected theme
+  const Theme = themeComponents[selectedTemplate] || ClassicClassroom;
   const renderSlides = () => (
     <div className="reveal">
       <div className="slides">
         {slides.map((slide, idx) => (
-          <section key={slide.id}>
-            {slide.components.map((comp, cidx) => {
-              if (comp.type === 'title') return <h2 key={cidx} style={{color:'#6D28D9'}}>{comp.content}</h2>;
-              if (comp.type === 'paragraph') return <p key={cidx} style={{fontSize:'1.3em'}}>{comp.content}</p>;
-              if (comp.type === 'image' && comp.content) return <img key={cidx} src={comp.content} alt="slide" style={{maxHeight:300, margin:'20px 0'}}/>;
-              return null;
-            })}
+          <section key={slide.id} data-transition="fade" data-auto-animate>
+            {slide.components.length === 1 ? (
+              (() => {
+                const comp = slide.components[0];
+                if (comp.type === 'title') return <Theme.TitleSlide title={comp.content} subtitle={''} />;
+                if (comp.type === 'image') return <Theme.ImageSlide title={''} imageUrl={comp.content} />;
+                if (comp.type === 'paragraph') return <Theme.ContentSlide title={''} content={comp.content} />;
+                return null;
+              })()
+            ) : (
+              <div className="w-full h-full flex flex-col gap-4 items-center justify-center">
+                {slide.components.map((comp, cidx) => {
+                  if (comp.type === 'title') return <Theme.TitleSlide key={cidx} title={comp.content} subtitle={''} />;
+                  if (comp.type === 'image') return <Theme.ImageSlide key={cidx} title={''} imageUrl={comp.content} />;
+                  if (comp.type === 'paragraph') return <Theme.ContentSlide key={cidx} title={''} content={comp.content} />;
+                  return null;
+                })}
+              </div>
+            )}
           </section>
         ))}
       </div>

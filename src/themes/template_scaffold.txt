@@ -1,0 +1,22 @@
+1. Classic Classroom
+2. STEM Modern
+3. Playful Primary
+4. Academic Minimal
+5. Scholarly Elegant
+6. Digital Chalkboard
+7. Science Spectrum
+8. History Heritage
+9. Art Studio
+10. Math Matrix
+11. Language Lab
+12. Tech Trends
+13. Research Ready
+14. Creative Canvas
+15. Youthful Yellow
+16. Calm Cyan
+17. Scholar Green
+18. Vibrant Violet
+19. Orange Orbit
+20. Blue Horizon
+
+// Each theme will have TitleSlide, ContentSlide, and ImageSlide components, styled uniquely.

@@ -41,8 +41,32 @@ export default function HomePage() {
   };
 
   // When a template is selected, process PDFs and show SlideEditor
+  const themeNames = [
+    'Classic Classroom',
+    'STEM Modern',
+    'Playful Primary',
+    'Academic Minimal',
+    'Scholarly Elegant',
+    'Digital Chalkboard',
+    'Science Spectrum',
+    'History Heritage',
+    'Art Studio',
+    'Math Matrix',
+    'Language Lab',
+    'Tech Trends',
+    'Research Ready',
+    'Creative Canvas',
+    'Youthful Yellow',
+    'Calm Cyan',
+    'Scholar Green',
+    'Vibrant Violet',
+    'Orange Orbit',
+    'Blue Horizon',
+  ];
+
   const handleSelectTemplate = async (templateIdx) => {
-    setSelectedTemplate(templateIdx);
+    const selectedThemeName = themeNames[templateIdx];
+    setSelectedTemplate(selectedThemeName);
     setShowTemplates(false);
     setLoading(true);
     setError('');
@@ -56,18 +80,28 @@ export default function HomePage() {
       const data = await res.json();
       if (!data.success) throw new Error(data.error || 'Unknown error');
       // Transform Gemini results into slide data for editor
-      const slides = data.results.map(file => ({
-        id: file.filename + Date.now(),
-        components: (file.terms || []).map(term => ({
-          id: term.term + Math.random(),
-          type: 'title',
-          content: term.term,
-        })).concat((file.terms || []).map(term => ({
-          id: term.term + '-def' + Math.random(),
-          type: 'paragraph',
-          content: term.definition,
-        })))
-      }));
+      // First slide: title/author, rest: content
+      const slides = [];
+      data.results.forEach((file, fileIdx) => {
+        // Title slide
+        slides.push({
+          id: file.filename + '-title-' + Date.now(),
+          components: [
+            { id: 'title-' + file.filename, type: 'title', content: file.filename },
+            { id: 'author-' + file.filename, type: 'author', content: 'Ernest Lorenzo' },
+          ],
+        });
+        // Content slides
+        (file.terms || []).forEach(term => {
+          slides.push({
+            id: term.term + '-slide-' + Math.random(),
+            components: [
+              { id: 'term-' + term.term, type: 'title', content: term.term },
+              { id: 'def-' + term.term, type: 'paragraph', content: term.definition },
+            ],
+          });
+        });
+      });
       setResults(slides);
       setUploadedFiles([]);
       setShowEditor(true);
@@ -168,14 +202,35 @@ export default function HomePage() {
             <div className="bg-neutral-900 rounded-lg p-8 max-w-4xl w-full">
               <h2 className="text-2xl font-bold text-orange-400 mb-4 text-center">Choose a PowerPoint Template</h2>
               <div className="grid grid-cols-4 gap-4">
-                {[...Array(20)].map((_, idx) => (
+                {[
+                  'Classic Classroom',
+                  'STEM Modern',
+                  'Playful Primary',
+                  'Academic Minimal',
+                  'Scholarly Elegant',
+                  'Digital Chalkboard',
+                  'Science Spectrum',
+                  'History Heritage',
+                  'Art Studio',
+                  'Math Matrix',
+                  'Language Lab',
+                  'Tech Trends',
+                  'Research Ready',
+                  'Creative Canvas',
+                  'Youthful Yellow',
+                  'Calm Cyan',
+                  'Scholar Green',
+                  'Vibrant Violet',
+                  'Orange Orbit',
+                  'Blue Horizon',
+                ].map((themeName, idx) => (
                   <button
                     key={idx}
                     className="rounded-lg overflow-hidden border-2 border-transparent hover:border-orange-400 focus:border-orange-500 transition flex flex-col items-center p-2 bg-neutral-800"
                     onClick={() => handleSelectTemplate(idx)}
                   >
                     <div className={`w-32 h-20 rounded mb-1`} style={{background: `hsl(${idx*18}, 70%, 60%)`}}></div>
-                    <span className="text-xs text-gray-200">Template {idx+1}</span>
+                    <span className="text-xs text-gray-200">{themeName}</span>
                   </button>
                 ))}
               </div>

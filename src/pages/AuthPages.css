@@ -1,0 +1,232 @@
+/* AuthPages.css - Shared styles for Login, Signup, and Landing pages */
+
+:root {
+  --primary: #ff9900;
+  --primary-dark: #d87d00;
+  --background: #181818;
+  --background-light: #fff;
+  --card-bg: #232323;
+  --input-bg: #292929;
+  --border-radius: 12px;
+  --shadow: 0 4px 24px rgba(0,0,0,0.10);
+  --brand-font: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+}
+
+body {
+  font-family: var(--brand-font);
+  background: var(--background);
+  margin: 0;
+  color: #fff;
+}
+
+.landing-root {
+  display: flex;
+  min-height: 100vh;
+}
+.landing-left {
+  flex: 1;
+  background: var(--primary);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+}
+.landing-hero-graphic img {
+  max-width: 320px;
+  margin-bottom: 32px;
+}
+.landing-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 16px 0;
+  text-align: center;
+}
+.landing-subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 32px;
+  text-align: center;
+  color: #fff9;
+}
+.landing-cta-group {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+.landing-btn {
+  padding: 12px 32px;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+.landing-btn.primary {
+  background: #fff;
+  color: var(--primary);
+}
+.landing-btn.primary:hover {
+  background: #ffe0b2;
+}
+.landing-btn.secondary {
+  background: transparent;
+  color: #fff;
+  border: 2px solid #fff;
+}
+.landing-btn.secondary:hover {
+  background: #fff2;
+}
+.landing-right {
+  flex: 1;
+  background: var(--background-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Auth Pages (Login & Signup) */
+.auth-root {
+  display: flex;
+  min-height: 100vh;
+}
+.auth-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 48px 24px;
+}
+.auth-side--illustration {
+  background: var(--primary);
+  color: #fff;
+}
+.auth-side--form {
+  background: var(--background-light);
+  color: #222;
+  min-width: 360px;
+  box-shadow: var(--shadow);
+  border-radius: var(--border-radius);
+  margin: 32px 0;
+  display: flex;
+  justify-content: center;
+}
+.auth-illustration {
+  max-width: 220px;
+  margin-bottom: 32px;
+}
+.auth-brand {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  letter-spacing: 2px;
+}
+.auth-tagline {
+  font-size: 1rem;
+  opacity: 0.9;
+  text-align: center;
+  margin-bottom: 0;
+}
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 340px;
+}
+.auth-title {
+  font-size: 1.7rem;
+  font-weight: 700;
+  margin-bottom: 0;
+  color: var(--primary-dark);
+}
+.auth-subtitle {
+  font-size: 1rem;
+  color: #888;
+  margin-bottom: 12px;
+}
+.auth-label {
+  font-size: 1rem;
+  color: #444;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.auth-input {
+  padding: 10px 14px;
+  border-radius: var(--border-radius);
+  border: 1px solid #eee;
+  background: #fafafa;
+  font-size: 1rem;
+  margin-top: 4px;
+  transition: border 0.2s;
+}
+.auth-input:focus {
+  outline: none;
+  border: 1.5px solid var(--primary);
+}
+.auth-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+}
+.auth-row--between {
+  justify-content: space-between;
+}
+.auth-row--center {
+  justify-content: center;
+  gap: 6px;
+}
+.auth-checkbox input[type="checkbox"] {
+  accent-color: var(--primary);
+  margin-right: 6px;
+}
+.auth-btn {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--border-radius);
+  padding: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 8px;
+}
+.auth-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+.auth-btn.primary:hover:not(:disabled) {
+  background: var(--primary-dark);
+}
+.auth-link {
+  color: var(--primary-dark);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.auth-link:hover {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+  .landing-root, .auth-root {
+    flex-direction: column;
+  }
+  .landing-left, .landing-right, .auth-side {
+    min-height: 340px;
+    width: 100%;
+  }
+  .auth-side--form {
+    min-width: unset;
+    width: 100%;
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+  }
+}
