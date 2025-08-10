@@ -11,6 +11,7 @@ def upload_pdf():
     if 'file' not in request.files:
         return jsonify({'error': 'No file part'}), 400
     files = request.files.getlist('file')
+    generate_image = request.form.get('generate_image', 'true').lower() == 'true'
     if not files or all(f.filename == '' for f in files):
         return jsonify({'error': 'No selected file'}), 400
     results = []
@@ -34,7 +35,18 @@ def upload_pdf():
                 if t['term'] not in seen:
                     deduped_terms.append(t)
                     seen.add(t['term'])
-            results.append({'filename': file.filename, 'terms': deduped_terms})
+            # Summarize the main topic for image prompt
+            summary_prompt = "Summarize the main topic of the following terms for an academic presentation image prompt: " + ", ".join([t['term'] for t in deduped_terms])
+            from utils.gemini_api import generate_image_from_prompt
+            import logging
+            image_b64 = None
+            if generate_image:
+                try:
+                    image_b64 = generate_image_from_prompt(summary_prompt)
+                except Exception as e:
+                    logging.error(f"Image generation failed for {file.filename}: {e}")
+                    image_b64 = None
+            results.append({'filename': file.filename, 'terms': deduped_terms, 'image_base64': image_b64})
         except Exception as e:
             results.append({'filename': file.filename, 'error': str(e)})
     return jsonify({'success': True, 'results': results})

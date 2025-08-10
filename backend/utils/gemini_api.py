@@ -1,5 +1,17 @@
 import requests
 import logging
+import google.generativeai as genai
+import base64
+
+GEMINI_IMAGE_MODEL = 'models/imagen-3'
+
+def generate_image_from_prompt(prompt):
+    genai.configure(api_key=GEMINI_API_KEY)
+    model = genai.GenerativeModel(GEMINI_IMAGE_MODEL)
+    response = model.generate_content(prompt)
+    image_bytes = response.candidates[0].content.parts[0].inline_data.data
+    image_b64 = base64.b64encode(image_bytes).decode('utf-8')
+    return image_b64
 
 GEMINI_API_KEY = 'AIzaSyCtDRuoS7R0G40ZHBOsSCP1C6kSIxbtBQY'
 GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1/models/gemini-2.5-pro:generateContent?key=' + GEMINI_API_KEY
