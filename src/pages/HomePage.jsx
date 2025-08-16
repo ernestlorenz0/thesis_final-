@@ -11,7 +11,7 @@ export default function HomePage() {
   const [selectedTemplate, setSelectedTemplate] = useState(null);
   const [results, setResults] = useState(null); // Gemini results
   const [showEditor, setShowEditor] = useState(false);
-  const [generateImage, setGenerateImage] = useState(true); // Checkbox state
+  const [imagePrompt, setImagePrompt] = useState(''); // User prompt for image generation
   const fileInputRef = useRef();
 
   // Handle adding files to the upload list
@@ -74,7 +74,7 @@ export default function HomePage() {
     try {
       const formData = new FormData();
       uploadedFiles.forEach(f => formData.append('file', f));
-      formData.append('generate_image', generateImage ? 'true' : 'false');
+      // Removed: formData.append('generate_image', generateImage ? 'true' : 'false');
       const res = await fetch('http://localhost:5000/upload', {
         method: 'POST',
         body: formData,
@@ -89,9 +89,9 @@ export default function HomePage() {
         return;
       }
       // Transform Gemini results into slide data for editor
-      // First slide: title/author, rest: content
       const slides = [];
-      data.results.forEach((file, fileIdx) => {
+      const globalSeenTerms = new Set();
+      for (const file of data.results) {
         // Title slide
         slides.push({
           id: file.filename + '-title-' + Date.now(),
@@ -100,26 +100,53 @@ export default function HomePage() {
             { id: 'author-' + file.filename, type: 'author', content: 'Ernest Lorenzo' },
           ],
         });
-        // Image slide (if present and valid)
-        if (file.image_base64 && typeof file.image_base64 === 'string' && file.image_base64.length > 100) {
-          slides.push({
-            id: file.filename + '-image-' + Date.now(),
-            components: [
-              { id: 'img-' + file.filename, type: 'image', content: `data:image/png;base64,${file.image_base64}` },
-            ],
+        // PDF extracted images as slides
+        if (file.extracted_images && Array.isArray(file.extracted_images) && file.extracted_images.length > 0) {
+          file.extracted_images.forEach((imgPath, idx) => {
+            slides.push({
+              id: file.filename + '-extracted-img-' + idx + '-' + Date.now(),
+              components: [
+                { id: 'extracted-img-' + idx, type: 'image', content: `http://localhost:5000/${imgPath.replace(/\\/g, "/")}` }
+              ]
+            });
           });
         }
-        // Content slides
+        // Content slides (deduplicate globally by term)
         (file.terms || []).forEach(term => {
-          slides.push({
-            id: term.term + '-slide-' + Math.random(),
-            components: [
-              { id: 'term-' + term.term, type: 'title', content: term.term },
-              { id: 'def-' + term.term, type: 'paragraph', content: term.definition },
-            ],
-          });
+          if (!globalSeenTerms.has(term.term)) {
+            slides.push({
+              id: term.term + '-slide-' + Math.random(),
+              components: [
+                { id: 'term-' + term.term, type: 'title', content: term.term },
+                { id: 'def-' + term.term, type: 'paragraph', content: term.definition },
+              ],
+            });
+            globalSeenTerms.add(term.term);
+          }
         });
-      });
+        // If generateImage is checked, generate image using Gemini summary or first term as prompt, and add as the last slide
+        if (imagePrompt && imagePrompt.trim().length > 0) {
+          try {
+            const imgRes = await fetch('http://localhost:5000/generate-image', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ topic: imagePrompt }),
+            });
+            const imgData = await imgRes.json();
+            if (imgData.image_url) {
+              slides.push({
+                id: file.filename + '-image-' + Date.now(),
+                components: [
+                  { id: 'img-' + file.filename, type: 'image', content: imgData.image_url },
+                ],
+              });
+            }
+          } catch (e) {
+            // Optionally: setError('Image generation failed for ' + file.filename)
+          }
+        }
+        // Removed redundant code block that was adding terms and images a second time
+      }
       setResults(slides);
       setUploadedFiles([]);
       setShowEditor(true);
@@ -311,14 +338,16 @@ export default function HomePage() {
             multiple
           />
         </label>
-        <label style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 16, marginBottom: 8, fontWeight: 500, color: 'var(--color-secondary)' }}>
+        <label style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 4, marginTop: 16, marginBottom: 8, fontWeight: 500, color: 'var(--color-secondary)', width: '100%' }}>
+          <span style={{ marginBottom: 4 }}>Image Generation Prompt (optional):</span>
           <input
-            type="checkbox"
-            checked={generateImage}
-            onChange={e => setGenerateImage(e.target.checked)}
-            style={{ width: 18, height: 18, accentColor: 'var(--color-primary)', marginRight: 8 }}
+            type="text"
+            value={imagePrompt}
+            onChange={e => setImagePrompt(e.target.value)}
+            placeholder="Type a prompt for image generation, or leave blank for no image"
+            style={{ width: '100%', padding: '8px 12px', borderRadius: 6, border: '1px solid var(--color-secondary)', fontSize: 15 }}
+            disabled={loading}
           />
-          Generate Image
         </label>
         {error && <div style={{ marginTop: 16, color: '#e11d48', fontSize: 14 }}>{error}</div>}
         {showEditor && results && selectedTemplate !== null && !error && (

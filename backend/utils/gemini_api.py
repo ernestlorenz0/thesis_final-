@@ -42,10 +42,23 @@ def extract_key_terms_and_topics(text):
         raise Exception(f"Gemini API error: {response.status_code} {response.text}")
     data = response.json()
     # Extract the model's response text
+    # Robustly extract model_text from Gemini response
+    model_text = None
     try:
-        model_text = data['candidates'][0]['content']['parts'][0]['text']
-    except Exception:
-        raise Exception('Gemini API response format error')
+        if (
+            'candidates' in data and data['candidates'] and
+            'content' in data['candidates'][0] and
+            'parts' in data['candidates'][0]['content'] and
+            data['candidates'][0]['content']['parts'] and
+            'text' in data['candidates'][0]['content']['parts'][0]
+        ):
+            model_text = data['candidates'][0]['content']['parts'][0]['text']
+        else:
+            logging.error(f"Unexpected Gemini API response structure: {data}")
+            return {"terms": [], "error": "Unexpected Gemini API response structure", "raw_response": data}
+    except Exception as e:
+        logging.error(f"Gemini API response parsing error: {e}, response: {data}")
+        return {"terms": [], "error": "Gemini API response parsing error", "raw_response": data}
     # Try to parse JSON from model_text (handle code blocks, markdown, etc)
     import json
     import re
@@ -67,4 +80,4 @@ def extract_key_terms_and_topics(text):
     except Exception:
         # If parsing fails, return raw output for debugging
         logging.warning(f"Gemini raw output (unparsed): {model_text}")
-        return {"terms": [], "raw": model_text}
+        return {"terms": [], "raw": model_text, "error": "Could not parse Gemini output as JSON"}

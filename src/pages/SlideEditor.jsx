@@ -5,92 +5,21 @@ import { DndContext, useDraggable, useDroppable } from '@dnd-kit/core';
 import pptxgen from 'pptxgenjs';
 import { v4 as uuidv4 } from 'uuid';
 import RevealPreview from './RevealPreview'; // Import RevealPreview
-import * as ClassicClassroom from '../themes/ClassicClassroom';
-import * as STEMModern from '../themes/STEMModern';
-import * as PlayfulPrimary from '../themes/PlayfulPrimary';
-import * as AcademicMinimal from '../themes/AcademicMinimal';
-import * as ScholarlyElegant from '../themes/ScholarlyElegant';
-import * as DigitalChalkboard from '../themes/DigitalChalkboard';
-import * as ScienceSpectrum from '../themes/ScienceSpectrum';
-import * as HistoryHeritage from '../themes/HistoryHeritage';
-import * as ArtStudio from '../themes/ArtStudio';
-import * as MathMatrix from '../themes/MathMatrix';
-import * as LanguageLab from '../themes/LanguageLab';
-import * as TechTrends from '../themes/TechTrends';
-import * as ResearchReady from '../themes/ResearchReady';
-import * as CreativeCanvas from '../themes/CreativeCanvas';
-import * as YouthfulYellow from '../themes/YouthfulYellow';
-import * as CalmCyan from '../themes/CalmCyan';
-import * as ScholarGreen from '../themes/ScholarGreen';
-import * as VibrantViolet from '../themes/VibrantViolet';
-import * as OrangeOrbit from '../themes/OrangeOrbit';
-import * as BlueHorizon from '../themes/BlueHorizon';
-
-const themeNames = [
-  'Classic Classroom',
-  'STEM Modern',
-  'Playful Primary',
-  'Academic Minimal',
-  'Scholarly Elegant',
-  'Digital Chalkboard',
-  'Science Spectrum',
-  'History Heritage',
-  'Art Studio',
-  'Math Matrix',
-  'Language Lab',
-  'Tech Trends',
-  'Research Ready',
-  'Creative Canvas',
-  'Youthful Yellow',
-  'Calm Cyan',
-  'Scholar Green',
-  'Vibrant Violet',
-  'Orange Orbit',
-  'Blue Horizon',
-];
-
-const themeComponents = {
-  'Classic Classroom': ClassicClassroom,
-  'STEM Modern': STEMModern,
-  'Playful Primary': PlayfulPrimary,
-  'Academic Minimal': AcademicMinimal,
-  'Scholarly Elegant': ScholarlyElegant,
-  'Digital Chalkboard': DigitalChalkboard,
-  'Science Spectrum': ScienceSpectrum,
-  'History Heritage': HistoryHeritage,
-  'Art Studio': ArtStudio,
-  'Math Matrix': MathMatrix,
-  'Language Lab': LanguageLab,
-  'Tech Trends': TechTrends,
-  'Research Ready': ResearchReady,
-  'Creative Canvas': CreativeCanvas,
-  'Youthful Yellow': YouthfulYellow,
-  'Calm Cyan': CalmCyan,
-  'Scholar Green': ScholarGreen,
-  'Vibrant Violet': VibrantViolet,
-  'Orange Orbit': OrangeOrbit,
-  'Blue Horizon': BlueHorizon,
-};
-
-function DraggableBlock({ id, x, y, children, onDragEnd }) {
-  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({ id });
-  const style = {
-    position: 'absolute',
-    left: x,
-    top: y,
-    zIndex: isDragging ? 50 : 10,
-    cursor: 'move',
-    touchAction: 'none',
-    transform: transform ? `translate3d(${transform.x}px,${transform.y}px,0)` : undefined,
-  };
-  return (
-    <div ref={setNodeRef} style={style} {...listeners} {...attributes}>
-      {children}
-    </div>
-  );
-}
+import { themeNames, themeComponents, pptxThemeStyles } from '../utils/themes';
+import SlideSidebar from '../components/SlideSidebar';
+import TopBar from '../components/TopBar';
+import SlideToolbar from '../components/SlideToolbar';
+import FloatingAddButtons from '../components/FloatingAddButtons';
+import SlideCanvas from '../components/SlideCanvas';
+import DraggableBlock from '../components/DraggableBlock';
+import AssetPicker from '../components/AssetPicker';
+import LocalImageModal from '../components/LocalImageModal';
 
 export default function SlideEditor({ initialSlides, selectedTemplate, onBack }) {
+  // Local image modal state
+  const [showLocalImageModal, setShowLocalImageModal] = useState(false);
+  const [localImages, setLocalImages] = useState([]);
+
   const [slides, setSlides] = useState(initialSlides || []);
   const [current, setCurrent] = useState(0);
   const [author, setAuthor] = useState('Ernest Lorenzo');
@@ -109,6 +38,9 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack })
     fontStyle: 'normal',
     textDecoration: 'none',
   });
+
+  // Asset Picker state
+  const [showAssetPicker, setShowAssetPicker] = useState(false);
 
   // Handle double-click to start editing
   const handleTextDoubleClick = (idx, comp) => {
@@ -282,6 +214,52 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack })
       } : slide));
     };
     reader.readAsDataURL(file);
+  };
+
+  // Handle AI generated image
+  const handleAIImageGenerated = (generatedImage) => {
+    console.log('🎨 AI Image Generated:', generatedImage);
+    
+    // Add the generated image as a new image component to the current slide
+    setSlides(slides => slides.map((slide, idx) => {
+      if (idx !== current) return slide;
+      
+      // Find the lowest y + h among existing blocks
+      let y = 60;
+      if (slide.components.length > 0) {
+        const last = slide.components.reduce((a, b) => (a.y + a.h > b.y + a.h ? a : b));
+        y = last.y + last.h + 24;
+      }
+      
+      let w = 320, h = 180;
+      const newImageComponent = {
+        id: uuidv4(),
+        type: 'image',
+        content: generatedImage.url,
+        x: (960 - w) / 2,
+        y,
+        w,
+        h,
+        fontSize: 20,
+        fontFamily: 'Arial',
+        fontWeight: 'normal',
+        fontStyle: 'normal',
+        textDecoration: 'none',
+        color: '#444',
+      };
+      
+      console.log('🖼️ Adding new image component:', newImageComponent);
+      
+      return {
+        ...slide,
+        components: [
+          ...slide.components,
+          newImageComponent
+        ]
+      };
+    }));
+    
+    console.log('✅ Image component added to slide');
   };
   // PPTX theme style mapping for all 20 themes
   const pptxThemeStyles = {
@@ -458,7 +436,9 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack })
         <div className="flex items-center justify-between px-8 py-3 bg-gradient-to-r from-blue-200 to-blue-100 shadow-sm">
           <div className="text-lg font-bold text-gray-700">Slide Editor</div>
           <div className="flex gap-2 ml-auto">
-            <button className="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-1 rounded shadow" onClick={downloadAsPDF}>Download as PDF</button>
+            <button className="bg-red-600 hover:bg-red-700 text-white font-bold px-6 py-2 rounded shadow-lg text-lg" onClick={downloadAsPDF}>
+              Export as PDF
+            </button>
             <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-1 rounded shadow" onClick={exportSlidesAsImagesPPTX}>Export as Images in PPTX</button>
           </div>
         </div>
@@ -584,28 +564,6 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack })
                 <button className="rounded px-2 py-1 text-white bg-green-600 ml-2" onClick={saveEdit}>Save</button>
               </div>
             )}
-            {/* Floating add buttons (no emoji, clean) */}
-            <div className="absolute bottom-8 right-8 flex flex-col gap-2 z-10">
-              <button className="bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg w-12 h-12 flex items-center justify-center text-2xl font-bold" onClick={() => addComponent('title')}>T</button>
-              <button className="bg-green-600 hover:bg-green-700 text-white rounded-full shadow-lg w-12 h-12 flex items-center justify-center text-2xl font-bold" onClick={() => addComponent('paragraph')}>P</button>
-              <button className="bg-gray-700 hover:bg-gray-800 text-white rounded-full shadow-lg w-12 h-12 flex items-center justify-center" onClick={() => fileInputRef.current && fileInputRef.current.click()}>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-7 h-7">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5V19a2 2 0 002 2h14a2 2 0 002-2v-2.5M16 3.13a4 4 0 01.88 7.9M12 7v6m0 0l-3-3m3 3l3-3" />
-                </svg>
-              </button>
-              <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={e => {
-                const file = e.target.files[0];
-                if (file) {
-                  // Add image block, then upload
-                  addComponent('image');
-                  setTimeout(() => {
-                    const idx = slides[current]?.components?.length || 0;
-                    handleImageUpload(idx - 1, file);
-                  }, 50);
-                }
-                e.target.value = '';
-              }} />
-            </div>
           </div>
         </div>
         {/* Slide thumbnails at bottom */}
@@ -627,59 +585,53 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack })
   };
   return (
     <div className="flex h-screen bg-gradient-to-br from-purple-100 via-white to-blue-100">
-      {/* Sidebar */}
-      <aside className="w-64 bg-white/80 border-r border-gray-200 flex flex-col shadow-xl z-10">
-        <div className="p-4 border-b border-gray-200">
-          <button className="w-full bg-purple-600 text-white rounded py-2 font-semibold hover:bg-purple-700 transition" onClick={addSlide}>+ New Slide</button>
-        </div>
-        <div className="flex-1 overflow-y-auto">
-          {slides.map((slide, idx) => (
-            <div
-              key={slide.id}
-              className={`flex items-center gap-2 px-4 py-2 cursor-pointer border-l-4 ${idx === current ? 'border-purple-500 bg-purple-50' : 'border-transparent hover:bg-gray-50'}`}
-              onClick={() => setCurrent(idx)}
-            >
-              <span className="text-xs text-gray-400 w-6">{idx + 1}</span>
-              {renderThumb(slide)}
-            </div>
-          ))}
-        </div>
-      </aside>
-      {/* Main Canvas Area */}
+      <SlideSidebar
+        slides={slides}
+        current={current}
+        setCurrent={setCurrent}
+        renderThumb={renderThumb}
+        addSlide={addSlide}
+      />
       <main className="flex-1 flex flex-col items-center justify-center relative">
-        {/* Top bar */}
-        <div className="absolute top-0 left-0 w-full flex justify-between items-center px-16 py-8 z-20">
-          <div className="text-2xl font-bold tracking-wide text-purple-700 drop-shadow">KENBILERN</div>
-          <div className="flex gap-2">
-            <button className="bg-purple-600 hover:bg-purple-700 text-white font-semibold px-6 py-2 rounded shadow" onClick={exportPptx}>Export PPTX</button>
-            <button className="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold px-6 py-2 rounded shadow" onClick={onBack}>Back</button>
-            <button className={`ml-2 px-4 py-2 rounded ${showReveal ? 'bg-purple-100 text-purple-700' : 'bg-gray-100 text-gray-500'}`} onClick={() => setShowReveal(v => !v)}>Preview</button>
-          </div>
-        </div>
-        {/* Slide Canvas (glassy, big, 1280x720) */}
-        <div className="w-[1280px] h-[720px] bg-white/80 rounded-3xl shadow-2xl border-4 border-purple-200 mt-24 flex flex-col relative overflow-hidden p-12 backdrop-blur-lg">
-          <DndContext onDragEnd={event => {
-            if (event.active && event.over && event.delta) {
-              handleBlockDragEnd(event.active.id, event);
-            }
-          }}>
-            <div className="flex-1 flex flex-col items-center justify-center bg-neutral-50 rounded-2xl shadow-xl relative overflow-hidden min-h-[450px]">
-              {/* Main Canvas: Render with selected theme */}
-              {slides[current] && slides[current].components.length > 0 ? (
-                renderThemedSlide()
-              ) : (
-                <span className="text-neutral-400">Add content to start your slide!</span>
-              )}
-            </div>
-          </DndContext>
-          {/* Author bottom right */}
-          <div className="absolute bottom-8 right-16 text-gray-400 text-lg font-semibold select-none">{author}</div>
-        </div>
-        {/* Add/duplicate/delete controls */}
+        <TopBar exportPptx={exportPptx} onBack={onBack} showReveal={showReveal} setShowReveal={setShowReveal} />
+        <SlideCanvas
+          slides={slides}
+          current={current}
+          author={author}
+          showToolbar={showToolbar}
+          toolbarState={toolbarState}
+          editingIdx={editingIdx}
+          editorValue={editorValue}
+          Theme={themeComponents[selectedTemplate] || themeComponents['Classic Classroom']}
+          currentSlide={slides[current] || { components: [] }}
+          handleBlockDragEnd={handleBlockDragEnd}
+          handleTextDoubleClick={handleTextDoubleClick}
+          handleTextChange={handleTextChange}
+          handleFontChange={handleFontChange}
+          removeComponent={removeComponent}
+          applyToolbarToBlock={applyToolbarToBlock}
+          deleteEditingBlock={deleteEditingBlock}
+          cancelEdit={cancelEdit}
+          saveEdit={saveEdit}
+          addComponent={addComponent}
+          fileInputRef={fileInputRef}
+          handleImageUpload={handleImageUpload}
+
+        />
         <div className="flex gap-4 mt-8">
           <button className="bg-purple-600 text-white px-4 py-2 rounded shadow" onClick={() => addComponent('title')}>Add Title</button>
           <button className="bg-purple-600 text-white px-4 py-2 rounded shadow" onClick={() => addComponent('paragraph')}>Add Paragraph</button>
           <button className="bg-purple-600 text-white px-4 py-2 rounded shadow" onClick={() => addComponent('image')}>Add Image</button>
+<button className="bg-purple-500 text-white px-4 py-2 rounded shadow" onClick={async () => {
+  setShowLocalImageModal(true);
+  try {
+    const res = await fetch('/api/local-images');
+    const data = await res.json();
+    setLocalImages(data.images || []);
+  } catch {
+    setLocalImages([]);
+  }
+}}>Insert Local Image</button>
           <button className="bg-gray-200 text-purple-700 px-4 py-2 rounded shadow" onClick={duplicateSlide}>Duplicate Slide</button>
           <button className="bg-gray-200 text-red-400 px-4 py-2 rounded shadow" onClick={deleteSlide}>Delete Slide</button>
         </div>
@@ -687,7 +639,91 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack })
         {showReveal && (
           <RevealPreview slides={slides} selectedTemplate={selectedTemplate} onClose={() => setShowReveal(false)} />
         )}
-      </main>
-    </div>
+      {/* Floating Insert Asset Button */}
+      <AssetPicker
+        open={showAssetPicker}
+        onClose={() => setShowAssetPicker(false)}
+        onAIImageGenerated={handleAIImageGenerated}
+        onSelect={asset => {
+          setShowAssetPicker(false);
+          // Add as image block to current slide
+          setSlides(slides => slides.map((slide, idx) => {
+            if (idx !== current) return slide;
+            // Find the lowest y + h among existing blocks
+            let y = 60;
+            if (slide.components.length > 0) {
+              const last = slide.components.reduce((a, b) => (a.y + a.h > b.y + b.h ? a : b));
+              y = last.y + last.h + 24;
+            }
+            let w = 180, h = 180;
+            return {
+              ...slide,
+              components: [
+                ...slide.components,
+                {
+                  id: uuidv4(),
+                  type: 'image',
+                  content: asset.url,
+                  x: (960 - w) / 2,
+                  y,
+                  w,
+                  h,
+                  fontSize: 20,
+                  fontFamily: 'Arial',
+                  fontWeight: 'normal',
+                  fontStyle: 'normal',
+                  textDecoration: 'none',
+                  color: '#444',
+                }
+              ]
+            };
+          }));
+        }}
+      />
+
+
+    {/* Local Image Modal */}
+    <LocalImageModal
+      open={showLocalImageModal}
+      images={localImages}
+      onSelect={img => {
+        setShowLocalImageModal(false);
+        // Insert as image component to current slide
+        setSlides(slides => slides.map((slide, idx) => {
+          if (idx !== current) return slide;
+          // Find the lowest y + h among existing blocks
+          let y = 60;
+          if (slide.components.length > 0) {
+            const last = slide.components.reduce((a, b) => (a.y + a.h > b.y + b.h ? a : b));
+            y = last.y + last.h + 24;
+          }
+          let w = 320, h = 180;
+          return {
+            ...slide,
+            components: [
+              ...slide.components,
+              {
+                id: uuidv4(),
+                type: 'image',
+                content: img.url,
+                x: (960 - w) / 2,
+                y,
+                w,
+                h,
+                fontSize: 20,
+                fontFamily: 'Arial',
+                fontWeight: 'normal',
+                fontStyle: 'normal',
+                textDecoration: 'none',
+                color: '#444',
+              }
+            ]
+          };
+        }));
+      }}
+      onClose={() => setShowLocalImageModal(false)}
+    />
+    </main>
+  </div>
   );
 }
