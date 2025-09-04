@@ -4,6 +4,9 @@ import { useNavigate } from 'react-router-dom';
 
 export default function UserMenuDropdown({ userMenuOpen, setUserMenuOpen, userMenuRef }) {
   const navigate = useNavigate();
+  const storedUser = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('user') || '{}') : {};
+  const username = storedUser?.username || storedUser?.displayName || (storedUser?.email ? storedUser.email.split('@')[0] : 'User');
+  const initial = (username && typeof username === 'string' ? username.charAt(0) : 'U').toUpperCase();
 
   const handleLogout = () => {
     localStorage.removeItem('user');
@@ -18,8 +21,8 @@ export default function UserMenuDropdown({ userMenuOpen, setUserMenuOpen, userMe
         style={{ background: 'transparent' }}
         onClick={() => setUserMenuOpen((v) => !v)}
       >
-        <span className="hidden md:inline text-base font-semibold" style={{ color: '#8C6BFA' }}>Username</span>
-        <span className="w-9 h-9 rounded-full flex items-center justify-center text-lg font-bold shadow-md border-2 border-white" style={{ background: 'transparent', color: '#8C6BFA' }}>U</span>
+        <span className="hidden md:inline text-base font-semibold" style={{ color: '#8C6BFA' }}>{username}</span>
+        <span className="w-9 h-9 rounded-full flex items-center justify-center text-lg font-bold shadow-md border-2 border-white" style={{ background: 'transparent', color: '#8C6BFA' }}>{initial}</span>
       </button>
       {userMenuOpen && (
         <div className="absolute right-0 mt-3 w-48 bg-white rounded-xl shadow-xl py-2 z-50 animate-fade-in">

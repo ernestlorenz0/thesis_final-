@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { deleteAccount, updateAccount } from '../firebaseAuth';
 
 export default function ProfilePage() {
   const [profile, setProfile] = useState({
@@ -17,6 +18,8 @@ export default function ProfilePage() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [isUpdating, setIsUpdating] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState('');
   const navigate = useNavigate();
   
   // Store original profile data to reset on cancel
@@ -27,11 +30,11 @@ export default function ProfilePage() {
     const userData = JSON.parse(localStorage.getItem('user'));
     if (userData) {
       const userProfile = {
-        fullname: userData.displayName || userData.email.split('@')[0],
+        fullname: userData.displayName || userData.email?.split('@')[0] || '',
         email: userData.email || '',
-        username: userData.email?.split('@')[0] || '',
+        username: userData.username || userData.displayName || userData.email?.split('@')[0] || '',
         password: '',
-        createdAt: userData.metadata?.creationTime || new Date().toISOString(),
+        createdAt: userData.createdAt || userData.metadata?.creationTime || new Date().toISOString(),
       };
       setProfile(userProfile);
       setOriginalProfile({...userProfile});
@@ -45,6 +48,9 @@ export default function ProfilePage() {
 
   const handleSave = async (e) => {
     e.preventDefault();
+    if (!editing) {
+      return;
+    }
     setIsUpdating(true);
     setPasswordError('');
     
@@ -59,8 +65,8 @@ export default function ProfilePage() {
         }
       }
       
-      // Here you would typically make an API call to update the user's profile
-      // For now, we'll just update the local state
+      // Update via Firebase (username and/or password)
+      await updateAccount({ username: profile.username, currentPassword, newPassword });
       
       // Update the original profile with new values
       const updatedProfile = {
@@ -75,6 +81,7 @@ export default function ProfilePage() {
         ...userData,
         displayName: profile.fullname,
         email: profile.email,
+        username: profile.username,
         // In a real app, you would hash the password before saving
         ...(newPassword && { password: newPassword })
       }));
@@ -109,16 +116,20 @@ export default function ProfilePage() {
     setEditing(false);
   };
 
-  // Format date for display
-  const formatDate = (dateString) => {
-    if (!dateString) return 'N/A';
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
-    });
+  const handleDeleteAccount = async () => {
+    if (!window.confirm('This will permanently delete your account. This action cannot be undone. Continue?')) return;
+    setIsDeleting(true);
+    setDeleteError('');
+    try {
+      await deleteAccount();
+      localStorage.removeItem('user');
+      navigate('/login');
+    } catch (err) {
+      setDeleteError(err.message || 'Failed to delete account. Please re-login and try again.');
+      setIsDeleting(false);
+    }
   };
+
 
   return (
     <div className="flex-1 flex items-start justify-center bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-[#F3EDFF] via-[#F7F4FF] to-[#F5F1FF] p-4 sm:p-4">
@@ -228,15 +239,15 @@ export default function ProfilePage() {
             </div>
           </div>
         )}
-        <div className="w-full flex flex-col gap-1 mb-2">
-          <label className="text-[11px] font-semibold text-[#8C6BFA] uppercase tracking-wider">Member Since</label>
-          <input
-            type="text"
-            className="w-full px-3 py-1.5 text-sm rounded-md border border-[#E3D9FA] bg-gray-50 text-gray-600"
-            value={formatDate(profile.createdAt)}
-            disabled
-          />
-        </div>
+        {deleteError && <div className="w-full text-red-500 text-xs mt-1">{deleteError}</div>}
+        <button
+          type="button"
+          onClick={handleDeleteAccount}
+          disabled={isDeleting}
+          className="w-full border border-red-300 text-red-600 font-medium py-1.5 rounded-md hover:bg-red-50 transition-colors text-sm mt-2"
+        >
+          {isDeleting ? 'Deleting...' : 'Delete Account'}
+        </button>
         <div className="w-full flex flex-col sm:flex-row gap-2 mt-2">
           {editing ? (
             <>
@@ -267,7 +278,7 @@ export default function ProfilePage() {
           ) : (
             <button
               type="button"
-              onClick={() => setEditing(true)}
+              onClick={(e) => { e.preventDefault(); e.stopPropagation(); setEditing(true); }}
               className="w-full bg-[#8C6BFA] text-white font-medium py-1.5 rounded-md hover:bg-[#7B61FF] transition-colors text-sm shadow-sm"
             >
               Edit Profile

@@ -4,6 +4,7 @@
 import React, { useRef, useState } from 'react';
 import { User, Upload, Settings, HelpCircle, LogOut, Loader2 } from 'lucide-react';
 import Reveal from 'reveal.js'; // For future integration, placeholder for now
+import { saveHistoryItem } from '../firebaseAuth';
 import SlideEditor from './SlideEditor';
 import UserMenuDropdown from '../components/UserMenuDropdown';
 import MenuMobile from '../components/MenuMobile';
@@ -162,6 +163,20 @@ export default function HomePage() {
       setResults(slides);
       setUploadedFiles([]);
       setShowEditor(true);
+
+      // Save each generated presentation to history (one per uploaded file)
+      try {
+        const userData = JSON.parse(localStorage.getItem('user') || '{}');
+        // We attempt saving for the first file name as the presentation filename
+        if (Array.isArray(data.results) && data.results.length > 0) {
+          const firstFile = data.results[0];
+          const presentationName = `${firstFile.filename.replace(/\.pdf$/i, '')} - ${selectedThemeName}`;
+          await saveHistoryItem({ filename: presentationName, slides, templateName: selectedThemeName });
+        }
+      } catch (e) {
+        // Non-blocking: ignore history save errors in UI
+        console.warn('Failed to save history item', e);
+      }
     } catch (err) {
       setError('Processing failed.');
     } finally {
