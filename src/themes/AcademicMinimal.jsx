@@ -1,28 +1,155 @@
 import React from "react";
 
-export function TitleSlide({ title, subtitle }) {
+export function TitleSlide({ title, subtitle, imageUrl }) {
   return (
-    <div className="bg-academic-100 text-academic-900 p-12 rounded-2xl shadow flex flex-col items-center justify-center h-full animate-fade-in">
-      <h1 className="text-5xl font-bold font-sans mb-4 tracking-tight">{title}</h1>
-      <h2 className="text-2xl font-light font-sans opacity-80">{subtitle}</h2>
-    </div>
+    <section className="w-[1280px] h-[720px] flex items-center justify-center bg-white">
+      <div className="flex w-[80%] h-[80%] items-center justify-between">
+
+        <div className="w-[40%] h-[70%] bg-gray-300 flex items-center justify-center">
+          {imageUrl ? (
+            <img
+              src={imageUrl}
+              alt="Presentation visual"
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <span className="text-gray-500">Image Placeholder</span>
+          )}
+        </div>
+
+        <div className="w-[50%] flex flex-col justify-center pl-12">
+          <h1 className="font-merriweather font-bold text-3xl text-black mb-4 leading-tight text-black">
+            {title}
+          </h1>
+          <p className="font-lato font-light text-2xl text-gray-600">
+            {subtitle}
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+export function ImageSlide({ title, imageUrl }) {
+  return (
+    <section className="w-[1280px] h-[720px] bg-white flex flex-col items-center justify-center p-24">
+      <div className="w-full h-[70%] bg-gray-300 flex items-center justify-center mb-8">
+        {imageUrl ? (
+          <img
+            src={imageUrl}
+            alt="Presentation visual"
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <span className="text-gray-500">Image Placeholder</span>
+        )}
+      </div>
+      {title && (
+        <h2 className="font-merriweather font-bold text-3xl text-black text-center">
+          {title}
+        </h2>
+      )}
+    </section>
   );
 }
 
 export function ContentSlide({ title, content }) {
   return (
-    <div className="bg-academic-100 text-academic-900 p-10 rounded-xl shadow flex flex-col gap-4 animate-fade-in">
-      <h2 className="text-3xl font-semibold font-sans mb-2">{title}</h2>
-      <p className="text-lg font-sans leading-7">{content}</p>
-    </div>
+    <section className="w-[1280px] h-[720px] bg-white flex flex-col p-24">
+      <h2 className="font-merriweather font-bold text-4xl mb-8 text-black">{title}</h2>
+      <p className="font-lato font-light text-2xl leading-relaxed text-black">{content}</p>
+    </section>
   );
 }
 
-export function ImageSlide({ title, imageUrl }) {
+export function ContentSlideText({ title, content }) {
   return (
-    <div className="bg-academic-100 text-academic-900 p-10 rounded-xl shadow flex flex-col items-center animate-fade-in">
-      <img src={imageUrl} alt="slide visual" className="rounded-lg max-h-80 mb-4 shadow" />
-      <h3 className="text-xl font-medium font-sans mt-2">{title}</h3>
-    </div>
+    <section className="w-[1280px] h-[720px] bg-white flex flex-col p-24">
+      <h2 className="font-merriweather font-bold text-4xl mb-8 text-black">{title}</h2>
+      <p className="font-lato font-light text-2xl leading-relaxed text-black">{content}</p>
+    </section>
   );
 }
+
+
+export function ContentSlideTextLeftImageRight({ title, content, imageUrl }) {
+  return (
+    <section className="w-[1280px] h-[720px] bg-white flex p-24 gap-12">
+      <div className="w-1/2 flex flex-col">
+        <h2 className="font-merriweather font-bold text-4xl mb-8 text-black">{title}</h2>
+        <p className="font-lato font-light text-2xl leading-relaxed text-black">{content}</p>
+      </div>
+      <div className="w-1/2 flex items-center justify-center bg-gray-300">
+        {imageUrl && <img src={imageUrl} alt="content" className="w-full h-full object-cover" />}
+      </div>
+    </section>
+  );
+}
+
+export function ContentSlideTextRightImageLeft({ title, content, imageUrl }) {
+  return (
+    <section className="w-[1280px] h-[720px] bg-white flex p-24 gap-12">
+      <div className="w-1/2 flex items-center justify-center bg-gray-300">
+        {imageUrl && <img src={imageUrl} alt="content" className="w-full h-full object-cover" />}
+      </div>
+      <div className="w-1/2 flex flex-col">
+        <h2 className="font-merriweather font-bold text-4xl mb-8 text-black">{title}</h2>
+        <p className="font-lato font-light text-2xl leading-relaxed text-black">{content}</p>
+      </div>
+    </section>
+  );
+}
+
+export function ContentSlideImagesRow({ title, content, images }) {
+  return (
+    <section className="w-[1280px] h-[720px] bg-white flex flex-col p-24">
+      <h2 className="font-merriweather font-bold text-4xl mb-8 text-black">{title}</h2>
+      <p className="font-lato font-light text-2xl mb-12 text-black">{content}</p>
+      <div className="flex justify-between">
+        {images.map((img, index) => (
+          <div key={index} className="w-[30%] h-[300px] bg-gray-300 flex items-center justify-center">
+            {img && <img src={img} alt={`content-${index}`} className="w-full h-full object-cover" />}
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+export function ContentSlideImageFull({ title, content, imageUrl }) {
+  return (
+    <section className="w-[1280px] h-[720px] bg-white flex flex-col p-24">
+      <h2 className="font-merriweather font-bold text-4xl mb-8 text-black">{title}</h2>
+      <p className="font-lato font-light text-2xl mb-12 text-black">{content}</p>
+      <div className="w-full h-[500px] bg-gray-300 flex items-center justify-center">
+        {imageUrl && <img src={imageUrl} alt="content" className="w-full h-full object-cover" />}
+      </div>
+    </section>
+  );
+}
+
+export function EndSlide({ message = "Thank You!", subtitle }) {
+  return (
+    <section className="w-[1280px] h-[720px] bg-white flex flex-col items-center justify-center text-center">
+      <h1 className="font-merriweather font-bold text-6xl text-black mb-6 text-black">
+        {message}
+      </h1>
+
+      {subtitle && (
+        <p className="font-lato font-light text-2xl text-gray-600 text-black">
+          {subtitle}
+        </p>
+      )}
+    </section>
+  );
+}
+
+const AcademicMinimal = { TitleSlide, 
+                          ContentSlide, 
+                          ImageSlide, 
+                          ContentSlideText, 
+                          ContentSlideTextLeftImageRight, 
+                          ContentSlideTextRightImageLeft, 
+                          ContentSlideImagesRow, 
+                          ContentSlideImageFull, 
+                          EndSlide };
+export default AcademicMinimal;
