@@ -4,10 +4,11 @@
 import React, { useRef, useState } from 'react';
 import { User, Upload, Settings, HelpCircle, LogOut, Loader2 } from 'lucide-react';
 import Reveal from 'reveal.js'; // For future integration, placeholder for now
-import { themeComponents as themeRegistry } from '../utils/themes';
+import { themeComponents as themeRegistry, themeNames } from '../utils/themes';
 import { saveHistoryItem } from '../firebaseAuth';
 import SlideEditor from './SlideEditor';
 import UserMenuDropdown from '../components/UserMenuDropdown';
+import TemplateThumbnail from '../components/TemplateThumbnail';
 import MenuMobile from '../components/MenuMobile';
 import { useUserMenuDropdown, useMenuMobile } from '../hooks/useMenus';
 import { getPlaceholderSlides } from "../components/placeholderSlides";
@@ -330,22 +331,19 @@ export default function HomePage() {
         {/* Template selection modal */}
         {showTemplates && (
   <div className="fixed inset-0 flex items-center justify-center z-50 animate-fade-in" style={{background: 'radial-gradient(ellipse at top left, #F3EDFF 0%, #F7F4FF 60%, #F5F1FF 100%)'}}>
-    <div className="rounded-2xl px-0 pt-0 pb-8 max-w-5xl w-full animate-slide-up shadow-2xl border border-[#E3D9FA] relative overflow-hidden bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-[#F3EDFF] via-[#F7F4FF] to-[#F5F1FF]" style={{height: '540px'}}>
+    <div className="rounded-2xl px-0 pt-0 pb-8 max-w-7xl w-full animate-slide-up shadow-2xl border border-[#E3D9FA] relative overflow-hidden bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-[#F3EDFF] via-[#F7F4FF] to-[#F5F1FF]" style={{height: '850px'}}>
       <div className="w-full flex items-center justify-between px-8 pt-7 pb-4 border-b border-[#E3D9FA]">
         <h2 className="text-xl md:text-2xl font-bold text-[#8C6BFA] tracking-tight">Choose a Template</h2>
         <button className="text-gray-400 hover:text-[#8C6BFA] text-2xl px-2 py-1 rounded-full transition" onClick={() => setShowTemplates(false)}>&times;</button>
       </div>
       <div className="w-full px-8 pt-6">
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 grid-rows-4 gap-6 no-scrollbar" style={{height: '320px', overflow: 'hidden'}}>
+        <div className="grid grid-cols-5 grid-rows-4 gap-1 no-scrollbar" style={{height: '600px', overflow: 'hidden'}}>
           {themeNames.map((themeName, idx) => (
-            <button
+            <TemplateThumbnail
               key={idx}
-              className="rounded-lg overflow-hidden border border-[#23202B] hover:border-[#8C6BFA] transition flex flex-col items-center p-4 bg-[#23202B] hover:bg-[#1e1b26] focus:border-[#8C6BFA] shadow-md"
+              themeName={themeName}
               onClick={() => handleSelectTemplate(idx)}
-            >
-              <div className="w-36 h-24 rounded mb-2 bg-[#23202B] flex items-center justify-center" style={{background: `linear-gradient(135deg, hsl(${idx*18}, 70%, 40%) 60%, #23202B 100%)`}}></div>
-              <span className="text-sm text-white font-semibold text-center leading-tight" style={{wordBreak:'break-word'}}>{themeName}</span>
-            </button>
+            />
           ))}
         </div>
         <button className="mt-8 block mx-auto px-8 py-2 rounded-xl bg-[#23202B] text-[#8C6BFA] hover:bg-[#2a2740] font-bold shadow-lg transition-all" onClick={() => setShowTemplates(false)}>Cancel</button>

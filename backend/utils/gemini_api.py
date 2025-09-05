@@ -13,7 +13,7 @@ def generate_image_from_prompt(prompt):
     image_b64 = base64.b64encode(image_bytes).decode('utf-8')
     return image_b64
 
-GEMINI_API_KEY = 'AIzaSyC5cVZm3uW9KjuEW1OV_HPI9PlteSkxz-g'
+GEMINI_API_KEY = 'AIzaSyCtDRuoS7R0G40ZHBOsSCP1C6kSIxbtBQY'
 GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=" + GEMINI_API_KEY
 
 PROMPT_TEMPLATE = (
