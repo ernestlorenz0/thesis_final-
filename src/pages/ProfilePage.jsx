@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { deleteAccount, updateAccount } from '../firebaseAuth';
+import ConfirmationModal from '../components/ConfirmationModal';
 
 export default function ProfilePage() {
   const [profile, setProfile] = useState({
@@ -20,6 +21,7 @@ export default function ProfilePage() {
   const [isUpdating, setIsUpdating] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [deleteError, setDeleteError] = useState('');
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const navigate = useNavigate();
   
   // Store original profile data to reset on cancel
@@ -116,10 +118,14 @@ export default function ProfilePage() {
     setEditing(false);
   };
 
-  const handleDeleteAccount = async () => {
-    if (!window.confirm('This will permanently delete your account. This action cannot be undone. Continue?')) return;
+  const handleDeleteAccountClick = () => {
+    setShowDeleteModal(true);
+  };
+
+  const handleDeleteAccountConfirm = async () => {
     setIsDeleting(true);
     setDeleteError('');
+    setShowDeleteModal(false);
     try {
       await deleteAccount();
       localStorage.removeItem('user');
@@ -128,6 +134,10 @@ export default function ProfilePage() {
       setDeleteError(err.message || 'Failed to delete account. Please re-login and try again.');
       setIsDeleting(false);
     }
+  };
+
+  const handleDeleteAccountCancel = () => {
+    setShowDeleteModal(false);
   };
 
 
@@ -242,7 +252,7 @@ export default function ProfilePage() {
         {deleteError && <div className="w-full text-red-500 text-xs mt-1">{deleteError}</div>}
         <button
           type="button"
-          onClick={handleDeleteAccount}
+          onClick={handleDeleteAccountClick}
           disabled={isDeleting}
           className="w-full border border-red-300 text-red-600 font-medium py-1.5 rounded-md hover:bg-red-50 transition-colors text-sm mt-2"
         >
@@ -286,6 +296,17 @@ export default function ProfilePage() {
           )}
         </div>
       </form>
+      
+      <ConfirmationModal
+        isOpen={showDeleteModal}
+        onClose={handleDeleteAccountCancel}
+        onConfirm={handleDeleteAccountConfirm}
+        title="Delete Account"
+        message="This will permanently delete your account and all associated data. This action cannot be undone. Are you sure you want to continue?"
+        confirmText="Delete Account"
+        cancelText="Cancel"
+        isDestructive={true}
+      />
     </div>
   );
 }

@@ -27,15 +27,99 @@ export default function SlideCanvas({
   fileInputRef,
   handleImageUpload
 }) {
-  // Themed slide rendering function (moved from SlideEditor)
-  const renderThemedSlide = () => {
-    const isFirstSlide = current === 0;
-    if (currentSlide.components.length === 1) {
-      const comp = currentSlide.components[0];
-      if (comp.type === 'title') return <Theme.TitleSlide title={comp.content} subtitle={isFirstSlide ? author : ''} />;
-      if (comp.type === 'image') return <Theme.ImageSlide title={isFirstSlide ? author : ''} imageUrl={comp.content} />;
-      if (comp.type === 'paragraph') return <Theme.ContentSlide title={isFirstSlide ? author : ''} content={comp.content} />;
+  class ThemeErrorBoundary extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = { hasError: false, error: null };
     }
+    static getDerivedStateFromError(error) {
+      return { hasError: true, error };
+    }
+    componentDidCatch(error, info) {
+      // eslint-disable-next-line no-console
+      console.error('Theme render error:', error, info);
+    }
+    render() {
+      if (this.state.hasError) {
+        return (
+          <div className="w-full h-full flex items-center justify-center">
+            <div className="bg-red-50 text-red-700 border border-red-200 rounded p-4 max-w-lg text-center">
+              <div className="font-semibold mb-1">There was a problem rendering this slide layout.</div>
+              <div className="text-sm opacity-80">Check the theme component for errors. See console for details.</div>
+            </div>
+          </div>
+        );
+      }
+      return this.props.children;
+    }
+  }
+
+  // Themed slide rendering function (moved from SlideEditor)
+  const renderThemedSlide = (slide, idx) => {
+    if (!slide || !Theme) return null;
+
+  // Title slide
+  if (idx === 0 && Theme.TitleSlide) {
+    return (
+      <Theme.TitleSlide
+        title={slide.components.find(c => c.type === "title")?.content || "Sample Title"}
+        subtitle={slide.components.find(c => c.type === "paragraph")?.content || "Subtitle placeholder"}
+        imageUrl={slide.components.find(c => c.type === "image")?.content || ""}
+      />
+    );
+  }
+
+  // End slide
+  if (slide.components.some(c => c.type === "end") && Theme.EndSlide) {
+    return (
+      <Theme.EndSlide
+        message={slide.components.find(c => c.type === "end")?.content || "Thank You!"}
+        subtitle={slide.components.find(c => c.type === "paragraph")?.content || ""}
+      />
+    );
+  }
+
+  // Content slides
+  const title = slide.components.find(c => c.type === "title")?.content || "";
+  const content = slide.components.find(c => c.type === "paragraph")?.content || "";
+  const imageUrl = slide.components.find(c => c.type === "image")?.content || "";
+
+  // If API assigned a layout, respect it
+  if (slide.layout && Theme[slide.layout]) {
+    const LayoutComp = Theme[slide.layout];
+    return <LayoutComp title={title} content={content} imageUrl={imageUrl} />;
+  }
+
+  // Fallback logic - try different theme component names
+  if (imageUrl && Theme.ImageSlide) {
+    return <Theme.ImageSlide title={title} imageUrl={imageUrl} />;
+  }
+  
+  // Try MainSlide variants for content slides
+  if (Theme.MainSlide) {
+    return <Theme.MainSlide title={title} content={content} />;
+  }
+  if (Theme.MainSlide1) {
+    return <Theme.MainSlide1 title={title} content={content} />;
+  }
+  if (Theme.MainSlide2) {
+    return <Theme.MainSlide2 title={title} content={content} imageUrl={imageUrl} />;
+  }
+  if (Theme.MainSlide3) {
+    return <Theme.MainSlide3 title={title} points={[content]} />;
+  }
+  if (Theme.MainSlide4) {
+    return <Theme.MainSlide4 title={title} content={content} imageUrl={imageUrl} />;
+  }
+  
+  // Try other common component names
+  if (Theme.ContentSlide) {
+    return <Theme.ContentSlide title={title} content={content} />;
+  }
+  if (Theme.ContentSlideText) {
+    return <Theme.ContentSlideText title={title} content={content} />;
+  }
+
     return (
       <div className="flex flex-col h-full w-full bg-neutral-900">
         <div className="flex items-center justify-between px-8 py-3 bg-gradient-to-r from-blue-200 to-blue-100 shadow-sm">
@@ -159,14 +243,18 @@ export default function SlideCanvas({
       }}>
         <div className="flex-1 flex flex-col items-center justify-center bg-neutral-50 rounded-2xl shadow-xl relative overflow-hidden min-h-[450px]">
           {slides[current] && slides[current].components.length > 0 ? (
-            renderThemedSlide()
+            <div className="scale-75 origin-center">
+              <ThemeErrorBoundary>
+                {renderThemedSlide(slides[current], current)}
+              </ThemeErrorBoundary>
+            </div>
           ) : (
             <span className="text-neutral-400">Add content to start your slide!</span>
           )}
         </div>
       </DndContext>
       {/* Author bottom right */}
-      <div className="absolute bottom-8 right-16 text-gray-400 text-lg font-semibold select-none">{author}</div>
+      {author && <div className="absolute bottom-8 right-16 text-gray-400 text-lg font-semibold select-none">{author}</div>}
     </div>
   );
 }

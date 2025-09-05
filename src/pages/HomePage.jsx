@@ -4,11 +4,13 @@
 import React, { useRef, useState } from 'react';
 import { User, Upload, Settings, HelpCircle, LogOut, Loader2 } from 'lucide-react';
 import Reveal from 'reveal.js'; // For future integration, placeholder for now
+import { themeComponents as themeRegistry } from '../utils/themes';
 import { saveHistoryItem } from '../firebaseAuth';
 import SlideEditor from './SlideEditor';
 import UserMenuDropdown from '../components/UserMenuDropdown';
 import MenuMobile from '../components/MenuMobile';
 import { useUserMenuDropdown, useMenuMobile } from '../hooks/useMenus';
+import { getPlaceholderSlides } from "../components/placeholderSlides";
 
 // =========================
 // HomePage Component
@@ -23,6 +25,8 @@ export default function HomePage() {
   const [showEditor, setShowEditor] = useState(false);
   const [imagePrompt, setImagePrompt] = useState(''); // User prompt for image generation
   const fileInputRef = useRef();
+
+  const [previewMode, setPreviewMode] = useState(false);  
 
     // =========================
   // Handlers
@@ -82,30 +86,82 @@ export default function HomePage() {
     const selectedThemeName = themeNames[templateIdx];
     setSelectedTemplate(selectedThemeName);
     setShowTemplates(false);
+
+    if (previewMode) {
+      // In preview mode, create slides for each layout in the chosen theme
+      const themeModule = themeRegistry[selectedThemeName];
+      if (!themeModule) {
+        setShowEditor(true);
+        return;
+      }
+
+      const allExports = Object.keys(themeModule).filter(k => typeof themeModule[k] === 'function');
+      const hasTitle = allExports.includes('TitleSlide');
+      const hasEnd = allExports.includes('EndSlide');
+
+      const layoutNames = allExports.filter(name => !['TitleSlide', 'EndSlide'].includes(name));
+
+      const previewSlides = [];
+
+      if (hasTitle) {
+        previewSlides.push({
+          id: 'preview-title-' + Date.now(),
+          components: [
+            { id: 'title', type: 'title', content: selectedThemeName + ' — Title' },
+            { id: 'subtitle', type: 'paragraph', content: 'Subtitle placeholder' },
+            { id: 'image', type: 'image', content: '' }
+          ]
+        });
+      }
+
+      layoutNames.forEach((layout, idx) => {
+        previewSlides.push({
+          id: `preview-${layout}-${idx}-${Date.now()}`,
+          layout,
+          components: [
+            { id: `title-${idx}`, type: 'title', content: layout },
+            { id: `para-${idx}`, type: 'paragraph', content: 'This is a placeholder paragraph to check alignment.' },
+            { id: `img-${idx}`, type: 'image', content: '' }
+          ]
+        });
+      });
+
+      if (hasEnd) {
+        previewSlides.push({
+          id: 'preview-end-' + Date.now(),
+          components: [
+            { id: 'end', type: 'end', content: 'Thank You!' },
+            { id: 'closing', type: 'paragraph', content: 'Closing remarks here.' }
+          ]
+        });
+      }
+
+      setResults(previewSlides);
+      setShowEditor(true);
+      return;
+    }
+
+    // Existing API flow
     setLoading(true);
     setError('');
     try {
       const formData = new FormData();
       uploadedFiles.forEach(f => formData.append('file', f));
-      // Removed: formData.append('generate_image', generateImage ? 'true' : 'false');
       const res = await fetch('http://localhost:5000/upload', {
         method: 'POST',
         body: formData,
       });
       const data = await res.json();
       if (!data.success) throw new Error(data.error || 'Unknown error');
-      // Check for file-level errors
       const errorFiles = data.results.filter(file => file.error);
       if (errorFiles.length > 0) {
         setError('Some files failed to process: ' + errorFiles.map(f => `${f.filename}: ${f.error}`).join('; '));
         setLoading(false);
         return;
       }
-      // Transform Gemini results into slide data for editor
       const slides = [];
       const globalSeenTerms = new Set();
       for (const file of data.results) {
-        // Title slide
         slides.push({
           id: file.filename + '-title-' + Date.now(),
           components: [
@@ -113,8 +169,7 @@ export default function HomePage() {
             { id: 'author-' + file.filename, type: 'author', content: 'Ernest Lorenzo' },
           ],
         });
-        // PDF extracted images as slides
-        if (file.extracted_images && Array.isArray(file.extracted_images) && file.extracted_images.length > 0) {
+        if (file.extracted_images && Array.isArray(file.extracted_images)) {
           file.extracted_images.forEach((imgPath, idx) => {
             slides.push({
               id: file.filename + '-extracted-img-' + idx + '-' + Date.now(),
@@ -124,7 +179,6 @@ export default function HomePage() {
             });
           });
         }
-        // Content slides (deduplicate globally by term)
         (file.terms || []).forEach(term => {
           if (!globalSeenTerms.has(term.term)) {
             slides.push({
@@ -137,46 +191,10 @@ export default function HomePage() {
             globalSeenTerms.add(term.term);
           }
         });
-        // If generateImage is checked, generate image using Gemini summary or first term as prompt, and add as the last slide
-        if (imagePrompt && imagePrompt.trim().length > 0) {
-          try {
-            const imgRes = await fetch('http://localhost:5000/generate-image', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ topic: imagePrompt }),
-            });
-            const imgData = await imgRes.json();
-            if (imgData.image_url) {
-              slides.push({
-                id: file.filename + '-image-' + Date.now(),
-                components: [
-                  { id: 'img-' + file.filename, type: 'image', content: imgData.image_url },
-                ],
-              });
-            }
-          } catch (e) {
-            // Optionally: setError('Image generation failed for ' + file.filename)
-          }
-        }
-        // Removed redundant code block that was adding terms and images a second time
       }
       setResults(slides);
       setUploadedFiles([]);
       setShowEditor(true);
-
-      // Save each generated presentation to history (one per uploaded file)
-      try {
-        const userData = JSON.parse(localStorage.getItem('user') || '{}');
-        // We attempt saving for the first file name as the presentation filename
-        if (Array.isArray(data.results) && data.results.length > 0) {
-          const firstFile = data.results[0];
-          const presentationName = `${firstFile.filename.replace(/\.pdf$/i, '')} - ${selectedThemeName}`;
-          await saveHistoryItem({ filename: presentationName, slides, templateName: selectedThemeName });
-        }
-      } catch (e) {
-        // Non-blocking: ignore history save errors in UI
-        console.warn('Failed to save history item', e);
-      }
     } catch (err) {
       setError('Processing failed.');
     } finally {
@@ -218,7 +236,7 @@ export default function HomePage() {
         {/* Top bar for desktop only */}
         {!isMobile && (
   <div className="absolute top-0 left-0 w-full flex justify-end items-center px-12 pt-8 pb-4 animate-fade-in">
-    <UserMenuDropdown userMenuOpen={userMenuOpen} setUserMenuOpen={setUserMenuOpen} userMenuRef={userMenuRef} />
+    <UserMenuDropdown userMenuOpen={userMenuOpen} setUserMenuOpen={setUserMenuOpen} userMenuRef={userMenuRef} previewMode={previewMode} setPreviewMode={setPreviewMode} />
   </div>
 )}
 
@@ -257,10 +275,10 @@ export default function HomePage() {
   </div>
 </div>
           {error && <div className="mt-4 text-[#8C6BFA] text-base font-bold animate-fade-in animate-bounce-short">{error}</div>}
-          {showEditor && results && selectedTemplate !== null && !error && (
+          {showEditor && selectedTemplate !== null && !error && (
             <div className="fixed inset-0 z-[9999] bg-blue-950/85 animate-fade-in">
               <SlideEditor
-                initialSlides={results}
+                initialSlides={results || []}
                 selectedTemplate={selectedTemplate}
                 onBack={() => {
                   setShowEditor(false);
@@ -288,20 +306,17 @@ export default function HomePage() {
             </div>
           )}
           <div className="flex gap-8 mt-8 flex-wrap animate-fade-in w-full justify-center">
-  <button
-    className={`w-[340px] py-4 rounded-xl font-bold text-lg shadow transition-all duration-200 bg-[#E5D8FF] text-[#8C6BFA] hover:bg-[#E7E0FF] focus:outline-none focus:ring-2 focus:ring-[#BFA8FF] ${loading || uploadedFiles.length === 0 ? 'opacity-60 cursor-not-allowed' : ''}`}
-    onClick={handleGenerate}
-    disabled={loading || uploadedFiles.length === 0}
-  >
-    {loading ? (
-      <span className="flex items-center justify-center gap-2">
-        <span className="inline-block w-5 h-5 rounded-full border-2 border-[#BFA8FF] animate-spin" style={{borderTopColor:'#8C6BFA'}}></span>
-        Generating PowerPoint...
-      </span>
-    ) : (
-      'Generate PowerPoint'
-    )}
-  </button>
+  <div className="flex gap-8 mt-8 flex-wrap animate-fade-in w-full justify-center">
+          <button
+            className={`w-[340px] py-4 rounded-xl font-bold text-lg shadow transition-all duration-200 
+              bg-[#E5D8FF] text-[#8C6BFA] hover:bg-[#E7E0FF] focus:outline-none focus:ring-2 focus:ring-[#BFA8FF] 
+              ${loading || (!previewMode && uploadedFiles.length === 0) ? 'opacity-60 cursor-not-allowed' : ''}`}
+            onClick={() => setShowTemplates(true)}
+            disabled={loading || (!previewMode && uploadedFiles.length === 0)}
+          >
+            {loading && !previewMode ? "Generating PowerPoint..." : previewMode ? "Preview Themes" : "Generate PowerPoint"}
+          </button>
+        </div>
   <button
     className={`px-6 py-3 rounded-xl font-semibold text-base border border-[#E3D9FA] text-[#8C6BFA] bg-white hover:bg-[#F6F2FF] focus:outline-none focus:ring-2 focus:ring-[#BFA8FF] transition-all duration-200 ${loading || uploadedFiles.length === 0 ? 'opacity-60 cursor-not-allowed' : ''}`}
     onClick={() => setUploadedFiles([])}

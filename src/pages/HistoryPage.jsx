@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import jsPDF from 'jspdf';
 import { fetchHistoryItems, renameHistoryItem, deleteHistoryItem } from '../firebaseAuth';
+import ConfirmationModal from '../components/ConfirmationModal';
 
 export default function HistoryPage() {
   const [items, setItems] = useState([]);
@@ -8,6 +9,8 @@ export default function HistoryPage() {
   const [error, setError] = useState('');
   const [editingId, setEditingId] = useState(null);
   const [editingName, setEditingName] = useState('');
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [itemToDelete, setItemToDelete] = useState(null);
 
   const load = async () => {
     setLoading(true);
@@ -48,14 +51,26 @@ export default function HistoryPage() {
     setEditingName('');
   };
 
-  const handleDelete = async (id) => {
-    if (!window.confirm('Delete this presentation from history?')) return;
+  const handleDeleteClick = (item) => {
+    setItemToDelete(item);
+    setShowDeleteModal(true);
+  };
+
+  const handleDeleteConfirm = async () => {
+    if (!itemToDelete) return;
     try {
-      await deleteHistoryItem(id);
-      setItems(items => items.filter(it => it.id !== id));
+      await deleteHistoryItem(itemToDelete.id);
+      setItems(items => items.filter(it => it.id !== itemToDelete.id));
+      setShowDeleteModal(false);
+      setItemToDelete(null);
     } catch (e) {
       setError(e.message || 'Failed to delete');
     }
+  };
+
+  const handleDeleteCancel = () => {
+    setShowDeleteModal(false);
+    setItemToDelete(null);
   };
 
   const handleDownload = async (item) => {
@@ -123,7 +138,7 @@ export default function HistoryPage() {
                     <>
                       <button className="px-3 py-1.5 text-sm border border-gray-300 text-[#8C6BFA] rounded" onClick={() => startEdit(item)}>Change Name</button>
                       <button className="px-3 py-1.5 text-sm border border-gray-300 text-gray-700 rounded" onClick={() => handleDownload(item)}>Download PDF</button>
-                      <button className="px-3 py-1.5 text-sm border border-red-300 text-red-600 rounded" onClick={() => handleDelete(item.id)}>Delete Presentation</button>
+                      <button className="px-3 py-1.5 text-sm border border-red-300 text-red-600 rounded" onClick={() => handleDeleteClick(item)}>Delete Presentation</button>
                     </>
                   )}
                 </div>
@@ -132,6 +147,17 @@ export default function HistoryPage() {
           </ul>
         )}
       </div>
+      
+      <ConfirmationModal
+        isOpen={showDeleteModal}
+        onClose={handleDeleteCancel}
+        onConfirm={handleDeleteConfirm}
+        title="Delete Presentation"
+        message={`Are you sure you want to delete "${itemToDelete?.filename}"? This action cannot be undone.`}
+        confirmText="Delete"
+        cancelText="Cancel"
+        isDestructive={true}
+      />
     </div>
   );
 }
