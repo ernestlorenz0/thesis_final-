@@ -22,18 +22,19 @@ export function MainSlide1({ title, content }) {
     <section className="w-[1280px] h-[720px] flex">
       {/* Gold sidebar */}
       <div className="w-1/3 bg-gradient-to-b from-yellow-800 to-yellow-500 flex items-center justify-center">
-        <h2 className="text-4xl font-serif font-bold text-yellow-100 -rotate-90 whitespace-nowrap">
+        <h2 className="text-5xl font-serif font-bold text-yellow-100 text-center px-4">
           {title}
         </h2>
       </div>
 
       {/* Content area */}
       <div className="flex-1 bg-gradient-to-br from-yellow-50 to-yellow-100 p-16 flex items-center">
-        <p className="text-2xl font-serif leading-relaxed text-gray-900">{content}</p>
+        <p className="text-3xl font-serif leading-relaxed text-gray-900">{content}</p>
       </div>
     </section>
   );
 }
+
 
 /* Main Slide 2 – Framed parchment with top banner */
 export function MainSlide2({ title, content }) {
@@ -44,10 +45,10 @@ export function MainSlide2({ title, content }) {
 
       {/* Title banner */}
       <div className="relative bg-gradient-to-r from-yellow-800 to-yellow-600 px-12 py-4 mb-10 shadow-lg w-fit">
-        <h2 className="text-3xl font-serif font-bold text-yellow-100">{title}</h2>
+        <h2 className="text-6xl font-serif font-bold text-yellow-100">{title}</h2>
       </div>
 
-      <p className="text-2xl font-serif max-w-5xl leading-relaxed relative z-10">{content}</p>
+      <p className="text-3xl font-serif max-w-5xl leading-relaxed relative z-10">{content}</p>
     </section>
   );
 }
@@ -62,14 +63,24 @@ export function MainSlide3({ title, content }) {
       {/* Diagonal gold overlay */}
       <div className="absolute top-0 right-0 w-2/3 h-full bg-gradient-to-bl from-yellow-700/80 to-yellow-500/70 transform -skew-x-6 origin-top-right"></div>
 
-      {/* Text content */}
-      <div className="relative z-10 p-20 max-w-3xl">
-        <h2 className="text-4xl font-serif font-bold mb-6">{title}</h2>
-        <p className="text-2xl font-serif leading-relaxed">{content}</p>
+      {/* Layout */}
+      <div className="relative z-10 flex w-full h-full">
+        {/* Title sidebar */}
+        <div className="w-1/3 flex items-center justify-center bg-yellow-900/40">
+          <h2 className="text-5xl font-serif font-bold text-yellow-100 text-center px-6">
+            {title}
+          </h2>
+        </div>
+
+        {/* Content area */}
+        <div className="flex-1 flex items-center p-16">
+          <p className="text-3xl font-serif leading-relaxed">{content}</p>
+        </div>
       </div>
     </section>
   );
 }
+
 
 /* Image Slide – Gold pedestal frame */
 export function ImageSlide({ title, imageUrl }) {

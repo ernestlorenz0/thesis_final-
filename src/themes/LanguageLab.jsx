@@ -23,11 +23,11 @@ export function MainSlide1({ title, content }) {
   return (
     <section className="relative w-[1280px] h-[720px] flex bg-gradient-to-r from-yellow-100 to-pink-50 text-gray-900">
       {/* Big decorative quote mark */}
-      <div className="absolute top-10 left-10 text-[200px] text-pink-300 opacity-40 font-serif">“</div>
+      <div className="absolute top-10 left-10 text-[200px] text-pink-300 opacity-80 font-serif">“</div>
 
       <div className="flex-1 p-20 flex flex-col justify-center">
-        <h2 className="text-4xl font-bold mb-6">{title}</h2>
-        <p className="text-2xl leading-relaxed max-w-3xl">{content}</p>
+        <h2 className="text-6xl font-bold mb-6">{title}</h2>
+        <p className="text-3xl leading-relaxed max-w-3xl">{content}</p>
       </div>
     </section>
   );
@@ -38,7 +38,7 @@ export function MainSlide2({ title, content }) {
   return (
     <section className="w-[1280px] h-[720px] bg-gradient-to-tr from-blue-100 to-purple-100 flex flex-col items-center justify-center p-16 relative overflow-hidden">
       {/* Background bubbles */}
-      <div className="absolute inset-0 flex justify-around items-center opacity-20 text-9xl text-blue-300">
+      <div className="absolute inset-0 flex justify-around items-center opacity-50 text-9xl text-blue-300">
         <FaRegCommentDots />
         <PiTextTBold />
         <MdTranslate />
@@ -46,8 +46,8 @@ export function MainSlide2({ title, content }) {
 
       {/* Content area */}
       <div className="relative z-10 bg-white shadow-lg rounded-2xl p-12 max-w-4xl">
-        <h2 className="text-3xl font-bold mb-4 text-blue-900">{title}</h2>
-        <p className="text-xl leading-8 text-gray-800">{content}</p>
+        <h2 className="text-5xl font-bold mb-4 text-blue-900">{title}</h2>
+        <p className="text-3xl leading-8 text-gray-800">{content}</p>
       </div>
     </section>
   );
@@ -63,8 +63,8 @@ export function MainSlide3({ title, content }) {
 
       {/* Content */}
       <div className="relative z-10 flex flex-col justify-center max-w-4xl">
-        <h2 className="text-4xl font-bold text-gray-900 mb-6">{title}</h2>
-        <p className="text-2xl text-gray-800 leading-relaxed">{content}</p>
+        <h2 className="text-6xl font-bold text-gray-900 mb-6">{title}</h2>
+        <p className="text-3xl text-gray-800 leading-relaxed">{content}</p>
       </div>
     </section>
   );

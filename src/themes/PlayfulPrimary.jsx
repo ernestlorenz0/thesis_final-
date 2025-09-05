@@ -58,48 +58,74 @@ export function MainSlide2({ title, content, imageUrl }) {
   );
 }
 
-/* Main Slide 3 - Card grid style */
-export function MainSlide3({ title, points }) {
-  return (
-    <section className="relative w-[1280px] h-[720px] bg-playful-200 flex flex-col text-playful-900 animate-slide-in px-20 py-16 overflow-hidden">
-      {/* Shapes */}
-      <div className="absolute w-48 h-48 bg-red-300 rounded-full opacity-20 top-10 right-12"></div>
-      <div className="absolute w-64 h-64 bg-blue-400 rotate-45 opacity-20 bottom-0 left-16"></div>
 
-      <h2 className="text-5xl font-bold font-sans mb-12 text-center z-10">
-        {title}
-      </h2>
-      <div className="grid grid-cols-3 gap-12 flex-1 z-10">
-        {points.map((point, idx) => (
-          <div
-            key={idx}
-            className="bg-playful-100 border-2 border-playful-900 rounded-xl p-12 text-center font-sans font-semibold shadow-md text-2xl flex items-center justify-center"
-          >
-            {point}
+export function ImageSlide3({ title, imageUrl }) {
+  return (
+    <section className="relative w-[1280px] h-[720px] bg-gradient-to-br from-playful-200 via-playful-300 to-playful-400 flex items-center justify-center overflow-hidden">
+      {/* Playful background shapes (use existing playful-* colors from your palette) */}
+      <div className="absolute top-12 left-16 w-28 h-28 bg-playful-500 rounded-full opacity-70 animate-bounce"></div>
+      <div className="absolute bottom-20 right-20 w-36 h-36 bg-playful-600 rounded-2xl opacity-70 rotate-12 animate-pulse"></div>
+      <div className="absolute top-[30%] right-1/4 w-20 h-20 bg-playful-700 rounded-full opacity-60 animate-bounce"></div>
+      <div className="absolute bottom-10 left-1/3 w-24 h-24 bg-playful-400 rounded-full opacity-60 animate-bounce"></div>
+      <div className="absolute top-1/4 left-1/2 w-16 h-16 bg-playful-300 rounded-lg opacity-60 animate-pulse"></div>
+
+      {/* Main framed image container */}
+      <div className="relative z-10 w-[900px] h-[520px] rounded-3xl overflow-hidden shadow-2xl border-8 border-playful-700 bg-white flex flex-col items-center justify-center p-4">
+        {imageUrl ? (
+          <img
+            src={imageUrl}
+            alt={title || "Slide image"}
+            className="object-contain max-h-[84%] max-w-full rounded-md"
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center text-playful-800 font-bold">
+            No Image
           </div>
-        ))}
+        )}
+
+        {/* Title badge */}
+        <div className="mt-4 px-5 py-2 bg-playful-600 text-white rounded-full text-xl font-semibold shadow-md">
+          {title}
+        </div>
+      </div>
+    </section>
+  );
+} 
+
+
+export function ImageSlide({ title, imageUrl }) {
+  return (
+    <section className="relative w-[1280px] h-[720px] bg-gradient-to-br from-playful-200 via-playful-300 to-playful-400 overflow-hidden flex flex-col">
+      {/* Playful floating shapes */}
+      <div className="absolute top-12 left-16 w-28 h-28 bg-playful-500 rounded-full opacity-70 animate-bounce"></div>
+      <div className="absolute bottom-20 right-20 w-36 h-36 bg-playful-600 rounded-2xl opacity-70 rotate-12 animate-pulse"></div>
+      <div className="absolute top-[30%] right-1/4 w-20 h-20 bg-playful-700 rounded-full opacity-60 animate-bounce"></div>
+      <div className="absolute bottom-10 left-1/3 w-24 h-24 bg-playful-400 rounded-full opacity-60 animate-bounce"></div>
+      <div className="absolute top-1/4 left-1/2 w-16 h-16 bg-playful-300 rounded-lg opacity-60 animate-pulse"></div>
+
+      {/* Image + Title */}
+      <div className="relative z-10 flex flex-col items-center justify-center h-full px-10 text-center">
+        {imageUrl ? (
+          <img
+            src={imageUrl}
+            alt={title || "Slide image"}
+            className="rounded-2xl shadow-2xl max-h-[70%] object-contain mb-6 border-8 border-white"
+          />
+        ) : (
+          <div className="w-full h-[70%] flex items-center justify-center bg-playful-200 text-playful-800 font-bold rounded-2xl border-8 border-white shadow-xl mb-6">
+            No Image
+          </div>
+        )}
+        <h3 className="text-3xl font-extrabold font-sans text-playful-900 drop-shadow-md bg-white/70 px-6 py-2 rounded-xl">
+          {title}
+        </h3>
       </div>
     </section>
   );
 }
 
-/* Image Slide */
-export function ImageSlide({ title, imageUrl }) {
-  return (
-    <section className="relative w-[1280px] h-[720px] bg-playful-100 flex flex-col items-center justify-center text-playful-900 animate-bounce-in px-16 overflow-hidden">
-      {/* Shapes */}
-      <div className="absolute w-80 h-80 bg-green-300 rounded-full opacity-20 -top-10 left-20"></div>
-      <div className="absolute w-64 h-64 bg-yellow-300 rotate-12 opacity-20 bottom-12 right-12"></div>
 
-      <img
-        src={imageUrl}
-        alt="slide visual"
-        className="rounded-2xl max-h-[70%] mb-8 shadow-lg border-4 border-playful-900 object-contain z-10"
-      />
-      <h3 className="text-3xl font-bold font-sans z-10">{title}</h3>
-    </section>
-  );
-}
+
 
 /* End Slide */
 export function EndSlide({ message }) {
@@ -119,7 +145,7 @@ const PlayfulPrimary = {
   TitleSlide,
   MainSlide1,
   MainSlide2,
-  MainSlide3,
+  ImageSlide3,
   ImageSlide,
   EndSlide,
 };

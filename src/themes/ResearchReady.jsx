@@ -7,7 +7,7 @@ export function TitleSlide({ title, subtitle }) {
       {/* Top accent bar */}
       <div className="absolute top-0 w-full h-6 bg-blue-900"></div>
 
-      <h1 className="text-5xl font-serif font-bold text-gray-900 mb-4">
+      <h1 className="text-6xl font-serif font-bold text-gray-900 mb-4">
         {title}
       </h1>
       <h2 className="text-2xl font-sans font-light text-gray-700">
@@ -25,13 +25,13 @@ export function MainSlide1({ title, content }) {
   return (
     <section className="relative w-[1280px] h-[720px] bg-white flex flex-col px-20 py-16">
       {/* Header with divider */}
-      <h2 className="text-3xl font-serif font-bold text-blue-900 mb-2">
+      <h2 className="text-6xl font-serif font-bold text-blue-900 mb-2">
         {title}
       </h2>
       <div className="h-[3px] w-24 bg-blue-700 mb-6"></div>
 
       {/* Content */}
-      <p className="text-lg font-sans text-gray-800 leading-relaxed">
+      <p className="text-3xl font-sans text-gray-800 leading-relaxed">
         {content}
       </p>
     </section>
@@ -43,11 +43,11 @@ export function MainSlide2({ title, content }) {
   return (
     <section className="relative w-[1280px] h-[720px] bg-gray-50 flex items-center justify-center px-24 py-16">
       <div className="max-w-4xl w-full">
-        <h2 className="text-3xl font-serif font-semibold text-gray-900 mb-6">
+        <h2 className="text-6xl font-serif font-semibold text-gray-900 mb-6">
           {title}
         </h2>
         <div className="border-l-4 border-blue-700 pl-6">
-          <p className="text-lg font-sans text-gray-800 leading-relaxed">
+          <p className="text-3xl font-sans text-gray-800 leading-relaxed">
             {content}
           </p>
         </div>
@@ -64,10 +64,10 @@ export function MainSlide3({ title, content }) {
       <div className="w-8 bg-blue-900"></div>
 
       <div className="flex-1 flex flex-col justify-center px-16">
-        <h2 className="text-3xl font-serif font-bold text-blue-900 mb-4">
+        <h2 className="text-6xl font-serif font-bold text-blue-900 mb-4">
           {title}
         </h2>
-        <p className="text-lg font-sans text-gray-800 leading-relaxed">
+        <p className="text-3xl font-sans text-gray-800 leading-relaxed">
           {content}
         </p>
       </div>

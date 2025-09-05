@@ -29,7 +29,7 @@ export function TitleSlide({ title, subtitle }) {
 
         {/* Text Overlay */}
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <h1 className="text-white font-[BebasNeue] text-4xl text-center leading-snug">
+          <h1 className="text-white font-[BebasNeue] text-6xl text-center leading-snug ml-10">
             {title}
           </h1>
           {subtitle && (
@@ -64,13 +64,13 @@ export function MainSlide({ title, content }) {
       {/* Content */}
       <div className="relative z-10 flex flex-col h-full px-8 text-center">
         {/* Title near the orange section */}
-        <h1 className="font-[BebasNeue] text-5xl mt-20">{title}</h1>
+        <h1 className="font-[BebasNeue] text-6xl mt-20">{title}</h1>
 
         {/* Spacer pushes content lower */}
         <div className="flex-1" />
 
         {/* Content stays lower in black area */}
-        <p className="font-[Poppins] text-2xl translate-y-0 max-w-xl mx-auto leading-relaxed mb-60">
+        <p className="font-[Poppins] text-3xl translate-y-0 max-w-xl mx-auto leading-relaxed mb-60">
           {content}
         </p>
       </div>
@@ -98,8 +98,8 @@ export function MainSlide2({ title, content }) {
 
       {/* Text (centered) */}
       <div className="relative z-10 text-center max-w-2xl px-8">
-        <h2 className="font-[BebasNeue] text-5xl mb-10">{title}</h2>
-        <p className="font-[Poppins] text-xl leading-relaxed">{content}</p>
+        <h2 className="font-[BebasNeue] text-6xl mb-10">{title}</h2>
+        <p className="font-[Poppins] text-3xl leading-relaxed">{content}</p>
       </div>
     </section>
   );
@@ -127,29 +127,39 @@ export function MainSlide3({ title, content }) {
       {/* Text (now on the left, top-aligned) */}
       <div className="relative z-10 px-12 pt-12 max-w-xl text-left">
         <h2 className="font-[BebasNeue] text-6xl mb-6">{title}</h2>
-        <p className="font-[Poppins] text-2xl leading-relaxed">{content}</p>
+        <p className="font-[Poppins] text-3xl leading-relaxed">{content}</p>
       </div>
     </section>
   );
 }
-
 
 // Main Slide 4
 export function MainSlide4({ title, content }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-black text-white overflow-hidden flex items-center">
+    <section className="relative w-[1280px] h-[720px] bg-black text-white overflow-hidden flex">
       {/* Half Orange Shape */}
-      <img src="src/svgs/rectangle-half.svg" alt="half orange" className="absolute right-0 top-0 h-full" />
+      <img
+        src="src/svgs/rectangle-half.svg"
+        alt="half orange"
+        className="absolute right-0 top-0 h-full"
+      />
 
+      {/* Title on the left (black background) */}
+      <div className="relative z-10 w-1/2 flex items-center justify-center px-12">
+        <h2 className="font-[BebasNeue] text-5xl text-white-400  translate-y-[-200px] translate-x-[-150px]">{title}</h2>
+      </div>
 
-      {/* Text */}
-      <div className="relative z-10 px-8 max-w-xl translate-y-[-200px]">
-        <h2 className="font-[BebasNeue] text-6xl mb-2">{title}</h2>
-        <p className="font-[Poppins] text-base leading-relaxed">{content}</p>
+      {/* Content inside half orange */}
+      <div className="relative z-20 w-1/2 flex items-center px-16">
+        <p className="font-[Poppins] text-3xl leading-relaxed text-white drop-shadow-lg translate-y-[-100px] translate-x-[-70px]">
+          {content}
+        </p>
       </div>
     </section>
   );
 }
+
+
 
 // Main Slide 5
 export function MainSlide5({ title, content }) {
@@ -162,9 +172,15 @@ export function MainSlide5({ title, content }) {
       <img src="src/svgs/paint-background2.svg" alt="paint background" className="absolute bottom-0 w-full" />
 
       {/* Text */}
-      <div className="relative z-10 px-8 max-w-xl translate-y-[-200px]">
-        <h2 className="font-[BebasNeue] text-5xl mb-2">{title}</h2>
-        <p className="font-[Poppins] text-base leading-relaxed">{content}</p>
+      <div className="relative z-10 w-1/2 flex items-center justify-center px-12">
+        <h2 className="font-[BebasNeue] text-5xl text-white-400  translate-y-[-200px] translate-x-[-150px]">{title}</h2>
+      </div>
+
+      {/* Content inside half orange */}
+      <div className="relative z-20 w-1/2 flex items-center px-16">
+        <p className="font-[Poppins] text-3xl leading-relaxed text-white drop-shadow-lg translate-y-[-100px] translate-x-[-70px]">
+          {content}
+        </p>
       </div>
     </section>
   );

@@ -25,9 +25,9 @@ export function MainSlide({ title, content }) {
       <img src="src/svgs/circle-left.svg" alt="circle" className="absolute left-0 top-0 w-[500px]" />
       <img src="src/svgs/circle-right.svg" alt="shape" className="absolute bottom-0 right-0 w-[350px]" />
 
-      <div className="relative z-10 w-1/2 bg-white shadow-lg rounded-lg p-8 ml-auto">
+      <div className="relative z-10 w-1/2 bg-white shadow-lg rounded-lg p-8 ml-[300px]">
         <h2 className="text-6xl font-semibold text-gray-800 mb-4">{title}</h2>
-        <p className="text-xl text-gray-700 leading-relaxed">{content}</p>
+        <p className="text-2xl text-gray-700 leading-relaxed">{content}</p>
       </div>
     </section>
   );
@@ -37,7 +37,7 @@ export function SectionSlide({ title, content }) {
   return (
     <section className="w-[1280px] h-[720px] bg-cyan-200 flex items-center justify-center">
       <div className="text-center">
-        <h2 className="text-4xl font-bold text-gray-800 mt-[-300px]">{title}</h2>
+        <h2 className="text-5xl font-bold text-gray-800 mt-[-300px]">{title}</h2>
         <div className="mt-2 h-[2px] w-40 bg-gray-700 mx-auto mb-40"></div>
         <p className="text-xl text-gray-700 leading-relaxed">{content}</p>
       </div>
@@ -60,34 +60,32 @@ export function ColumnsSlide({ items = [] }) {
   );
 }
 
-export function SplitSlide({ leftTitle, leftContent, rightTitle, rightContent }) {
+export function SplitSlide({ title, content }) {
   return (
     <section className="w-[1280px] h-[720px] flex">
       {/* Left cyan side */}
       <div className="w-1/2 bg-cyan-200 flex flex-col items-center justify-center p-10">
-        <h3 className="text-2xl font-semibold mb-4">{leftTitle}</h3>
-        <p className="text-gray-700">{leftContent}</p>
+        <h2 className="text-5xl font-semibold mb-4 text-black translate-y-[-200px]">{title}</h2>
+        <p className="text-gray-700 translate-y-[-150px] text-2xl">{content}</p>
       </div>
       {/* Right white side */}
       <div className="w-1/2 bg-white flex flex-col items-center justify-center p-10">
-        <h3 className="text-2xl font-semibold mb-4">{rightTitle}</h3>
-        <p className="text-gray-700">{rightContent}</p>
+        
       </div>
     </section>
   );
 }
 
-export function SplitSlide2({ leftTitle, leftContent, rightTitle, rightContent }) {
+export function SplitSlide2({ title, content }) {
   return (
     <section className="w-[1280px] h-[720px] flex">
       {/* Left white with cyan wave */}
       <div className="w-1/2 bg-white flex items-center justify-center p-10">
-        <p className="text-gray-700">{leftContent}</p>
       </div>
       {/* Right navy side */}
       <div className="w-1/2 bg-[#2c3e50] flex flex-col items-center justify-center p-10">
-        <h3 className="text-2xl font-semibold text-white mb-4">{rightTitle}</h3>
-        <p className="text-white">{rightContent}</p>
+        <h3 className="text-5xl font-semibold text-white mb-4 translate-y-[-200px]">{title}</h3>
+        <p className="text-white translate-y-[-150px] text-2xl">{content}</p>
       </div>
     </section>
   );

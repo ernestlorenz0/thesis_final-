@@ -20,9 +20,9 @@ export function TitleSlide({ title, subtitle }) {
 export function MainSlide1({ title, content }) {
   return (
     <section className="w-[1280px] h-[720px] bg-white text-gray-900 px-24 py-16 flex flex-col">
-      <h2 className="text-4xl font-serif font-bold mb-2">{title}</h2>
+      <h2 className="text-6xl font-serif font-bold mb-2">{title}</h2>
       <div className="h-[3px] w-40 bg-yellow-600 mb-8"></div>
-      <div className="text-2xl font-serif leading-relaxed">{content}</div>
+      <div className="text-3xl font-serif leading-relaxed">{content}</div>
     </section>
   );
 }
@@ -32,8 +32,8 @@ export function MainSlide2({ title, content }) {
   return (
     <section className="w-[1280px] h-[720px] bg-gray-50 text-gray-900 px-20 py-16 flex">
       <div className="flex-1 pr-12">
-        <h2 className="text-3xl font-serif font-bold mb-6">{title}</h2>
-        <div className="text-xl font-serif leading-relaxed">{content}</div>
+        <h2 className="text-6xl font-serif font-bold mb-6">{title}</h2>
+        <div className="text-3xl font-serif leading-relaxed">{content}</div>
       </div>
       <div className="flex-1 flex items-center justify-center">
         <div className="w-[80%] h-[80%] border-2 border-yellow-600 rounded-lg opacity-30"></div>
@@ -47,8 +47,8 @@ export function MainSlide3({ title, content }) {
   return (
     <section className="relative w-[1280px] h-[720px] bg-gradient-to-br from-gray-100 to-white text-gray-900 px-24 py-16 flex flex-col items-center justify-center">
       <div className="absolute inset-8 border-4 border-yellow-600 rounded-xl opacity-40"></div>
-      <h2 className="text-4xl font-serif font-bold mb-6 z-10">{title}</h2>
-      <div className="text-2xl font-serif leading-relaxed max-w-5xl text-center z-10">{content}</div>
+      <h2 className="text-6xl font-serif font-bold mb-[150px] z-10 mt-[-250px] ">{title}</h2>
+      <div className="text-3xl font-serif leading-relaxed max-w-5xl text-center z-10">{content}</div>
     </section>
   );
 }
@@ -66,7 +66,7 @@ export function ImageSlide({ title, imageUrl, caption }) {
       </div>
       <div className="w-[2px] h-[80%] bg-yellow-600"></div>
       <div className="flex-1 pl-12">
-        <h3 className="text-2xl font-serif font-bold mb-4">{title}</h3>
+        <h3 className="text-5xl font-serif font-bold mb-4">{title}</h3>
         <p className="text-lg font-serif leading-relaxed">{caption}</p>
       </div>
     </section>

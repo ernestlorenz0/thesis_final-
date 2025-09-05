@@ -4,6 +4,16 @@ import React from "react";
 export function TitleSlide({ title, subtitle }) {
   return (
     <section className="relative w-[1280px] h-[720px] bg-gradient-to-br from-[#0a192f] to-[#112d4e] text-white flex flex-col items-center justify-center rounded-2xl shadow-2xl overflow-hidden">
+
+      {/* Background shapes (STEM vibe) */}
+      <div className="absolute inset-0 opacity-10">
+        {/* Grid lines */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(56,189,248,0.2)_1px,transparent_1px),linear-gradient(to_bottom,rgba(56,189,248,0.2)_1px,transparent_1px)] bg-[size:60px_60px]"></div>
+        {/* Hexagon shape */}
+        <div className="absolute top-16 left-20 w-40 h-40 border-2 border-cyan-400/40 rotate-45"></div>
+        <div className="absolute bottom-24 right-24 w-32 h-32 border-2 border-cyan-400/30 rotate-12"></div>
+      </div>
+
       {/* Accent glow */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,#00f6ff20,transparent)]"></div>
 
@@ -21,10 +31,20 @@ export function TitleSlide({ title, subtitle }) {
 export function MainSlide1({ title, content }) {
   return (
     <section className="relative w-[1280px] h-[720px] bg-gradient-to-br from-[#0a192f] to-[#112d4e] flex items-center justify-center">
+
+      {/* Background shapes (STEM vibe) */}
+      <div className="absolute inset-0 opacity-10">
+        {/* Grid lines */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(56,189,248,0.2)_1px,transparent_1px),linear-gradient(to_bottom,rgba(56,189,248,0.2)_1px,transparent_1px)] bg-[size:60px_60px]"></div>
+        {/* Hexagon shape */}
+        <div className="absolute top-16 left-20 w-40 h-40 border-2 border-cyan-400/40 rotate-45"></div>
+        <div className="absolute bottom-24 right-24 w-32 h-32 border-2 border-cyan-400/30 rotate-12"></div>
+      </div>
+
       <div className="bg-white/5 backdrop-blur-md border border-cyan-400/40 rounded-xl shadow-2xl p-12 max-w-4xl w-full">
         
         {/* Title */}
-        <h2 className="text-4xl font-bold font-mono text-cyan-300 mb-4 text-center">
+        <h2 className="text-6xl font-bold font-mono text-cyan-300 mb-4 text-center">
           {title}
         </h2>
 
@@ -32,7 +52,7 @@ export function MainSlide1({ title, content }) {
         <div className="h-[3px] w-24 bg-cyan-400 mx-auto mb-8 shadow-[0_0_10px_rgba(0,246,255,0.7)]"></div>
 
         {/* Content */}
-        <p className="text-lg font-mono text-gray-200 leading-relaxed text-center">
+        <p className="text-2xl font-mono text-gray-200 leading-relaxed text-center">
           {content}
         </p>
       </div>
@@ -47,12 +67,22 @@ export function MainSlide1({ title, content }) {
 export function MainSlide2({ title, content, imageUrl }) {
   return (
     <section className="w-[1280px] h-[720px] bg-[#0a192f] flex">
+
+      {/* Background shapes (STEM vibe) */}
+      <div className="absolute inset-0 opacity-10">
+        {/* Grid lines */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(56,189,248,0.2)_1px,transparent_1px),linear-gradient(to_bottom,rgba(56,189,248,0.2)_1px,transparent_1px)] bg-[size:60px_60px]"></div>
+        {/* Hexagon shape */}
+        <div className="absolute top-16 left-20 w-40 h-40 border-2 border-cyan-400/40 rotate-45"></div>
+        <div className="absolute bottom-24 right-24 w-32 h-32 border-2 border-cyan-400/30 rotate-12"></div>
+      </div>
+
       {/* Left side text */}
       <div className="w-1/2 flex flex-col justify-center p-12">
-        <h2 className="text-3xl font-bold font-mono text-cyan-300 mb-4">
+        <h2 className="text-6xl font-bold font-mono text-cyan-300 mb-4">
           {title}
         </h2>
-        <p className="text-lg font-mono text-gray-200 leading-relaxed">
+        <p className="text-2xl font-mono text-gray-200 leading-relaxed">
           {content}
         </p>
       </div>
@@ -92,10 +122,10 @@ export function MainSlide3({ title, content }) {
 
       {/* Content area */}
       <div className="relative flex flex-col items-center justify-center h-full p-20 text-center">
-        <h2 className="text-5xl font-bold font-mono text-cyan-300 mb-6 drop-shadow-lg">
+        <h2 className="text-6xl font-bold font-mono text-cyan-300 mb-6 drop-shadow-lg">
           {title}
         </h2>
-        <p className="text-xl font-mono text-gray-200 leading-relaxed max-w-4xl">
+        <p className="text-2xl font-mono text-gray-200 leading-relaxed max-w-4xl">
           {content}
         </p>
       </div>
@@ -107,9 +137,19 @@ export function MainSlide3({ title, content }) {
 export function ImageSlide({ title, imageUrl }) {
   return (
     <section className="relative w-[1280px] h-[720px] bg-gradient-to-r from-[#0a192f] to-[#112d4e] flex items-center justify-center">
+
+      {/* Background shapes (STEM vibe) */}
+      <div className="absolute inset-0 opacity-10">
+        {/* Grid lines */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(56,189,248,0.2)_1px,transparent_1px),linear-gradient(to_bottom,rgba(56,189,248,0.2)_1px,transparent_1px)] bg-[size:60px_60px]"></div>
+        {/* Hexagon shape */}
+        <div className="absolute top-16 left-20 w-40 h-40 border-2 border-cyan-400/40 rotate-45"></div>
+        <div className="absolute bottom-24 right-24 w-32 h-32 border-2 border-cyan-400/30 rotate-12"></div>
+      </div>
+
       <div className="relative bg-white/5 backdrop-blur-md border border-cyan-400/40 rounded-xl shadow-2xl overflow-hidden w-[900px]">
         {/* Title bar */}
-        <div className="bg-cyan-500/20 text-cyan-300 font-mono text-xl font-semibold px-6 py-3 border-b border-cyan-400/40">
+        <div className="bg-cyan-500/20 text-cyan-300 font-mono text-3xl font-semibold px-6 py-3 border-b border-cyan-400/40">
           {title}
         </div>
 
@@ -137,7 +177,17 @@ export function ImageSlide({ title, imageUrl }) {
 export function EndSlide({ title }) {
   return (
     <section className="relative w-[1280px] h-[720px] bg-[#112d4e] flex items-center justify-center">
-      <h2 className="text-5xl font-extrabold font-mono text-cyan-300 tracking-wide drop-shadow-lg">
+
+      {/* Background shapes (STEM vibe) */}
+      <div className="absolute inset-0 opacity-10">
+        {/* Grid lines */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(56,189,248,0.2)_1px,transparent_1px),linear-gradient(to_bottom,rgba(56,189,248,0.2)_1px,transparent_1px)] bg-[size:60px_60px]"></div>
+        {/* Hexagon shape */}
+        <div className="absolute top-16 left-20 w-40 h-40 border-2 border-cyan-400/40 rotate-45"></div>
+        <div className="absolute bottom-24 right-24 w-32 h-32 border-2 border-cyan-400/30 rotate-12"></div>
+      </div>
+
+      <h2 className="text-6xl font-extrabold font-mono text-cyan-300 tracking-wide drop-shadow-lg">
         Thank You
       </h2>
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,#00f6ff15,transparent)]"></div>

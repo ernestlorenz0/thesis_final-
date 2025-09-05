@@ -21,16 +21,14 @@ export function MainSlide1({ title, content }) {
     <section className="relative w-[1280px] h-[720px] bg-green-50 flex">
       {/* Vertical title bar */}
       <div className="w-1/4 bg-green-700 flex items-center justify-center">
-        <h2 className="text-3xl font-serif text-white -rotate-90 whitespace-nowrap tracking-widest">
-          {title}
-        </h2>
       </div>
 
       {/* Content side */}
-      <div className="flex-1 flex items-center justify-center px-16">
-        <p className="text-lg text-green-900 leading-relaxed max-w-3xl">
-          {content}
-        </p>
+      <div className="flex-1 p-16 flex flex-col justify-center">
+        <h2 className="text-5xl text-black font-bold font-bold border-b-2 border-green-500 pb-4 mb-6 translate-y-[-200px]">
+          {title}
+        </h2>
+        <p className="text-3xl text-black font-light leading-relaxed translate-y-[-150px]">{content}</p>
       </div>
     </section>
   );
@@ -41,10 +39,10 @@ export function MainSlide1({ title, content }) {
 export function MainSlide2({ title, content }) {
   return (
     <section className="relative w-[1280px] h-[720px] bg-gradient-to-tr from-green-200 to-green-100 flex flex-col p-12">
-      <h2 className="text-3xl font-bold text-green-900 mb-8">{title}</h2>
+      <h2 className="text-6xl font-bold text-green-900 mb-8">{title}</h2>
 
       {/* Two-column flowing layout */}
-      <div className="flex-1 grid grid-cols-2 gap-12 text-green-800 leading-relaxed text-lg">
+      <div className="flex-1 grid grid-cols-2 gap-12 text-green-800 leading-relaxed text-2xl">
         <p>{content}</p>
         <p>{content}</p>
       </div>
@@ -62,10 +60,10 @@ export function MainSlide3({ title, content }) {
 
       {/* Text block on ribbon */}
       <div className="relative z-10 text-center px-16">
-        <h2 className="text-4xl font-serif font-bold text-green-50 mb-4">
+        <h2 className="text-6xl font-serif font-bold text-green-50 mb-4">
           {title}
         </h2>
-        <p className="text-lg text-green-100 leading-relaxed max-w-3xl mx-auto">
+        <p className="text-3xl text-green-100 leading-relaxed max-w-3xl mx-auto">
           {content}
         </p>
       </div>
@@ -95,7 +93,7 @@ export function ImageSlide({ title, imageUrl }) {
 
       {/* Caption side */}
       <div className="flex-1 bg-green-700 flex flex-col justify-center p-12 text-white">
-        <h3 className="text-2xl font-serif font-bold mb-4">{title}</h3>
+        <h3 className="text-3xl font-serif font-bold mb-4">{title}</h3>
         <p className="text-lg leading-relaxed opacity-90">
           Supporting text or description goes here.
         </p>

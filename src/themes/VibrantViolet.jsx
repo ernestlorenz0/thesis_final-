@@ -30,8 +30,8 @@ export function MainSlide1({ title, content }) {
 
       {/* Tilted card */}
       <div className="relative bg-white p-12 rounded-3xl shadow-2xl border-4 border-purple-500 rotate-[-3deg] max-w-4xl text-center">
-        <h2 className="text-4xl font-bold text-purple-700 mb-6">{title}</h2>
-        <p className="text-lg text-gray-800 leading-relaxed">{content}</p>
+        <h2 className="text-6xl font-bold text-purple-700 mb-6">{title}</h2>
+        <p className="text-3xl text-gray-800 leading-relaxed">{content}</p>
       </div>
     </section>
   );
@@ -48,8 +48,8 @@ export function MainSlide2({ title, content }) {
 
       {/* Content side */}
       <div className="relative z-10 px-20 max-w-3xl">
-        <h2 className="text-4xl font-bold text-purple-800 mb-6">{title}</h2>
-        <p className="text-lg text-purple-900 leading-relaxed">{content}</p>
+        <h2 className="text-6xl font-bold text-purple-800 mb-6">{title}</h2>
+        <p className="text-3xl text-purple-900 leading-relaxed">{content}</p>
       </div>
     </section>
   );
@@ -68,8 +68,8 @@ export function MainSlide3({ title, content }) {
 
       {/* Text block */}
       <div className="relative z-10 flex flex-col items-center justify-center w-full text-center px-16">
-        <h2 className="text-4xl font-extrabold text-white mb-6">{title}</h2>
-        <p className="text-lg text-purple-100 leading-relaxed max-w-3xl">
+        <h2 className="text-6xl font-extrabold text-white mb-6">{title}</h2>
+        <p className="text-3xl text-purple-100 leading-relaxed max-w-3xl">
           {content}
         </p>
       </div>

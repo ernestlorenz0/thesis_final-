@@ -24,8 +24,8 @@ export function MainSlide1({ title, content }) {
     <section className="relative w-[1280px] h-[720px] bg-gradient-to-r from-blue-200 to-purple-200 flex overflow-hidden">
       {/* Left angled panel */}
       <div className="w-2/5 bg-white/90 backdrop-blur-md p-10 rotate-[-2deg] shadow-xl m-8 rounded-lg relative z-10">
-        <h2 className="text-3xl font-bold font-serif text-purple-800 mb-4">{title}</h2>
-        <p className="text-lg font-sans text-gray-800 leading-relaxed">{content}</p>
+        <h2 className="text-5xl font-bold font-serif text-purple-800 mb-4">{title}</h2>
+        <p className="text-2xl font-sans text-gray-800 leading-relaxed">{content}</p>
       </div>
 
       {/* Right abstract paint area */}
@@ -45,8 +45,8 @@ export function MainSlide2({ title, content }) {
 
       {/* Floating framed card */}
       <div className="relative z-10 bg-white/90 p-12 rounded-3xl border-[6px] border-cyan-400 shadow-2xl rotate-1 max-w-3xl">
-        <h2 className="text-3xl font-extrabold text-cyan-700 mb-6">{title}</h2>
-        <p className="text-lg text-gray-800 leading-relaxed">{content}</p>
+        <h2 className="text-6xl font-extrabold text-cyan-700 mb-6">{title}</h2>
+        <p className="text-3xl text-gray-800 leading-relaxed">{content}</p>
       </div>
     </section>
   );
@@ -62,8 +62,8 @@ export function MainSlide3({ title, content }) {
 
       {/* Content card */}
       <div className="relative z-10 m-auto bg-white/90 p-12 rounded-2xl border-4 border-purple-400 shadow-lg max-w-3xl text-center">
-        <h2 className="text-3xl font-bold text-purple-800 mb-4">{title}</h2>
-        <p className="text-lg text-gray-800 leading-relaxed">{content}</p>
+        <h2 className="text-6xl font-bold text-purple-800 mb-4">{title}</h2>
+        <p className="text-3xl text-gray-800 leading-relaxed">{content}</p>
       </div>
     </section>
   );

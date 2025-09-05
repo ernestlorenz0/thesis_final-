@@ -30,8 +30,8 @@ export function MainSlide1({ title, content }) {
 
       {/* Content */}
       <div className="relative z-10 flex flex-col justify-center px-20 max-w-xl">
-        <h2 className="text-4xl font-bold text-orange-800 mb-6">{title}</h2>
-        <p className="text-lg text-gray-800 leading-relaxed">{content}</p>
+        <h2 className="text-6xl font-bold text-orange-800 mb-6">{title}</h2>
+        <p className="text-3xl text-gray-800 leading-relaxed">{content}</p>
       </div>
     </section>
   );
@@ -49,8 +49,8 @@ export function MainSlide2({ title, content }) {
 
       {/* Content */}
       <div className="relative z-10 text-center px-16 max-w-3xl">
-        <h2 className="text-5xl font-extrabold text-orange-700 mb-6">{title}</h2>
-        <p className="text-lg text-orange-900 leading-relaxed">{content}</p>
+        <h2 className="text-6xl font-extrabold text-orange-700 mb-6">{title}</h2>
+        <p className="text-3xl text-orange-900 leading-relaxed">{content}</p>
       </div>
     </section>
   );
@@ -67,8 +67,8 @@ export function MainSlide3({ title, content }) {
 
       {/* Text block */}
       <div className="relative z-10 text-center px-16 max-w-3xl">
-        <h2 className="text-4xl font-bold text-white mb-6">{title}</h2>
-        <p className="text-lg text-orange-50 leading-relaxed">{content}</p>
+        <h2 className="text-6xl font-bold text-white mb-6">{title}</h2>
+        <p className="text-3xl text-orange-50 leading-relaxed">{content}</p>
       </div>
     </section>
   );

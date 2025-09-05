@@ -18,7 +18,7 @@ export function TitleSlide({ title, subtitle, imageUrl }) {
         </div>
 
         <div className="w-[50%] flex flex-col justify-center pl-12">
-          <h1 className="font-merriweather font-bold text-3xl text-black mb-4 leading-tight text-black">
+          <h1 className="font-merriweather font-bold text-6xl text-black mb-4 leading-tight text-black">
             {title}
           </h1>
           <p className="font-lato font-light text-2xl text-gray-600">
@@ -55,8 +55,8 @@ export function ImageSlide({ title, imageUrl }) {
 export function ContentSlide({ title, content }) {
   return (
     <section className="w-[1280px] h-[720px] bg-white flex flex-col p-24">
-      <h2 className="font-merriweather font-bold text-4xl mb-8 text-black">{title}</h2>
-      <p className="font-lato font-light text-2xl leading-relaxed text-black">{content}</p>
+      <h2 className="font-merriweather font-bold text-6xl mb-8 text-black">{title}</h2>
+      <p className="font-lato font-light text-3xl leading-relaxed text-black">{content}</p>
     </section>
   );
 }
@@ -64,8 +64,8 @@ export function ContentSlide({ title, content }) {
 export function ContentSlideText({ title, content }) {
   return (
     <section className="w-[1280px] h-[720px] bg-white flex flex-col p-24">
-      <h2 className="font-merriweather font-bold text-4xl mb-8 text-black">{title}</h2>
-      <p className="font-lato font-light text-2xl leading-relaxed text-black">{content}</p>
+      <h2 className="font-merriweather font-bold text-6xl mb-8 text-black">{title}</h2>
+      <p className="font-lato font-light text-3xl leading-relaxed text-black">{content}</p>
     </section>
   );
 }
@@ -73,17 +73,35 @@ export function ContentSlideText({ title, content }) {
 
 export function ContentSlideTextLeftImageRight({ title, content, imageUrl }) {
   return (
-    <section className="w-[1280px] h-[720px] bg-white flex p-24 gap-12">
-      <div className="w-1/2 flex flex-col">
-        <h2 className="font-merriweather font-bold text-4xl mb-8 text-black">{title}</h2>
-        <p className="font-lato font-light text-2xl leading-relaxed text-black">{content}</p>
+    <section className="w-[1280px] h-[720px] bg-white flex p-16 gap-12">
+      {/* Text Section */}
+      <div className="flex-1 flex flex-col justify-center max-w-[60%]">
+        <h2 className="font-merriweather font-bold text-5xl mt-[-300px] text-black leading-snug">
+          {title}
+        </h2>
+        <p className="font-lato font-light text-3xl leading-relaxed text-black break-words">
+          {content}
+        </p>
       </div>
-      <div className="w-1/2 flex items-center justify-center bg-gray-300">
-        {imageUrl && <img src={imageUrl} alt="content" className="w-full h-full object-cover" />}
+
+      {/* Image Section */}
+      <div className="flex-1 flex items-center justify-center">
+        {imageUrl ? (
+          <img
+            src={imageUrl}
+            alt="content"
+            className="w-full h-full object-cover rounded-xl shadow-lg"
+          />
+        ) : (
+          <div className="w-full h-full bg-gray-300 rounded-xl flex items-center justify-center text-black">
+            No Image
+          </div>
+        )}
       </div>
     </section>
   );
 }
+
 
 export function ContentSlideTextRightImageLeft({ title, content, imageUrl }) {
   return (
@@ -102,7 +120,7 @@ export function ContentSlideTextRightImageLeft({ title, content, imageUrl }) {
 export function ContentSlideImagesRow({ title, content, images }) {
   return (
     <section className="w-[1280px] h-[720px] bg-white flex flex-col p-24">
-      <h2 className="font-merriweather font-bold text-4xl mb-8 text-black">{title}</h2>
+      <h2 className="font-merriweather font-bold text-6xl mb-8 text-black">{title}</h2>
       <p className="font-lato font-light text-2xl mb-12 text-black">{content}</p>
       <div className="flex justify-between">
         {images.map((img, index) => (
@@ -118,7 +136,7 @@ export function ContentSlideImagesRow({ title, content, images }) {
 export function ContentSlideImageFull({ title, content, imageUrl }) {
   return (
     <section className="w-[1280px] h-[720px] bg-white flex flex-col p-24">
-      <h2 className="font-merriweather font-bold text-4xl mb-8 text-black">{title}</h2>
+      <h2 className="font-merriweather font-bold text-5xl mb-8 text-black">{title}</h2>
       <p className="font-lato font-light text-2xl mb-12 text-black">{content}</p>
       <div className="w-full h-[500px] bg-gray-300 flex items-center justify-center">
         {imageUrl && <img src={imageUrl} alt="content" className="w-full h-full object-cover" />}

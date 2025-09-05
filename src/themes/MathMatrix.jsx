@@ -35,10 +35,10 @@ export function MainSlide1({ title, content }) {
 
       {/* Content */}
       <div className="flex-1 p-16 flex flex-col justify-center">
-        <h2 className="text-4xl font-mono font-bold border-b-2 border-green-500 pb-4 mb-6">
+        <h2 className="text-5xl font-mono font-bold border-b-2 border-green-500 pb-4 mb-6 translate-y-[-200px]">
           {title}
         </h2>
-        <p className="text-2xl font-mono leading-relaxed">{content}</p>
+        <p className="text-3xl font-mono leading-relaxed translate-y-[-150px]">{content}</p>
       </div>
     </section>
   );
@@ -56,8 +56,8 @@ export function MainSlide2({ title, content }) {
       <p className="absolute bottom-24 left-16 text-green-500 opacity-40 text-2xl font-mono">E = mc²</p>
 
       <div className="relative z-10 max-w-4xl">
-        <h2 className="text-4xl font-mono font-bold mb-6">{title}</h2>
-        <p className="text-2xl font-mono leading-relaxed">{content}</p>
+        <h2 className="text-6xl font-mono font-bold mb-6">{title}</h2>
+        <p className="text-3xl font-mono leading-relaxed">{content}</p>
       </div>
     </section>
   );
@@ -76,8 +76,8 @@ export function MainSlide3({ title, content }) {
 
       {/* Text */}
       <div className="relative z-10 px-24">
-        <h2 className="text-5xl font-mono font-bold mb-8">{title}</h2>
-        <p className="text-2xl font-mono leading-relaxed">{content}</p>
+        <h2 className="text-6xl font-mono font-bold mb-8">{title}</h2>
+        <p className="text-3xl font-mono leading-relaxed">{content}</p>
       </div>
     </section>
   );

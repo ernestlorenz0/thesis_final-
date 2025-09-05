@@ -22,9 +22,9 @@ export function TitleSlide({ title, subtitle }) {
 export function MainSlide1({ title, content }) {
   return (
     <section className="w-[1280px] h-[720px] bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 text-white flex flex-col px-24 py-16">
-      <h2 className="text-4xl font-bold mb-3">{title}</h2>
+      <h2 className="text-6xl font-bold mb-3">{title}</h2>
       <div className="h-[4px] w-56 bg-gradient-to-r from-yellow-300 via-green-300 to-cyan-400 mb-10"></div>
-      <p className="text-2xl leading-relaxed max-w-5xl text-gray-100">{content}</p>
+      <p className="text-3xl leading-relaxed max-w-5xl text-gray-100">{content}</p>
     </section>
   );
 }
@@ -34,8 +34,8 @@ export function MainSlide2({ title, content }) {
   return (
     <section className="w-[1280px] h-[720px] bg-gradient-to-r from-indigo-900 via-purple-800 to-pink-700 text-white flex px-20 py-16">
       <div className="flex-1 pr-12 flex flex-col justify-center">
-        <h2 className="text-3xl font-bold mb-6">{title}</h2>
-        <p className="text-xl leading-relaxed text-gray-100">{content}</p>
+        <h2 className="text-6xl font-bold mb-20 mt-[-200px]">{title}</h2>
+        <p className="text-3xl leading-relaxed text-gray-100">{content}</p>
       </div>
       <div className="flex-1 flex items-center justify-center text-8xl opacity-40">
         🧬
@@ -53,8 +53,8 @@ export function MainSlide3({ title, content }) {
       <div className="absolute bottom-20 right-28 text-7xl opacity-25">🔬</div>
       <div className="absolute top-1/2 left-1/3 text-5xl opacity-20">🧪</div>
 
-      <h2 className="text-4xl font-bold mb-6 z-10">{title}</h2>
-      <p className="text-xl leading-relaxed max-w-4xl text-center z-10">{content}</p>
+      <h2 className="text-6xl font-bold mb-20 mt-[-200px] z-10">{title}</h2>
+      <p className="text-3xl leading-relaxed max-w-4xl text-center z-10">{content}</p>
     </section>
   );
 }

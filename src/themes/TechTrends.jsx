@@ -27,8 +27,8 @@ export function MainSlide1({ title, content, imageUrl }) {
     <section className="relative w-[1280px] h-[720px] flex bg-gray-900 text-white">
       {/* Left text */}
       <div className="w-1/2 p-16 flex flex-col justify-center">
-        <h2 className="text-4xl font-bold text-blue-400 mb-6">{title}</h2>
-        <p className="text-xl leading-relaxed text-gray-300">{content}</p>
+        <h2 className="text-6xl font-bold text-blue-400 mb-6">{title}</h2>
+        <p className="text-3xl leading-relaxed text-gray-300">{content}</p>
       </div>
 
       {/* Right image */}
@@ -70,8 +70,8 @@ export function MainSlide2({ title, content, imageUrl }) {
 
       {/* Right text */}
       <div className="w-1/2 p-16 flex flex-col justify-center">
-        <h2 className="text-4xl font-bold text-purple-400 mb-6">{title}</h2>
-        <p className="text-xl leading-relaxed text-gray-300">{content}</p>
+        <h2 className="text-6xl font-bold text-purple-400 mb-6">{title}</h2>
+        <p className="text-3xl leading-relaxed text-gray-300">{content}</p>
       </div>
     </section>
   );
@@ -87,8 +87,8 @@ export function MainSlide3({ title, content }) {
 
       {/* Content */}
       <div className="relative z-10 px-24 max-w-3xl">
-        <h2 className="text-5xl font-extrabold text-blue-300 mb-6">{title}</h2>
-        <p className="text-2xl leading-relaxed text-gray-200">{content}</p>
+        <h2 className="text-5xl font-extrabold text-blue-300 mb-6 translate-y-[-200px]">{title}</h2>
+        <p className="text-3xl leading-relaxed text-gray-200 translate-x-[450px] translate-y-[-150px]">{content}</p>
       </div>
     </section>
   );
