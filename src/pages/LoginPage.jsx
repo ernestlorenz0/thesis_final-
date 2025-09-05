@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../firebaseAuth';
+import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
 
 
 const LoginPage = () => {
@@ -13,35 +14,47 @@ const LoginPage = () => {
   const [forgotEmail, setForgotEmail] = useState('');
   const [forgotSuccess, setForgotSuccess] = useState('');
   const [forgotError, setForgotError] = useState('');
+  const [remember, setRemember] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setLoading(true);
     try {
-      const userData = await login(email, password);
+      const userData = await login(email, password, { remember });
       localStorage.setItem('user', JSON.stringify(userData)); // Persist user data
       navigate('/home');
     } catch (err) {
-      setError(err.message);
+      const msg = err?.message === 'Firebase: Error (auth/invalid-credential).' ? 'Invalid email or password. Please try again.' : err.message;
+      setError(msg);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleForgotSubmit = (e) => {
+  const handleForgotSubmit = async (e) => {
     e.preventDefault();
     setForgotError('');
     setForgotSuccess('');
-    // Simulate async forgot password (replace with actual API call)
     if (!forgotEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(forgotEmail)) {
       setForgotError('Please enter a valid email.');
       return;
     }
-    setTimeout(() => {
+    try {
+      await sendPasswordResetEmail(getAuth(), forgotEmail);
       setForgotSuccess('If an account exists, a reset link has been sent.');
       setForgotEmail('');
-    }, 1200);
+    } catch (err) {
+      const code = err?.code || '';
+      if (code === 'auth/user-not-found') {
+        // Do not reveal if the email exists
+        setForgotSuccess('If an account exists, a reset link has been sent.');
+      } else if (code === 'auth/invalid-email') {
+        setForgotError('Please enter a valid email address.');
+      } else {
+        setForgotError('Unable to send reset email right now. Please try again later.');
+      }
+    }
   };
 
   return (
@@ -67,7 +80,7 @@ const LoginPage = () => {
           </label>
           <div className="w-full flex justify-between items-center text-sm mb-2">
             <label className="flex items-center text-indigo-600 cursor-pointer">
-              <input type="checkbox" className="mr-2 accent-blue-600" /> Remember me
+              <input type="checkbox" className="mr-2 accent-blue-600" checked={remember} onChange={e => setRemember(e.target.checked)} /> Remember me
             </label>
             <button type="button" className="text-blue-600 hover:underline font-semibold transition-all" onClick={() => setShowForgot(true)}>Forgot Password?</button>
           </div>

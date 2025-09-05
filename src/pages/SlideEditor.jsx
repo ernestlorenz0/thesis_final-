@@ -385,24 +385,9 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack })
     },
   };
 
-  // Export to pptx
-  const exportPptx = () => {
-    const pptx = new pptxgen();
-    const themeStyle = pptxThemeStyles[selectedTemplate] || pptxThemeStyles['Classic Classroom'];
-    slides.forEach((slide, idx) => {
-      const s = pptx.addSlide({ background: { fill: themeStyle.bgColor } });
-      slide.components.forEach(comp => {
-        if (comp.type === 'title') s.addText(comp.content, { x:1, y:0.5, w:8, h:1, ...themeStyle.title });
-        if (comp.type === 'paragraph') s.addText(comp.content, { x:1, y:1.7, w:8, h:2, ...themeStyle.paragraph });
-        if (comp.type === 'image' && comp.content) s.addImage({ data: comp.content, x:5, y:2.5, w:3, h:3 });
-        if (comp.type === 'author' && idx === 0) s.addText(comp.content, { x:7.5, y:6.5, w:2, h:0.5, align:'right', ...themeStyle.author });
-      });
-      // Only add author if not already present and this is the title slide
-      if (idx === 0 && !slide.components.some(c => c.type === 'author')) {
-        s.addText('Ernest Lorenzo', { x:7.5, y:6.5, w:2, h:0.5, align:'right', ...themeStyle.author });
-      }
-    });
-    pptx.writeFile('presentation.pptx');
+  // Export to PDF (replaces previous pptx export)
+  const exportPptx = async () => {
+    await downloadAsPDF();
   };
 
   // Render thumbnail for sidebar

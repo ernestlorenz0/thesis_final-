@@ -1,6 +1,6 @@
 // src/firebaseAuth.js
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, sendEmailVerification, deleteUser } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, sendEmailVerification, deleteUser, sendPasswordResetEmail, setPersistence, browserLocalPersistence, browserSessionPersistence } from "firebase/auth";
 import { getDatabase, ref, set, get, remove, push, update } from "firebase/database";
 
 const firebaseConfig = {
@@ -37,8 +37,9 @@ export async function signUp(email, password, username) {
   }
 }
 
-export async function login(email, password) {
+export async function login(email, password, { remember } = { remember: false }) {
   try {
+    await setPersistence(auth, remember ? browserLocalPersistence : browserSessionPersistence);
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
     if (!user.emailVerified) {
@@ -57,6 +58,8 @@ export async function login(email, password) {
       throw new Error("Incorrect password");
     } else if (error.code === "auth/user-not-found") {
       throw new Error("No user found with this email");
+    } else if (error.code === "auth/invalid-credential") {
+      throw new Error("Invalid email or password. Please try again.");
     } else {
       throw new Error(error.message);
     }
