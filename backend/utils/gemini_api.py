@@ -14,7 +14,7 @@ def generate_image_from_prompt(prompt):
     return image_b64
 
 GEMINI_API_KEY = 'AIzaSyCtDRuoS7R0G40ZHBOsSCP1C6kSIxbtBQY'
-GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=" + GEMINI_API_KEY
+GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=" + GEMINI_API_KEY #tangina if the gemini is not working just change this shit
 
 PROMPT_TEMPLATE = (
     """

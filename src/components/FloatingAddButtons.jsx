@@ -1,13 +1,65 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function FloatingAddButtons({ addComponent, fileInputRef, slides, current, handleImageUpload }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   return (
     <div className="absolute bottom-8 right-8 flex flex-col gap-2 z-10">
-      <button className="bg-gray-700 hover:bg-gray-800 text-white rounded-full shadow-lg w-12 h-12 flex items-center justify-center" onClick={() => fileInputRef.current && fileInputRef.current.click()}>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-7 h-7">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5V19a2 2 0 002 2h14a2 2 0 002-2v-2.5M16 3.13a4 4 0 01.88 7.9M12 7v6m0 0l-3-3m3 3l3-3" />
+      {/* Expanded buttons */}
+      {isExpanded && (
+        <>
+          <button 
+            className="bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg w-12 h-12 flex items-center justify-center transition-all transform hover:scale-105" 
+            onClick={() => {
+              addComponent('title');
+              setIsExpanded(false);
+            }}
+            title="Add Title"
+          >
+            <span className="text-xl font-bold">T</span>
+          </button>
+          <button 
+            className="bg-green-600 hover:bg-green-700 text-white rounded-full shadow-lg w-12 h-12 flex items-center justify-center transition-all transform hover:scale-105" 
+            onClick={() => {
+              addComponent('paragraph');
+              setIsExpanded(false);
+            }}
+            title="Add Paragraph"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h7" />
+            </svg>
+          </button>
+          <button 
+            className="bg-purple-600 hover:bg-purple-700 text-white rounded-full shadow-lg w-12 h-12 flex items-center justify-center transition-all transform hover:scale-105" 
+            onClick={() => {
+              fileInputRef.current && fileInputRef.current.click();
+              setIsExpanded(false);
+            }}
+            title="Add Image"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+          </button>
+        </>
+      )}
+      
+      {/* Main toggle button */}
+      <button 
+        className={`text-white rounded-full shadow-lg w-12 h-12 flex items-center justify-center transition-all transform ${
+          isExpanded 
+            ? 'bg-red-600 hover:bg-red-700 rotate-45' 
+            : 'bg-gray-700 hover:bg-gray-800 hover:scale-105'
+        }`}
+        onClick={() => setIsExpanded(!isExpanded)}
+        title={isExpanded ? 'Close menu' : 'Add content'}
+      >
+        <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
         </svg>
       </button>
+      
       <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={e => {
         const file = e.target.files[0];
         if (file) {

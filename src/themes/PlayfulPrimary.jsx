@@ -23,14 +23,14 @@ export function TitleSlide({ title, subtitle }) {
 /* Main Slide 1 - Title + underline + content */
 export function MainSlide1({ title, content }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-playful-100 flex flex-col items-center justify-center text-playful-900 animate-fade-in px-24 overflow-hidden">
+    <section className="relative w-[1280px] h-[720px] bg-playful-100 flex flex-col items-center justify-center text-playful-900 animate-fade-in px-12 overflow-hidden">
       {/* Shapes */}
-      <div className="absolute w-40 h-40 bg-pink-300 rounded-full opacity-20 top-10 left-10"></div>
-      <div className="absolute w-60 h-60 bg-blue-300 rotate-45 opacity-20 bottom-12 right-20"></div>
+      <div className="absolute w-32 h-32 bg-pink-300 rounded-full opacity-20 top-8 left-8"></div>
+      <div className="absolute w-48 h-48 bg-blue-300 rotate-45 opacity-20 bottom-8 right-12"></div>
 
-      <h2 className="text-6xl font-bold font-sans mb-6 z-10">{title}</h2>
-      <div className="h-2 w-56 bg-playful-900 rounded-full mb-10 z-10"></div>
-      <p className="text-3xl font-sans leading-relaxed text-center max-w-6xl z-10">
+      <h2 className="text-4xl font-bold font-sans mb-4 z-10">{title}</h2>
+      <div className="h-2 w-40 bg-playful-900 rounded-full mb-6 z-10"></div>
+      <p className="text-xl font-sans leading-relaxed text-center max-w-5xl z-10">
         {content}
       </p>
     </section>

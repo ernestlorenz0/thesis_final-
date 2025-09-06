@@ -85,6 +85,7 @@ export default function HomePage() {
 
   const handleSelectTemplate = async (templateIdx) => {
     const selectedThemeName = themeNames[templateIdx];
+    console.log('Template selected:', selectedThemeName, 'at index:', templateIdx);
     setSelectedTemplate(selectedThemeName);
     setShowTemplates(false);
 
@@ -97,45 +98,95 @@ export default function HomePage() {
       }
 
       const allExports = Object.keys(themeModule).filter(k => typeof themeModule[k] === 'function');
-      const hasTitle = allExports.includes('TitleSlide');
-      const hasEnd = allExports.includes('EndSlide');
-
-      const layoutNames = allExports.filter(name => !['TitleSlide', 'EndSlide'].includes(name));
-
       const previewSlides = [];
 
-      if (hasTitle) {
-        previewSlides.push({
-          id: 'preview-title-' + Date.now(),
-          components: [
-            { id: 'title', type: 'title', content: selectedThemeName + ' — Title' },
-            { id: 'subtitle', type: 'paragraph', content: 'Subtitle placeholder' },
-            { id: 'image', type: 'image', content: '' }
-          ]
-        });
+      // Use the same mapping logic as the main generation
+      const mapThemeSlidesToSequence = (themeModule) => {
+        const availableSlides = Object.keys(themeModule).filter(k => typeof themeModule[k] === 'function');
+        const mapping = {};
+        
+        // Map TitleSlide
+        if (availableSlides.includes('TitleSlide')) {
+          mapping['TitleSlide'] = 'TitleSlide';
+        }
+        
+        // Map ImageSlide (or similar)
+        const imageSlideNames = ['ImageSlide', 'MainSlide4', 'SectionSlide'];
+        for (const name of imageSlideNames) {
+          if (availableSlides.includes(name)) {
+            mapping['ImageSlide'] = name;
+            break;
+          }
+        }
+        
+        // Map MainSlide1 (or MainSlide)
+        if (availableSlides.includes('MainSlide1')) {
+          mapping['MainSlide1'] = 'MainSlide1';
+        } else if (availableSlides.includes('MainSlide')) {
+          mapping['MainSlide1'] = 'MainSlide';
+        }
+        
+        // Map MainSlide2
+        if (availableSlides.includes('MainSlide2')) {
+          mapping['MainSlide2'] = 'MainSlide2';
+        }
+        
+        // Map MainSlide3
+        if (availableSlides.includes('MainSlide3')) {
+          mapping['MainSlide3'] = 'MainSlide3';
+        }
+        
+        // Map EndSlide
+        if (availableSlides.includes('EndSlide')) {
+          mapping['EndSlide'] = 'EndSlide';
+        }
+        
+        return mapping;
+      };
+
+      const slideMapping = mapThemeSlidesToSequence(themeModule);
+      if (!slideMapping || Object.keys(slideMapping).length === 0) {
+        console.error('No valid slide mappings found for preview');
+        setError('No valid slide layouts found for the selected template');
+        return;
       }
 
-      layoutNames.forEach((layout, idx) => {
-        previewSlides.push({
-          id: `preview-${layout}-${idx}-${Date.now()}`,
-          layout,
-          components: [
-            { id: `title-${idx}`, type: 'title', content: layout },
-            { id: `para-${idx}`, type: 'paragraph', content: 'This is a placeholder paragraph to check alignment.' },
-            { id: `img-${idx}`, type: 'image', content: '' }
-          ]
-        });
+      // Define the proper slide sequence for preview
+      const previewSequence = ['TitleSlide', 'ImageSlide', 'MainSlide1', 'MainSlide2', 'MainSlide3', 'EndSlide'];
+
+      previewSequence.forEach((layoutName, idx) => {
+        if (slideMapping && slideMapping[layoutName]) {
+          const slide = {
+            id: `preview-${layoutName}-${idx}-${Date.now()}`,
+            layout: slideMapping[layoutName],
+            components: []
+          };
+
+          if (layoutName === 'TitleSlide') {
+            slide.components = [
+              { id: 'title', type: 'title', content: selectedThemeName + ' — Title' },
+              { id: 'subtitle', type: 'paragraph', content: 'Subtitle placeholder' }
+            ];
+          } else if (layoutName === 'ImageSlide') {
+            slide.components = [
+              { id: 'img-title', type: 'title', content: 'Image Slide' },
+              { id: 'img-placeholder', type: 'image', content: '' }
+            ];
+          } else if (layoutName.startsWith('MainSlide')) {
+            slide.components = [
+              { id: `title-${idx}`, type: 'title', content: layoutName },
+              { id: `para-${idx}`, type: 'paragraph', content: 'This is a placeholder paragraph to check alignment and layout.' }
+            ];
+          } else if (layoutName === 'EndSlide') {
+            slide.components = [
+              { id: 'end', type: 'title', content: 'Thank You!' },
+              { id: 'closing', type: 'paragraph', content: 'Closing remarks here.' }
+            ];
+          }
+
+          previewSlides.push(slide);
+        }
       });
-
-      if (hasEnd) {
-        previewSlides.push({
-          id: 'preview-end-' + Date.now(),
-          components: [
-            { id: 'end', type: 'end', content: 'Thank You!' },
-            { id: 'closing', type: 'paragraph', content: 'Closing remarks here.' }
-          ]
-        });
-      }
 
       setResults(previewSlides);
       setShowEditor(true);
@@ -146,13 +197,21 @@ export default function HomePage() {
     setLoading(true);
     setError('');
     try {
+      console.log('Starting API call to process files:', uploadedFiles.map(f => f.name));
       const formData = new FormData();
       uploadedFiles.forEach(f => formData.append('file', f));
+      
       const res = await fetch('http://localhost:5000/upload', {
         method: 'POST',
         body: formData,
       });
+      
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      
       const data = await res.json();
+      
       if (!data.success) throw new Error(data.error || 'Unknown error');
       const errorFiles = data.results.filter(file => file.error);
       if (errorFiles.length > 0) {
@@ -162,42 +221,236 @@ export default function HomePage() {
       }
       const slides = [];
       const globalSeenTerms = new Set();
-      for (const file of data.results) {
+      let slideIndex = 0;
+      
+      // Define the slide layout sequence - we'll map theme-specific names to our standard sequence
+      const standardSequence = ['TitleSlide', 'ImageSlide', 'MainSlide1', 'MainSlide2', 'MainSlide3', 'EndSlide'];
+      
+      // Map theme-specific slide names to our standard sequence
+      const mapThemeSlidesToSequence = (themeModule) => {
+        const availableSlides = Object.keys(themeModule).filter(k => typeof themeModule[k] === 'function');
+        const mapping = {};
+        
+        // Map TitleSlide
+        if (availableSlides.includes('TitleSlide')) {
+          mapping['TitleSlide'] = 'TitleSlide';
+        }
+        
+        // Map ImageSlide (or similar)
+        const imageSlideNames = ['ImageSlide', 'MainSlide4', 'SectionSlide'];
+        for (const name of imageSlideNames) {
+          if (availableSlides.includes(name)) {
+            mapping['ImageSlide'] = name;
+            break;
+          }
+        }
+        
+        // Map MainSlide1 (or MainSlide)
+        if (availableSlides.includes('MainSlide1')) {
+          mapping['MainSlide1'] = 'MainSlide1';
+        } else if (availableSlides.includes('MainSlide')) {
+          mapping['MainSlide1'] = 'MainSlide';
+        }
+        
+        // Map MainSlide2
+        if (availableSlides.includes('MainSlide2')) {
+          mapping['MainSlide2'] = 'MainSlide2';
+        }
+        
+        // Map MainSlide3
+        if (availableSlides.includes('MainSlide3')) {
+          mapping['MainSlide3'] = 'MainSlide3';
+        }
+        
+        // Map EndSlide
+        if (availableSlides.includes('EndSlide')) {
+          mapping['EndSlide'] = 'EndSlide';
+        }
+        
+        return mapping;
+      };
+      
+      const themeModule = themeRegistry[selectedThemeName];
+      if (!themeModule) {
+        throw new Error(`Theme module not found for template: ${selectedThemeName}`);
+      }
+      
+      const slideMapping = mapThemeSlidesToSequence(themeModule);
+      if (!slideMapping || Object.keys(slideMapping).length === 0) {
+        throw new Error(`No valid slide mappings found for template: ${selectedThemeName}`);
+      }
+      
+      const mainSlideLayouts = ['MainSlide1', 'MainSlide2', 'MainSlide3'].filter(key => slideMapping[key]);
+      
+      // Debug logging
+      console.log('Selected template:', selectedThemeName);
+      console.log('Slide mapping:', slideMapping);
+      
+      // Add title slide
+      if (slideMapping['TitleSlide']) {
+        const firstFileName = data.results && data.results.length > 0 ? data.results[0].filename.replace(/\.pdf$/i, '') : 'Generated Presentation';
         slides.push({
-          id: file.filename + '-title-' + Date.now(),
+          id: `title-${firstFileName}-${Date.now()}`,
+          layout: slideMapping['TitleSlide'],
           components: [
-            { id: 'title-' + file.filename, type: 'title', content: file.filename },
-            { id: 'author-' + file.filename, type: 'author', content: 'Ernest Lorenzo' },
+            { id: 'title', type: 'title', content: firstFileName.replace(/\.pdf$/i, '').trim() },
+            { id: 'subtitle', type: 'paragraph', content: 'Created from uploaded PDFs' },
           ],
         });
+      }
+      
+      // Collect all content for distribution
+      const allContent = [];
+      
+      for (const file of data.results) {
+        // Skip adding file title as content since we already have it in the title slide
+        
+        // Add extracted images
         if (file.extracted_images && Array.isArray(file.extracted_images)) {
           file.extracted_images.forEach((imgPath, idx) => {
-            slides.push({
-              id: file.filename + '-extracted-img-' + idx + '-' + Date.now(),
-              components: [
-                { id: 'extracted-img-' + idx, type: 'image', content: `http://localhost:5000/${imgPath.replace(/\\/g, "/")}` }
-              ]
+            allContent.push({
+              type: 'image',
+              content: `http://localhost:5000/${imgPath.replace(/\\/g, "/")}`,
+              source: 'extracted_image'
             });
           });
         }
+        
+        // Add terms with their definitions together
         (file.terms || []).forEach(term => {
           if (!globalSeenTerms.has(term.term)) {
-            slides.push({
-              id: term.term + '-slide-' + Math.random(),
-              components: [
-                { id: 'term-' + term.term, type: 'title', content: term.term },
-                { id: 'def-' + term.term, type: 'paragraph', content: term.definition },
-              ],
+            allContent.push({
+              type: 'term_definition',
+              title: term.term,
+              content: term.definition,
+              source: 'term_with_definition'
             });
             globalSeenTerms.add(term.term);
           }
+        });
+      }
+      
+      // Distribute content across slides following the sequence
+      let currentLayoutIndex = 1; // Start after TitleSlide
+      let mainSlideIndex = 0;
+      
+      // Debug logging
+      console.log('All content to distribute:', allContent.length, 'items');
+      console.log('Content types:', allContent.map(c => c.type));
+      
+      for (let i = 0; i < allContent.length; i++) {
+        const content = allContent[i];
+        if (!content) {
+          console.log(`Content ${i} is null or undefined, skipping`);
+          continue;
+        }
+        
+        let layout;
+        
+        if (currentLayoutIndex === 1 && slideMapping && slideMapping['ImageSlide']) {
+          // Image slide
+          layout = slideMapping['ImageSlide'];
+          // console.log(`Content ${i}: Using ImageSlide layout: ${layout}`);
+          currentLayoutIndex++;
+        } else if (currentLayoutIndex >= 2 && currentLayoutIndex <= 4) {
+          // Main slides 1, 2, 3
+          const mainSlideKey = ['MainSlide1', 'MainSlide2', 'MainSlide3'][currentLayoutIndex - 2];
+          if (slideMapping && slideMapping[mainSlideKey]) {
+            layout = slideMapping[mainSlideKey];
+            // console.log(`Content ${i}: Using ${mainSlideKey} layout: ${layout}`);
+            currentLayoutIndex++;
+            if (currentLayoutIndex > 4) {
+              currentLayoutIndex = 2; // Reset to MainSlide1 for repetition
+              mainSlideIndex++;
+            }
+          } else {
+            // Skip this slide type if not available
+            // console.log(`Content ${i}: Skipping ${mainSlideKey} - not available in mapping`);
+            currentLayoutIndex++;
+            if (currentLayoutIndex > 4) {
+              currentLayoutIndex = 2;
+            }
+            continue;
+          }
+        } else {
+          // Skip if no valid layout
+          // console.log(`Content ${i}: No valid layout found, skipping`);
+          continue;
+        }
+        
+        // Create slide with appropriate layout
+        const slide = {
+          id: `slide-${i}-${Date.now()}`,
+          layout: layout,
+          components: []
+        };
+        
+        // Helper function to clean content
+        const cleanContent = (text) => {
+          if (!text) return '';
+          return String(text)
+            .trim()
+            .replace(/\s+/g, ' ') // Replace multiple spaces with single space
+            .replace(/^\d+\)\s*/, '') // Remove leading numbers like "1) " or "1970s) "
+            .replace(/^[:\-]\s*/, '') // Remove leading colons or dashes
+            .replace(/^\([^)]*\)\s*/, '') // Remove leading parentheses like "(1970s) "
+            .replace(/^[A-Za-z]+\s*\)\s*/, '') // Remove text followed by closing parenthesis like "1970s) "
+            .trim();
+        };
+
+        // Add content based on type
+        if (content.type === 'title') {
+          slide.components.push({
+            id: `title-${i}`,
+            type: 'title',
+            content: cleanContent(content.content)
+          });
+        } else if (content.type === 'paragraph') {
+          slide.components.push({
+            id: `paragraph-${i}`,
+            type: 'paragraph',
+            content: cleanContent(content.content)
+          });
+        } else if (content.type === 'image') {
+          slide.components.push({
+            id: `image-${i}`,
+            type: 'image',
+            content: content.content
+          });
+        } else if (content.type === 'term_definition') {
+          // Add both title and paragraph for term definitions
+          slide.components.push({
+            id: `term-title-${i}`,
+            type: 'title',
+            content: cleanContent(content.title)
+          });
+          slide.components.push({
+            id: `term-definition-${i}`,
+            type: 'paragraph',
+            content: cleanContent(content.content)
+          });
+        }
+        
+        slides.push(slide);
+      }
+      
+      // Always add End slide at the end
+      if (slideMapping && slideMapping['EndSlide']) {
+        slides.push({
+          id: 'end-' + Date.now(),
+          layout: slideMapping['EndSlide'],
+          components: [
+            { id: 'end-message', type: 'title', content: 'Thank You!' },
+            { id: 'end-note', type: 'paragraph', content: 'THANK YOU' },
+          ],
         });
       }
       setResults(slides);
       setUploadedFiles([]);
       setShowEditor(true);
     } catch (err) {
-      setError('Processing failed.');
+      console.error('Presentation generation error:', err);
+      setError(`Processing failed: ${err.message || err.toString()}`);
     } finally {
       setLoading(false);
     }

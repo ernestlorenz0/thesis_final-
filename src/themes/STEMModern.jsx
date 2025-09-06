@@ -41,18 +41,18 @@ export function MainSlide1({ title, content }) {
         <div className="absolute bottom-24 right-24 w-32 h-32 border-2 border-cyan-400/30 rotate-12"></div>
       </div>
 
-      <div className="bg-white/5 backdrop-blur-md border border-cyan-400/40 rounded-xl shadow-2xl p-12 max-w-4xl w-full">
+      <div className="bg-white/5 backdrop-blur-md border border-cyan-400/40 rounded-xl shadow-2xl p-8 max-w-5xl w-full">
         
         {/* Title */}
-        <h2 className="text-6xl font-bold font-mono text-cyan-300 mb-4 text-center">
+        <h2 className="text-4xl font-bold font-mono text-cyan-300 mb-3 text-center">
           {title}
         </h2>
 
         {/* Accent line */}
-        <div className="h-[3px] w-24 bg-cyan-400 mx-auto mb-8 shadow-[0_0_10px_rgba(0,246,255,0.7)]"></div>
+        <div className="h-[3px] w-24 bg-cyan-400 mx-auto mb-6 shadow-[0_0_10px_rgba(0,246,255,0.7)]"></div>
 
         {/* Content */}
-        <p className="text-2xl font-mono text-gray-200 leading-relaxed text-center">
+        <p className="text-xl font-mono text-gray-200 leading-relaxed text-center">
           {content}
         </p>
       </div>

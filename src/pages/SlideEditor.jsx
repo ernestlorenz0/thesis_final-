@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import pptxgen from 'pptxgenjs';
@@ -27,6 +27,9 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack, p
   const [editingIdx, setEditingIdx] = useState(null);
   const [showToolbar, setShowToolbar] = useState(false);
   const [editorValue, setEditorValue] = useState('');
+  const [selectedText, setSelectedText] = useState({ start: 0, end: 0 });
+  const [inlineEditing, setInlineEditing] = useState(false);
+  const [draggedImage, setDraggedImage] = useState(null);
   const [toolbarState, setToolbarState] = useState({
     fontFamily: 'Arial',
     fontSize: 32,
@@ -40,37 +43,98 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack, p
   const handleTextDoubleClick = (idx, comp) => {
     setEditingIdx(idx);
     setShowToolbar(true);
+    setInlineEditing(true);
     setEditorValue(comp.content);
     setToolbarState({
-      fontFamily: comp.fontFamily,
-      fontSize: comp.fontSize,
-      color: comp.color,
-      fontWeight: comp.fontWeight,
-      fontStyle: comp.fontStyle,
-      textDecoration: comp.textDecoration,
+      fontFamily: comp.fontFamily || 'Arial',
+      fontSize: comp.fontSize || 32,
+      color: comp.color || '#222',
+      fontWeight: comp.fontWeight || 'bold',
+      fontStyle: comp.fontStyle || 'normal',
+      textDecoration: comp.textDecoration || 'none',
     });
   };
 
   const applyToolbarToBlock = (key, value) => {
     setToolbarState(state => ({ ...state, [key]: value }));
-    handleFontChange(editingIdx, key, value);
+    if (inlineEditing && selectedText.start !== selectedText.end) {
+      // Apply formatting to selected text only
+      applyFormattingToSelection(editingIdx, key, value, selectedText.start, selectedText.end);
+    } else {
+      // Apply to entire block
+      handleFontChange(editingIdx, key, value);
+    }
+  };
+
+  const applyFormattingToSelection = (compIdx, key, value, start, end) => {
+    setSlides(slides => slides.map((slide, idx) => idx === current ? {
+      ...slide,
+      components: slide.components.map((c, i) => {
+        if (i !== compIdx) return c;
+        
+        // Create rich text formatting structure
+        if (!c.richText) {
+          c.richText = [{ text: c.content, ...toolbarState }];
+        }
+        
+        // Apply formatting to selection
+        const newRichText = [];
+        let currentPos = 0;
+        
+        c.richText.forEach(segment => {
+          const segmentEnd = currentPos + segment.text.length;
+          
+          if (segmentEnd <= start || currentPos >= end) {
+            // Segment is outside selection
+            newRichText.push(segment);
+          } else if (currentPos >= start && segmentEnd <= end) {
+            // Segment is fully within selection
+            newRichText.push({ ...segment, [key]: value });
+          } else {
+            // Segment is partially within selection - split it
+            if (currentPos < start) {
+              newRichText.push({ ...segment, text: segment.text.substring(0, start - currentPos) });
+            }
+            const selectionStart = Math.max(0, start - currentPos);
+            const selectionEnd = Math.min(segment.text.length, end - currentPos);
+            newRichText.push({ 
+              ...segment, 
+              text: segment.text.substring(selectionStart, selectionEnd),
+              [key]: value 
+            });
+            if (segmentEnd > end) {
+              newRichText.push({ ...segment, text: segment.text.substring(end - currentPos) });
+            }
+          }
+          currentPos = segmentEnd;
+        });
+        
+        return { ...c, richText: newRichText };
+      })
+    } : slide));
   };
 
   const saveEdit = () => {
     handleTextChange(editingIdx, editorValue);
     setEditingIdx(null);
     setShowToolbar(false);
+    setInlineEditing(false);
+    setSelectedText({ start: 0, end: 0 });
   };
 
   const cancelEdit = () => {
     setEditingIdx(null);
     setShowToolbar(false);
+    setInlineEditing(false);
+    setSelectedText({ start: 0, end: 0 });
   };
 
   const deleteEditingBlock = () => {
     removeComponent(editingIdx);
     setEditingIdx(null);
     setShowToolbar(false);
+    setInlineEditing(false);
+    setSelectedText({ start: 0, end: 0 });
   };
 
   // === Export functions ===
@@ -172,12 +236,34 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack, p
 
   // === Slide manipulation ===
   const addSlide = () => setSlides([...slides, { id: uuidv4(), components: [] }]);
-  const duplicateSlide = () => setSlides([...slides, { ...slides[current], id: uuidv4() }]);
+  const duplicateSlide = () => {
+    const newSlide = { ...slides[current], id: uuidv4() };
+    const newSlides = [...slides];
+    newSlides.splice(current + 1, 0, newSlide);
+    setSlides(newSlides);
+    setCurrent(current + 1);
+  };
   const deleteSlide = () => {
     if (slides.length === 1) return;
     const newSlides = slides.filter((_, idx) => idx !== current);
     setSlides(newSlides);
     setCurrent(Math.max(0, current - 1));
+  };
+
+  const moveSlide = (fromIndex, toIndex) => {
+    const newSlides = [...slides];
+    const [movedSlide] = newSlides.splice(fromIndex, 1);
+    newSlides.splice(toIndex, 0, movedSlide);
+    setSlides(newSlides);
+    setCurrent(toIndex);
+  };
+
+  const insertSlideAt = (index) => {
+    const newSlide = { id: uuidv4(), components: [] };
+    const newSlides = [...slides];
+    newSlides.splice(index, 0, newSlide);
+    setSlides(newSlides);
+    setCurrent(index);
   };
 
   const handleTextChange = (compIdx, value) => {
@@ -243,13 +329,76 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack, p
   const handleImageUpload = (compIdx, file) => {
     const reader = new FileReader();
     reader.onload = e => {
-      setSlides(slides => slides.map((slide, idx) => idx === current ? {
-        ...slide,
-        components: slide.components.map((c, i) => i === compIdx ? { ...c, content: e.target.result } : c)
-      } : slide));
+      if (compIdx !== undefined && compIdx !== null) {
+        // Update existing image component
+        setSlides(slides => slides.map((slide, idx) => idx === current ? {
+          ...slide,
+          components: slide.components.map((c, i) => i === compIdx ? { ...c, content: e.target.result } : c)
+        } : slide));
+      } else {
+        // Create new image component
+        const newComponent = {
+          id: uuidv4(),
+          type: 'image',
+          content: e.target.result,
+          x: 200,
+          y: 200,
+          w: 320,
+          h: 180,
+        };
+        setSlides(slides => slides.map((slide, idx) => idx === current ? {
+          ...slide,
+          components: [...slide.components, newComponent]
+        } : slide));
+      }
     };
     reader.readAsDataURL(file);
   };
+
+  // Enhanced image handling
+  const handleDragOver = useCallback((e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  }, []);
+
+  const handleDrop = useCallback((e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    const files = Array.from(e.dataTransfer.files);
+    const imageFiles = files.filter(file => file.type.startsWith('image/'));
+    
+    if (imageFiles.length > 0) {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const x = e.clientX - rect.left - 160; // Adjust for positioning
+      const y = e.clientY - rect.top - 90;
+      
+      imageFiles.forEach((file, index) => {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const newComponent = {
+            id: uuidv4(),
+            type: 'image',
+            content: event.target.result,
+            x: Math.max(0, x + (index * 20)),
+            y: Math.max(0, y + (index * 20)),
+            w: 320,
+            h: 180,
+          };
+          
+          setSlides(slides => slides.map((slide, idx) => idx === current ? {
+            ...slide,
+            components: [...slide.components, newComponent]
+          } : slide));
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+  }, [current]);
+
+  const handleTextSelection = useCallback((start, end) => {
+    setSelectedText({ start, end });
+  }, []);
 
   // === Render ===
   return (
@@ -259,46 +408,76 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack, p
         current={current}
         setCurrent={setCurrent}
         addSlide={addSlide}
-        renderThumb={(slide) => {
+        moveSlide={moveSlide}
+        duplicateSlide={duplicateSlide}
+        deleteSlide={deleteSlide}
+        renderThumb={(slide, index) => {
           const title = slide.components.find(c => c.type === "title")?.content;
           return (
-            <div className="flex-1 px-2 py-1 text-xs text-gray-700 truncate">
-              {title || "Untitled"}
+            <div className="flex-1 px-2 py-1 text-xs text-gray-700 truncate group">
+              <div className="font-medium">{title || "Untitled"}</div>
+              <div className="text-xs text-gray-500 mt-1">
+                {slide.components.length} component{slide.components.length !== 1 ? 's' : ''}
+              </div>
             </div>
           );
         }}
       />
       <main className="flex-1 flex flex-col items-center justify-center relative">
         <TopBar exportPdf={exportPdf} onBack={onBack} showReveal={showReveal} setShowReveal={setShowReveal} />
-        <SlideCanvas
-          slides={slides}
-          current={current}
-          author={author}
-          showToolbar={showToolbar}
-          toolbarState={toolbarState}
-          editingIdx={editingIdx}
-          editorValue={editorValue}
-          Theme={themeComponents[selectedTemplate] || themeComponents['Classic Classroom']}
-          currentSlide={slides[current] || { components: [] }}
-          handleBlockDragEnd={handleBlockDragEnd}
-          handleTextDoubleClick={handleTextDoubleClick}
-          handleTextChange={handleTextChange}
-          handleFontChange={handleFontChange}
-          removeComponent={removeComponent}
-          applyToolbarToBlock={applyToolbarToBlock}
-          deleteEditingBlock={deleteEditingBlock}
-          cancelEdit={cancelEdit}
-          saveEdit={saveEdit}
-          addComponent={addComponent}
-          fileInputRef={fileInputRef}
-          handleImageUpload={handleImageUpload}
-        />
-
-        <div className="flex gap-4 mt-8">
-          <button className="bg-purple-600 text-white px-4 py-2 rounded shadow" onClick={() => addComponent('title')}>Add Title</button>
-          <button className="bg-purple-600 text-white px-4 py-2 rounded shadow" onClick={() => addComponent('paragraph')}>Add Paragraph</button>
-          <button className="bg-purple-600 text-white px-4 py-2 rounded shadow" onClick={() => addComponent('image')}>Add Image</button>
+        <div onDragOver={handleDragOver} onDrop={handleDrop}>
+          <SlideCanvas
+            slides={slides}
+            current={current}
+            author={author}
+            showToolbar={showToolbar}
+            toolbarState={toolbarState}
+            editingIdx={editingIdx}
+            editorValue={editorValue}
+            setEditorValue={setEditorValue}
+            selectedText={selectedText}
+            inlineEditing={inlineEditing}
+            Theme={themeComponents[selectedTemplate] || themeComponents['Classic Classroom']}
+            currentSlide={slides[current] || { components: [] }}
+            handleBlockDragEnd={handleBlockDragEnd}
+            handleTextDoubleClick={handleTextDoubleClick}
+            handleTextChange={handleTextChange}
+            handleFontChange={handleFontChange}
+            removeComponent={removeComponent}
+            applyToolbarToBlock={applyToolbarToBlock}
+            deleteEditingBlock={deleteEditingBlock}
+            cancelEdit={cancelEdit}
+            saveEdit={saveEdit}
+            addComponent={addComponent}
+            fileInputRef={fileInputRef}
+            handleImageUpload={handleImageUpload}
+            handleTextSelection={handleTextSelection}
+            onDragOver={handleDragOver}
+            onDrop={handleDrop}
+          />
         </div>
+
+        <div className="flex gap-4 mt-8 flex-wrap justify-center">
+          <button className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded shadow transition-colors" onClick={() => fileInputRef.current && fileInputRef.current.click()}>Add Image</button>
+          <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded shadow transition-colors" onClick={duplicateSlide}>Duplicate Slide</button>
+          <button className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded shadow transition-colors" onClick={deleteSlide} disabled={slides.length <= 1}>Delete Slide</button>
+          <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow transition-colors" onClick={() => insertSlideAt(current + 1)}>Insert Slide After</button>
+        </div>
+
+        {/* Hidden file input for main Add Image button */}
+        <input 
+          ref={fileInputRef} 
+          type="file" 
+          accept="image/*" 
+          className="hidden" 
+          onChange={e => {
+            const file = e.target.files[0];
+            if (file) {
+              handleImageUpload(null, file);
+            }
+            e.target.value = '';
+          }} 
+        />
 
         {showReveal && (
           <RevealPreview slides={slides} selectedTemplate={selectedTemplate} onClose={() => setShowReveal(false)} />

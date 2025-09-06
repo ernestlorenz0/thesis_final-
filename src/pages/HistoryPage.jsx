@@ -136,9 +136,9 @@ export default function HistoryPage() {
                     </>
                   ) : (
                     <>
-                      <button className="px-3 py-1.5 text-sm border border-gray-300 text-[#8C6BFA] rounded" onClick={() => startEdit(item)}>Change Name</button>
-                      <button className="px-3 py-1.5 text-sm border border-gray-300 text-gray-700 rounded" onClick={() => handleDownload(item)}>Download PDF</button>
-                      <button className="px-3 py-1.5 text-sm border border-red-300 text-red-600 rounded" onClick={() => handleDeleteClick(item)}>Delete Presentation</button>
+                      <button className="px-3 py-1.5 text-sm border border-gray-300 text-[#8C6BFA] rounded" onClick={() => startEdit(item)}>Rename</button>
+                      <button className="px-3 py-1.5 text-sm border border-gray-300 text-gray-700 rounded" onClick={() => handleDownload(item)}>Download</button>
+                      <button className="px-3 py-1.5 text-sm border border-red-300 text-red-600 rounded" onClick={() => handleDeleteClick(item)}>Delete</button>
                     </>
                   )}
                 </div>

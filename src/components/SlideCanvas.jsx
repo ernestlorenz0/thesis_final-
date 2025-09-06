@@ -12,6 +12,9 @@ export default function SlideCanvas({
   toolbarState,
   editingIdx,
   editorValue,
+  setEditorValue,
+  selectedText,
+  inlineEditing,
   Theme,
   currentSlide,
   handleBlockDragEnd,
@@ -25,7 +28,10 @@ export default function SlideCanvas({
   saveEdit,
   addComponent,
   fileInputRef,
-  handleImageUpload
+  handleImageUpload,
+  handleTextSelection,
+  onDragOver,
+  onDrop
 }) {
   class ThemeErrorBoundary extends React.Component {
     constructor(props) {
@@ -132,7 +138,11 @@ export default function SlideCanvas({
               placeholder="Add a short description"
               value={currentSlide.description || ''}
               onChange={e => {
-                /* This should be handled in parent SlideEditor via setSlides */
+                // Handle slide description change
+                const newSlides = slides.map((slide, idx) => 
+                  idx === current ? { ...slide, description: e.target.value } : slide
+                );
+                // This would need to be passed from parent
               }}
               maxLength={120}
             />
@@ -145,9 +155,25 @@ export default function SlideCanvas({
                     className="group"
                   >
                     {comp.content ? (
-                      <img src={comp.content} alt="slide visual" className="w-full h-full object-contain rounded shadow" />
+                      <img 
+                        src={comp.content} 
+                        alt="slide visual" 
+                        className="w-full h-full object-contain rounded shadow cursor-move" 
+                        draggable={false}
+                        onDragStart={e => e.preventDefault()}
+                      />
                     ) : (
-                      <div className="w-full h-full flex items-center justify-center bg-gray-100 border border-gray-300 rounded">No Image</div>
+                      <div 
+                        className="w-full h-full flex items-center justify-center bg-gray-100 border border-gray-300 rounded cursor-pointer hover:bg-gray-200 transition-colors"
+                        onClick={() => fileInputRef.current && fileInputRef.current.click()}
+                      >
+                        <div className="text-center text-gray-500">
+                          <svg className="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                          </svg>
+                          <div className="text-sm">Click to add image</div>
+                        </div>
+                      </div>
                     )}
                     <button className="absolute -top-3 -right-3 bg-red-500 text-white rounded-full p-1 text-xs opacity-80 group-hover:opacity-100" onClick={() => removeComponent(idx)}>✕</button>
                   </div>
@@ -195,22 +221,69 @@ export default function SlideCanvas({
                   }}
                 >
                   {isEditing ? (
-                    <textarea
-                      value={editorValue}
-                      onChange={e => {/* setEditorValue in parent */}}
-                      className="w-full bg-transparent text-black outline-none resize-none text-lg font-medium"
-                      style={{ fontFamily: toolbarState.fontFamily, fontWeight: toolbarState.fontWeight, fontStyle: toolbarState.fontStyle, textDecoration: toolbarState.textDecoration, color: toolbarState.color, fontSize: toolbarState.fontSize }}
-                      rows={comp.type === 'title' ? 1 : 3}
-                      placeholder={comp.type === 'title' ? 'Title...' : 'Paragraph...'}
-                      autoFocus
-                      onBlur={saveEdit}
-                    />
+                    <div className="relative">
+                      <textarea
+                        value={editorValue}
+                        onChange={e => {
+                          setEditorValue(e.target.value);
+                          handleTextChange(idx, e.target.value);
+                        }}
+                        onSelect={e => {
+                          const start = e.target.selectionStart;
+                          const end = e.target.selectionEnd;
+                          handleTextSelection(start, end);
+                        }}
+                        className="w-full bg-transparent text-black outline-none resize-none text-lg font-medium"
+                        style={{ 
+                          fontFamily: toolbarState.fontFamily, 
+                          fontWeight: toolbarState.fontWeight, 
+                          fontStyle: toolbarState.fontStyle, 
+                          textDecoration: toolbarState.textDecoration, 
+                          color: toolbarState.color, 
+                          fontSize: toolbarState.fontSize 
+                        }}
+                        rows={comp.type === 'title' ? 1 : 3}
+                        placeholder={comp.type === 'title' ? 'Title...' : 'Paragraph...'}
+                        autoFocus
+                        onBlur={saveEdit}
+                      />
+                      {selectedText.start !== selectedText.end && (
+                        <div className="absolute -top-8 left-0 bg-blue-500 text-white text-xs px-2 py-1 rounded">
+                          Selected: {selectedText.end - selectedText.start} chars
+                        </div>
+                      )}
+                    </div>
                   ) : (
                     <div
-                      style={{ fontFamily: comp.fontFamily, fontWeight: comp.fontWeight, fontStyle: comp.fontStyle, textDecoration: comp.textDecoration, color: comp.color, fontSize: comp.fontSize }}
+                      style={{ 
+                        fontFamily: comp.fontFamily, 
+                        fontWeight: comp.fontWeight, 
+                        fontStyle: comp.fontStyle, 
+                        textDecoration: comp.textDecoration, 
+                        color: comp.color, 
+                        fontSize: comp.fontSize 
+                      }}
                       className="w-full text-black outline-none resize-none text-lg font-medium select-none"
                     >
-                      {comp.content}
+                      {comp.richText ? (
+                        comp.richText.map((segment, segIdx) => (
+                          <span
+                            key={segIdx}
+                            style={{
+                              fontFamily: segment.fontFamily,
+                              fontSize: segment.fontSize,
+                              fontWeight: segment.fontWeight,
+                              fontStyle: segment.fontStyle,
+                              textDecoration: segment.textDecoration,
+                              color: segment.color
+                            }}
+                          >
+                            {segment.text}
+                          </span>
+                        ))
+                      ) : (
+                        comp.content
+                      )}
                     </div>
                   )}
                 </div>
@@ -224,6 +297,8 @@ export default function SlideCanvas({
                 deleteEditingBlock={deleteEditingBlock}
                 cancelEdit={cancelEdit}
                 saveEdit={saveEdit}
+                selectedText={selectedText}
+                inlineEditing={inlineEditing}
               />
             )}
             {/* Floating add buttons */}
@@ -235,7 +310,11 @@ export default function SlideCanvas({
   };
 
   return (
-    <div className="w-[1280px] h-[720px] bg-white/80 rounded-3xl shadow-2xl border-4 border-purple-200 mt-24 flex flex-col relative overflow-hidden p-12 backdrop-blur-lg">
+    <div 
+      className="w-[1280px] h-[720px] bg-white/80 rounded-3xl shadow-2xl border-4 border-purple-200 mt-24 flex flex-col relative overflow-hidden p-12 backdrop-blur-lg"
+      onDragOver={onDragOver}
+      onDrop={onDrop}
+    >
       <DndContext onDragEnd={event => {
         if (event.active && event.over && event.delta) {
           handleBlockDragEnd(event.active.id, event);
@@ -249,7 +328,10 @@ export default function SlideCanvas({
               </ThemeErrorBoundary>
             </div>
           ) : (
-            <span className="text-neutral-400">Add content to start your slide!</span>
+            <div className="text-center text-neutral-400">
+              <div className="text-xl mb-4">Add content to start your slide!</div>
+              <div className="text-sm opacity-75">Drag and drop images or use the buttons below</div>
+            </div>
           )}
         </div>
       </DndContext>
