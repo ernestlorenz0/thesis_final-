@@ -27,7 +27,7 @@ export default function HomePage() {
   const [imagePrompt, setImagePrompt] = useState(''); // User prompt for image generation
   const fileInputRef = useRef();
 
-  const [previewMode, setPreviewMode] = useState(false);  
+  
 
     // =========================
   // Handlers
@@ -83,21 +83,22 @@ export default function HomePage() {
     'Blue Horizon',
   ];
 
+  const [isPreviewMode, setIsPreviewMode] = useState(false);
+
   const handleSelectTemplate = async (templateIdx) => {
     const selectedThemeName = themeNames[templateIdx];
     console.log('Template selected:', selectedThemeName, 'at index:', templateIdx);
     setSelectedTemplate(selectedThemeName);
     setShowTemplates(false);
 
-    if (previewMode) {
-      // In preview mode, create slides for each layout in the chosen theme
+    // If in preview mode, create preview slides
+    if (isPreviewMode) {
       const themeModule = themeRegistry[selectedThemeName];
       if (!themeModule) {
         setShowEditor(true);
         return;
       }
 
-      const allExports = Object.keys(themeModule).filter(k => typeof themeModule[k] === 'function');
       const previewSlides = [];
 
       // Use the same mapping logic as the main generation
@@ -190,6 +191,7 @@ export default function HomePage() {
 
       setResults(previewSlides);
       setShowEditor(true);
+      setIsPreviewMode(false); // Reset preview mode
       return;
     }
 
@@ -489,8 +491,17 @@ export default function HomePage() {
   </div>
         {/* Top bar for desktop only */}
         {!isMobile && (
-  <div className="absolute top-0 left-0 w-full flex justify-end items-center px-12 pt-8 pb-4 animate-fade-in">
-    <UserMenuDropdown userMenuOpen={userMenuOpen} setUserMenuOpen={setUserMenuOpen} userMenuRef={userMenuRef} previewMode={previewMode} setPreviewMode={setPreviewMode} />
+  <div className="absolute top-0 left-0 w-full flex justify-between items-center px-12 pt-8 pb-4 animate-fade-in">
+    <button
+      className="px-6 py-3 rounded-xl font-semibold text-base bg-[#8C6BFA] text-white hover:bg-[#7B61FF] focus:outline-none focus:ring-2 focus:ring-[#BFA8FF] transition-all duration-200 shadow-lg"
+      onClick={() => {
+        setIsPreviewMode(true);
+        setShowTemplates(true);
+      }}
+    >
+      Preview Themes
+    </button>
+    <UserMenuDropdown userMenuOpen={userMenuOpen} setUserMenuOpen={setUserMenuOpen} userMenuRef={userMenuRef} />
   </div>
 )}
 
@@ -564,11 +575,14 @@ export default function HomePage() {
           <button
             className={`w-[340px] py-4 rounded-xl font-bold text-lg shadow transition-all duration-200 
               bg-[#E5D8FF] text-[#8C6BFA] hover:bg-[#E7E0FF] focus:outline-none focus:ring-2 focus:ring-[#BFA8FF] 
-              ${loading || (!previewMode && uploadedFiles.length === 0) ? 'opacity-60 cursor-not-allowed' : ''}`}
-            onClick={() => setShowTemplates(true)}
-            disabled={loading || (!previewMode && uploadedFiles.length === 0)}
+              ${loading || uploadedFiles.length === 0 ? 'opacity-60 cursor-not-allowed' : ''}`}
+            onClick={() => {
+              setIsPreviewMode(false);
+              setShowTemplates(true);
+            }}
+            disabled={loading || uploadedFiles.length === 0}
           >
-            {loading && !previewMode ? "Generating PowerPoint..." : previewMode ? "Preview Themes" : "Generate PowerPoint"}
+            {loading ? "Generating PowerPoint..." : "Generate PowerPoint"}
           </button>
         </div>
   <button

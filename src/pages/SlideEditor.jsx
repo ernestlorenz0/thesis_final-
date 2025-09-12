@@ -1,25 +1,189 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import pptxgen from 'pptxgenjs';
 import { v4 as uuidv4 } from 'uuid';
+import { useHotkeys } from 'react-hotkeys-hook';
 import RevealPreview from './RevealPreview';
 import { themeComponents, pptxThemeStyles } from '../utils/themes';
 import SlideSidebar from '../components/SlideSidebar';
 import TopBar from '../components/TopBar';
-import SlideCanvas from '../components/SlideCanvas';
+import KonvaSlideCanvas from '../components/KonvaSlideCanvas';
 import AssetPicker from '../components/AssetPicker';
 import LocalImageModal from '../components/LocalImageModal';
+import SwiperSlideshow from '../components/SwiperSlideshow';
 import { saveHistoryItem } from '../firebaseAuth';
+import { saveSharedSlideshow, generateShareableUrl, copyToClipboard } from '../utils/slideshowSharing';
+import ShareNotification from '../components/ShareNotification';
+import ExportMenu from '../components/ExportMenu';
+import ExportNotification from '../components/ExportNotification';
+import { SlideExporter, getTimestampedFilename } from '../utils/exportUtils';
 
 export default function SlideEditor({ initialSlides, selectedTemplate, onBack, previewMode }) {
   const [slides, setSlides] = useState(initialSlides || []);
   const [current, setCurrent] = useState(0);
   const [author, setAuthor] = useState('');
   const [showReveal, setShowReveal] = useState(false);
+  const [showSwiperSlideshow, setShowSwiperSlideshow] = useState(false);
   const [showLocalImageModal, setShowLocalImageModal] = useState(false);
   const [localImages, setLocalImages] = useState([]);
   const [showAssetPicker, setShowAssetPicker] = useState(false);
+  const [shareNotification, setShareNotification] = useState({
+    show: false,
+    success: false,
+    shareUrl: ''
+  });
+  const [exportNotification, setExportNotification] = useState({
+    show: false,
+    success: false,
+    message: '',
+    downloadUrl: '',
+    filename: '',
+    exportType: ''
+  });
+  const [history, setHistory] = useState([]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
+  const [selectedComponentId, setSelectedComponentId] = useState(null);
+  
+  // Export functionality state
+  const [showExportMenu, setShowExportMenu] = useState(false);
+  const [isExporting, setIsExporting] = useState(false);
+  const [exportProgress, setExportProgress] = useState(0);
+  const [currentSlideContainerRef, setCurrentSlideContainerRef] = useState(null);
+  const [slideExporter] = useState(() => new SlideExporter());
+
+  useEffect(() => {
+    slideExporter.setProgressCallback(setExportProgress);
+  }, [slideExporter]);
+
+  const handleSlideContainerReady = useCallback((slideContainerRef) => {
+    console.log('🎯 SlideEditor: Slide container ready callback received:', slideContainerRef);
+    setCurrentSlideContainerRef(slideContainerRef);
+  }, []);
+
+  const handleExportPNG = async () => {
+    if (!currentSlideContainerRef) {
+      alert('Slide container not ready for export');
+      return;
+    }
+
+    setIsExporting(true);
+    setExportProgress(0);
+
+    const filename = getTimestampedFilename('slide', 'png');
+    const result = await slideExporter.exportCurrentSlidePNG(currentSlideContainerRef, filename);
+
+    setIsExporting(false);
+    setExportProgress(0);
+    
+    setShowExportMenu(false);
+    setExportNotification({
+      show: true,
+      success: result.success,
+      message: result.message,
+      downloadUrl: result.downloadUrl || '',
+      filename: result.filename || '',
+      exportType: result.exportType || 'PNG'
+    });
+  };
+
+  const handleExportPDF = async () => {
+    if (!slides.length) {
+      alert('No slides to export');
+      return;
+    }
+
+    setIsExporting(true);
+    setExportProgress(0);
+
+    // Create a function to get slide container for each slide
+    const getSlideContainerForSlide = async (slideIndex) => {
+      // If it's the current slide, use the existing container
+      if (slideIndex === current) {
+        return currentSlideContainerRef;
+      }
+      
+      // For other slides, temporarily switch to that slide
+      const originalSlide = current;
+      setCurrent(slideIndex);
+      
+      // Wait for the slide to render
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      // Return the container reference (it should be updated by now)
+      const slideContainer = currentSlideContainerRef;
+      
+      // Switch back to original slide
+      setCurrent(originalSlide);
+      
+      return slideContainer;
+    };
+
+    const filename = getTimestampedFilename('presentation', 'pdf');
+    const result = await slideExporter.exportAllSlidesPDF(slides, getSlideContainerForSlide, filename);
+
+    setIsExporting(false);
+    setExportProgress(0);
+    
+    setShowExportMenu(false);
+    setExportNotification({
+      show: true,
+      success: result.success,
+      message: result.message,
+      downloadUrl: result.downloadUrl || '',
+      filename: result.filename || '',
+      exportType: result.exportType || 'PDF'
+    });
+  };
+
+  const handleExportPPTX = async () => {
+    if (!slides.length) {
+      alert('No slides to export');
+      return;
+    }
+
+    setIsExporting(true);
+    setExportProgress(0);
+
+    // Create a function to get slide container for each slide
+    const getSlideContainerForSlide = async (slideIndex) => {
+      // If it's the current slide, use the existing container
+      if (slideIndex === current) {
+        return currentSlideContainerRef;
+      }
+      
+      // For other slides, temporarily switch to that slide
+      const originalSlide = current;
+      setCurrent(slideIndex);
+      
+      // Wait for the slide to render
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      // Return the container reference (it should be updated by now)
+      const slideContainer = currentSlideContainerRef;
+      
+      // Switch back to original slide
+      setCurrent(originalSlide);
+      
+      return slideContainer;
+    };
+
+    const filename = getTimestampedFilename('presentation', 'pptx');
+    const result = await slideExporter.exportAllSlidesPPTX(slides, getSlideContainerForSlide, filename);
+
+    setIsExporting(false);
+    setExportProgress(0);
+    
+    setShowExportMenu(false);
+    setExportNotification({
+      show: true,
+      success: result.success,
+      message: result.message,
+      downloadUrl: result.downloadUrl || '',
+      filename: result.filename || '',
+      exportType: result.exportType || 'PPTX'
+    });
+  };
 
   const fileInputRef = useRef();
 
@@ -280,6 +444,13 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack, p
     } : slide));
   };
 
+  const updateComponent = (compIdx, updatedComponent) => {
+    setSlides(slides => slides.map((slide, idx) => idx === current ? {
+      ...slide,
+      components: slide.components.map((c, i) => i === compIdx ? updatedComponent : c)
+    } : slide));
+  };
+
   const addComponent = type => {
     setSlides(slides => slides.map((slide, idx) => {
       if (idx !== current) return slide;
@@ -290,17 +461,18 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack, p
           {
             id: uuidv4(),
             type,
-            content: '',
-            x: 200,
-            y: 200,
-            w: type === 'image' ? 320 : 400,
-            h: type === 'image' ? 180 : 60,
-            fontSize: type === 'title' ? 36 : 20,
+            content: type === 'text' ? 'New text' : type === 'title' ? 'New title' : '',
+            x: 100 + Math.random() * 200,
+            y: 100 + Math.random() * 200,
+            w: type === 'image' ? 320 : 200,
+            h: type === 'image' ? 180 : 50,
+            fontSize: type === 'title' ? 24 : 16,
             fontFamily: 'Arial',
             fontWeight: type === 'title' ? 'bold' : 'normal',
             fontStyle: 'normal',
             textDecoration: 'none',
             color: type === 'title' ? '#222' : '#444',
+            isDraggable: true // Mark text components as draggable
           }
         ]
       };
@@ -308,14 +480,24 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack, p
   };
 
   const removeComponent = idx => {
+    console.log('🗑️ SlideEditor removeComponent called with idx:', idx);
+    console.log('Current slide components:', slides[current]?.components);
     setSlides(slides => slides.map((slide, sidx) => sidx === current ? {
       ...slide,
-      components: slide.components.filter((_, i) => i !== idx)
+      components: slide.components.filter((_, i) => {
+        console.log(`Filtering component ${i}, keeping: ${i !== idx}`);
+        return i !== idx;
+      })
     } : slide));
   };
 
   const handleBlockDragEnd = (id, event) => {
-    if (!event.delta) return;
+    console.log('🎯 SlideEditor handleBlockDragEnd:', { id, event });
+    if (!event.delta) {
+      console.log('❌ No delta in event:', event);
+      return;
+    }
+    console.log('✅ Updating position with delta:', event.delta);
     setSlides(slides => slides.map((slide, idx) => idx === current ? {
       ...slide,
       components: slide.components.map(comp => comp.id === id ? {
@@ -345,6 +527,7 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack, p
           y: 200,
           w: 320,
           h: 180,
+          isDraggable: true // Mark as draggable overlay
         };
         setSlides(slides => slides.map((slide, idx) => idx === current ? {
           ...slide,
@@ -385,7 +568,9 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack, p
             w: 320,
             h: 180,
           };
+        };
           
+        reader.onloadend = () => {
           setSlides(slides => slides.map((slide, idx) => idx === current ? {
             ...slide,
             components: [...slide.components, newComponent]
@@ -399,6 +584,115 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack, p
   const handleTextSelection = useCallback((start, end) => {
     setSelectedText({ start, end });
   }, []);
+
+  // Share functionality
+  // History management
+  const saveToHistory = useCallback((newSlides) => {
+    const newHistory = history.slice(0, historyIndex + 1);
+    newHistory.push(JSON.parse(JSON.stringify(newSlides)));
+    setHistory(newHistory);
+    setHistoryIndex(newHistory.length - 1);
+  }, [history, historyIndex]);
+
+  const undo = useCallback(() => {
+    if (historyIndex > 0) {
+      const previousState = history[historyIndex - 1];
+      setSlides(previousState);
+      setHistoryIndex(historyIndex - 1);
+      console.log('↶ Undo performed');
+    }
+  }, [history, historyIndex]);
+
+  const deleteSelectedComponent = useCallback(() => {
+    if (selectedComponentId) {
+      const newSlides = slides.map((slide, idx) => idx === current ? {
+        ...slide,
+        components: slide.components.filter(c => c.id !== selectedComponentId)
+      } : slide);
+      
+      saveToHistory(slides);
+      setSlides(newSlides);
+      setSelectedComponentId(null);
+      console.log('🗑️ Component deleted:', selectedComponentId);
+    }
+  }, [selectedComponentId, slides, current, saveToHistory]);
+
+  const saveSlideshow = useCallback(() => {
+    try {
+      const slideshowData = {
+        slides: slides,
+        selectedTemplate: selectedTemplate,
+        author: author,
+        savedAt: new Date().toISOString()
+      };
+      
+      localStorage.setItem('slideshow_autosave', JSON.stringify(slideshowData));
+      console.log('💾 Slideshow saved');
+      
+      // Show brief save confirmation
+      const originalTitle = document.title;
+      document.title = '✓ Saved - ' + originalTitle;
+      setTimeout(() => {
+        document.title = originalTitle;
+      }, 2000);
+    } catch (error) {
+      console.error('❌ Save failed:', error);
+    }
+  }, [slides, selectedTemplate, author]);
+
+  // Keyboard shortcuts
+  useHotkeys('ctrl+z', (e) => {
+    e.preventDefault();
+    undo();
+  }, { enableOnFormTags: true });
+
+  useHotkeys('delete', (e) => {
+    e.preventDefault();
+    deleteSelectedComponent();
+  }, { enableOnFormTags: false });
+
+  useHotkeys('ctrl+s', (e) => {
+    e.preventDefault();
+    saveSlideshow();
+  }, { enableOnFormTags: true });
+
+  const handleShare = useCallback(async () => {
+    try {
+      // Prepare slideshow data
+      const slideshowData = {
+        title: slides[0]?.components.find(c => c.type === 'title')?.content || 'Untitled Slideshow',
+        slides: slides,
+        selectedTemplate: selectedTemplate,
+        author: author,
+        createdAt: new Date().toISOString()
+      };
+
+      // Save slideshow and get ID
+      const slideshowId = saveSharedSlideshow(slideshowData);
+      
+      // Generate shareable URL
+      const shareableUrl = generateShareableUrl(slideshowId);
+      
+      // Copy to clipboard
+      const success = await copyToClipboard(shareableUrl);
+      
+      // Show notification
+      setShareNotification({
+        show: true,
+        success: success,
+        shareUrl: shareableUrl
+      });
+      
+      console.log('📤 Slideshow shared:', { slideshowId, shareableUrl });
+    } catch (error) {
+      console.error('❌ Error sharing slideshow:', error);
+      setShareNotification({
+        show: true,
+        success: false,
+        shareUrl: ''
+      });
+    }
+  }, [slides, selectedTemplate, author]);
 
   // === Render ===
   return (
@@ -424,9 +718,15 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack, p
         }}
       />
       <main className="flex-1 flex flex-col items-center justify-center relative">
-        <TopBar exportPdf={exportPdf} onBack={onBack} showReveal={showReveal} setShowReveal={setShowReveal} />
+        <TopBar 
+          showSlideshow={showSwiperSlideshow}
+          setShowSlideshow={setShowSwiperSlideshow}
+          onShare={handleShare}
+          onBack={onBack}
+          onExport={() => setShowExportMenu(true)}
+        />
         <div onDragOver={handleDragOver} onDrop={handleDrop}>
-          <SlideCanvas
+          <KonvaSlideCanvas
             slides={slides}
             current={current}
             author={author}
@@ -454,14 +754,30 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack, p
             handleTextSelection={handleTextSelection}
             onDragOver={handleDragOver}
             onDrop={handleDrop}
+            updateComponent={updateComponent}
+            onSlideContainerReady={handleSlideContainerReady}
           />
         </div>
 
         <div className="flex gap-4 mt-8 flex-wrap justify-center">
-          <button className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded shadow transition-colors" onClick={() => fileInputRef.current && fileInputRef.current.click()}>Add Image</button>
-          <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded shadow transition-colors" onClick={duplicateSlide}>Duplicate Slide</button>
-          <button className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded shadow transition-colors" onClick={deleteSlide} disabled={slides.length <= 1}>Delete Slide</button>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow transition-colors" onClick={() => insertSlideAt(current + 1)}>Insert Slide After</button>
+          <button className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded shadow transition-colors" onClick={() => fileInputRef.current && fileInputRef.current.click()}>
+            Add Image
+          </button>
+          <button 
+            className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded shadow transition-colors"
+            onClick={() => setShowAssetPicker(true)}
+          >
+            Predefined Assets
+          </button>
+          <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded shadow transition-colors" onClick={duplicateSlide}>
+            Duplicate Slide
+          </button>
+          <button className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded shadow transition-colors" onClick={deleteSlide} disabled={slides.length <= 1}>
+            Delete Slide
+          </button>
+          <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow transition-colors" onClick={() => insertSlideAt(current + 1)}>
+            Insert Slide After
+          </button>
         </div>
 
         {/* Hidden file input for main Add Image button */}
@@ -483,37 +799,97 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack, p
           <RevealPreview slides={slides} selectedTemplate={selectedTemplate} onClose={() => setShowReveal(false)} />
         )}
 
+        {showSwiperSlideshow && (
+          <SwiperSlideshow
+            slides={slides}
+            selectedTemplate={selectedTemplate}
+            Theme={themeComponents[selectedTemplate] || themeComponents['Classic Classroom']}
+            onClose={() => setShowSwiperSlideshow(false)}
+            open={showSwiperSlideshow}
+          />
+        )}
+
         <AssetPicker
           open={showAssetPicker}
           onClose={() => setShowAssetPicker(false)}
           onSelect={asset => {
+            console.log('🎯 SlideEditor: Asset selected:', asset);
             setShowAssetPicker(false);
             setSlides(slides => slides.map((slide, idx) => idx === current ? {
               ...slide,
               components: [
                 ...slide.components,
-                { id: uuidv4(), type: 'image', content: asset.url, x: 200, y: 200, w: 180, h: 180 }
+                { 
+                  id: uuidv4(), 
+                  type: 'image', 
+                  content: asset.url, 
+                  x: 200, 
+                  y: 200, 
+                  w: 320, 
+                  h: 180,
+                  isDraggable: true // Mark as draggable overlay
+                }
               ]
             } : slide));
           }}
         />
 
-        <LocalImageModal
-          open={showLocalImageModal}
-          images={localImages}
-          onSelect={img => {
-            setShowLocalImageModal(false);
-            setSlides(slides => slides.map((slide, idx) => idx === current ? {
-              ...slide,
-              components: [
-                ...slide.components,
-                { id: uuidv4(), type: 'image', content: img.url, x: 200, y: 200, w: 320, h: 180 }
-              ]
-            } : slide));
-          }}
-          onClose={() => setShowLocalImageModal(false)}
+      <LocalImageModal
+        open={showLocalImageModal}
+        images={localImages}
+        onSelect={img => {
+          setShowLocalImageModal(false);
+          setSlides(slides => slides.map((slide, idx) => idx === current ? {
+            ...slide,
+            components: [
+              ...slide.components,
+              { 
+                id: uuidv4(), 
+                type: 'image', 
+                content: img.url, 
+                x: 200, 
+                y: 200, 
+                w: 320, 
+                h: 180,
+                isDraggable: true // Mark as draggable overlay
+              }
+            ]
+          } : slide));
+        }}
+        onClose={() => setShowLocalImageModal(false)}
+      />
+
+      {shareNotification.show && (
+        <ShareNotification
+          show={shareNotification.show}
+          success={shareNotification.success}
+          shareUrl={shareNotification.shareUrl}
+          onClose={() => setShareNotification({ show: false, success: false, shareUrl: '' })}
         />
-      </main>
-    </div>
+      )}
+
+      {/* Export Menu */}
+      <ExportMenu
+        isOpen={showExportMenu}
+        onClose={() => setShowExportMenu(false)}
+        onExportPNG={handleExportPNG}
+        onExportPDF={handleExportPDF}
+        onExportPPTX={handleExportPPTX}
+        isExporting={isExporting}
+        exportProgress={exportProgress}
+      />
+
+      {/* Export Notification */}
+      <ExportNotification
+        show={exportNotification.show}
+        onClose={() => setExportNotification({ show: false, success: false, message: '', downloadUrl: '', filename: '', exportType: '' })}
+        exportType={exportNotification.exportType}
+        success={exportNotification.success}
+        message={exportNotification.message}
+        downloadUrl={exportNotification.downloadUrl}
+        filename={exportNotification.filename}
+      />
+    </main>
+  </div>
   );
 }

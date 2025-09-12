@@ -3,7 +3,7 @@ import React from "react";
 /* ---------------- TITLE SLIDE ---------------- */
 export function TitleSlide({ title, subtitle }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-gradient-to-br from-orange-600 via-amber-500 to-yellow-400 flex items-center justify-center overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-br from-orange-600 via-amber-500 to-yellow-400 flex items-center justify-center overflow-hidden">
       {/* Orbits */}
       <div className="absolute w-[600px] h-[600px] border-4 border-white/20 rounded-full animate-spin-slow"></div>
       <div className="absolute w-[400px] h-[400px] border-2 border-white/30 rounded-full animate-spin-slower"></div>
@@ -24,7 +24,7 @@ export function TitleSlide({ title, subtitle }) {
 /* Split left text, right orbit graphics */
 export function MainSlide1({ title, content }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-orange-100 flex overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] bg-orange-100 flex overflow-hidden">
       {/* Right orbit decoration */}
       <div className="absolute right-[-150px] top-1/2 -translate-y-1/2 w-[600px] h-[600px] border-[20px] border-orange-400/30 rounded-full"></div>
 
@@ -41,7 +41,7 @@ export function MainSlide1({ title, content }) {
 /* Title in center, orbit lines in background */
 export function MainSlide2({ title, content }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-gradient-to-tr from-amber-200 to-orange-100 flex items-center justify-center overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-tr from-amber-200 to-orange-100 flex items-center justify-center overflow-hidden">
       {/* Orbit background */}
       <div className="absolute w-[800px] h-[800px] border-4 border-orange-400/30 rounded-full"></div>
       <div className="absolute w-[500px] h-[500px] border-2 border-orange-500/40 rounded-full"></div>
@@ -60,7 +60,7 @@ export function MainSlide2({ title, content }) {
 /* Diagonal orbit strip */
 export function MainSlide3({ title, content }) {
   return (
-    <section className="relative w-[1280px] h-[720px] flex items-center justify-center overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] flex items-center justify-center overflow-hidden">
       {/* Diagonal orbit band */}
       <div className="absolute inset-0 bg-gradient-to-br from-orange-600 to-yellow-500 clip-path-diagonal"></div>
       <div className="absolute inset-0 bg-black/10"></div>
@@ -78,7 +78,7 @@ export function MainSlide3({ title, content }) {
 /* Image in a planet-like circle */
 export function ImageSlide({ title, imageUrl }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-orange-50 flex items-center justify-center overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] bg-orange-50 flex items-center justify-center overflow-hidden">
       {/* Orbit rings */}
       <div className="absolute w-[600px] h-[600px] border-8 border-orange-400/30 rounded-full"></div>
       <div className="absolute w-[400px] h-[400px] border-4 border-orange-500/40 rounded-full"></div>
@@ -109,7 +109,7 @@ export function ImageSlide({ title, imageUrl }) {
 /* ---------------- END SLIDE ---------------- */
 export function EndSlide() {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-gradient-to-tr from-orange-700 to-amber-500 flex items-center justify-center overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-tr from-orange-700 to-amber-500 flex items-center justify-center overflow-hidden">
       {/* Glowing orbits */}
       <div className="absolute w-[600px] h-[600px] border-8 border-white/20 rounded-full animate-spin-slow"></div>
       <div className="absolute w-[400px] h-[400px] border-4 border-white/30 rounded-full animate-spin-slower"></div>

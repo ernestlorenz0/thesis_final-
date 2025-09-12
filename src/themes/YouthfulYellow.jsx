@@ -3,7 +3,7 @@ import React from "react";
 /* ---------------- TITLE SLIDE ---------------- */
 export function TitleSlide({ title, subtitle }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-gradient-to-tr from-yellow-300 via-orange-200 to-yellow-100 flex items-center justify-center overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-tr from-yellow-300 via-orange-200 to-yellow-100 flex items-center justify-center overflow-hidden">
       {/* Decorative rays */}
       <div className="absolute inset-0 flex justify-center items-center">
         {[...Array(20)].map((_, i) => (
@@ -31,7 +31,7 @@ export function TitleSlide({ title, subtitle }) {
 /* ---------------- MAIN SLIDE 1 ---------------- */
 export function MainSlide1({ title, content }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-yellow-100 flex overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] bg-yellow-100 flex overflow-hidden">
       {/* Left column for title */}
       <div className="w-1/3 bg-yellow-400/90 p-12 flex flex-col justify-center items-start shadow-lg z-10">
         <h2 className="text-5xl font-bold text-yellow-900 mb-6">{title}</h2>
@@ -51,7 +51,7 @@ export function MainSlide1({ title, content }) {
 /* ---------------- MAIN SLIDE 2 ---------------- */
 export function MainSlide2({ title, content }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-gradient-to-br from-yellow-200 to-orange-100 flex items-center justify-center overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-br from-yellow-200 to-orange-100 flex items-center justify-center overflow-hidden">
       {/* Floating card tilted */}
       <div className="relative bg-white/90 p-12 rounded-3xl shadow-2xl border-8 border-yellow-400 rotate-[-2deg] max-w-3xl text-center">
         <h2 className="text-6xl font-bold text-yellow-800 mb-6">{title}</h2>
@@ -64,7 +64,7 @@ export function MainSlide2({ title, content }) {
 /* ---------------- MAIN SLIDE 3 ---------------- */
 export function MainSlide3({ title, content }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-yellow-50 flex overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] bg-yellow-50 flex overflow-hidden">
       {/* Background pattern dots */}
       <div className="absolute inset-0 grid grid-cols-12 grid-rows-6 gap-6 opacity-20">
         {Array.from({ length: 72 }).map((_, i) => (
@@ -86,7 +86,7 @@ export function MainSlide3({ title, content }) {
 /* ---------------- IMAGE SLIDE ---------------- */
 export function ImageSlide({ title, imageUrl }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-gradient-to-t from-orange-200 to-yellow-100 flex flex-col items-center justify-center">
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-t from-orange-200 to-yellow-100 flex flex-col items-center justify-center">
       {/* Title banner */}
       <div className="bg-yellow-400 text-yellow-900 px-10 py-4 rounded-full mb-6 shadow-md">
         <h3 className="text-2xl font-bold">{title}</h3>
@@ -113,7 +113,7 @@ export function ImageSlide({ title, imageUrl }) {
 /* ---------------- END SLIDE ---------------- */
 export function EndSlide() {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-gradient-to-tr from-yellow-400 to-orange-300 flex items-center justify-center">
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-tr from-yellow-400 to-orange-300 flex items-center justify-center">
       <h1 className="text-6xl font-extrabold text-white drop-shadow-lg">
         Thank You 🌞
       </h1>

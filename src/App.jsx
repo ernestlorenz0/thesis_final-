@@ -8,6 +8,7 @@ import ProfilePage from './pages/ProfilePage';
 import HistoryPage from './pages/HistoryPage';
 import HelpPage from './pages/HelpPage';
 import DashboardPage from './pages/DashboardPage';
+import SharedSlideshowPage from './pages/SharedSlideshowPage';
 
 function App() {
   // Hydrate user from localStorage
@@ -24,6 +25,7 @@ function App() {
       <Route path="/history" element={<HistoryPage uploadedFiles={[]} />} />
       <Route path="/help" element={<HelpPage />} />
       <Route path="/dashboard" element={<DashboardPage user={user} uploadedFiles={[]} />} />
+      <Route path="/slideshow/:id" element={<SharedSlideshowPage />} />
       {/* Redirect unknown routes to landing */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

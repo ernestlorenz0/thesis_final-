@@ -3,7 +3,7 @@ import React from "react";
 /* Title Slide */
 export function TitleSlide({ title, subtitle }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-gradient-to-br from-playful-200 to-playful-400 flex flex-col items-center justify-center text-playful-900 animate-bounce-in overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-br from-playful-200 to-playful-400 flex flex-col items-center justify-center text-playful-900 animate-bounce-in overflow-hidden">
       {/* Background playful shapes */}
       <div className="absolute w-64 h-64 bg-yellow-400 rounded-full opacity-30 -top-12 -left-12"></div>
       <div className="absolute w-48 h-48 bg-pink-400 rounded-full opacity-30 bottom-8 left-32"></div>
@@ -23,7 +23,7 @@ export function TitleSlide({ title, subtitle }) {
 /* Main Slide 1 - Title + underline + content */
 export function MainSlide1({ title, content }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-playful-100 flex flex-col items-center justify-center text-playful-900 animate-fade-in px-12 overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] bg-playful-100 flex flex-col items-center justify-center text-playful-900 animate-fade-in px-12 overflow-hidden">
       {/* Shapes */}
       <div className="absolute w-32 h-32 bg-pink-300 rounded-full opacity-20 top-8 left-8"></div>
       <div className="absolute w-48 h-48 bg-blue-300 rotate-45 opacity-20 bottom-8 right-12"></div>
@@ -40,7 +40,7 @@ export function MainSlide1({ title, content }) {
 /* Main Slide 2 - Split layout */
 export function MainSlide2({ title, content, imageUrl }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-gradient-to-r from-playful-300 to-playful-200 flex items-center justify-between text-playful-900 animate-slide-up px-20 overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-r from-playful-300 to-playful-200 flex items-center justify-between text-playful-900 animate-slide-up px-20 overflow-hidden">
       {/* Shapes */}
       <div className="absolute w-72 h-72 bg-yellow-300 rounded-full opacity-20 -top-16 right-20"></div>
       <div className="absolute w-52 h-52 bg-green-300 rotate-12 opacity-20 bottom-0 left-10"></div>
@@ -61,7 +61,7 @@ export function MainSlide2({ title, content, imageUrl }) {
 
 export function ImageSlide3({ title, imageUrl }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-gradient-to-br from-playful-200 via-playful-300 to-playful-400 flex items-center justify-center overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-br from-playful-200 via-playful-300 to-playful-400 flex items-center justify-center overflow-hidden">
       {/* Playful background shapes (use existing playful-* colors from your palette) */}
       <div className="absolute top-12 left-16 w-28 h-28 bg-playful-500 rounded-full opacity-70 animate-bounce"></div>
       <div className="absolute bottom-20 right-20 w-36 h-36 bg-playful-600 rounded-2xl opacity-70 rotate-12 animate-pulse"></div>
@@ -95,7 +95,7 @@ export function ImageSlide3({ title, imageUrl }) {
 
 export function ImageSlide({ title, imageUrl }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-gradient-to-br from-playful-200 via-playful-300 to-playful-400 overflow-hidden flex flex-col">
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-br from-playful-200 via-playful-300 to-playful-400 overflow-hidden flex flex-col">
       {/* Playful floating shapes */}
       <div className="absolute top-12 left-16 w-28 h-28 bg-playful-500 rounded-full opacity-70 animate-bounce"></div>
       <div className="absolute bottom-20 right-20 w-36 h-36 bg-playful-600 rounded-2xl opacity-70 rotate-12 animate-pulse"></div>
@@ -130,7 +130,7 @@ export function ImageSlide({ title, imageUrl }) {
 /* End Slide */
 export function EndSlide({ message }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-gradient-to-tr from-playful-400 to-playful-200 flex flex-col items-center justify-center text-playful-900 animate-fade-in overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-tr from-playful-400 to-playful-200 flex flex-col items-center justify-center text-playful-900 animate-fade-in overflow-hidden">
       {/* Shapes */}
       <div className="absolute w-72 h-72 bg-blue-400 rounded-full opacity-20 -top-20 left-20"></div>
       <div className="absolute w-56 h-56 bg-pink-400 rotate-12 opacity-20 bottom-12 right-12"></div>

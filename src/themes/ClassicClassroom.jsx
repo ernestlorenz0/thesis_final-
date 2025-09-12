@@ -2,7 +2,7 @@ import React from "react";
 
 export function TitleSlide({ title, subtitle }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-[#0D3B36] flex items-center justify-center text-center text-white overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] bg-[#0D3B36] flex items-center justify-center text-center text-white overflow-hidden">
       <img src="src/svgs/line-swirl1.svg" alt="swirl top" className="absolute top-0 left-0 w-full" />
       <img src="src/svgs/line-swirl2.svg" alt="swirl bottom" className="absolute bottom-0 left-0 w-full" />
 
@@ -16,7 +16,7 @@ export function TitleSlide({ title, subtitle }) {
 
 export function MainSlide({ title, content }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-[#0D3B36] text-white flex items-center justify-center overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] bg-[#0D3B36] text-white flex items-center justify-center overflow-hidden">
       <img src="src/svgs/line-swirl1.svg" alt="swirl top" className="absolute top-0 left-0 w-full" />
       <img src="src/svgs/line-swirl2.svg" alt="swirl bottom" className="absolute bottom-0 left-0 w-full" />
 
@@ -30,7 +30,7 @@ export function MainSlide({ title, content }) {
 
 export function MainSlide2({ title, content, imageUrl }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-[#0D3B36] text-white flex items-center overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] bg-[#0D3B36] text-white flex items-center overflow-hidden">
       <img src="src/svgs/line-swirl1.svg" alt="swirl top" className="absolute top-0 left-0 w-full" />
       <img src="src/svgs/line-swirl2.svg" alt="swirl bottom" className="absolute bottom-0 left-0 w-full" />
 
@@ -51,7 +51,7 @@ export function MainSlide2({ title, content, imageUrl }) {
 
 export function MainSlide3({ title, content, imageUrl }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-[#0D3B36] text-white flex items-center overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] bg-[#0D3B36] text-white flex items-center overflow-hidden">
       <img src="src/svgs/line-swirl1.svg" alt="swirl top" className="absolute top-0 left-0 w-full" />
       <img src="src/svgs/line-swirl2.svg" alt="swirl bottom" className="absolute bottom-0 left-0 w-full" />
 
@@ -72,7 +72,7 @@ export function MainSlide3({ title, content, imageUrl }) {
 
 export function MainSlide4({ title, content, imageUrl }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-[#0D3B36] flex items-center justify-center overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] bg-[#0D3B36] flex items-center justify-center overflow-hidden">
       <img src="src/svgs/line-swirl1.svg" alt="swirl top" className="absolute top-0 left-0 w-full" />
       <img src="src/svgs/line-swirl2.svg" alt="swirl bottom" className="absolute bottom-0 left-0 w-full" />
 
@@ -95,7 +95,7 @@ export function MainSlide4({ title, content, imageUrl }) {
 
 export function EndSlide() {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-[#0D3B36] flex items-center justify-center text-white overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] bg-[#0D3B36] flex items-center justify-center text-white overflow-hidden">
       <img src="src/svgs/line-swirl1.svg" alt="swirl top" className="absolute top-0 left-0 w-full" />
       <img src="src/svgs/line-swirl2.svg" alt="swirl bottom" className="absolute bottom-0 left-0 w-full" />
       <h1 className="relative z-10 font-[HedvigLettersSerif] text-6xl">Thank You</h1>

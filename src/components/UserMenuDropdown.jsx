@@ -2,7 +2,7 @@ import React from 'react';
 import { User, LogOut } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
-export default function UserMenuDropdown({ userMenuOpen, setUserMenuOpen, userMenuRef, previewMode, setPreviewMode }) {
+export default function UserMenuDropdown({ userMenuOpen, setUserMenuOpen, userMenuRef }) {
   const navigate = useNavigate();
   const storedUser = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('user') || '{}') : {};
   const username = storedUser?.username || storedUser?.displayName || (storedUser?.email ? storedUser.email.split('@')[0] : 'User');
@@ -27,17 +27,6 @@ export default function UserMenuDropdown({ userMenuOpen, setUserMenuOpen, userMe
       {userMenuOpen && (
         <div className="absolute right-0 mt-3 w-48 bg-white rounded-xl shadow-xl py-2 z-50 animate-fade-in">
           <button className="w-full flex items-center px-4 py-2 text-gray-700 hover:bg-blue-50 text-base font-semibold transition-all" onClick={() => { setUserMenuOpen(false); navigate('/dashboard'); }}><User size={18} className="mr-2 text-[#7B61FF]"/> User Dashboard</button>
-          
-          <button
-            className={`w-full text-left px-4 py-2 rounded font-semibold ${
-              previewMode
-                ? "bg-green-600 text-white"
-                : "bg-gray-200 text-purple-700 hover:bg-blue-50"
-            }`}
-            onClick={() => setPreviewMode(!previewMode)}
-          >
-            {previewMode ? "Exit Preview" : "Preview Mode"}
-          </button>
           
           <button className="w-full flex items-center px-4 py-2 text-[#FF4D4F] hover:bg-blue-50 text-base font-semibold transition-all" onClick={handleLogout}><LogOut size={18} className="mr-2 text-[#FF4D4F]"/> Logout</button>
         </div>

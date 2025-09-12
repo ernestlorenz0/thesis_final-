@@ -3,7 +3,7 @@ import React from "react";
 /* ---------------- TITLE SLIDE ---------------- */
 export function TitleSlide({ title, subtitle }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-gradient-to-tr from-pink-200 via-yellow-200 to-cyan-200 flex items-center justify-center overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-tr from-pink-200 via-yellow-200 to-cyan-200 flex items-center justify-center overflow-hidden">
       {/* Diagonal color overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-purple-300/50 to-transparent -skew-y-6"></div>
 
@@ -21,7 +21,7 @@ export function TitleSlide({ title, subtitle }) {
 /* ---------------- MAIN SLIDE 1 ---------------- */
 export function MainSlide1({ title, content }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-gradient-to-r from-blue-200 to-purple-200 flex overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-r from-blue-200 to-purple-200 flex overflow-hidden">
       {/* Left angled panel */}
       <div className="w-2/5 bg-white/90 backdrop-blur-md p-10 rotate-[-2deg] shadow-xl m-8 rounded-lg relative z-10">
         <h2 className="text-5xl font-bold font-serif text-purple-800 mb-4">{title}</h2>
@@ -39,7 +39,7 @@ export function MainSlide1({ title, content }) {
 /* ---------------- MAIN SLIDE 2 ---------------- */
 export function MainSlide2({ title, content }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-white flex items-center justify-center overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] bg-white flex items-center justify-center overflow-hidden">
       {/* Split diagonal background */}
       <div className="absolute inset-0 bg-gradient-to-tr from-cyan-200 to-green-200 -skew-y-6"></div>
 
@@ -55,7 +55,7 @@ export function MainSlide2({ title, content }) {
 /* ---------------- MAIN SLIDE 3 ---------------- */
 export function MainSlide3({ title, content }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-gradient-to-bl from-pink-100 to-purple-200 flex overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-bl from-pink-100 to-purple-200 flex overflow-hidden">
       {/* Overlapping shapes */}
       <div className="absolute top-10 left-10 w-80 h-80 bg-yellow-300/40 rounded-full blur-2xl"></div>
       <div className="absolute bottom-20 right-20 w-96 h-96 bg-blue-400/40 rotate-12 rounded-xl blur-2xl"></div>
@@ -72,7 +72,7 @@ export function MainSlide3({ title, content }) {
 /* ---------------- IMAGE SLIDE ---------------- */
 export function ImageSlide({ title, imageUrl }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-gradient-to-r from-yellow-100 to-pink-100 flex flex-col items-center justify-center overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-r from-yellow-100 to-pink-100 flex flex-col items-center justify-center overflow-hidden">
       {/* Title on paint stroke bar */}
       <div className="relative z-10 mb-6 px-8 py-3 bg-gradient-to-r from-pink-400 to-yellow-400 rounded-xl rotate-[-2deg] shadow-lg">
         <h3 className="text-2xl font-bold text-white drop-shadow">{title}</h3>
@@ -99,7 +99,7 @@ export function ImageSlide({ title, imageUrl }) {
 /* ---------------- END SLIDE ---------------- */
 export function EndSlide() {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-gradient-to-tr from-purple-500 via-pink-500 to-orange-400 flex items-center justify-center">
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-tr from-purple-500 via-pink-500 to-orange-400 flex items-center justify-center">
       <h1 className="text-6xl font-extrabold text-white drop-shadow-lg rotate-[-2deg]">
         Thank You 🎨
       </h1>

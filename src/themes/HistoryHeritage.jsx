@@ -3,7 +3,7 @@ import React from "react";
 /* Title Slide – Split diagonal gold panel */
 export function TitleSlide({ title, subtitle }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-yellow-900 text-yellow-100 overflow-hidden flex items-center justify-center">
+    <section className="relative w-[1920px] h-[1080px] bg-yellow-900 text-yellow-100 overflow-hidden flex items-center justify-center">
       {/* Diagonal golden panel */}
       <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-yellow-600 to-yellow-400 transform -skew-y-6 origin-top-left"></div>
 
@@ -19,7 +19,7 @@ export function TitleSlide({ title, subtitle }) {
 /* Main Slide 1 – Left gold column, right parchment content */
 export function MainSlide1({ title, content }) {
   return (
-    <section className="w-[1280px] h-[720px] flex">
+    <section className="w-[1920px] h-[1080px] flex">
       {/* Gold sidebar */}
       <div className="w-1/3 bg-gradient-to-b from-yellow-800 to-yellow-500 flex items-center justify-center">
         <h2 className="text-5xl font-serif font-bold text-yellow-100 text-center px-4">
@@ -39,7 +39,7 @@ export function MainSlide1({ title, content }) {
 /* Main Slide 2 – Framed parchment with top banner */
 export function MainSlide2({ title, content }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-gradient-to-tr from-yellow-200 to-yellow-50 text-gray-900 p-16">
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-tr from-yellow-200 to-yellow-50 text-gray-900 p-16">
       {/* Ornamental frame */}
       <div className="absolute inset-6 border-[8px] border-yellow-700 rounded-lg"></div>
 
@@ -56,7 +56,7 @@ export function MainSlide2({ title, content }) {
 /* Main Slide 3 – Diagonal cut layout with golden overlay */
 export function MainSlide3({ title, content }) {
   return (
-    <section className="relative w-[1280px] h-[720px] flex text-yellow-100">
+    <section className="relative w-[1920px] h-[1080px] flex text-yellow-100">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-yellow-900 via-yellow-800 to-yellow-600"></div>
 
@@ -85,7 +85,7 @@ export function MainSlide3({ title, content }) {
 /* Image Slide – Gold pedestal frame */
 export function ImageSlide({ title, imageUrl }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-gradient-to-b from-yellow-100 to-yellow-50 flex flex-col items-center justify-center">
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-b from-yellow-100 to-yellow-50 flex flex-col items-center justify-center">
       {/* Frame */}
       <div className="absolute inset-10 border-[10px] border-yellow-700 rounded-xl"></div>
 
@@ -102,7 +102,7 @@ export function ImageSlide({ title, imageUrl }) {
 /* End Slide – Strong regal close with diagonal overlay */
 export function EndSlide({ message }) {
   return (
-    <section className="relative w-[1280px] h-[720px] flex items-center justify-center text-yellow-100 overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] flex items-center justify-center text-yellow-100 overflow-hidden">
       {/* Gold gradient */}
       <div className="absolute inset-0 bg-gradient-to-r from-yellow-900 via-yellow-800 to-yellow-600"></div>
       {/* Diagonal overlay */}

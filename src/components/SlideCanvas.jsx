@@ -3,6 +3,8 @@ import { DndContext } from '@dnd-kit/core';
 import DraggableBlock from './DraggableBlock';
 import SlideToolbar from './SlideToolbar';
 import FloatingAddButtons from './FloatingAddButtons';
+import ResizableImageContainer from './ResizableImageContainer';
+import DraggableTextBlock from './DraggableTextBlock';
 
 export default function SlideCanvas({
   slides,
@@ -13,17 +15,17 @@ export default function SlideCanvas({
   editingIdx,
   editorValue,
   setEditorValue,
-  selectedText,
+  setEditingIdx,
+  setShowToolbar,
+  setInlineEditing,
   inlineEditing,
-  Theme,
-  currentSlide,
-  handleBlockDragEnd,
-  handleTextDoubleClick,
+  selectedText,
+  setSelectedText,
   handleTextChange,
   handleFontChange,
   removeComponent,
-  applyToolbarToBlock,
-  deleteEditingBlock,
+  updateComponent,
+  handleBlockDragEnd,
   cancelEdit,
   saveEdit,
   addComponent,
@@ -31,7 +33,9 @@ export default function SlideCanvas({
   handleImageUpload,
   handleTextSelection,
   onDragOver,
-  onDrop
+  onDrop,
+  Theme,
+  currentSlide
 }) {
   class ThemeErrorBoundary extends React.Component {
     constructor(props) {
@@ -146,149 +150,7 @@ export default function SlideCanvas({
               }}
               maxLength={120}
             />
-            {currentSlide.components.map((comp, idx) => {
-              if (comp.type === 'image') {
-                return (
-                  <div
-                    key={comp.id}
-                    style={{ position: 'absolute', left: comp.x, top: comp.y, width: comp.w, height: comp.h, zIndex: 1, background: '#fff', border: '1.5px solid #e5e7eb', borderRadius: 10, boxShadow: '0 2px 8px #0002', marginBottom: 8 }}
-                    className="group"
-                  >
-                    {comp.content ? (
-                      <img 
-                        src={comp.content} 
-                        alt="slide visual" 
-                        className="w-full h-full object-contain rounded shadow cursor-move" 
-                        draggable={false}
-                        onDragStart={e => e.preventDefault()}
-                      />
-                    ) : (
-                      <div 
-                        className="w-full h-full flex items-center justify-center bg-gray-100 border border-gray-300 rounded cursor-pointer hover:bg-gray-200 transition-colors"
-                        onClick={() => fileInputRef.current && fileInputRef.current.click()}
-                      >
-                        <div className="text-center text-gray-500">
-                          <svg className="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                          </svg>
-                          <div className="text-sm">Click to add image</div>
-                        </div>
-                      </div>
-                    )}
-                    <button className="absolute -top-3 -right-3 bg-red-500 text-white rounded-full p-1 text-xs opacity-80 group-hover:opacity-100" onClick={() => removeComponent(idx)}>✕</button>
-                  </div>
-                );
-              }
-              // Editable text block (title or paragraph)
-              const isEditing = editingIdx === idx;
-              return (
-                <div
-                  key={comp.id}
-                  style={{
-                    position: 'absolute',
-                    left: comp.x,
-                    top: comp.y,
-                    width: comp.w,
-                    minHeight: 40,
-                    zIndex: 2,
-                    cursor: isEditing ? 'text' : 'move',
-                    fontSize: comp.fontSize,
-                    fontFamily: comp.fontFamily,
-                    fontWeight: comp.fontWeight,
-                    fontStyle: comp.fontStyle,
-                    textDecoration: comp.textDecoration,
-                    color: comp.color,
-                    background: '#fff',
-                    border: '1.5px solid #e5e7eb',
-                    borderRadius: 10,
-                    boxShadow: '0 2px 8px #0002',
-                    padding: 12,
-                    marginBottom: 8,
-                  }}
-                  className="group"
-                  onDoubleClick={() => handleTextDoubleClick(idx, comp)}
-                  draggable={!isEditing}
-                  onDragStart={e => {
-                    e.dataTransfer.setData('text/plain', idx);
-                  }}
-                  onDragEnd={e => {
-                    if (!isEditing) {
-                      const rect = e.target.parentNode.getBoundingClientRect();
-                      const dx = e.clientX - rect.left;
-                      const dy = e.clientY - rect.top;
-                      // setSlides logic should be handled in parent
-                    }
-                  }}
-                >
-                  {isEditing ? (
-                    <div className="relative">
-                      <textarea
-                        value={editorValue}
-                        onChange={e => {
-                          setEditorValue(e.target.value);
-                          handleTextChange(idx, e.target.value);
-                        }}
-                        onSelect={e => {
-                          const start = e.target.selectionStart;
-                          const end = e.target.selectionEnd;
-                          handleTextSelection(start, end);
-                        }}
-                        className="w-full bg-transparent text-black outline-none resize-none text-lg font-medium"
-                        style={{ 
-                          fontFamily: toolbarState.fontFamily, 
-                          fontWeight: toolbarState.fontWeight, 
-                          fontStyle: toolbarState.fontStyle, 
-                          textDecoration: toolbarState.textDecoration, 
-                          color: toolbarState.color, 
-                          fontSize: toolbarState.fontSize 
-                        }}
-                        rows={comp.type === 'title' ? 1 : 3}
-                        placeholder={comp.type === 'title' ? 'Title...' : 'Paragraph...'}
-                        autoFocus
-                        onBlur={saveEdit}
-                      />
-                      {selectedText.start !== selectedText.end && (
-                        <div className="absolute -top-8 left-0 bg-blue-500 text-white text-xs px-2 py-1 rounded">
-                          Selected: {selectedText.end - selectedText.start} chars
-                        </div>
-                      )}
-                    </div>
-                  ) : (
-                    <div
-                      style={{ 
-                        fontFamily: comp.fontFamily, 
-                        fontWeight: comp.fontWeight, 
-                        fontStyle: comp.fontStyle, 
-                        textDecoration: comp.textDecoration, 
-                        color: comp.color, 
-                        fontSize: comp.fontSize 
-                      }}
-                      className="w-full text-black outline-none resize-none text-lg font-medium select-none"
-                    >
-                      {comp.richText ? (
-                        comp.richText.map((segment, segIdx) => (
-                          <span
-                            key={segIdx}
-                            style={{
-                              fontFamily: segment.fontFamily,
-                              fontSize: segment.fontSize,
-                              fontWeight: segment.fontWeight,
-                              fontStyle: segment.fontStyle,
-                              textDecoration: segment.textDecoration,
-                              color: segment.color
-                            }}
-                          >
-                            {segment.text}
-                          </span>
-                        ))
-                      ) : (
-                        comp.content
-                      )}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
+            // This code has been moved to renderDraggableComponents function
             {/* Formatting toolbar */}
             {showToolbar && (
               <SlideToolbar
@@ -309,6 +171,46 @@ export default function SlideCanvas({
     );
   };
 
+  // Render individual draggable components as overlay on theme
+  const renderDraggableComponents = () => {
+    if (!currentSlide || !currentSlide.components) return null;
+    
+    return currentSlide.components.map((comp, idx) => {
+      // Render draggable overlays for images that are added separately
+      if (comp.type === 'image' && comp.isDraggable) {
+        return (
+          <DraggableBlock
+            key={comp.id}
+            id={comp.id}
+            x={(comp.x || 200) * 0.75} // Scale to match theme scaling
+            y={(comp.y || 200) * 0.75}
+          >
+            <ResizableImageContainer
+              comp={comp}
+              idx={idx}
+              removeComponent={removeComponent}
+              slides={slides}
+              current={current}
+            />
+          </DraggableBlock>
+        );
+      }
+      // Render draggable text components as overlays
+      else if ((comp.type === 'text' || comp.type === 'title') && comp.isDraggable) {
+        return (
+          <DraggableTextBlock
+            key={comp.id}
+            comp={comp}
+            idx={idx}
+            updateComponent={updateComponent}
+            removeComponent={removeComponent}
+          />
+        );
+      }
+      return null;
+    });
+  };
+
   return (
     <div 
       className="w-[1280px] h-[720px] bg-white/80 rounded-3xl shadow-2xl border-4 border-purple-200 mt-24 flex flex-col relative overflow-hidden p-12 backdrop-blur-lg"
@@ -316,16 +218,21 @@ export default function SlideCanvas({
       onDrop={onDrop}
     >
       <DndContext onDragEnd={event => {
-        if (event.active && event.over && event.delta) {
+        console.log('🎯 DndContext onDragEnd:', event);
+        if (event.active && event.delta) {
           handleBlockDragEnd(event.active.id, event);
         }
       }}>
         <div className="flex-1 flex flex-col items-center justify-center bg-neutral-50 rounded-2xl shadow-xl relative overflow-hidden min-h-[450px]">
           {slides[current] && slides[current].components.length > 0 ? (
-            <div className="scale-75 origin-center">
+            <div className="scale-75 origin-center relative">
               <ThemeErrorBoundary>
                 {renderThemedSlide(slides[current], current)}
               </ThemeErrorBoundary>
+              {/* Overlay draggable components on top of theme */}
+              <div className="absolute inset-0">
+                {renderDraggableComponents()}
+              </div>
             </div>
           ) : (
             <div className="text-center text-neutral-400">

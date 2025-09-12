@@ -3,7 +3,7 @@ import React from "react";
 /* ---------------- TITLE SLIDE ---------------- */
 export function TitleSlide({ title, subtitle }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-gradient-to-tr from-purple-800 via-fuchsia-600 to-violet-500 flex items-center justify-center overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-tr from-purple-800 via-fuchsia-600 to-violet-500 flex items-center justify-center overflow-hidden">
       {/* Blobs */}
       <div className="absolute top-[-100px] left-[-150px] w-[400px] h-[400px] bg-fuchsia-400 rounded-full blur-3xl opacity-40"></div>
       <div className="absolute bottom-[-120px] right-[-150px] w-[500px] h-[500px] bg-purple-300 rounded-full blur-3xl opacity-40"></div>
@@ -23,7 +23,7 @@ export function TitleSlide({ title, subtitle }) {
 /* Content inside a funky tilted card */
 export function MainSlide1({ title, content }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-violet-100 flex items-center justify-center overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] bg-violet-100 flex items-center justify-center overflow-hidden">
       {/* Blob accents */}
       <div className="absolute top-10 left-10 w-72 h-72 bg-purple-400/40 rounded-full blur-3xl"></div>
       <div className="absolute bottom-10 right-20 w-96 h-96 bg-fuchsia-500/30 rounded-full blur-2xl"></div>
@@ -41,7 +41,7 @@ export function MainSlide1({ title, content }) {
 /* Title on left, big flowing blob background */
 export function MainSlide2({ title, content }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-gradient-to-br from-purple-200 to-fuchsia-100 flex items-center overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-br from-purple-200 to-fuchsia-100 flex items-center overflow-hidden">
       {/* Abstract shape background */}
       <div className="absolute w-[600px] h-[600px] bg-purple-500/40 rounded-[40%_60%_70%_30%] blur-3xl -left-32"></div>
       <div className="absolute w-[400px] h-[400px] bg-fuchsia-400/30 rounded-[60%_40%_30%_70%] blur-2xl bottom-10 right-10"></div>
@@ -59,7 +59,7 @@ export function MainSlide2({ title, content }) {
 /* Diagonal split background with funky wave */
 export function MainSlide3({ title, content }) {
   return (
-    <section className="relative w-[1280px] h-[720px] flex overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] flex overflow-hidden">
       {/* Diagonal split */}
       <div className="absolute inset-0 bg-gradient-to-tr from-fuchsia-500 to-purple-600 clip-path-diagonal"></div>
 
@@ -81,7 +81,7 @@ export function MainSlide3({ title, content }) {
 /* Fun frame with blobs around image */
 export function ImageSlide({ title, imageUrl }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-violet-50 flex items-center justify-center overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] bg-violet-50 flex items-center justify-center overflow-hidden">
       {/* Decorative blobs */}
       <div className="absolute top-0 left-0 w-72 h-72 bg-purple-300/40 rounded-full blur-2xl"></div>
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-fuchsia-400/30 rounded-full blur-3xl"></div>
@@ -112,7 +112,7 @@ export function ImageSlide({ title, imageUrl }) {
 /* ---------------- END SLIDE ---------------- */
 export function EndSlide() {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-gradient-to-tr from-purple-700 to-fuchsia-600 flex items-center justify-center overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-tr from-purple-700 to-fuchsia-600 flex items-center justify-center overflow-hidden">
       {/* Blob accents */}
       <div className="absolute top-20 left-32 w-80 h-80 bg-fuchsia-400/30 rounded-full blur-3xl"></div>
       <div className="absolute bottom-10 right-20 w-96 h-96 bg-purple-300/40 rounded-full blur-2xl"></div>

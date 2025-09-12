@@ -2,7 +2,7 @@ import React from "react";
 
 export function TitleSlide({ title, subtitle }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-black flex items-center justify-center overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] bg-black flex items-center justify-center overflow-hidden">
       {/* Full paint splatter background */}
       <img
         src="src/svgs/paint-background.svg"
@@ -46,7 +46,7 @@ export function TitleSlide({ title, subtitle }) {
 // Main Slide 1
 export function MainSlide({ title, content }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-black text-white overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] bg-black text-white overflow-hidden">
       {/* Top Orange Shape */}
       <img
         src="src/svgs/header-front.svg"
@@ -81,7 +81,7 @@ export function MainSlide({ title, content }) {
 // Main Slide 2
 export function MainSlide2({ title, content }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-black text-white overflow-hidden flex items-center justify-center">
+    <section className="relative w-[1920px] h-[1080px] bg-black text-white overflow-hidden flex items-center justify-center">
       {/* Left Blob */}
       <img
         src="src/svgs/blob-shape4.svg"
@@ -109,7 +109,7 @@ export function MainSlide2({ title, content }) {
 // Main Slide 3
 export function MainSlide3({ title, content }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-black text-white overflow-hidden flex items-start justify-start">
+    <section className="relative w-[1920px] h-[1080px] bg-black text-white overflow-hidden flex items-start justify-start">
       {/* Right Blob */}
       <img
         src="src/svgs/shape-right2.svg"
@@ -136,7 +136,7 @@ export function MainSlide3({ title, content }) {
 // Main Slide 4
 export function MainSlide4({ title, content }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-black text-white overflow-hidden flex">
+    <section className="relative w-[1920px] h-[1080px] bg-black text-white overflow-hidden flex">
       {/* Half Orange Shape */}
       <img
         src="src/svgs/rectangle-half.svg"
@@ -164,7 +164,7 @@ export function MainSlide4({ title, content }) {
 // Main Slide 5
 export function MainSlide5({ title, content }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-black text-white overflow-hidden flex items-center">
+    <section className="relative w-[1920px] h-[1080px] bg-black text-white overflow-hidden flex items-center">
       {/* Top Purple + Orange Blob */}
       <img src="src/svgs/ellipse-top.svg" alt="top accent" className="absolute top-0 w-[500px]" />
 
@@ -189,7 +189,7 @@ export function MainSlide5({ title, content }) {
 // End Slide
 export function EndSlide() {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-black flex items-center justify-center overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] bg-black flex items-center justify-center overflow-hidden">
       {/* Full paint splatter background */}
       <img
         src="src/svgs/paint-background.svg"

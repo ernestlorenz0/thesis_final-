@@ -6,7 +6,7 @@ import { MdTranslate } from "react-icons/md";
 /* Title Slide – Speech bubble theme */
 export function TitleSlide({ title, subtitle }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-gradient-to-br from-blue-700 via-purple-600 to-pink-500 text-white flex flex-col items-center justify-center overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-br from-blue-700 via-purple-600 to-pink-500 text-white flex flex-col items-center justify-center overflow-hidden">
       {/* Speech bubble icons */}
       <FaRegCommentDots className="absolute top-12 left-16 text-7xl opacity-30" />
       <MdTranslate className="absolute bottom-20 right-24 text-8xl opacity-20" />
@@ -21,7 +21,7 @@ export function TitleSlide({ title, subtitle }) {
 /* Main Slide 1 – Split layout with giant quotation mark */
 export function MainSlide1({ title, content }) {
   return (
-    <section className="relative w-[1280px] h-[720px] flex bg-gradient-to-r from-yellow-100 to-pink-50 text-gray-900">
+    <section className="relative w-[1920px] h-[1080px] flex bg-gradient-to-r from-yellow-100 to-pink-50 text-gray-900">
       {/* Big decorative quote mark */}
       <div className="absolute top-10 left-10 text-[200px] text-pink-300 opacity-80 font-serif">“</div>
 
@@ -36,7 +36,7 @@ export function MainSlide1({ title, content }) {
 /* Main Slide 2 – Dialogue boxes layout */
 export function MainSlide2({ title, content }) {
   return (
-    <section className="w-[1280px] h-[720px] bg-gradient-to-tr from-blue-100 to-purple-100 flex flex-col items-center justify-center p-16 relative overflow-hidden">
+    <section className="w-[1920px] h-[1080px] bg-gradient-to-tr from-blue-100 to-purple-100 flex flex-col items-center justify-center p-16 relative overflow-hidden">
       {/* Background bubbles */}
       <div className="absolute inset-0 flex justify-around items-center opacity-50 text-9xl text-blue-300">
         <FaRegCommentDots />
@@ -56,7 +56,7 @@ export function MainSlide2({ title, content }) {
 /* Main Slide 3 – Asymmetrical floating panels */
 export function MainSlide3({ title, content }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-gradient-to-bl from-pink-200 via-yellow-100 to-blue-200 flex p-16 overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-bl from-pink-200 via-yellow-100 to-blue-200 flex p-16 overflow-hidden">
       {/* Floating panels */}
       <div className="absolute top-10 left-16 w-48 h-28 bg-white shadow-lg rounded-lg rotate-6 opacity-70"></div>
       <div className="absolute bottom-16 right-24 w-56 h-32 bg-white shadow-lg rounded-lg -rotate-6 opacity-60"></div>
@@ -73,7 +73,7 @@ export function MainSlide3({ title, content }) {
 /* Image Slide – Dictionary style card */
 export function ImageSlide({ title, imageUrl }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-white flex flex-col items-center justify-center text-gray-900">
+    <section className="relative w-[1920px] h-[1080px] bg-white flex flex-col items-center justify-center text-gray-900">
       {/* Border frame */}
       <div className="absolute inset-8 border-4 border-blue-700 rounded-lg"></div>
 
@@ -97,7 +97,7 @@ export function ImageSlide({ title, imageUrl }) {
 /* End Slide – Speech bubble close */
 export function EndSlide({ message }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-gradient-to-r from-purple-700 to-pink-600 flex items-center justify-center text-white">
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-r from-purple-700 to-pink-600 flex items-center justify-center text-white">
       {/* Giant bubble background */}
       <div className="absolute w-[800px] h-[400px] rounded-full bg-white/20 blur-3xl"></div>
 

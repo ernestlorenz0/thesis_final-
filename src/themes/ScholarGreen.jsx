@@ -3,7 +3,7 @@ import React from "react";
 /* ---------------- TITLE SLIDE ---------------- */
 export function TitleSlide({ title, subtitle }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-gradient-to-br from-green-900 to-emerald-700 flex flex-col items-center justify-center text-center">
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-br from-green-900 to-emerald-700 flex flex-col items-center justify-center text-center">
       {/* Decorative underline with flourish */}
       <h1 className="text-6xl font-serif text-green-100 font-bold mb-4 drop-shadow-lg">
         {title}
@@ -18,7 +18,7 @@ export function TitleSlide({ title, subtitle }) {
 /* Left-aligned title sidebar, wide content on right */
 export function MainSlide1({ title, content }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-green-50 flex">
+    <section className="relative w-[1920px] h-[1080px] bg-green-50 flex">
       {/* Vertical title bar */}
       <div className="w-1/4 bg-green-700 flex items-center justify-center">
       </div>
@@ -38,7 +38,7 @@ export function MainSlide1({ title, content }) {
 /* Title at top, content split into two flowing columns */
 export function MainSlide2({ title, content }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-gradient-to-tr from-green-200 to-green-100 flex flex-col p-12">
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-tr from-green-200 to-green-100 flex flex-col p-12">
       <h2 className="text-6xl font-bold text-green-900 mb-8">{title}</h2>
 
       {/* Two-column flowing layout */}
@@ -54,7 +54,7 @@ export function MainSlide2({ title, content }) {
 /* Fullscreen background with diagonal ribbon for text */
 export function MainSlide3({ title, content }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-green-800 overflow-hidden flex items-center justify-center">
+    <section className="relative w-[1920px] h-[1080px] bg-green-800 overflow-hidden flex items-center justify-center">
       {/* Diagonal ribbon */}
       <div className="absolute -skew-y-6 bg-green-600/80 w-[150%] h-[60%]"></div>
 
@@ -75,7 +75,7 @@ export function MainSlide3({ title, content }) {
 /* Split layout: left big image, right caption block */
 export function ImageSlide({ title, imageUrl }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-green-50 flex">
+    <section className="relative w-[1920px] h-[1080px] bg-green-50 flex">
       {/* Image side */}
       <div className="w-2/3 h-full overflow-hidden">
         {imageUrl ? (
@@ -105,7 +105,7 @@ export function ImageSlide({ title, imageUrl }) {
 /* ---------------- END SLIDE ---------------- */
 export function EndSlide() {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-gradient-to-b from-emerald-900 to-green-700 flex flex-col items-center justify-center">
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-b from-emerald-900 to-green-700 flex flex-col items-center justify-center">
       <h1 className="text-5xl font-serif text-green-100 font-bold mb-4">
         End of Presentation
       </h1>

@@ -2,7 +2,7 @@ import React from "react";
 
 export function TitleSlide({ title, subtitle }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-white overflow-hidden flex items-center">
+    <section className="relative w-[1920px] h-[1080px] bg-white overflow-hidden flex items-center">
       {/* Big circle */}
       <img src="src/svgs/big-circle.svg" alt="circle" className="absolute right-0 bottom-0 w-[700px]" />
       {/* Small navy circle */}
@@ -20,7 +20,7 @@ export function TitleSlide({ title, subtitle }) {
 
 export function MainSlide({ title, content }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-white overflow-hidden flex items-center justify-between p-10">
+    <section className="relative w-[1920px] h-[1080px] bg-white overflow-hidden flex items-center justify-between p-10">
       {/* Left shapes */}
       <img src="src/svgs/circle-left.svg" alt="circle" className="absolute left-0 top-0 w-[500px]" />
       <img src="src/svgs/circle-right.svg" alt="shape" className="absolute bottom-0 right-0 w-[350px]" />
@@ -35,7 +35,7 @@ export function MainSlide({ title, content }) {
 
 export function SectionSlide({ title, content }) {
   return (
-    <section className="w-[1280px] h-[720px] bg-cyan-200 flex items-center justify-center">
+    <section className="w-[1920px] h-[1080px] bg-cyan-200 flex items-center justify-center">
       <div className="text-center">
         <h2 className="text-5xl font-bold text-gray-800 mt-[-300px]">{title}</h2>
         <div className="mt-2 h-[2px] w-40 bg-gray-700 mx-auto mb-40"></div>
@@ -47,7 +47,7 @@ export function SectionSlide({ title, content }) {
 
 export function ColumnsSlide({ items = [] }) {
   return (
-    <section className="w-[1280px] h-[720px] bg-[#2c3e50] flex items-center justify-center space-x-6 p-10">
+    <section className="w-[1920px] h-[1080px] bg-[#2c3e50] flex items-center justify-center space-x-6 p-10">
       {items.map((item, idx) => (
         <div key={idx} className="flex flex-col items-center">
           <div className="w-40 h-40 mb-4 bg-cyan-400 rounded-lg flex items-center justify-center">
@@ -62,7 +62,7 @@ export function ColumnsSlide({ items = [] }) {
 
 export function SplitSlide({ title, content }) {
   return (
-    <section className="w-[1280px] h-[720px] flex">
+    <section className="w-[1920px] h-[1080px] flex">
       {/* Left cyan side */}
       <div className="w-1/2 bg-cyan-200 flex flex-col items-center justify-center p-10">
         <h2 className="text-5xl font-semibold mb-4 text-black translate-y-[-200px]">{title}</h2>
@@ -78,7 +78,7 @@ export function SplitSlide({ title, content }) {
 
 export function SplitSlide2({ title, content }) {
   return (
-    <section className="w-[1280px] h-[720px] flex">
+    <section className="w-[1920px] h-[1080px] flex">
       {/* Left white with cyan wave */}
       <div className="w-1/2 bg-white flex items-center justify-center p-10">
       </div>
@@ -93,7 +93,7 @@ export function SplitSlide2({ title, content }) {
 
 export function EndSlide() {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-[#2c3e50] flex items-center justify-center">
+    <section className="relative w-[1920px] h-[1080px] bg-[#2c3e50] flex items-center justify-center">
       <img src="src/svgs/end-circle.svg" alt="circle" className="absolute w-[700px]" />
       <div className="relative z-10 text-center text-black">
         <h1 className="text-6xl font-bold mb-4">Thank You!</h1>

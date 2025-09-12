@@ -9,12 +9,104 @@ export default function AssetPicker({ open, onClose, onSelect, onAIImageGenerate
 
   useEffect(() => {
     if (open) {
-      fetch('/assets')
-        .then(res => res.json())
-        .then(setAssets)
-        .catch(() => setAssets({ icons: [], emojis: [], backgrounds: [], illustrations: [] }));
+      loadStaticAssets();
     }
   }, [open]);
+
+  const loadStaticAssets = async () => {
+    try {
+      const loadedAssets = { icons: [], emojis: [], backgrounds: [], illustrations: [] };
+      
+      console.log('🔍 AssetPicker: Starting dynamic asset scan...');
+      
+      // Define the folders to scan and their mappings
+      const folderMappings = {
+        'icons': 'icons',
+        'emoji': 'emojis', 
+        'background': 'backgrounds',
+        'illustrations': 'illustrations'
+      };
+      
+      // Since import.meta.glob doesn't work with public/, we'll use a dynamic approach
+      // Try to fetch a directory listing or use known common file extensions
+      const commonExtensions = ['png', 'jpg', 'jpeg', 'gif', 'svg', 'webp'];
+      const commonFileNames = [
+        // Icons
+        'facebook', 'instagram', 'twitter', 'linkedin', 'youtube', 'tiktok', 'snapchat', 'telegram', 'whatsapp',
+        'home', 'user', 'settings', 'search', 'heart', 'star', 'plus', 'minus', 'edit', 'delete', 'save',
+        'arrow-left', 'arrow-right', 'arrow-up', 'arrow-down', 'check', 'close', 'menu', 'ruler','book',
+        // Emojis  
+        'smile', 'happy', 'sad', 'angry', 'love', 'laugh', 'cry', 'wink', 'surprised', 'cool',
+        // Backgrounds
+        'gradient', 'solid', 'pattern', 'texture', 'abstract', 'geometric', 'nature', 'city',
+        // Illustrations
+        'star', 'circle', 'square', 'triangle', 'diamond', 'heart-shape', 'flower', 'tree',
+      ];
+      
+      // Scan each folder
+      for (const [folderName, categoryKey] of Object.entries(folderMappings)) {
+        console.log(`🔍 Scanning folder: ${folderName}`);
+        
+        // Try different combinations of common names and extensions
+        for (const baseName of commonFileNames) {
+          for (const ext of commonExtensions) {
+            const fileName = `${baseName}.${ext}`;
+            const url = `/static/${folderName}/${fileName}`;
+            
+            try {
+              const response = await fetch(url, { method: 'HEAD' });
+              if (response.ok) {
+                // Check if we already have this file (avoid duplicates)
+                const exists = loadedAssets[categoryKey].some(asset => asset.name === fileName);
+                if (!exists) {
+                  loadedAssets[categoryKey].push({
+                    name: fileName,
+                    url: url
+                  });
+                  console.log(`✅ Found: ${fileName} in ${categoryKey}`);
+                }
+              }
+            } catch (e) {
+              // File doesn't exist, continue
+            }
+          }
+        }
+        
+        // Also try files without base names (direct extension check)
+        for (const ext of commonExtensions) {
+          const testFiles = [
+            `icon.${ext}`, `emoji.${ext}`, `bg.${ext}`, `background.${ext}`, 
+            `illustration.${ext}`, `image.${ext}`, `asset.${ext}`
+          ];
+          
+          for (const fileName of testFiles) {
+            const url = `/static/${folderName}/${fileName}`;
+            try {
+              const response = await fetch(url, { method: 'HEAD' });
+              if (response.ok) {
+                const exists = loadedAssets[categoryKey].some(asset => asset.name === fileName);
+                if (!exists) {
+                  loadedAssets[categoryKey].push({
+                    name: fileName,
+                    url: url
+                  });
+                  console.log(`✅ Found: ${fileName} in ${categoryKey}`);
+                }
+              }
+            } catch (e) {
+              // File doesn't exist, continue
+            }
+          }
+        }
+      }
+      
+      console.log('🎯 Final scanned assets:', loadedAssets);
+      setAssets(loadedAssets);
+    } catch (error) {
+      console.error('Failed to load static assets:', error);
+      setAssets({ icons: [], emojis: [], backgrounds: [], illustrations: [] });
+    }
+  };
 
   const filtered = assets[tab].filter(a => a.name.toLowerCase().includes(search.toLowerCase()));
 
@@ -106,7 +198,7 @@ export default function AssetPicker({ open, onClose, onSelect, onAIImageGenerate
                 onClick={() => onSelect(asset)}
               >
                 <img src={asset.url} alt={asset.name} className="w-16 h-16 object-contain mb-1" />
-                <span className="text-xs truncate w-16">{asset.name}</span>
+                <span className="text-xs truncate w-16 text-gray-700 font-medium">{asset.name}</span>
               </button>
             ))}
           </div>

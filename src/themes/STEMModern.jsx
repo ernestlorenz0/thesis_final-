@@ -3,7 +3,7 @@ import React from "react";
 // STEM Modern Title Slide
 export function TitleSlide({ title, subtitle }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-gradient-to-br from-[#0a192f] to-[#112d4e] text-white flex flex-col items-center justify-center rounded-2xl shadow-2xl overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-br from-[#0a192f] to-[#112d4e] text-white flex flex-col items-center justify-center rounded-2xl shadow-2xl overflow-hidden">
 
       {/* Background shapes (STEM vibe) */}
       <div className="absolute inset-0 opacity-10">
@@ -30,7 +30,7 @@ export function TitleSlide({ title, subtitle }) {
 
 export function MainSlide1({ title, content }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-gradient-to-br from-[#0a192f] to-[#112d4e] flex items-center justify-center">
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-br from-[#0a192f] to-[#112d4e] flex items-center justify-center">
 
       {/* Background shapes (STEM vibe) */}
       <div className="absolute inset-0 opacity-10">
@@ -66,7 +66,7 @@ export function MainSlide1({ title, content }) {
 
 export function MainSlide2({ title, content, imageUrl }) {
   return (
-    <section className="w-[1280px] h-[720px] bg-[#0a192f] flex">
+    <section className="w-[1920px] h-[1080px] bg-[#0a192f] flex">
 
       {/* Background shapes (STEM vibe) */}
       <div className="absolute inset-0 opacity-10">
@@ -107,7 +107,7 @@ export function MainSlide2({ title, content, imageUrl }) {
 
 export function MainSlide3({ title, content }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-gradient-to-tr from-[#0a192f] to-[#112d4e] text-white overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-tr from-[#0a192f] to-[#112d4e] text-white overflow-hidden">
       {/* Full screen border */}
       <div className="absolute inset-0 border-4 border-cyan-400/40 rounded-xl pointer-events-none"></div>
 
@@ -136,7 +136,7 @@ export function MainSlide3({ title, content }) {
 // STEM Modern Image Slide
 export function ImageSlide({ title, imageUrl }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-gradient-to-r from-[#0a192f] to-[#112d4e] flex items-center justify-center">
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-r from-[#0a192f] to-[#112d4e] flex items-center justify-center">
 
       {/* Background shapes (STEM vibe) */}
       <div className="absolute inset-0 opacity-10">
@@ -176,7 +176,7 @@ export function ImageSlide({ title, imageUrl }) {
 // STEM Modern Section Header
 export function EndSlide({ title }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-[#112d4e] flex items-center justify-center">
+    <section className="relative w-[1920px] h-[1080px] bg-[#112d4e] flex items-center justify-center">
 
       {/* Background shapes (STEM vibe) */}
       <div className="absolute inset-0 opacity-10">

@@ -3,7 +3,7 @@ import React from "react";
 /* Title Slide – Chalkboard with center text + doodles */
 export function TitleSlide({ title, subtitle }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-[#1b1b1b] text-white flex flex-col items-center justify-center overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] bg-[#1b1b1b] text-white flex flex-col items-center justify-center overflow-hidden">
       {/* Chalk smudge border */}
       <div className="absolute inset-4 border-[6px] border-green-400/60 rounded-xl opacity-50"></div>
 
@@ -24,7 +24,7 @@ export function TitleSlide({ title, subtitle }) {
 /* Main Slide 1 – Left title bar, chalk text on right */
 export function MainSlide1({ title, content }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-[#2a2a2a] text-white flex">
+    <section className="relative w-[1920px] h-[1080px] bg-[#2a2a2a] text-white flex">
       {/* Vertical title bar */}
       <div className="w-1/3 bg-[#1b1b1b] flex flex-col justify-center items-center border-r-4 border-green-400/40">
         <h2 className="text-5xl font-mono text-green-300 -rotate-2">{title}</h2>
@@ -43,7 +43,7 @@ export function MainSlide1({ title, content }) {
 /* Main Slide 2 – Top title, chalk underline, centered content */
 export function MainSlide2({ title, content }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-[#1b1b1b] text-white flex flex-col items-center justify-start p-16">
+    <section className="relative w-[1920px] h-[1080px] bg-[#1b1b1b] text-white flex flex-col items-center justify-start p-16">
       <h2 className="text-6xl font-mono text-yellow-300 mb-2">{title}</h2>
       <div className="w-64 h-[3px] bg-pink-400/70 mb-12 -rotate-1"></div>
       <p className="text-3xl font-mono leading-relaxed max-w-4xl text-center text-gray-200">
@@ -56,7 +56,7 @@ export function MainSlide2({ title, content }) {
 /* Main Slide 3 – Chalkboard grid background, content left, doodle right */
 export function MainSlide3({ title, content }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-[#2c2c2c] text-white flex items-center px-20">
+    <section className="relative w-[1920px] h-[1080px] bg-[#2c2c2c] text-white flex items-center px-20">
       {/* Grid background */}
       <div className="absolute inset-0 opacity-20 bg-[linear-gradient(to_right,rgba(255,255,255,0.15)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.15)_1px,transparent_1px)] bg-[size:60px_60px]"></div>
 
@@ -77,7 +77,7 @@ export function MainSlide3({ title, content }) {
 /* Image Slide – Chalk border with image inside */
 export function ImageSlide({ title, imageUrl }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-[#1b1b1b] text-white flex flex-col items-center justify-center">
+    <section className="relative w-[1920px] h-[1080px] bg-[#1b1b1b] text-white flex flex-col items-center justify-center">
       <div className="absolute inset-6 border-4 border-cyan-400/70 rounded-lg opacity-60"></div>
       <img
         src={imageUrl}
@@ -92,7 +92,7 @@ export function ImageSlide({ title, imageUrl }) {
 /* End Slide – Big thanks in chalk */
 export function EndSlide({ message }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-[#1b1b1b] text-white flex flex-col items-center justify-center">
+    <section className="relative w-[1920px] h-[1080px] bg-[#1b1b1b] text-white flex flex-col items-center justify-center">
       <div className="absolute inset-10 border-[6px] border-pink-400/60 rounded-xl opacity-60"></div>
       <h2 className="text-6xl font-mono text-green-300 drop-shadow-lg">{message}</h2>
     </section>

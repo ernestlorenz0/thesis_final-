@@ -6,7 +6,7 @@ import { TbMathFunction } from "react-icons/tb";
 /* Title Slide – Matrix digital grid background */
 export function TitleSlide({ title, subtitle }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-black overflow-hidden flex flex-col items-center justify-center text-green-400">
+    <section className="relative w-[1920px] h-[1080px] bg-black overflow-hidden flex flex-col items-center justify-center text-green-400">
       {/* Grid background */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#0f0_1px,transparent_1px),linear-gradient(to_bottom,#0f0_1px,transparent_1px)] bg-[size:40px_40px] opacity-20"></div>
 
@@ -25,7 +25,7 @@ export function TitleSlide({ title, subtitle }) {
 /* Main Slide 1 – Split screen with math sidebar */
 export function MainSlide1({ title, content }) {
   return (
-    <section className="w-[1280px] h-[720px] flex bg-black text-green-300">
+    <section className="w-[1920px] h-[1080px] flex bg-black text-green-300">
       {/* Sidebar with math symbols */}
       <div className="w-1/5 bg-gradient-to-b from-green-900/70 to-black flex flex-col items-center justify-center gap-6 text-3xl">
         <PiSigmaBold className="opacity-50" />
@@ -47,7 +47,7 @@ export function MainSlide1({ title, content }) {
 /* Main Slide 2 – Grid board with equations */
 export function MainSlide2({ title, content }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-gradient-to-br from-black to-green-950 text-green-300 p-8">
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-br from-black to-green-950 text-green-300 p-8">
       {/* Grid background */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#0f0_1px,transparent_1px),linear-gradient(to_bottom,#0f0_1px,transparent_1px)] bg-[size:40px_40px] opacity-10"></div>
 
@@ -66,7 +66,7 @@ export function MainSlide2({ title, content }) {
 /* Main Slide 3 – Diagonal matrix panel */
 export function MainSlide3({ title, content }) {
   return (
-    <section className="relative w-[1280px] h-[720px] overflow-hidden bg-black text-green-300 flex items-center">
+    <section className="relative w-[1920px] h-[1080px] overflow-hidden bg-black text-green-300 flex items-center">
       {/* Diagonal panel */}
       <div className="absolute inset-0 bg-gradient-to-r from-green-900/80 to-black transform -skew-x-6"></div>
 
@@ -86,7 +86,7 @@ export function MainSlide3({ title, content }) {
 /* Image Slide – Framed like a chalkboard */
 export function ImageSlide({ title, imageUrl }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-black flex flex-col items-center justify-center text-green-400 p-8">
+    <section className="relative w-[1920px] h-[1080px] bg-black flex flex-col items-center justify-center text-green-400 p-8">
       {/* Frame */}
       <div className="absolute inset-4 border-4 border-green-700"></div>
 
@@ -109,7 +109,7 @@ export function ImageSlide({ title, imageUrl }) {
 /* End Slide – Digital matrix style */
 export function EndSlide({ message }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-black text-green-400 flex items-center justify-center">
+    <section className="relative w-[1920px] h-[1080px] bg-black text-green-400 flex items-center justify-center">
       {/* Falling matrix effect (simple grid illusion) */}
       <div className="absolute inset-0 bg-[linear-gradient(to_bottom,#0f0_2px,transparent_2px)] bg-[size:100px_40px] opacity-10"></div>
 

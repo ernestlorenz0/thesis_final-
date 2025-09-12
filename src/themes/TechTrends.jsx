@@ -5,7 +5,7 @@ import { MdOutlineTrendingUp } from "react-icons/md";
 /* Title Slide – Futuristic grid + neon glow */
 export function TitleSlide({ title, subtitle }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 text-white overflow-hidden flex items-center justify-center">
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 text-white overflow-hidden flex items-center justify-center">
       {/* Tech grid */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#00f_1px,transparent_1px),linear-gradient(to_bottom,#00f_1px,transparent_1px)] bg-[size:60px_60px] opacity-20"></div>
 
@@ -24,7 +24,7 @@ export function TitleSlide({ title, subtitle }) {
 /* Main Slide 1 – Text left, image right */
 export function MainSlide1({ title, content, imageUrl }) {
   return (
-    <section className="relative w-[1280px] h-[720px] flex bg-gray-900 text-white">
+    <section className="relative w-[1920px] h-[1080px] flex bg-gray-900 text-white">
       {/* Left text */}
       <div className="w-1/2 p-16 flex flex-col justify-center">
         <h2 className="text-6xl font-bold text-blue-400 mb-6">{title}</h2>
@@ -52,7 +52,7 @@ export function MainSlide1({ title, content, imageUrl }) {
 /* Main Slide 2 – Image left, text right */
 export function MainSlide2({ title, content, imageUrl }) {
   return (
-    <section className="relative w-[1280px] h-[720px] flex bg-gradient-to-r from-blue-950 to-gray-900 text-white">
+    <section className="relative w-[1920px] h-[1080px] flex bg-gradient-to-r from-blue-950 to-gray-900 text-white">
       {/* Left image */}
       <div className="w-1/2 flex items-center justify-center bg-gradient-to-r from-blue-700/30 to-transparent">
         {imageUrl ? (
@@ -80,7 +80,7 @@ export function MainSlide2({ title, content, imageUrl }) {
 /* Main Slide 3 – Split diagonal futuristic style */
 export function MainSlide3({ title, content }) {
   return (
-    <section className="relative w-[1280px] h-[720px] overflow-hidden text-white flex items-center">
+    <section className="relative w-[1920px] h-[1080px] overflow-hidden text-white flex items-center">
       {/* Background diagonal */}
       <div className="absolute inset-0 bg-gradient-to-tr from-gray-800 to-blue-900"></div>
       <div className="absolute top-0 right-0 w-2/3 h-full bg-gradient-to-bl from-purple-800/80 to-transparent transform -skew-x-6"></div>
@@ -97,7 +97,7 @@ export function MainSlide3({ title, content }) {
 /* Image Slide – Framed neon */
 export function ImageSlide({ title, imageUrl }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-gradient-to-br from-gray-950 via-blue-950 to-purple-950 text-white flex items-center justify-center overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-br from-gray-950 via-blue-950 to-purple-950 text-white flex items-center justify-center overflow-hidden">
       {/* Background grid */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#3b82f6_1px,transparent_1px),linear-gradient(to_bottom,#3b82f6_1px,transparent_1px)] bg-[size:80px_80px] opacity-10"></div>
 
@@ -131,7 +131,7 @@ export function ImageSlide({ title, imageUrl }) {
 /* End Slide – Trend line graph vibe */
 export function EndSlide({ message }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-gradient-to-r from-purple-900 to-blue-900 flex items-center justify-center text-white overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-r from-purple-900 to-blue-900 flex items-center justify-center text-white overflow-hidden">
       {/* Trend line */}
       <div className="absolute inset-0 flex items-center justify-center opacity-20">
         <svg width="100%" height="100%">

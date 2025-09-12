@@ -31,11 +31,11 @@ const LandingPage = () => {
             <div className="text-base text-white/90">Secure & reliable</div>
           </div>
           <div className="text-center">
-            <span className="font-bold text-blue-300">Speed</span>
+            <span className="font-bold text-white">Speed</span>
             <div className="text-base text-white/70">Slides in seconds</div>
           </div>
           <div className="text-center">
-            <span className="font-bold text-blue-300">Simplicity</span>
+            <span className="font-bold text-white">Simplicity</span>
             <div className="text-base text-white/70">Just upload & go</div>
           </div>
         </div>

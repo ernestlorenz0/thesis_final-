@@ -3,7 +3,7 @@ import React from "react";
 /* ---------------- TITLE SLIDE ---------------- */
 export function TitleSlide({ title, subtitle }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-white flex flex-col items-center justify-center text-center px-16">
+    <section className="relative w-[1920px] h-[1080px] bg-white flex flex-col items-center justify-center text-center px-16">
       {/* Top accent bar */}
       <div className="absolute top-0 w-full h-6 bg-blue-900"></div>
 
@@ -23,7 +23,7 @@ export function TitleSlide({ title, subtitle }) {
 /* ---------------- MAIN SLIDE 1 ---------------- */
 export function MainSlide1({ title, content }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-white flex flex-col px-20 py-16">
+    <section className="relative w-[1920px] h-[1080px] bg-white flex flex-col px-20 py-16">
       {/* Header with divider */}
       <h2 className="text-6xl font-serif font-bold text-blue-900 mb-2">
         {title}
@@ -41,7 +41,7 @@ export function MainSlide1({ title, content }) {
 /* ---------------- MAIN SLIDE 2 ---------------- */
 export function MainSlide2({ title, content }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-gray-50 flex items-center justify-center px-24 py-16">
+    <section className="relative w-[1920px] h-[1080px] bg-gray-50 flex items-center justify-center px-24 py-16">
       <div className="max-w-4xl w-full">
         <h2 className="text-6xl font-serif font-semibold text-gray-900 mb-6">
           {title}
@@ -59,7 +59,7 @@ export function MainSlide2({ title, content }) {
 /* ---------------- MAIN SLIDE 3 ---------------- */
 export function MainSlide3({ title, content }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-white flex">
+    <section className="relative w-[1920px] h-[1080px] bg-white flex">
       {/* Left sidebar accent */}
       <div className="w-8 bg-blue-900"></div>
 
@@ -78,7 +78,7 @@ export function MainSlide3({ title, content }) {
 /* ---------------- IMAGE SLIDE ---------------- */
 export function ImageSlide({ title, imageUrl }) {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-gray-50 flex flex-col items-center justify-center px-10">
+    <section className="relative w-[1920px] h-[1080px] bg-gray-50 flex flex-col items-center justify-center px-10">
       {/* Title on top */}
       <h3 className="text-2xl font-serif font-semibold text-gray-900 mb-6">
         {title}
@@ -103,7 +103,7 @@ export function ImageSlide({ title, imageUrl }) {
 /* ---------------- END SLIDE ---------------- */
 export function EndSlide() {
   return (
-    <section className="relative w-[1280px] h-[720px] bg-blue-900 flex items-center justify-center">
+    <section className="relative w-[1920px] h-[1080px] bg-blue-900 flex items-center justify-center">
       <h1 className="text-4xl font-serif font-bold text-white">Thank You</h1>
     </section>
   );

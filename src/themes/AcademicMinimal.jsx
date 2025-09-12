@@ -2,7 +2,7 @@ import React from "react";
 
 export function TitleSlide({ title, subtitle, imageUrl }) {
   return (
-    <section className="w-[1280px] h-[720px] flex items-center justify-center bg-white">
+    <section className="w-[1920px] h-[1080px] flex items-center justify-center bg-white">
       <div className="flex w-[80%] h-[80%] items-center justify-between">
 
         <div className="w-[40%] h-[70%] bg-gray-300 flex items-center justify-center">
@@ -31,7 +31,7 @@ export function TitleSlide({ title, subtitle, imageUrl }) {
 }
 export function ImageSlide({ title, imageUrl }) {
   return (
-    <section className="w-[1280px] h-[720px] bg-white flex flex-col items-center justify-center p-24">
+    <section className="w-[1920px] h-[1080px] bg-white flex flex-col items-center justify-center p-24">
       <div className="w-full h-[70%] bg-gray-300 flex items-center justify-center mb-8">
         {imageUrl ? (
           <img
@@ -54,7 +54,7 @@ export function ImageSlide({ title, imageUrl }) {
 
 export function ContentSlide({ title, content }) {
   return (
-    <section className="w-[1280px] h-[720px] bg-white flex flex-col p-24">
+    <section className="w-[1920px] h-[1080px] bg-white flex flex-col p-24">
       <h2 className="font-merriweather font-bold text-6xl mb-8 text-black">{title}</h2>
       <p className="font-lato font-light text-3xl leading-relaxed text-black">{content}</p>
     </section>
@@ -63,7 +63,7 @@ export function ContentSlide({ title, content }) {
 
 export function ContentSlideText({ title, content }) {
   return (
-    <section className="w-[1280px] h-[720px] bg-white flex flex-col p-24">
+    <section className="w-[1920px] h-[1080px] bg-white flex flex-col p-24">
       <h2 className="font-merriweather font-bold text-6xl mb-8 text-black">{title}</h2>
       <p className="font-lato font-light text-3xl leading-relaxed text-black">{content}</p>
     </section>
@@ -73,7 +73,7 @@ export function ContentSlideText({ title, content }) {
 
 export function ContentSlideTextLeftImageRight({ title, content, imageUrl }) {
   return (
-    <section className="w-[1280px] h-[720px] bg-white flex p-16 gap-12">
+    <section className="w-[1920px] h-[1080px] bg-white flex p-16 gap-12">
       {/* Text Section */}
       <div className="flex-1 flex flex-col justify-center max-w-[60%]">
         <h2 className="font-merriweather font-bold text-5xl mt-[-300px] text-black leading-snug">
@@ -105,7 +105,7 @@ export function ContentSlideTextLeftImageRight({ title, content, imageUrl }) {
 
 export function ContentSlideTextRightImageLeft({ title, content, imageUrl }) {
   return (
-    <section className="w-[1280px] h-[720px] bg-white flex p-24 gap-12">
+    <section className="w-[1920px] h-[1080px] bg-white flex p-24 gap-12">
       <div className="w-1/2 flex items-center justify-center bg-gray-300">
         {imageUrl && <img src={imageUrl} alt="content" className="w-full h-full object-cover" />}
       </div>
@@ -119,7 +119,7 @@ export function ContentSlideTextRightImageLeft({ title, content, imageUrl }) {
 
 export function ContentSlideImagesRow({ title, content, images }) {
   return (
-    <section className="w-[1280px] h-[720px] bg-white flex flex-col p-24">
+    <section className="w-[1920px] h-[1080px] bg-white flex flex-col p-24">
       <h2 className="font-merriweather font-bold text-6xl mb-8 text-black">{title}</h2>
       <p className="font-lato font-light text-2xl mb-12 text-black">{content}</p>
       <div className="flex justify-between">
@@ -135,7 +135,7 @@ export function ContentSlideImagesRow({ title, content, images }) {
 
 export function ContentSlideImageFull({ title, content, imageUrl }) {
   return (
-    <section className="w-[1280px] h-[720px] bg-white flex flex-col p-24">
+    <section className="w-[1920px] h-[1080px] bg-white flex flex-col p-24">
       <h2 className="font-merriweather font-bold text-5xl mb-8 text-black">{title}</h2>
       <p className="font-lato font-light text-2xl mb-12 text-black">{content}</p>
       <div className="w-full h-[500px] bg-gray-300 flex items-center justify-center">
@@ -147,7 +147,7 @@ export function ContentSlideImageFull({ title, content, imageUrl }) {
 
 export function EndSlide({ message = "Thank You!", subtitle }) {
   return (
-    <section className="w-[1280px] h-[720px] bg-white flex flex-col items-center justify-center text-center">
+    <section className="w-[1920px] h-[1080px] bg-white flex flex-col items-center justify-center text-center">
       <h1 className="font-merriweather font-bold text-6xl text-black mb-6 text-black">
         {message}
       </h1>
