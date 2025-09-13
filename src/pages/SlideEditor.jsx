@@ -73,6 +73,19 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack, p
     const filename = getTimestampedFilename('slide', 'png');
     const result = await slideExporter.exportCurrentSlidePNG(currentSlideContainerRef, filename);
 
+    // Save to history if export was successful
+    if (result.success) {
+      try {
+        await saveHistoryItem({
+          filename: filename.replace('.png', ''),
+          slides: slides,
+          templateName: selectedTemplate
+        });
+      } catch (error) {
+        console.error('Failed to save to history:', error);
+      }
+    }
+
     setIsExporting(false);
     setExportProgress(0);
     
@@ -122,6 +135,19 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack, p
     const filename = getTimestampedFilename('presentation', 'pdf');
     const result = await slideExporter.exportAllSlidesPDF(slides, getSlideContainerForSlide, filename);
 
+    // Save to history if export was successful
+    if (result.success) {
+      try {
+        await saveHistoryItem({
+          filename: filename.replace('.pdf', ''),
+          slides: slides,
+          templateName: selectedTemplate
+        });
+      } catch (error) {
+        console.error('Failed to save to history:', error);
+      }
+    }
+
     setIsExporting(false);
     setExportProgress(0);
     
@@ -170,6 +196,19 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack, p
 
     const filename = getTimestampedFilename('presentation', 'pptx');
     const result = await slideExporter.exportAllSlidesPPTX(slides, getSlideContainerForSlide, filename);
+
+    // Save to history if export was successful
+    if (result.success) {
+      try {
+        await saveHistoryItem({
+          filename: filename.replace('.pptx', ''),
+          slides: slides,
+          templateName: selectedTemplate
+        });
+      } catch (error) {
+        console.error('Failed to save to history:', error);
+      }
+    }
 
     setIsExporting(false);
     setExportProgress(0);
@@ -759,24 +798,29 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack, p
           />
         </div>
 
-        <div className="flex gap-4 mt-8 flex-wrap justify-center">
-          <button className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded shadow transition-colors" onClick={() => fileInputRef.current && fileInputRef.current.click()}>
-            Add Image
+        <div className="flex flex-wrap gap-2 sm:gap-4 mt-4 sm:mt-8 justify-center px-4">
+          <button className="bg-purple-600 hover:bg-purple-700 text-white px-3 sm:px-4 py-2 rounded shadow transition-colors text-sm sm:text-base" onClick={() => fileInputRef.current && fileInputRef.current.click()}>
+            <span className="hidden sm:inline">Add Image</span>
+            <span className="sm:hidden">Image</span>
           </button>
           <button 
-            className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded shadow transition-colors"
+            className="bg-indigo-600 hover:bg-indigo-700 text-white px-3 sm:px-4 py-2 rounded shadow transition-colors text-sm sm:text-base"
             onClick={() => setShowAssetPicker(true)}
           >
-            Predefined Assets
+            <span className="hidden sm:inline">Predefined Assets</span>
+            <span className="sm:hidden">Assets</span>
           </button>
-          <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded shadow transition-colors" onClick={duplicateSlide}>
-            Duplicate Slide
+          <button className="bg-green-600 hover:bg-green-700 text-white px-3 sm:px-4 py-2 rounded shadow transition-colors text-sm sm:text-base" onClick={duplicateSlide}>
+            <span className="hidden sm:inline">Duplicate Slide</span>
+            <span className="sm:hidden">Duplicate</span>
           </button>
-          <button className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded shadow transition-colors" onClick={deleteSlide} disabled={slides.length <= 1}>
-            Delete Slide
+          <button className="bg-red-600 hover:bg-red-700 text-white px-3 sm:px-4 py-2 rounded shadow transition-colors text-sm sm:text-base" onClick={deleteSlide} disabled={slides.length <= 1}>
+            <span className="hidden sm:inline">Delete Slide</span>
+            <span className="sm:hidden">Delete</span>
           </button>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow transition-colors" onClick={() => insertSlideAt(current + 1)}>
-            Insert Slide After
+          <button className="bg-blue-600 hover:bg-blue-700 text-white px-3 sm:px-4 py-2 rounded shadow transition-colors text-sm sm:text-base" onClick={() => insertSlideAt(current + 1)}>
+            <span className="hidden sm:inline">Insert Slide After</span>
+            <span className="sm:hidden">Insert</span>
           </button>
         </div>
 

@@ -43,6 +43,7 @@ export const themeNames = [
 ];
 
 export const themeComponents = {
+  default: AcademicMinimal,
   'Classic Classroom': ClassicClassroom,
   'STEM Modern': STEMModern,
   'Playful Primary': PlayfulPrimary,
@@ -66,6 +67,12 @@ export const themeComponents = {
 };
 
 export const pptxThemeStyles = {
+  default: {
+    bgColor: 'FFFFFF',
+    title: { fontSize: 36, color: '222222', bold: true, fontFace: 'Arial' },
+    paragraph: { fontSize: 20, color: '333333', fontFace: 'Arial' },
+    author: { fontSize: 14, color: '888888', fontFace: 'Arial' }
+  },
   'Classic Classroom': {
     bgColor: 'F8F4E3',
     title: { fontSize: 36, color: '3B2F2F', bold: true, fontFace: 'Arial Black' },

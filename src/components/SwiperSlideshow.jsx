@@ -318,81 +318,82 @@ export default function SwiperSlideshow({
     <div className={`fixed inset-0 z-50 flex flex-col ${isFullscreen ? 'bg-white' : 'bg-black'}`}>
       {/* Header Controls - Hide in fullscreen mode */}
       {!isFullscreen && (
-        <div className="absolute top-0 left-0 right-0 z-10 bg-gradient-to-b from-black/70 to-transparent p-4">
+        <div className="absolute top-0 left-0 right-0 z-10 bg-gradient-to-b from-black/70 to-transparent p-2 sm:p-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <h2 className="text-white text-xl font-semibold">
-              Slideshow Preview - {selectedTemplate}
+          <div className="flex items-center gap-2 sm:gap-4">
+            <h2 className="text-white text-sm sm:text-xl font-semibold truncate">
+              <span className="hidden sm:inline">Slideshow Preview - {selectedTemplate}</span>
+              <span className="sm:hidden">{selectedTemplate}</span>
             </h2>
-            <div className="text-white/70 text-sm">
+            <div className="text-white/70 text-xs sm:text-sm">
               {currentSlide + 1} / {slides.length}
             </div>
           </div>
           
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 sm:gap-2">
             {/* Playback Controls */}
             <button
               onClick={() => swiperRef.current?.slidePrev()}
-              className="p-2 text-white/80 hover:text-white hover:bg-white/20 rounded-lg transition-all"
+              className="p-1.5 sm:p-2 text-white/80 hover:text-white hover:bg-white/20 rounded-lg transition-all"
               title="Previous slide (←)"
             >
-              <SkipBack size={20} />
+              <SkipBack size={16} className="sm:w-5 sm:h-5" />
             </button>
             
             <button
               onClick={toggleAutoplay}
-              className="p-2 text-white/80 hover:text-white hover:bg-white/20 rounded-lg transition-all"
+              className="p-1.5 sm:p-2 text-white/80 hover:text-white hover:bg-white/20 rounded-lg transition-all"
               title="Play/Pause (Space)"
             >
-              {isPlaying ? <Pause size={20} /> : <Play size={20} />}
+              {isPlaying ? <Pause size={16} className="sm:w-5 sm:h-5" /> : <Play size={16} className="sm:w-5 sm:h-5" />}
             </button>
             
             <button
               onClick={() => swiperRef.current?.slideNext()}
-              className="p-2 text-white/80 hover:text-white hover:bg-white/20 rounded-lg transition-all"
+              className="p-1.5 sm:p-2 text-white/80 hover:text-white hover:bg-white/20 rounded-lg transition-all"
               title="Next slide (→)"
             >
-              <SkipForward size={20} />
+              <SkipForward size={16} className="sm:w-5 sm:h-5" />
             </button>
 
-            {/* Fullscreen */}
+            {/* Fullscreen - Hide on very small screens */}
             <button
               onClick={toggleFullscreen}
-              className="p-2 text-white/80 hover:text-white hover:bg-white/20 rounded-lg transition-all"
+              className="hidden sm:block p-1.5 sm:p-2 text-white/80 hover:text-white hover:bg-white/20 rounded-lg transition-all"
               title={isFullscreen ? "Exit Fullscreen (F11)" : "Enter Fullscreen (F11)"}
             >
-              <Maximize size={20} />
+              <Maximize size={16} className="sm:w-5 sm:h-5" />
             </button>
 
-            {/* Settings */}
+            {/* Settings - Hide on very small screens */}
             <button
               onClick={() => setShowSettings(!showSettings)}
-              className="p-2 text-white/80 hover:text-white hover:bg-white/20 rounded-lg transition-all"
+              className="hidden sm:block p-1.5 sm:p-2 text-white/80 hover:text-white hover:bg-white/20 rounded-lg transition-all"
               title="Settings"
             >
-              <Settings size={20} />
+              <Settings size={16} className="sm:w-5 sm:h-5" />
             </button>
 
             {/* Close Button */}
             <button
               onClick={onClose}
-              className="p-2 text-white/80 hover:text-white hover:bg-red-500/50 rounded-lg transition-all ml-2"
+              className="p-1.5 sm:p-2 text-white/80 hover:text-white hover:bg-red-500/50 rounded-lg transition-all ml-1 sm:ml-2"
               title="Close (Esc)"
             >
-              <X size={20} />
+              <X size={16} className="sm:w-5 sm:h-5" />
             </button>
           </div>
         </div>
 
         {/* Settings Panel */}
         {showSettings && (
-          <div className="mt-4 bg-black/50 backdrop-blur-sm rounded-lg p-4">
-            <div className="flex items-center gap-4">
-              <label className="text-white text-sm">Autoplay Delay:</label>
+          <div className="mt-2 sm:mt-4 bg-black/50 backdrop-blur-sm rounded-lg p-3 sm:p-4">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
+              <label className="text-white text-xs sm:text-sm">Autoplay Delay:</label>
               <select
                 value={autoplayDelay}
                 onChange={(e) => handleAutoplayDelayChange(Number(e.target.value))}
-                className="bg-white text-black rounded px-3 py-1 text-sm"
+                className="bg-white text-black rounded px-2 sm:px-3 py-1 text-xs sm:text-sm"
               >
                 <option value={1000}>1 second</option>
                 <option value={2000}>2 seconds</option>
@@ -438,8 +439,8 @@ export default function SwiperSlideshow({
       >
         {slides.map((slide, index) => (
           <SwiperSlide key={slide.id || index} className="flex items-center justify-center">
-            <div className={`w-full h-full flex items-center justify-center ${isFullscreen ? 'p-0' : 'max-w-7xl mx-auto p-4'}`}>
-              <div className={`bg-white overflow-hidden ${isFullscreen ? 'w-full h-full' : 'w-[1920px] h-[1080px] max-w-full max-h-full rounded-lg shadow-2xl'}`} style={{ aspectRatio: '16/9' }}>
+            <div className={`w-full h-full flex items-center justify-center ${isFullscreen ? 'p-0' : 'max-w-7xl mx-auto p-2 sm:p-4'}`}>
+              <div className={`bg-white overflow-hidden ${isFullscreen ? 'w-full h-full' : 'w-full max-w-[1920px] h-auto max-h-full rounded-lg shadow-2xl'}`} style={{ aspectRatio: '16/9' }}>
                 {renderSlideContent(slide, index)}
               </div>
             </div>
@@ -450,20 +451,20 @@ export default function SwiperSlideshow({
       {/* Custom Navigation Buttons - Hide in fullscreen */}
       {!isFullscreen && (
         <>
-          <button className="swiper-button-prev-custom absolute left-4 top-1/2 -translate-y-1/2 z-10 p-3 bg-black/50 hover:bg-black/70 text-white rounded-full transition-all backdrop-blur-sm">
-            <SkipBack size={24} />
+          <button className="swiper-button-prev-custom absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 p-2 sm:p-3 bg-black/50 hover:bg-black/70 text-white rounded-full transition-all backdrop-blur-sm">
+            <SkipBack size={20} className="sm:w-6 sm:h-6" />
           </button>
-          <button className="swiper-button-next-custom absolute right-4 top-1/2 -translate-y-1/2 z-10 p-3 bg-black/50 hover:bg-black/70 text-white rounded-full transition-all backdrop-blur-sm">
-            <SkipForward size={24} />
+          <button className="swiper-button-next-custom absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 p-2 sm:p-3 bg-black/50 hover:bg-black/70 text-white rounded-full transition-all backdrop-blur-sm">
+            <SkipForward size={20} className="sm:w-6 sm:h-6" />
           </button>
 
           {/* Custom Pagination */}
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex gap-2">
+          <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-10 flex gap-1 sm:gap-2">
             {slides.map((_, index) => (
               <button
                 key={index}
                 onClick={() => swiperRef.current?.slideTo(index)}
-                className={`swiper-pagination-bullet-custom w-3 h-3 rounded-full transition-all ${
+                className={`swiper-pagination-bullet-custom w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all ${
                   index === currentSlide 
                     ? 'swiper-pagination-bullet-active-custom bg-white' 
                     : 'bg-white/50 hover:bg-white/70'
@@ -474,9 +475,9 @@ export default function SwiperSlideshow({
         </>
       )}
 
-      {/* Instructions - Hide in fullscreen */}
+      {/* Instructions - Hide in fullscreen and on mobile */}
       {!isFullscreen && (
-        <div className="absolute bottom-4 right-4 text-white/60 text-xs">
+        <div className="hidden sm:block absolute bottom-4 right-4 text-white/60 text-xs">
           Use ← → keys to navigate • Space to play/pause • Esc to close
         </div>
       )}

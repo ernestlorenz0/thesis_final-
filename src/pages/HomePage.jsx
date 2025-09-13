@@ -1,7 +1,7 @@
 // =========================
 // Imports
 // =========================
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { User, Upload, Settings, HelpCircle, LogOut, Loader2 } from 'lucide-react';
 import Reveal from 'reveal.js'; // For future integration, placeholder for now
 import { themeComponents as themeRegistry, themeNames } from '../utils/themes';
@@ -461,7 +461,18 @@ export default function HomePage() {
     // =========================
   // Responsive logic
   // =========================
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 700;
+  const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' && window.innerWidth < 768);
+  const [isTablet, setIsTablet] = useState(typeof window !== 'undefined' && window.innerWidth >= 768 && window.innerWidth < 1024);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+      setIsTablet(window.innerWidth >= 768 && window.innerWidth < 1024);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // =========================
   // Dropdown state and Effect Hooks (via custom hooks)
@@ -474,47 +485,46 @@ export default function HomePage() {
   // =========================
   return (
     <div className={`min-h-screen flex flex-col items-center justify-center bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-[#F3EDFF] via-[#F7F4FF] to-[#F5F1FF]`}>
-      {/* Sidebar or Topbar */}
-      {isMobile ? (
-  <nav className="w-full bg-blue-800 flex flex-row items-center justify-between px-4 py-2 relative z-10 animate-slide-up">
-    <h1 className="text-xl font-extrabold tracking-wide text-[#8C6BFA] font-montserrat">KENBILEARN</h1>
-    <MenuMobile menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-  </nav>
-) : null}
+      {/* Mobile navigation */}
+      {isMobile && (
+        <nav className="w-full bg-white border-b border-[#E3D9FA] flex flex-row items-center justify-between px-4 py-3 relative z-10 animate-slide-up shadow-sm">
+          <h1 className="text-lg font-extrabold tracking-wide text-[#8C6BFA] font-montserrat">KENBILEARN</h1>
+          <MenuMobile menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+        </nav>
+      )}
 
       {/* Main content */}
-      <main className="w-full flex flex-col items-center justify-center relative min-h-screen px-2 md:px-8">
+      <main className="w-full flex flex-col items-center justify-center relative min-h-screen px-4 sm:px-6 md:px-8">
   {/* Header title and subtitle */}
-  <div className="w-full flex flex-col items-center justify-center mt-12 mb-8">
-    <h1 className="text-[2.5rem] md:text-[2.8rem] font-extrabold text-[#8C6BFA] mb-2 leading-tight text-center drop-shadow-sm">Transform PDFs into PowerPoints</h1>
-    <p className="text-base md:text-lg text-[#888] font-medium text-center max-w-xl mb-2">Upload your PDF documents and let our AI generate beautiful PowerPoint presentations with optional custom imagery.</p>
+  <div className="w-full flex flex-col items-center justify-center mt-8 sm:mt-12 mb-6 sm:mb-8">
+    <h1 className="text-2xl sm:text-3xl md:text-[2.5rem] lg:text-[2.8rem] font-extrabold text-[#8C6BFA] mb-2 leading-tight text-center drop-shadow-sm px-2">Transform PDFs into PowerPoints</h1>
+    <p className="text-sm sm:text-base md:text-lg text-[#888] font-medium text-center max-w-xl mb-2 px-4">Upload your PDF documents and let our AI generate beautiful PowerPoint presentations with optional custom imagery.</p>
   </div>
-        {/* Top bar for desktop only */}
-        {!isMobile && (
-  <div className="absolute top-0 left-0 w-full flex justify-between items-center px-12 pt-8 pb-4 animate-fade-in">
-    <button
-      className="px-6 py-3 rounded-xl font-semibold text-base bg-[#8C6BFA] text-white hover:bg-[#7B61FF] focus:outline-none focus:ring-2 focus:ring-[#BFA8FF] transition-all duration-200 shadow-lg"
-      onClick={() => {
-        setIsPreviewMode(true);
-        setShowTemplates(true);
-      }}
-    >
-      Preview Themes
-    </button>
-    <UserMenuDropdown userMenuOpen={userMenuOpen} setUserMenuOpen={setUserMenuOpen} userMenuRef={userMenuRef} />
-  </div>
-)}
+        {/* Top bar for desktop and tablet */}
+        <div className="absolute top-0 left-0 w-full flex justify-between items-center px-6 sm:px-8 lg:px-12 pt-6 sm:pt-8 pb-4 animate-fade-in z-40">
+          <button
+            className="px-4 sm:px-6 py-2 sm:py-3 rounded-lg sm:rounded-xl font-semibold text-sm sm:text-base bg-[#8C6BFA] text-white hover:bg-[#7B61FF] focus:outline-none focus:ring-2 focus:ring-[#BFA8FF] transition-all duration-200 shadow-lg"
+            onClick={() => {
+              setIsPreviewMode(true);
+              setShowTemplates(true);
+            }}
+          >
+            <span className="hidden sm:inline">Preview Themes</span>
+            <span className="sm:hidden">Themes</span>
+          </button>
+          <UserMenuDropdown userMenuOpen={userMenuOpen} setUserMenuOpen={setUserMenuOpen} userMenuRef={userMenuRef} />
+        </div>
 
         {/* Upload box and file list */}
-        <div className="w-full max-w-2xl flex flex-col items-center justify-center min-h-[70vh] mt-16 animate-fade-in">
-  <label htmlFor="pdf-upload" className="w-full border border-dashed border-[#E3D9FA] rounded-2xl py-20 px-16 flex flex-col items-center bg-white cursor-pointer shadow-[0_2px_18px_0_rgba(120,90,200,0.06)] transition hover:bg-[#F6F2FF] animate-slide-up">
+        <div className="w-full max-w-2xl flex flex-col items-center justify-center min-h-[60vh] sm:min-h-[70vh] mt-8 sm:mt-16 animate-fade-in">
+  <label htmlFor="pdf-upload" className="w-full border border-dashed border-[#E3D9FA] rounded-xl sm:rounded-2xl py-12 sm:py-20 px-8 sm:px-16 flex flex-col items-center bg-white cursor-pointer shadow-[0_2px_18px_0_rgba(120,90,200,0.06)] transition hover:bg-[#F6F2FF] animate-slide-up">
   {loading ? (
-    <Loader2 className="animate-spin mb-4 text-[#BFA8FF]" size={48} />
+    <Loader2 className="animate-spin mb-3 sm:mb-4 text-[#BFA8FF]" size={isMobile ? 36 : 48} />
   ) : (
-    <Upload size={48} className="mb-4 text-[#BFA8FF]" />
+    <Upload size={isMobile ? 36 : 48} className="mb-3 sm:mb-4 text-[#BFA8FF]" />
   )}
-  <span className="text-[#222] font-semibold text-lg">Upload PDF(s)</span>
-  <span className="text-xs text-[#888] mt-1">Drop your files here or click to browse<br/>(max 5MB each, multiple allowed)</span>
+  <span className="text-[#222] font-semibold text-base sm:text-lg">Upload PDF(s)</span>
+  <span className="text-xs sm:text-sm text-[#888] mt-1 text-center px-2">Drop your files here or click to browse<br/>(max 5MB each, multiple allowed)</span>
   <input
     id="pdf-upload"
     type="file"
@@ -526,15 +536,15 @@ export default function HomePage() {
     multiple
   />
 </label>
-  <div className="w-full mt-8 mb-2">
-  <div className="bg-white rounded-xl shadow-sm px-8 py-6 flex flex-col gap-2 border border-[#E3D9FA]">
-    <label className="text-sm font-semibold text-[#444] mb-2">Image Generation Prompt (optional):</label>
+  <div className="w-full mt-6 sm:mt-8 mb-2">
+  <div className="bg-white rounded-xl shadow-sm px-4 sm:px-8 py-4 sm:py-6 flex flex-col gap-2 border border-[#E3D9FA]">
+    <label className="text-xs sm:text-sm font-semibold text-[#444] mb-2">Image Generation Prompt (optional):</label>
     <input
       type="text"
       value={imagePrompt}
       onChange={e => setImagePrompt(e.target.value)}
       placeholder="Type a prompt for image generation, or leave blank for no image"
-      className="w-full px-8 py-5 rounded-lg border border-[#E3D9FA] text-lg focus:outline-none focus:ring-2 focus:ring-[#BFA8FF] transition bg-transparent text-[#444] placeholder-[#BFA8FF]"
+      className="w-full px-4 sm:px-8 py-3 sm:py-5 rounded-lg border border-[#E3D9FA] text-sm sm:text-lg focus:outline-none focus:ring-2 focus:ring-[#BFA8FF] transition bg-transparent text-[#444] placeholder-[#BFA8FF]"
       disabled={loading}
     />
   </div>
@@ -554,14 +564,14 @@ export default function HomePage() {
             </div>
           )}
           {uploadedFiles.length > 0 && (
-            <div className="mt-6 w-full max-w-md animate-fade-in">
-              <h2 className="text-[#8C6BFA] font-bold mb-2">PDFs to Process:</h2>
-              <ul className="bg-blue-50 rounded-lg p-4 m-0 list-none shadow-md">
+            <div className="mt-4 sm:mt-6 w-full max-w-md animate-fade-in">
+              <h2 className="text-[#8C6BFA] font-bold mb-2 text-sm sm:text-base">PDFs to Process:</h2>
+              <ul className="bg-blue-50 rounded-lg p-3 sm:p-4 m-0 list-none shadow-md">
                 {uploadedFiles.map((file, idx) => (
-                  <li key={idx} className="flex justify-between items-center text-[#8C6BFA] text-base border-b border-blue-200 pb-1 mb-1 animate-slide-up">
-                    <span className="truncate max-w-[200px]">{file.name}</span>
+                  <li key={idx} className="flex justify-between items-center text-[#8C6BFA] text-sm sm:text-base border-b border-blue-200 pb-1 mb-1 animate-slide-up">
+                    <span className="truncate max-w-[150px] sm:max-w-[200px]">{file.name}</span>
                     <button
-                      className="ml-4 text-[#8C6BFA] font-bold hover:text-[#8C6BFA] transition disabled:opacity-60"
+                      className="ml-2 sm:ml-4 text-[#8C6BFA] font-bold hover:text-[#8C6BFA] transition disabled:opacity-60 text-xs sm:text-sm px-2 py-1 rounded"
                       onClick={() => handleRemoveFile(idx)}
                       disabled={loading}
                     >Remove</button>
@@ -570,10 +580,9 @@ export default function HomePage() {
               </ul>
             </div>
           )}
-          <div className="flex gap-8 mt-8 flex-wrap animate-fade-in w-full justify-center">
-  <div className="flex gap-8 mt-8 flex-wrap animate-fade-in w-full justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 mt-6 sm:mt-8 animate-fade-in w-full justify-center items-center">
           <button
-            className={`w-[340px] py-4 rounded-xl font-bold text-lg shadow transition-all duration-200 
+            className={`w-full sm:w-[340px] py-3 sm:py-4 rounded-xl font-bold text-base sm:text-lg shadow transition-all duration-200 
               bg-[#E5D8FF] text-[#8C6BFA] hover:bg-[#E7E0FF] focus:outline-none focus:ring-2 focus:ring-[#BFA8FF] 
               ${loading || uploadedFiles.length === 0 ? 'opacity-60 cursor-not-allowed' : ''}`}
             onClick={() => {
@@ -584,9 +593,8 @@ export default function HomePage() {
           >
             {loading ? "Generating PowerPoint..." : "Generate PowerPoint"}
           </button>
-        </div>
   <button
-    className={`px-6 py-3 rounded-xl font-semibold text-base border border-[#E3D9FA] text-[#8C6BFA] bg-white hover:bg-[#F6F2FF] focus:outline-none focus:ring-2 focus:ring-[#BFA8FF] transition-all duration-200 ${loading || uploadedFiles.length === 0 ? 'opacity-60 cursor-not-allowed' : ''}`}
+    className={`w-full sm:w-auto px-6 py-3 rounded-xl font-semibold text-sm sm:text-base border border-[#E3D9FA] text-[#8C6BFA] bg-white hover:bg-[#F6F2FF] focus:outline-none focus:ring-2 focus:ring-[#BFA8FF] transition-all duration-200 ${loading || uploadedFiles.length === 0 ? 'opacity-60 cursor-not-allowed' : ''}`}
     onClick={() => setUploadedFiles([])}
     disabled={loading || uploadedFiles.length === 0}
   >
@@ -597,14 +605,16 @@ export default function HomePage() {
 
         {/* Template selection modal */}
         {showTemplates && (
-  <div className="fixed inset-0 flex items-center justify-center z-50 animate-fade-in" style={{background: 'radial-gradient(ellipse at top left, #F3EDFF 0%, #F7F4FF 60%, #F5F1FF 100%)'}}>
-    <div className="rounded-2xl px-0 pt-0 pb-8 max-w-7xl w-full animate-slide-up shadow-2xl border border-[#E3D9FA] relative overflow-hidden bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-[#F3EDFF] via-[#F7F4FF] to-[#F5F1FF]" style={{height: '850px'}}>
-      <div className="w-full flex items-center justify-between px-8 pt-7 pb-4 border-b border-[#E3D9FA]">
-        <h2 className="text-xl md:text-2xl font-bold text-[#8C6BFA] tracking-tight">Choose a Template</h2>
-        <button className="text-gray-400 hover:text-[#8C6BFA] text-2xl px-2 py-1 rounded-full transition" onClick={() => setShowTemplates(false)}>&times;</button>
+  <div className="fixed inset-0 flex items-center justify-center z-[9999] animate-fade-in p-4" style={{background: 'radial-gradient(ellipse at top left, #F3EDFF 0%, #F7F4FF 60%, #F5F1FF 100%)'}}>
+    <div className="rounded-xl sm:rounded-2xl px-0 pt-0 pb-4 sm:pb-8 max-w-7xl w-full max-h-[90vh] animate-slide-up shadow-2xl border border-[#E3D9FA] relative overflow-hidden bg-white">
+      <div className="w-full flex items-center justify-between px-4 sm:px-8 pt-4 sm:pt-7 pb-3 sm:pb-4 border-b border-[#E3D9FA]">
+        <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-[#8C6BFA] tracking-tight">Choose a Template</h2>
+        <button className="text-gray-400 hover:text-[#8C6BFA] text-xl sm:text-2xl px-2 py-1 rounded-full transition" onClick={() => setShowTemplates(false)}>&times;</button>
       </div>
-      <div className="w-full px-8 pt-6">
-        <div className="grid grid-cols-5 grid-rows-4 gap-1 no-scrollbar" style={{height: '600px', overflow: 'hidden'}}>
+      <div className="w-full px-4 sm:px-8 pt-4 sm:pt-6 overflow-y-auto" style={{maxHeight: 'calc(90vh - 120px)'}}>
+        <div className={`grid gap-2 sm:gap-1 no-scrollbar ${
+          isMobile ? 'grid-cols-2' : isTablet ? 'grid-cols-3' : 'grid-cols-5'
+        }`}>
           {themeNames.map((themeName, idx) => (
             <TemplateThumbnail
               key={idx}
@@ -613,7 +623,7 @@ export default function HomePage() {
             />
           ))}
         </div>
-        <button className="mt-8 block mx-auto px-8 py-2 rounded-xl bg-[#23202B] text-[#8C6BFA] hover:bg-[#2a2740] font-bold shadow-lg transition-all" onClick={() => setShowTemplates(false)}>Cancel</button>
+        <button className="mt-4 sm:mt-8 block mx-auto px-6 sm:px-8 py-2 rounded-xl bg-[#23202B] text-[#8C6BFA] hover:bg-[#2a2740] font-bold shadow-lg transition-all text-sm sm:text-base" onClick={() => setShowTemplates(false)}>Cancel</button>
       </div>
     </div>
   </div>

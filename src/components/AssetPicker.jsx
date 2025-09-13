@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import AIImageGenerator from './AIImageGenerator';
 
 export default function AssetPicker({ open, onClose, onSelect, onAIImageGenerated }) {
-  const [assets, setAssets] = useState({ icons: [], emojis: [], backgrounds: [], illustrations: [] });
-  const [tab, setTab] = useState('icons');
+  const [assets, setAssets] = useState({ icons: [] });
   const [search, setSearch] = useState('');
   const [showAIGenerator, setShowAIGenerator] = useState(false);
 
@@ -15,32 +14,38 @@ export default function AssetPicker({ open, onClose, onSelect, onAIImageGenerate
 
   const loadStaticAssets = async () => {
     try {
-      const loadedAssets = { icons: [], emojis: [], backgrounds: [], illustrations: [] };
+      const loadedAssets = { icons: [] };
       
       console.log('🔍 AssetPicker: Starting dynamic asset scan...');
       
       // Define the folders to scan and their mappings
       const folderMappings = {
         'icons': 'icons',
-        'emoji': 'emojis', 
-        'background': 'backgrounds',
-        'illustrations': 'illustrations'
+        'emoji': 'icons',
+        'background': 'icons',
+        'illustrations': 'icons'
       };
       
       // Since import.meta.glob doesn't work with public/, we'll use a dynamic approach
       // Try to fetch a directory listing or use known common file extensions
-      const commonExtensions = ['png', 'jpg', 'jpeg', 'gif', 'svg', 'webp'];
+      const commonExtensions = ['svg'];
       const commonFileNames = [
-        // Icons
-        'facebook', 'instagram', 'twitter', 'linkedin', 'youtube', 'tiktok', 'snapchat', 'telegram', 'whatsapp',
-        'home', 'user', 'settings', 'search', 'heart', 'star', 'plus', 'minus', 'edit', 'delete', 'save',
-        'arrow-left', 'arrow-right', 'arrow-up', 'arrow-down', 'check', 'close', 'menu', 'ruler','book',
-        // Emojis  
-        'smile', 'happy', 'sad', 'angry', 'love', 'laugh', 'cry', 'wink', 'surprised', 'cool',
-        // Backgrounds
-        'gradient', 'solid', 'pattern', 'texture', 'abstract', 'geometric', 'nature', 'city',
-        // Illustrations
-        'star', 'circle', 'square', 'triangle', 'diamond', 'heart-shape', 'flower', 'tree',
+        //random icons
+        'facebook', 'instagram', 'twitter', 'linked', 'youtube', 'tiktok', 'snapchat', 'telegram', 'whatsapp',
+        'home', 'userMan', 'userGirl', 'userHeadset', 'heart', 'graduation', 'addition', 'minus', 'edit', 'delete', 'save',
+        'atomic', 'abacus', 'puzzle', 'painting', 'telescope', 'calculator', 'pencil', 'ruler','book','arithmetic','board','bag','notebook','mail','message1','email1','qr','heartRate','gradient','patterns', 'texture','geometric', 'nature', 
+        'star', 'flower','shapes', 'circle', 'square','septagon','pentagon','triangle', 'diamond','tree','microscope','announcement','notebook2','paper1','chemical','bacteria','doctor','scientist','cell','doctor1','sick','sick1','fever','speedometer','soap','arithmetic1','learning1','line1','line2','line3','line4','trophy','award','formula','books','formula1','photoshop','powerpoint','excel','email','firefox','linux','android','playstore','paypal','folder','yeah','nope','yes','ok','monitor','alien','ar1',
+        //emojis
+        'smile', 'happy', 'sad', 'angry', 'love', 'laugh', 'cry', 'wink', 'surprise', 'cool','disgust','devil','zombie','meme1',
+        //illustrations
+        'sharelink','securityon','coding','standout','controller','photographer','videoGame','workout','learning','payment','deliveryLocation',
+        'investment','respond','beach','focused','watching reels','photoViewer','chatInterface','data','blogging','otw',
+        'thinking','vr','workingLate','photocopy','interview','date','trainer','sketching','bitcoin','team','reading','professor','programmer','security','agreement','solution','ar','map','todo',
+        //illustrations1
+        'baseball','ceo','tvPresenter','seo','question','fingerprint','engineer','boss','career','maintenance1','conversation','science','question1','customerService','running','ai1','city','ai','fitness1','fastfood','shopping','onlinePayment','recycling','coding1','css','productManager','marketing','search2','onlineClass','ai1','salesman','rank','money','science1','cleaningComputer','underConstructions','moneyTransfer','rea','clickhere','city','car','calling','calling1','facetime','facetime1','messagesent',
+        //backgrounds
+        'background1','background2','background3','background4','background5','background6','background7','background8','background9','background10','background11','background12','background13','background14','background15','background16','background17','background18','background19','background20','background21','background22','background23','background24','background25','background26','background27','background28','background29','background30','background31','background32','background33','background34','background35','background36','background','background5','background6','background7','background8',
+
       ];
       
       // Scan each folder
@@ -72,61 +77,32 @@ export default function AssetPicker({ open, onClose, onSelect, onAIImageGenerate
           }
         }
         
-        // Also try files without base names (direct extension check)
-        for (const ext of commonExtensions) {
-          const testFiles = [
-            `icon.${ext}`, `emoji.${ext}`, `bg.${ext}`, `background.${ext}`, 
-            `illustration.${ext}`, `image.${ext}`, `asset.${ext}`
-          ];
-          
-          for (const fileName of testFiles) {
-            const url = `/static/${folderName}/${fileName}`;
-            try {
-              const response = await fetch(url, { method: 'HEAD' });
-              if (response.ok) {
-                const exists = loadedAssets[categoryKey].some(asset => asset.name === fileName);
-                if (!exists) {
-                  loadedAssets[categoryKey].push({
-                    name: fileName,
-                    url: url
-                  });
-                  console.log(`✅ Found: ${fileName} in ${categoryKey}`);
-                }
-              }
-            } catch (e) {
-              // File doesn't exist, continue
-            }
-          }
-        }
       }
       
       console.log('🎯 Final scanned assets:', loadedAssets);
       setAssets(loadedAssets);
     } catch (error) {
       console.error('Failed to load static assets:', error);
-      setAssets({ icons: [], emojis: [], backgrounds: [], illustrations: [] });
+      setAssets({ icons: [] });
     }
   };
 
-  const filtered = assets[tab].filter(a => a.name.toLowerCase().includes(search.toLowerCase()));
+  const filtered = assets.icons.filter(a => a.name.toLowerCase().includes(search.toLowerCase()));
 
   const handleAIImageGenerated = (generatedImage) => {
     console.log('🎨 AssetPicker: AI image generated:', generatedImage);
     
-    // Add the generated image to the current tab (illustrations)
+    // Add the generated image to the icons list
     setAssets(prev => ({
       ...prev,
-      illustrations: [
+      icons: [
         {
           name: generatedImage.name,
           url: generatedImage.url
         },
-        ...prev.illustrations
+        ...prev.icons
       ]
     }));
-    
-    // Switch to illustrations tab to show the new image
-    setTab('illustrations');
     
     // Call the main onAIImageGenerated function to add to slide
     if (onAIImageGenerated) {
@@ -150,7 +126,7 @@ export default function AssetPicker({ open, onClose, onSelect, onAIImageGenerate
           <div className="flex items-center mb-4">
             <input
               className="flex-1 border border-gray-300 rounded px-3 py-2 mr-3"
-              placeholder={`Search ${tab}...`}
+              placeholder="Search assets..."
               value={search}
               onChange={e => setSearch(e.target.value)}
             />
@@ -158,15 +134,6 @@ export default function AssetPicker({ open, onClose, onSelect, onAIImageGenerate
           </div>
           
           <div className="flex gap-2 mb-4">
-            {['icons','emojis','backgrounds','illustrations'].map(cat => (
-              <button
-                key={cat}
-                className={`px-3 py-1 rounded ${tab===cat ? 'bg-purple-600 text-white' : 'bg-gray-200 text-gray-700'}`}
-                onClick={() => setTab(cat)}
-              >
-                {cat.charAt(0).toUpperCase() + cat.slice(1)}
-              </button>
-            ))}
             <button
               className={`px-3 py-1 rounded ${showAIGenerator ? 'bg-green-600 text-white' : 'bg-green-200 text-green-700'}`}
               onClick={() => setShowAIGenerator(!showAIGenerator)}
@@ -194,11 +161,10 @@ export default function AssetPicker({ open, onClose, onSelect, onAIImageGenerate
             {filtered.map(asset => (
               <button
                 key={asset.url}
-                className="border border-gray-200 rounded-lg p-2 hover:bg-purple-50 flex flex-col items-center"
+                className="border border-gray-200 rounded-lg p-2 hover:bg-purple-50 flex flex-col items-center justify-center h-28"
                 onClick={() => onSelect(asset)}
               >
-                <img src={asset.url} alt={asset.name} className="w-16 h-16 object-contain mb-1" />
-                <span className="text-xs truncate w-16 text-gray-700 font-medium">{asset.name}</span>
+                <img src={asset.url} alt={asset.name} className="w-16 h-16 object-contain" />
               </button>
             ))}
           </div>
