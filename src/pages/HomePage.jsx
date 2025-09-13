@@ -121,12 +121,16 @@ export default function HomePage() {
         }
         
         // Map MainSlide1 (or MainSlide)
-        if (availableSlides.includes('MainSlide1')) {
-          mapping['MainSlide1'] = 'MainSlide1';
-        } else if (availableSlides.includes('MainSlide')) {
-          mapping['MainSlide1'] = 'MainSlide';
+        // Map MainSlide2
+        if (availableSlides.includes('MainSlide')) {
+          mapping['MainSlide'] = 'MainSlide';
         }
         
+        // Map MainSlide1
+        if (availableSlides.includes('MainSlide1')) {
+          mapping['MainSlide1'] = 'MainSlide1';
+        }
+
         // Map MainSlide2
         if (availableSlides.includes('MainSlide2')) {
           mapping['MainSlide2'] = 'MainSlide2';
@@ -135,6 +139,21 @@ export default function HomePage() {
         // Map MainSlide3
         if (availableSlides.includes('MainSlide3')) {
           mapping['MainSlide3'] = 'MainSlide3';
+        }
+        
+        // Map MainSlide4
+        if (availableSlides.includes('MainSlide4')) {
+          mapping['MainSlide4'] = 'MainSlide4';
+        }
+        
+        // Map MainSlide5
+        if (availableSlides.includes('MainSlide5')) {
+          mapping['MainSlide5'] = 'MainSlide5';
+        }
+        
+        // Map MainSlide6
+        if (availableSlides.includes('MainSlide6')) {
+          mapping['MainSlide6'] = 'MainSlide6';
         }
         
         // Map EndSlide
@@ -153,7 +172,7 @@ export default function HomePage() {
       }
 
       // Define the proper slide sequence for preview
-      const previewSequence = ['TitleSlide', 'ImageSlide', 'MainSlide1', 'MainSlide2', 'MainSlide3', 'EndSlide'];
+      const previewSequence = ['TitleSlide', 'ImageSlide','MainSlide', 'MainSlide1', 'MainSlide2', 'MainSlide3', 'MainSlide4', 'MainSlide5', 'MainSlide6', 'EndSlide'];
 
       previewSequence.forEach((layoutName, idx) => {
         if (slideMapping && slideMapping[layoutName]) {
@@ -226,7 +245,7 @@ export default function HomePage() {
       let slideIndex = 0;
       
       // Define the slide layout sequence - we'll map theme-specific names to our standard sequence
-      const standardSequence = ['TitleSlide', 'ImageSlide', 'MainSlide1', 'MainSlide2', 'MainSlide3', 'EndSlide'];
+      const standardSequence = ['TitleSlide', 'ImageSlide', 'MainSlide1', 'MainSlide2', 'MainSlide3', 'MainSlide4', 'MainSlide5', 'MainSlide6', 'EndSlide'];
       
       // Map theme-specific slide names to our standard sequence
       const mapThemeSlidesToSequence = (themeModule) => {
@@ -264,6 +283,21 @@ export default function HomePage() {
           mapping['MainSlide3'] = 'MainSlide3';
         }
         
+        // Map MainSlide4
+        if (availableSlides.includes('MainSlide4')) {
+          mapping['MainSlide4'] = 'MainSlide4';
+        }
+        
+        // Map MainSlide5
+        if (availableSlides.includes('MainSlide5')) {
+          mapping['MainSlide5'] = 'MainSlide5';
+        }
+        
+        // Map MainSlide6
+        if (availableSlides.includes('MainSlide6')) {
+          mapping['MainSlide6'] = 'MainSlide6';
+        }
+        
         // Map EndSlide
         if (availableSlides.includes('EndSlide')) {
           mapping['EndSlide'] = 'EndSlide';
@@ -282,11 +316,12 @@ export default function HomePage() {
         throw new Error(`No valid slide mappings found for template: ${selectedThemeName}`);
       }
       
-      const mainSlideLayouts = ['MainSlide1', 'MainSlide2', 'MainSlide3'].filter(key => slideMapping[key]);
+      const mainSlideLayouts = ['MainSlide1', 'MainSlide2', 'MainSlide3', 'MainSlide4', 'MainSlide5', 'MainSlide6'].filter(key => slideMapping[key]);
       
       // Debug logging
       console.log('Selected template:', selectedThemeName);
       console.log('Slide mapping:', slideMapping);
+      console.log('Available main slide layouts:', mainSlideLayouts);
       
       // Add title slide
       if (slideMapping['TitleSlide']) {
@@ -354,14 +389,14 @@ export default function HomePage() {
           layout = slideMapping['ImageSlide'];
           // console.log(`Content ${i}: Using ImageSlide layout: ${layout}`);
           currentLayoutIndex++;
-        } else if (currentLayoutIndex >= 2 && currentLayoutIndex <= 4) {
-          // Main slides 1, 2, 3
-          const mainSlideKey = ['MainSlide1', 'MainSlide2', 'MainSlide3'][currentLayoutIndex - 2];
+        } else if (currentLayoutIndex >= 2 && currentLayoutIndex <= 7) {
+          // Main slides 1, 2, 3, 4, 5, 6
+          const mainSlideKey = ['MainSlide1', 'MainSlide2', 'MainSlide3', 'MainSlide4', 'MainSlide5', 'MainSlide6'][currentLayoutIndex - 2];
           if (slideMapping && slideMapping[mainSlideKey]) {
             layout = slideMapping[mainSlideKey];
             // console.log(`Content ${i}: Using ${mainSlideKey} layout: ${layout}`);
             currentLayoutIndex++;
-            if (currentLayoutIndex > 4) {
+            if (currentLayoutIndex > 7) {
               currentLayoutIndex = 2; // Reset to MainSlide1 for repetition
               mainSlideIndex++;
             }
@@ -369,7 +404,7 @@ export default function HomePage() {
             // Skip this slide type if not available
             // console.log(`Content ${i}: Skipping ${mainSlideKey} - not available in mapping`);
             currentLayoutIndex++;
-            if (currentLayoutIndex > 4) {
+            if (currentLayoutIndex > 7) {
               currentLayoutIndex = 2;
             }
             continue;

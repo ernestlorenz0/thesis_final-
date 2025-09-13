@@ -74,6 +74,83 @@ export function MainSlide3({ title, content }) {
   );
 }
 
+// Main Slide 4 – Orange Highlight
+export function MainSlide4({ title, content }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-[#1a1a1a] text-white overflow-hidden flex items-center">
+      {/* Orange gradient half overlay */}
+      <div className="absolute right-0 top-0 h-full w-1/2 bg-gradient-to-bl from-yellow-600/90 to-yellow-800/70"></div>
+
+      {/* Chalk doodles */}
+      <div className="absolute top-20 left-20 text-6xl opacity-20">✏️</div>
+      <div className="absolute bottom-20 right-24 text-6xl opacity-20">📐</div>
+
+      {/* Text */}
+      <div className="relative z-10 px-24 max-w-2xl">
+        <h2 className="font-mono font-bold text-6xl mb-6 text-yellow-200">
+          {title}
+        </h2>
+        <p className="font-mono text-3xl leading-relaxed text-white/90">
+          {content}
+        </p>
+      </div>
+    </section>
+  );
+}
+
+// Main Slide 5 – Split Notes Chalkboard
+export function MainSlide5({ title, content }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-[#0D3B36] text-white flex items-center px-24 py-16 overflow-hidden">
+      {/* Chalk Doodles */}
+      <div className="absolute top-12 left-16 text-6xl opacity-20">📘</div>
+      <div className="absolute bottom-16 right-20 text-6xl opacity-20">✒️</div>
+
+      {/* Left column */}
+      <div className="flex-1 pr-16 z-10">
+        <h2 className="font-mono font-bold text-6xl mb-6 text-yellow-200">
+          {title}
+        </h2>
+        <p className="font-mono text-3xl leading-relaxed text-white/90">{content}</p>
+      </div>
+
+      {/* Divider */}
+      <div className="w-[3px] h-[70%] bg-yellow-300 opacity-70"></div>
+
+      {/* Right column */}
+      <div className="flex-1 pl-16 z-10">
+        <p className="font-mono text-3xl leading-relaxed text-white">
+          {content}
+        </p>
+      </div>
+    </section>
+  );
+}
+
+// Main Slide 6 – Center Highlight Chalk Frame
+export function MainSlide6({ title, content }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-[#1b1b1b] flex items-center justify-center text-white px-24 py-20 overflow-hidden">
+      {/* Chalkboard frame */}
+      <div className="absolute inset-16 border-8 border-yellow-300 rounded-lg opacity-70"></div>
+
+      {/* Chalk doodles */}
+      <div className="absolute top-12 left-20 text-5xl opacity-20">⭐</div>
+      <div className="absolute bottom-12 right-24 text-5xl opacity-20">📚</div>
+      <div className="absolute top-1/3 right-1/3 text-4xl opacity-20">✏️</div>
+
+      {/* Main text */}
+      <div className="relative z-10 max-w-4xl text-center">
+        <h2 className="font-mono font-bold text-6xl mb-8 text-yellow-200">
+          {title}
+        </h2>
+        <p className="font-mono text-3xl leading-relaxed text-white/90">{content}</p>
+      </div>
+    </section>
+  );
+}
+
+
 /* Image Slide – Chalk border with image inside */
 export function ImageSlide({ title, imageUrl }) {
   return (

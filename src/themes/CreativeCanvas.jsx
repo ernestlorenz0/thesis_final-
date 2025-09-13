@@ -69,6 +69,78 @@ export function MainSlide3({ title, content }) {
   );
 }
 
+/* ---------------- MAIN SLIDE 4 ---------------- */
+/* Split layout: text left, playful graphic right */
+export function MainSlide4({ title, content }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-r from-pink-100 via-yellow-100 to-cyan-100 flex items-center overflow-hidden">
+      {/* Floating playful shapes */}
+      <div className="absolute top-10 left-1/2 w-72 h-72 bg-pink-300/40 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-20 right-20 w-96 h-96 bg-yellow-300/40 rotate-12 rounded-2xl blur-2xl"></div>
+
+      {/* Text column */}
+      <div className="relative z-10 w-1/2 pl-24">
+        <h2 className="text-7xl font-extrabold text-pink-700 mb-8">{title}</h2>
+        <p className="text-3xl text-gray-800 leading-relaxed">{content}</p>
+      </div>
+
+      {/* Decorative doodle area */}
+      <div className="relative z-10 w-1/2 flex justify-center items-center">
+        <div className="w-[500px] h-[500px] bg-gradient-to-br from-cyan-300 to-purple-300 rounded-full shadow-2xl"></div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------- MAIN SLIDE 5 ---------------- */
+/* Vertical flow with big header + divider */
+export function MainSlide5({ title, content }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-white flex flex-col items-center justify-center overflow-hidden">
+      {/* Soft background strokes */}
+      <div className="absolute inset-0 bg-gradient-to-br from-yellow-200/60 via-pink-200/40 to-purple-200/40 rotate-2"></div>
+
+      {/* Title up top */}
+      <h2 className="relative z-10 text-8xl font-bold text-yellow-600 mb-8">{title}</h2>
+
+      {/* Divider bar */}
+      <div className="relative z-10 w-2/3 h-4 bg-gradient-to-r from-pink-400 to-yellow-400 rounded-full mb-10"></div>
+
+      {/* Content text */}
+      <p className="relative z-10 text-3xl text-gray-700 leading-relaxed max-w-5xl text-center">
+        {content}
+      </p>
+    </section>
+  );
+}
+
+/* ---------------- MAIN SLIDE 6 ---------------- */
+/* Grid layout with text + icon accents */
+import { Cpu, Cloud, Smartphone } from "lucide-react";
+
+export function MainSlide6({ title, content }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-tl from-blue-100 via-cyan-100 to-purple-100 grid grid-cols-2 items-center px-24 overflow-hidden">
+      {/* Left column with text */}
+      <div className="z-10">
+        <h2 className="text-7xl font-extrabold text-blue-700 mb-8">{title}</h2>
+        <p className="text-3xl text-gray-800 leading-relaxed">{content}</p>
+      </div>
+
+      {/* Right column with icons */}
+      <div className="z-10 flex flex-col gap-12 items-center">
+        <Cpu size={160} className="text-blue-500" />
+        <Cloud size={160} className="text-purple-500" />
+        <Smartphone size={160} className="text-cyan-500" />
+      </div>
+
+      {/* Background accent */}
+      <div className="absolute bottom-10 right-32 w-96 h-96 bg-blue-300/40 rounded-full blur-3xl"></div>
+    </section>
+  );
+}
+
+
 /* ---------------- IMAGE SLIDE ---------------- */
 export function ImageSlide({ title, imageUrl }) {
   return (

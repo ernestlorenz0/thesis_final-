@@ -66,69 +66,78 @@ export default function SlideCanvas({
 
   // Themed slide rendering function (moved from SlideEditor)
   const renderThemedSlide = (slide, idx) => {
-    if (!slide || !Theme) return null;
+    if (!slide || !Theme) {
+      console.warn('Missing slide or theme:', { slide: !!slide, theme: !!Theme });
+      return null;
+    }
 
-  // Title slide
-  if (idx === 0 && Theme.TitleSlide) {
-    return (
-      <Theme.TitleSlide
-        title={slide.components.find(c => c.type === "title")?.content || "Sample Title"}
-        subtitle={slide.components.find(c => c.type === "paragraph")?.content || "Subtitle placeholder"}
-        imageUrl={slide.components.find(c => c.type === "image")?.content || ""}
-      />
-    );
-  }
+    // Title slide
+    if (idx === 0 && Theme.TitleSlide) {
+      return (
+        <Theme.TitleSlide
+          title={slide.components?.find(c => c.type === "title")?.content || "Sample Title"}
+          subtitle={slide.components?.find(c => c.type === "paragraph")?.content || "Subtitle placeholder"}
+          imageUrl={slide.components?.find(c => c.type === "image")?.content || ""}
+        />
+      );
+    }
 
-  // End slide
-  if (slide.components.some(c => c.type === "end") && Theme.EndSlide) {
-    return (
-      <Theme.EndSlide
-        message={slide.components.find(c => c.type === "end")?.content || "Thank You!"}
-        subtitle={slide.components.find(c => c.type === "paragraph")?.content || ""}
-      />
-    );
-  }
+    // End slide
+    if (slide.components?.some(c => c.type === "end") && Theme.EndSlide) {
+      return (
+        <Theme.EndSlide
+          message={slide.components.find(c => c.type === "end")?.content || "Thank You!"}
+          subtitle={slide.components.find(c => c.type === "paragraph")?.content || ""}
+        />
+      );
+    }
 
-  // Content slides
-  const title = slide.components.find(c => c.type === "title")?.content || "";
-  const content = slide.components.find(c => c.type === "paragraph")?.content || "";
-  const imageUrl = slide.components.find(c => c.type === "image")?.content || "";
+    // Content slides
+    const title = slide.components?.find(c => c.type === "title")?.content || "";
+    const content = slide.components?.find(c => c.type === "paragraph")?.content || "";
+    const imageUrl = slide.components?.find(c => c.type === "image")?.content || "";
 
-  // If API assigned a layout, respect it
-  if (slide.layout && Theme[slide.layout]) {
-    const LayoutComp = Theme[slide.layout];
-    return <LayoutComp title={title} content={content} imageUrl={imageUrl} />;
-  }
+    // If API assigned a layout, respect it
+    if (slide.layout && Theme[slide.layout]) {
+      const LayoutComp = Theme[slide.layout];
+      return <LayoutComp title={title} content={content} imageUrl={imageUrl} />;
+    }
 
-  // Fallback logic - try different theme component names
-  if (imageUrl && Theme.ImageSlide) {
-    return <Theme.ImageSlide title={title} imageUrl={imageUrl} />;
-  }
-  
-  // Try MainSlide variants for content slides
-  if (Theme.MainSlide) {
-    return <Theme.MainSlide title={title} content={content} />;
-  }
-  if (Theme.MainSlide1) {
-    return <Theme.MainSlide1 title={title} content={content} />;
-  }
-  if (Theme.MainSlide2) {
-    return <Theme.MainSlide2 title={title} content={content} imageUrl={imageUrl} />;
-  }
-  if (Theme.MainSlide3) {
-    return <Theme.MainSlide3 title={title} points={[content]} />;
-  }
-  if (Theme.MainSlide4) {
-    return <Theme.MainSlide4 title={title} content={content} imageUrl={imageUrl} />;
-  }
-  
-  // Try other common component names
-  if (Theme.ContentSlide) {
-    return <Theme.ContentSlide title={title} content={content} />;
-  }
-  if (Theme.ContentSlideText) {
-    return <Theme.ContentSlideText title={title} content={content} />;
-  }
+    // Fallback logic - try different theme component names
+    if (imageUrl && Theme.ImageSlide) {
+      return <Theme.ImageSlide title={title} imageUrl={imageUrl} />;
+    }
+    
+    // Try MainSlide variants for content slides - check if they exist before using
+    if (Theme.MainSlide) {
+      return <Theme.MainSlide title={title} content={content} />;
+    }
+    if (Theme.MainSlide1) {
+      return <Theme.MainSlide1 title={title} content={content} />;
+    }
+    if (Theme.MainSlide2) {
+      return <Theme.MainSlide2 title={title} content={content} imageUrl={imageUrl} />;
+    }
+    if (Theme.MainSlide3) {
+      return <Theme.MainSlide3 title={title} points={[content]} />;
+    }
+    if (Theme.MainSlide4) {
+      return <Theme.MainSlide4 title={title} content={content} imageUrl={imageUrl} />;
+    }
+    if (Theme.MainSlide5) {
+      return <Theme.MainSlide5 title={title} content={content} imageUrl={imageUrl} />;
+    }
+    if (Theme.MainSlide6) {
+      return <Theme.MainSlide6 title={title} content={content} imageUrl={imageUrl} />;
+    }
+    
+    // Try other common component names
+    if (Theme.ContentSlide) {
+      return <Theme.ContentSlide title={title} content={content} />;
+    }
+    if (Theme.ContentSlideText) {
+      return <Theme.ContentSlideText title={title} content={content} />;
+    }
 
     return (
       <div className="flex flex-col h-full w-full bg-neutral-900">
@@ -224,7 +233,7 @@ export default function SlideCanvas({
         }
       }}>
         <div className="flex-1 flex flex-col items-center justify-center bg-neutral-50 rounded-2xl shadow-xl relative overflow-hidden min-h-[450px]">
-          {slides[current] && slides[current].components.length > 0 ? (
+          {slides[current] ? (
             <div className="scale-75 origin-center relative">
               <ThemeErrorBoundary>
                 {renderThemedSlide(slides[current], current)}
@@ -233,11 +242,21 @@ export default function SlideCanvas({
               <div className="absolute inset-0">
                 {renderDraggableComponents()}
               </div>
+              
+              {/* Show empty slide message only if no components */}
+              {(!slides[current].components || slides[current].components.length === 0) && (
+                <div className="absolute inset-0 flex items-center justify-center text-center text-neutral-400 pointer-events-none">
+                  <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 shadow-lg">
+                    <div className="text-xl mb-4">Add content to start your slide!</div>
+                    <div className="text-sm opacity-75">Drag and drop images or use the buttons below</div>
+                  </div>
+                </div>
+              )}
             </div>
           ) : (
             <div className="text-center text-neutral-400">
-              <div className="text-xl mb-4">Add content to start your slide!</div>
-              <div className="text-sm opacity-75">Drag and drop images or use the buttons below</div>
+              <div className="text-xl mb-4">No slide selected</div>
+              <div className="text-sm opacity-75">Please select a slide from the sidebar</div>
             </div>
           )}
         </div>

@@ -75,6 +75,91 @@ export function MainSlide3({ title, content }) {
   );
 }
 
+/* ---------------- MAIN SLIDE 4 ---------------- */
+export function MainSlide4({ title, content }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-r from-gray-50 to-white flex items-center px-24 py-16">
+      <div className="max-w-5xl">
+        {/* Title with underline accent */}
+        <h2 className="text-6xl font-serif font-bold text-blue-900 mb-4">
+          {title}
+        </h2>
+        <div className="h-[4px] w-32 bg-blue-700 mb-10 rounded"></div>
+
+        {/* Elegant content box */}
+        <div className="bg-white border border-gray-200 shadow-lg rounded-lg p-12">
+          <p className="text-3xl font-sans text-gray-800 leading-relaxed">
+            {content}
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------- MAIN SLIDE 5 ---------------- */
+export function MainSlide5({ title, content }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-white px-24 py-16 flex flex-col">
+      {/* Header */}
+      <h2 className="text-6xl font-serif font-bold text-blue-900 mb-4">
+        {title}
+      </h2>
+      <div className="h-[3px] w-28 bg-blue-700 mb-10"></div>
+
+      {/* Split layout with diagonal design accent */}
+      <div className="grid grid-cols-2 gap-12 items-center">
+        <p className="text-3xl font-sans text-gray-800 leading-relaxed">
+          {content}
+        </p>
+
+        {/* Placeholder for visuals with background accent */}
+        <div className="relative bg-gray-50 border border-gray-300 rounded-lg shadow-md p-8 flex items-center justify-center">
+          <span className="text-gray-500 font-sans">Insert Graph / Image</span>
+
+          {/* Subtle blue diagonal accent */}
+          <div className="absolute -top-4 -right-4 w-20 h-20 bg-blue-100 rotate-12 rounded-md"></div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------- MAIN SLIDE 6 ---------------- */
+export function MainSlide6({ title, points }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-gray-50 px-24 py-16">
+      {/* Header with side bar accent */}
+      <div className="flex items-center mb-10">
+        <div className="w-3 h-20 bg-blue-700 mr-6 rounded"></div>
+        <h2 className="text-6xl font-serif font-bold text-blue-900">
+          {title}
+        </h2>
+      </div>
+
+      {/* Bullet points with subtle icon + divider line */}
+      <ul className="space-y-8 text-3xl font-sans text-gray-800 leading-relaxed max-w-5xl">
+        {points && points.length > 0 ? (
+          points.map((point, i) => (
+            <li
+              key={i}
+              className="flex items-start border-b border-gray-200 pb-4"
+            >
+              <div className="w-6 h-6 bg-blue-700 text-white flex items-center justify-center rounded-full text-lg mr-4">
+                {i + 1}
+              </div>
+              <span>{point}</span>
+            </li>
+          ))
+        ) : (
+          <li className="text-gray-500">No points provided</li>
+        )}
+      </ul>
+    </section>
+  );
+}
+
+
 /* ---------------- IMAGE SLIDE ---------------- */
 export function ImageSlide({ title, imageUrl }) {
   return (

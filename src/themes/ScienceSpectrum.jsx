@@ -74,6 +74,71 @@ export function ImageSlide({ title, imageUrl }) {
   );
 }
 
+/* Main Slide 4 – Left Image, Right Text with Spectrum Accent */
+export function MainSlide4({ title, content, imageUrl }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-r from-blue-800 via-purple-700 to-pink-600 text-white flex overflow-hidden">
+      {/* Left image area */}
+      <div className="w-1/2 flex items-center justify-center bg-black/30">
+        {imageUrl && (
+          <img
+            src={imageUrl}
+            alt="visual"
+            className="max-h-[600px] rounded-xl border-4 border-pink-400 shadow-lg object-contain"
+          />
+        )}
+      </div>
+      {/* Right text area */}
+      <div className="w-1/2 flex flex-col justify-center px-20">
+        <h2 className="text-6xl font-bold mb-8">{title}</h2>
+        <p className="text-3xl leading-relaxed text-gray-100">{content}</p>
+      </div>
+
+      {/* Science accents */}
+      <div className="absolute top-10 left-10 text-6xl opacity-30">🧬</div>
+      <div className="absolute bottom-16 right-16 text-6xl opacity-30">🪐</div>
+    </section>
+  );
+}
+
+/* Main Slide 5 – Centered Text with Circular Orbit Icons */
+export function MainSlide5({ title, content }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-br from-pink-600 via-yellow-500 to-green-400 text-white flex flex-col items-center justify-center px-24">
+      {/* Orbiting icons */}
+      <div className="absolute top-24 left-1/4 text-6xl opacity-30">⚛️</div>
+      <div className="absolute bottom-28 right-1/4 text-7xl opacity-30">🔭</div>
+      <div className="absolute top-1/3 right-1/3 text-5xl opacity-25">🧪</div>
+
+      {/* Content */}
+      <h2 className="text-6xl font-bold mb-10 text-center">{title}</h2>
+      <p className="text-3xl leading-relaxed max-w-5xl text-center text-gray-100">
+        {content}
+      </p>
+    </section>
+  );
+}
+
+/* Main Slide 6 – Diagonal Split with Gradient and Molecule Motif */
+export function MainSlide6({ title, content }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] flex text-white overflow-hidden">
+      {/* Left diagonal gradient */}
+      <div className="w-2/3 bg-gradient-to-br from-indigo-900 via-blue-800 to-cyan-600 transform -skew-x-6 origin-top-left flex items-center justify-center px-20">
+        <div className="max-w-3xl">
+          <h2 className="text-6xl font-bold mb-8">{title}</h2>
+          <p className="text-3xl leading-relaxed text-gray-100">{content}</p>
+        </div>
+      </div>
+      {/* Right decorative area */}
+      <div className="flex-1 flex items-center justify-center bg-gradient-to-t from-purple-700/60 to-pink-600/60">
+        <div className="text-8xl opacity-30">🧬</div>
+      </div>
+    </section>
+  );
+}
+
+
 /* End Slide – Dark background with glowing atom */
 export function EndSlide({ message }) {
   return (

@@ -84,6 +84,65 @@ export function EndSlide({ message }) {
   );
 }
 
+/* Main Slide 4 – Horizontal split (title/content left, content right) */
+export function MainSlide4({ title, content }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-white text-gray-900 flex overflow-hidden">
+      {/* Decorative background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200"></div>
+      <div className="absolute top-20 left-20 w-40 h-40 bg-yellow-500/20 rounded-full blur-3xl"></div>
+
+      {/* Left */}
+      <div className="flex-1 px-24 py-20 z-10 flex flex-col justify-center">
+        <h2 className="text-5xl font-serif font-bold mb-8">{title}</h2>
+        <p className="text-2xl font-serif leading-relaxed">{content}</p>
+      </div>
+
+      {/* Divider */}
+      <div className="w-[3px] bg-yellow-600 opacity-70 my-24"></div>
+
+      {/* Right */}
+      <div className="flex-1 px-24 py-20 z-10 flex items-center">
+        <p className="text-2xl font-serif leading-relaxed opacity-80">{content}</p>
+      </div>
+    </section>
+  );
+}
+
+/* Main Slide 5 – Vertical orientation (title on top, content stacked in sections) */
+export function MainSlide5({ title, content }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-t from-gray-50 to-white text-gray-900 flex flex-col items-center px-24 py-20 overflow-hidden">
+      {/* Background accents */}
+      <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-full h-40 bg-yellow-500/10"></div>
+      <div className="absolute bottom-0 right-0 w-80 h-80 bg-gray-400/20 rounded-full blur-3xl"></div>
+
+      <h2 className="text-6xl font-serif font-bold mb-12 z-10">{title}</h2>
+      <div className="grid grid-cols-1 gap-10 max-w-5xl z-10">
+        <p className="text-2xl font-serif leading-relaxed">{content}</p>
+        <p className="text-2xl font-serif leading-relaxed opacity-80">{content}</p>
+      </div>
+    </section>
+  );
+}
+
+/* Main Slide 6 – Diagonal/offset orientation */
+export function MainSlide6({ title, content }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-gray-100 text-gray-900 flex items-center justify-center overflow-hidden">
+      {/* Diagonal accent */}
+      <div className="absolute -skew-y-6 top-0 left-0 w-full h-full bg-gradient-to-tr from-yellow-100/40 to-transparent"></div>
+      <div className="absolute bottom-10 right-10 w-64 h-64 bg-yellow-500/20 rounded-lg rotate-12 blur-2xl"></div>
+
+      <div className="relative z-10 max-w-4xl text-left">
+        <h2 className="text-5xl font-serif font-bold mb-8">{title}</h2>
+        <p className="text-2xl font-serif leading-relaxed">{content}</p>
+      </div>
+    </section>
+  );
+}
+
+
 const ScholarlyElegant = {
   TitleSlide,
   MainSlide1,

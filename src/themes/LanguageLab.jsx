@@ -70,6 +70,69 @@ export function MainSlide3({ title, content }) {
   );
 }
 
+/* Main Slide 4 – Split Conversation Layout */
+export function MainSlide4({ title, content }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] flex bg-gradient-to-r from-pink-100 via-purple-100 to-blue-100 text-gray-900">
+      {/* Decorative speech bubbles */}
+      <FaRegCommentDots className="absolute top-16 left-20 text-7xl text-pink-400 opacity-30" />
+      <MdTranslate className="absolute bottom-16 right-24 text-8xl text-purple-400 opacity-20" />
+
+      {/* Left side – title */}
+      <div className="w-1/2 flex flex-col justify-center px-20">
+        <h2 className="text-6xl font-bold mb-6">{title}</h2>
+      </div>
+
+      {/* Right side – content inside bubble */}
+      <div className="w-1/2 flex items-center justify-center">
+        <div className="relative bg-white shadow-lg rounded-3xl p-12 max-w-xl">
+          <p className="text-3xl text-gray-800 leading-relaxed">{content}</p>
+          <div className="absolute -bottom-6 left-12 w-8 h-8 bg-white rotate-45 shadow-md"></div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* Main Slide 5 – Layered Bubble Stack */
+export function MainSlide5({ title, content }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-tr from-yellow-200 via-pink-100 to-purple-200 flex items-center justify-center overflow-hidden">
+      {/* Stacked background bubbles */}
+      <div className="absolute w-96 h-96 bg-blue-300/30 rounded-full top-12 left-24"></div>
+      <div className="absolute w-80 h-80 bg-pink-400/20 rounded-full bottom-20 right-32"></div>
+
+      {/* Foreground content */}
+      <div className="relative z-10 bg-white/90 backdrop-blur-md rounded-2xl shadow-2xl p-16 max-w-4xl text-center">
+        <h2 className="text-5xl font-bold mb-6 text-purple-900">{title}</h2>
+        <p className="text-3xl text-gray-800 leading-relaxed">{content}</p>
+      </div>
+    </section>
+  );
+}
+
+/* Main Slide 6 – Diagonal split with layered accents */
+export function MainSlide6({ title, content }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] flex bg-gradient-to-tr from-pink-100 via-purple-100 to-blue-100 overflow-hidden">
+      {/* Decorative background shapes */}
+      <div className="absolute -top-24 -left-24 w-[600px] h-[600px] bg-pink-300/30 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-blue-300/20 rounded-full blur-2xl"></div>
+      
+      {/* Diagonal accent bar */}
+      <div className="absolute inset-0 bg-gradient-to-r from-pink-200/60 to-transparent transform -skew-y-6"></div>
+
+      {/* Content */}
+      <div className="relative z-10 flex flex-col justify-center px-32 max-w-5xl">
+        <h2 className="text-6xl font-bold text-gray-900 mb-6">{title}</h2>
+        <p className="text-3xl leading-relaxed text-gray-800">{content}</p>
+      </div>
+    </section>
+  );
+}
+
+
+
 /* Image Slide – Dictionary style card */
 export function ImageSlide({ title, imageUrl }) {
   return (

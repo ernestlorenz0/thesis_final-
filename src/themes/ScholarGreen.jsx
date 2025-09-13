@@ -71,6 +71,71 @@ export function MainSlide3({ title, content }) {
   );
 }
 
+/* ---------------- MAIN SLIDE 4 ---------------- */
+/* Centered framed content with decorative leaf accents */
+export function MainSlide4({ title, content }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-green-100 flex items-center justify-center overflow-hidden">
+      {/* Decorative leaf-like blobs */}
+      <div className="absolute top-0 left-0 w-80 h-80 bg-green-400/30 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-green-700/20 rounded-full blur-2xl"></div>
+
+      {/* Framed text */}
+      <div className="relative z-10 border-4 border-green-600 rounded-2xl bg-white/80 shadow-xl px-20 py-16 text-center max-w-5xl">
+        <h2 className="text-6xl font-serif font-bold text-green-900 mb-6">
+          {title}
+        </h2>
+        <p className="text-3xl text-green-800 leading-relaxed">{content}</p>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------- MAIN SLIDE 5 ---------------- */
+/* ---------------- MAIN SLIDE 5 ---------------- */
+/* Split horizontal bands with content overlay */
+export function MainSlide5({ title, content }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] flex flex-col overflow-hidden">
+      {/* Background alternating bands */}
+      <div className="flex-1 bg-green-800"></div>
+      <div className="flex-1 bg-green-200"></div>
+
+      {/* Content overlay */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center px-24 text-center">
+        <h2 className="text-6xl font-serif font-bold text-green-100 drop-shadow mb-8">
+          {title}
+        </h2>
+        <p className="text-3xl text-green-900 leading-relaxed max-w-5xl bg-white/70 px-10 py-6 rounded-xl shadow-lg">
+          {content}
+        </p>
+      </div>
+    </section>
+  );
+}
+
+
+/* ---------------- MAIN SLIDE 6 ---------------- */
+/* Split circle spotlight design */
+export function MainSlide6({ title, content }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-green-50 flex items-center justify-center overflow-hidden">
+      {/* Overlapping spotlight circles */}
+      <div className="absolute w-[800px] h-[800px] bg-green-300/30 rounded-full blur-3xl"></div>
+      <div className="absolute w-[600px] h-[600px] bg-green-500/20 rounded-full blur-2xl"></div>
+
+      {/* Content in spotlight */}
+      <div className="relative z-10 text-center max-w-4xl">
+        <h2 className="text-6xl font-serif font-bold text-green-900 mb-8">
+          {title}
+        </h2>
+        <p className="text-3xl text-green-800 leading-relaxed">{content}</p>
+      </div>
+    </section>
+  );
+}
+
+
 /* ---------------- IMAGE SLIDE ---------------- */
 /* Split layout: left big image, right caption block */
 export function ImageSlide({ title, imageUrl }) {

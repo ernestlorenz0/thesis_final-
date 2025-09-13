@@ -77,6 +77,63 @@ export function MainSlide3({ title, content }) {
   );
 }
 
+/* ---------------- MAIN SLIDE 4 ---------------- */
+/* Circular focal layout with layered blobs */
+export function MainSlide4({ title, content }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] flex items-center justify-center bg-gradient-to-br from-violet-200 to-fuchsia-100 overflow-hidden">
+      {/* Blob accents */}
+      <div className="absolute -top-20 -left-20 w-[400px] h-[400px] bg-fuchsia-400/40 rounded-full blur-3xl"></div>
+      <div className="absolute -bottom-24 -right-24 w-[500px] h-[500px] bg-purple-400/40 rounded-full blur-3xl"></div>
+
+      {/* Circular frame */}
+      <div className="relative z-10 w-[850px] h-[850px] rounded-full border-[12px] border-purple-600 bg-white/90 shadow-2xl flex flex-col items-center justify-center text-center p-16">
+        <h2 className="text-6xl font-extrabold text-purple-700 mb-6">{title}</h2>
+        <p className="text-3xl text-gray-800 leading-relaxed max-w-3xl">{content}</p>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------- MAIN SLIDE 5 ---------------- */
+/* Vertical split with vibrant gradients */
+export function MainSlide5({ title, content }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] flex overflow-hidden">
+      {/* Left side */}
+      <div className="w-1/2 bg-gradient-to-b from-fuchsia-500 to-purple-700 flex items-center justify-center p-12">
+        <h2 className="text-6xl font-extrabold text-white drop-shadow-lg">{title}</h2>
+      </div>
+
+      {/* Right side */}
+      <div className="w-1/2 bg-white flex items-center justify-center p-16">
+        <p className="text-3xl text-purple-900 leading-relaxed max-w-lg">{content}</p>
+      </div>
+
+      {/* Decorative blob */}
+      <div className="absolute top-24 left-1/3 w-64 h-64 bg-fuchsia-400/40 rounded-full blur-3xl"></div>
+    </section>
+  );
+}
+
+/* ---------------- MAIN SLIDE 6 ---------------- */
+/* Funky zig-zag ribbon background */
+export function MainSlide6({ title, content }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-violet-100 flex items-center justify-center overflow-hidden">
+      {/* Zig-zag ribbon */}
+      <div className="absolute -rotate-6 w-[140%] h-[300px] bg-gradient-to-r from-purple-600 to-fuchsia-500 top-1/3 shadow-2xl"></div>
+
+      {/* Content block */}
+      <div className="relative z-10 text-center max-w-4xl px-12">
+        <h2 className="text-6xl font-extrabold text-white-800 mb-6">{title}</h2>
+        <p className="text-3xl text-white-900 leading-relaxed">{content}</p>
+      </div>
+    </section>
+  );
+}
+
+
 /* ---------------- IMAGE SLIDE ---------------- */
 /* Fun frame with blobs around image */
 export function ImageSlide({ title, imageUrl }) {

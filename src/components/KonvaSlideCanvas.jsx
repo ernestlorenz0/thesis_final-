@@ -175,21 +175,33 @@ export default function KonvaSlideCanvas({
 
   // Render themed slide as background
   const renderThemedSlide = (slide, idx) => {
-    if (!slide || !Theme) return null;
+    if (!slide || !Theme) {
+      console.warn('Missing slide or theme:', { slide: !!slide, theme: !!Theme });
+      return null;
+    }
+
+    console.log(`🎨 Rendering slide ${idx}:`, {
+      slideExists: !!slide,
+      themeExists: !!Theme,
+      componentsCount: slide.components?.length || 0,
+      hasLayout: !!slide.layout,
+      layout: slide.layout,
+      availableThemeComponents: Object.keys(Theme || {})
+    });
 
     // Title slide
     if (idx === 0 && Theme.TitleSlide) {
       return (
         <Theme.TitleSlide
-          title={slide.components.find(c => c.type === "title")?.content || "Sample Title"}
-          subtitle={slide.components.find(c => c.type === "paragraph")?.content || "Subtitle placeholder"}
-          imageUrl={slide.components.find(c => c.type === "image")?.content || ""}
+          title={slide.components?.find(c => c.type === "title")?.content || "Sample Title"}
+          subtitle={slide.components?.find(c => c.type === "paragraph")?.content || "Subtitle placeholder"}
+          imageUrl={slide.components?.find(c => c.type === "image")?.content || ""}
         />
       );
     }
 
     // End slide
-    if (slide.components.some(c => c.type === "end") && Theme.EndSlide) {
+    if (slide.components?.some(c => c.type === "end") && Theme.EndSlide) {
       return (
         <Theme.EndSlide
           message={slide.components.find(c => c.type === "end")?.content || "Thank You!"}
@@ -199,9 +211,9 @@ export default function KonvaSlideCanvas({
     }
 
     // Content slides
-    const title = slide.components.find(c => c.type === "title")?.content || "";
-    const content = slide.components.find(c => c.type === "paragraph")?.content || "";
-    const imageUrl = slide.components.find(c => c.type === "image" && !c.isDraggable)?.content || "";
+    const title = slide.components?.find(c => c.type === "title")?.content || "";
+    const content = slide.components?.find(c => c.type === "paragraph")?.content || "";
+    const imageUrl = slide.components?.find(c => c.type === "image" && !c.isDraggable)?.content || "";
 
     // If API assigned a layout, respect it
     if (slide.layout && Theme[slide.layout]) {
@@ -214,7 +226,7 @@ export default function KonvaSlideCanvas({
       return <Theme.ImageSlide title={title} imageUrl={imageUrl} />;
     }
     
-    // Try MainSlide variants for content slides
+    // Try MainSlide variants for content slides - check if they exist before using
     if (Theme.MainSlide) {
       return <Theme.MainSlide title={title} content={content} />;
     }
@@ -229,6 +241,12 @@ export default function KonvaSlideCanvas({
     }
     if (Theme.MainSlide4) {
       return <Theme.MainSlide4 title={title} content={content} imageUrl={imageUrl} />;
+    }
+    if (Theme.MainSlide5) {
+      return <Theme.MainSlide5 title={title} content={content} imageUrl={imageUrl} />;
+    }
+    if (Theme.MainSlide6) {
+      return <Theme.MainSlide6 title={title} content={content} imageUrl={imageUrl} />;
     }
     
     // Try other common component names
@@ -324,8 +342,14 @@ export default function KonvaSlideCanvas({
         ref={slideContainerRef}
         className="w-full h-full bg-white relative overflow-hidden"
       >
-        {slides[current] && slides[current].components.length > 0 ? (
+        {slides[current] ? (
           <div className="w-full h-full relative overflow-hidden">
+            {console.log(`📊 Current slide ${current}:`, {
+              slideExists: !!slides[current],
+              componentsCount: slides[current]?.components?.length || 0,
+              totalSlides: slides.length,
+              currentSlide: current
+            })}
             {/* Container for perfectly aligned theme and stage */}
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="relative" style={{ width: '960px', height: '540px' }}>
@@ -368,12 +392,22 @@ export default function KonvaSlideCanvas({
                 </div>
               </div>
             </div>
+            
+            {/* Show empty slide message only if no components */}
+            {(!slides[current].components || slides[current].components.length === 0) && (
+              <div className="absolute inset-0 flex items-center justify-center text-center text-neutral-400 pointer-events-none">
+                <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 shadow-lg">
+                  <div className="text-xl mb-4">Add content to start your slide!</div>
+                  <div className="text-sm opacity-75">Drag and drop images or use the buttons below</div>
+                </div>
+              </div>
+            )}
           </div>
         ) : (
           <div className="absolute inset-0 flex items-center justify-center text-center text-neutral-400">
             <div>
-              <div className="text-xl mb-4">Add content to start your slide!</div>
-              <div className="text-sm opacity-75">Drag and drop images or use the buttons below</div>
+              <div className="text-xl mb-4">No slide selected</div>
+              <div className="text-sm opacity-75">Please select a slide from the sidebar</div>
             </div>
           </div>
         )}

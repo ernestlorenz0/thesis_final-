@@ -186,6 +186,46 @@ export function MainSlide5({ title, content }) {
   );
 }
 
+// Main Slide 6
+export function MainSlide6({ title, content }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-black text-white overflow-hidden flex items-center justify-center">
+      {/* Background paint splatter */}
+      <img
+        src="src/svgs/paint-background2.svg"
+        alt="paint background"
+        className="absolute inset-0 w-full h-full object-cover opacity-70"
+      />
+
+      {/* Diagonal paint streak */}
+      <div className="absolute -rotate-6 bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 w-[1400px] h-[280px] rounded-lg shadow-2xl"></div>
+
+      {/* Overlay blob accents */}
+      <img
+        src="src/svgs/blob-shape1.svg"
+        alt="purple blob"
+        className="absolute left-[-100px] bottom-[-80px] w-[400px] opacity-60"
+      />
+      <img
+        src="src/svgs/blob-shape2.svg"
+        alt="orange blob"
+        className="absolute right-[-120px] top-[-60px] w-[500px] opacity-70"
+      />
+
+      {/* Text content */}
+      <div className="relative z-10 flex flex-col items-center text-center px-12">
+        <h2 className="font-[BebasNeue] text-6xl mb-6 drop-shadow-lg">
+          {title}
+        </h2>
+        <p className="font-[Poppins] text-3xl leading-relaxed max-w-4xl">
+          {content}
+        </p>
+      </div>
+    </section>
+  );
+}
+
+
 // End Slide
 export function EndSlide() {
   return (

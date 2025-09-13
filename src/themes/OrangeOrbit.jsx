@@ -60,15 +60,21 @@ export function MainSlide2({ title, content }) {
 /* Diagonal orbit strip */
 export function MainSlide3({ title, content }) {
   return (
-    <section className="relative w-[1920px] h-[1080px] flex items-center justify-center overflow-hidden">
-      {/* Diagonal orbit band */}
-      <div className="absolute inset-0 bg-gradient-to-br from-orange-600 to-yellow-500 clip-path-diagonal"></div>
-      <div className="absolute inset-0 bg-black/10"></div>
+    <section className="relative w-[1920px] h-[1080px] flex overflow-hidden">
+      {/* Left gradient bar */}
+      <div className="w-1/3 bg-gradient-to-b from-orange-600 to-amber-500 flex items-center justify-center p-10">
+        <h2 className="text-6xl font-extrabold text-white drop-shadow-lg text-center">
+          {title}
+        </h2>
+      </div>
 
-      {/* Text block */}
-      <div className="relative z-10 text-center px-16 max-w-3xl">
-        <h2 className="text-6xl font-bold text-white mb-6">{title}</h2>
-        <p className="text-3xl text-orange-50 leading-relaxed">{content}</p>
+      {/* Right content */}
+      <div className="flex-1 bg-orange-50 flex items-center justify-center p-16 relative">
+        {/* Orbit accent */}
+        <div className="absolute w-[400px] h-[400px] border-8 border-orange-400/20 rounded-full -right-24 -bottom-24"></div>
+        <p className="relative z-10 text-3xl text-orange-900 leading-relaxed max-w-2xl">
+          {content}
+        </p>
       </div>
     </section>
   );
@@ -141,11 +147,71 @@ const style = `
 .clip-path-diagonal { clip-path: polygon(0 0, 100% 20%, 100% 100%, 0 80%); }
 `;
 
+// Additional MainSlide variants for consistency
+export function MainSlide4({ title, content }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-tr from-orange-200 to-amber-100 flex items-center justify-center overflow-hidden">
+      {/* Orbit rings */}
+      <div className="absolute w-[700px] h-[700px] border-[12px] border-orange-500/20 rounded-full"></div>
+      <div className="absolute w-[500px] h-[500px] border-[8px] border-orange-600/30 rounded-full"></div>
+
+      {/* Circular container */}
+      <div className="relative z-10 w-[800px] h-[800px] rounded-full bg-white shadow-2xl border-[10px] border-orange-500 flex flex-col items-center justify-center text-center p-16">
+        <h2 className="text-6xl font-bold text-orange-700 mb-6">{title}</h2>
+        <p className="text-3xl text-gray-800 leading-relaxed max-w-3xl">
+          {content}
+        </p>
+      </div>
+    </section>
+  );
+}
+
+export function MainSlide5({ title, content }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-orange-100 flex items-center justify-center overflow-hidden">
+      {/* Ribbon */}
+      <div className="absolute w-full h-[400px] bg-gradient-to-r from-orange-600 to-amber-400 top-1/3 shadow-xl transform -skew-y-3"></div>
+
+      {/* Orbit accents */}
+      <div className="absolute left-20 top-20 w-40 h-40 border-4 border-orange-500/30 rounded-full"></div>
+      <div className="absolute right-32 bottom-24 w-32 h-32 border-2 border-orange-700/30 rounded-full"></div>
+
+      {/* Text on ribbon */}
+      <div className="relative z-10 text-center px-20 max-w-4xl">
+        <h2 className="text-6xl font-extrabold text-white mb-6 drop-shadow-lg">
+          {title}
+        </h2>
+        <p className="text-3xl text-white/90 leading-relaxed">
+          {content}
+        </p>
+      </div>
+    </section>
+  );
+}
+
+export function MainSlide6({ title, content, imageUrl }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-orange-100 flex items-center justify-center overflow-hidden">
+      {/* Right orbit decoration */}
+      <div className="absolute right-[-150px] top-1/2 -translate-y-1/2 w-[600px] h-[600px] border-[20px] border-orange-400/30 rounded-full"></div>
+
+      {/* Content */}
+      <div className="relative z-10 flex flex-col justify-center px-20 max-w-xl">
+        <h2 className="text-6xl font-bold text-orange-800 mb-6">{title}</h2>
+        <p className="text-3xl text-gray-800 leading-relaxed">{content}</p>
+      </div>
+    </section>
+  );
+}
+
 const OrangeOrbit = {
   TitleSlide,
   MainSlide1,
   MainSlide2,
   MainSlide3,
+  MainSlide4,
+  MainSlide5,
+  MainSlide6,
   ImageSlide,
   EndSlide,
   style,

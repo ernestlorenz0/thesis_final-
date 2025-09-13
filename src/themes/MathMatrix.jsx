@@ -35,10 +35,10 @@ export function MainSlide1({ title, content }) {
 
       {/* Content */}
       <div className="flex-1 p-8 flex flex-col justify-center">
-        <h2 className="text-3xl font-mono font-bold border-b-2 border-green-500 pb-3 mb-4">
+        <h2 className="text-6xl font-mono font-bold border-b-2 border-green-500 pb-3 mb-4">
           {title}
         </h2>
-        <p className="text-xl font-mono leading-relaxed">{content}</p>
+        <p className="text-3xl font-mono leading-relaxed">{content}</p>
       </div>
     </section>
   );
@@ -56,8 +56,8 @@ export function MainSlide2({ title, content }) {
       <p className="absolute bottom-8 left-8 text-green-500 opacity-40 text-lg font-mono">E = mc²</p>
 
       <div className="relative z-10 max-w-5xl">
-        <h2 className="text-4xl font-mono font-bold mb-4">{title}</h2>
-        <p className="text-xl font-mono leading-relaxed">{content}</p>
+        <h2 className="text-6xl font-mono font-bold mb-4">{title}</h2>
+        <p className="text-3xl font-mono leading-relaxed">{content}</p>
       </div>
     </section>
   );
@@ -76,12 +76,77 @@ export function MainSlide3({ title, content }) {
 
       {/* Text */}
       <div className="relative z-10 px-12">
-        <h2 className="text-4xl font-mono font-bold mb-4">{title}</h2>
-        <p className="text-xl font-mono leading-relaxed">{content}</p>
+        <h2 className="text-6xl font-mono font-bold mb-4">{title}</h2>
+        <p className="text-3xl font-mono leading-relaxed">{content}</p>
       </div>
     </section>
   );
 }
+
+/* Main Slide 4 – Equation Split Showcase */
+export function MainSlide4({ title, content }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-black text-green-300 flex">
+      {/* Left panel – math spotlight */}
+      <div className="w-1/2 flex flex-col items-center justify-center bg-gradient-to-br from-green-900/40 to-black border-r-4 border-green-700 relative">
+        <p className="text-7xl font-mono opacity-40 absolute top-1/4 left-1/4">∫</p>
+        <p className="text-6xl font-mono opacity-40 absolute bottom-1/4 right-1/4">∞</p>
+        <h2 className="text-6xl font-mono font-bold z-10">{title}</h2>
+      </div>
+
+      {/* Right panel – content */}
+      <div className="flex-1 flex items-center justify-center p-12">
+        <p className="text-3xl font-mono leading-relaxed max-w-3xl">{content}</p>
+      </div>
+    </section>
+  );
+}
+
+export function MainSlide5({ title, content }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-b from-black to-green-950 text-green-300 flex items-center justify-center">
+      {/* Circular formula orbit */}
+      <div className="absolute w-[700px] h-[700px] rounded-full border-4 border-green-800 animate-spin-slow"></div>
+
+      {/* Orbiting equations */}
+      <p className="absolute top-20 left-1/2 -translate-x-1/2 text-green-500 font-mono text-xl opacity-70">
+        E = mc²
+      </p>
+      <p className="absolute bottom-24 left-1/3 text-green-500 font-mono text-xl opacity-70">
+        a² + b² = c²
+      </p>
+      <p className="absolute top-1/2 right-32 text-green-500 font-mono text-xl opacity-70">
+        ∑ xᵢ
+      </p>
+
+      {/* Core content */}
+      <div className="relative z-10 text-center max-w-4xl">
+        <h2 className="text-6xl font-mono font-bold mb-6">{title}</h2>
+        <p className="text-3xl font-mono leading-relaxed">{content}</p>
+      </div>
+    </section>
+  );
+}
+
+export function MainSlide6({ title, content }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-black text-green-300 flex flex-col items-center justify-center px-24 py-16">
+      {/* Grid background */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#0f0_1px,transparent_1px),linear-gradient(to_bottom,#0f0_1px,transparent_1px)] bg-[size:60px_60px] opacity-10"></div>
+
+      {/* Timeline layout */}
+      <div className="relative z-10 flex flex-col gap-12 max-w-5xl">
+        <h2 className="text-6xl font-mono font-bold mb-8 text-center">{title}</h2>
+
+        <div className="flex gap-8 items-start">
+          <div className="w-8 h-8 bg-green-500 rounded-full mt-2"></div>
+          <p className="text-3xl font-mono leading-relaxed flex-1">{content}</p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 
 /* Image Slide – Framed like a chalkboard */
 export function ImageSlide({ title, imageUrl }) {

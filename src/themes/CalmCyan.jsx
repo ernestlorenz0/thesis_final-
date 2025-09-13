@@ -33,7 +33,7 @@ export function MainSlide({ title, content }) {
   );
 }
 
-export function SectionSlide({ title, content }) {
+export function MainSlide1({ title, content }) {
   return (
     <section className="w-[1920px] h-[1080px] bg-cyan-200 flex items-center justify-center">
       <div className="text-center">
@@ -45,7 +45,7 @@ export function SectionSlide({ title, content }) {
   );
 }
 
-export function ColumnsSlide({ items = [] }) {
+export function MainSlide2({ items = [] }) {
   return (
     <section className="w-[1920px] h-[1080px] bg-[#2c3e50] flex items-center justify-center space-x-6 p-10">
       {items.map((item, idx) => (
@@ -60,7 +60,7 @@ export function ColumnsSlide({ items = [] }) {
   );
 }
 
-export function SplitSlide({ title, content }) {
+export function MainSlide3({ title, content }) {
   return (
     <section className="w-[1920px] h-[1080px] flex">
       {/* Left cyan side */}
@@ -76,7 +76,7 @@ export function SplitSlide({ title, content }) {
   );
 }
 
-export function SplitSlide2({ title, content }) {
+export function MainSlide4({ title, content }) {
   return (
     <section className="w-[1920px] h-[1080px] flex">
       {/* Left white with cyan wave */}
@@ -91,6 +91,49 @@ export function SplitSlide2({ title, content }) {
   );
 }
 
+/* Main Slide 5 – Angled split diagonal layout */
+export function MainSlide5({ title, content }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] flex overflow-hidden">
+      {/* Background diagonal split */}
+      <div className="absolute inset-0 bg-gradient-to-br from-cyan-200 to-white clip-path-diagonal"></div>
+
+      {/* Decorative circles */}
+      <div className="absolute top-20 right-40 w-48 h-48 bg-[#2c3e50]/30 rounded-full"></div>
+      <div className="absolute bottom-20 left-40 w-64 h-64 bg-cyan-400/30 rounded-full"></div>
+
+      {/* Content */}
+      <div className="relative z-10 flex flex-col items-center justify-center w-full px-32 text-center">
+        <h2 className="text-6xl font-semibold text-gray-800 mb-10">{title}</h2>
+        <p className="text-2xl text-gray-700 leading-relaxed max-w-5xl">{content}</p>
+      </div>
+    </section>
+  );
+}
+
+/* Main Slide 6 – Circle focal point layout */
+export function MainSlide6({ title, content }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-white flex items-center justify-center overflow-hidden">
+      {/* Big background circle */}
+      <div className="absolute w-[900px] h-[900px] rounded-full bg-cyan-200 opacity-50"></div>
+      <div className="absolute w-[600px] h-[600px] rounded-full bg-[#2c3e50]/40"></div>
+
+      {/* Overlay shapes */}
+      <div className="absolute top-16 left-16 w-32 h-32 bg-cyan-400/40 rounded-full"></div>
+      <div className="absolute bottom-16 right-32 w-40 h-40 bg-cyan-300/40 rounded-full"></div>
+
+      {/* Content centered inside circle */}
+      <div className="relative z-10 max-w-4xl text-center">
+        <h2 className="text-6xl font-semibold text-gray-800 mb-6">{title}</h2>
+        <p className="text-2xl text-gray-700 leading-relaxed">{content}</p>
+      </div>
+    </section>
+  );
+}
+
+
+
 export function EndSlide() {
   return (
     <section className="relative w-[1920px] h-[1080px] bg-[#2c3e50] flex items-center justify-center">
@@ -103,5 +146,5 @@ export function EndSlide() {
   );
 }
 
-const CalmCyan = { TitleSlide, MainSlide, SectionSlide, ColumnsSlide, SplitSlide, SplitSlide2, EndSlide };
+const CalmCyan = { TitleSlide, MainSlide, EndSlide };
 export default CalmCyan;

@@ -1,6 +1,7 @@
 import React from "react";
 import { FaRobot, FaMicrochip } from "react-icons/fa";
 import { MdOutlineTrendingUp } from "react-icons/md";
+import { Cpu, Wifi, Cloud, CircuitBoard, Code2, Database } from "lucide-react";
 
 /* Title Slide – Futuristic grid + neon glow */
 export function TitleSlide({ title, subtitle }) {
@@ -89,6 +90,92 @@ export function MainSlide3({ title, content }) {
       <div className="relative z-10 px-24 max-w-3xl">
         <h2 className="text-5xl font-extrabold text-blue-300 mb-6 translate-y-[-200px]">{title}</h2>
         <p className="text-3xl leading-relaxed text-gray-200 translate-x-[450px] translate-y-[-150px]">{content}</p>
+      </div>
+    </section>
+  );
+}
+
+/* Main Slide 4 – Circuit board background + tech icons */
+export function MainSlide4({ title, content }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-gray-950 text-white flex items-center justify-center overflow-hidden">
+      {/* Circuit lines */}
+      <div className="absolute inset-0 opacity-20">
+        <svg width="100%" height="100%">
+          <path d="M200 0 V1080 M600 0 V1080 M1000 0 V1080 M1400 0 V1080" stroke="#3b82f6" strokeWidth="2"/>
+          <path d="M0 200 H1920 M0 600 H1920 M0 1000 H1920" stroke="#8b5cf6" strokeWidth="2"/>
+        </svg>
+      </div>
+
+      {/* Floating icons */}
+      <Cpu className="absolute top-24 left-20 text-blue-400 opacity-40 w-16 h-16" />
+      <CircuitBoard className="absolute bottom-32 right-32 text-purple-400 opacity-30 w-20 h-20" />
+      <Cloud className="absolute top-1/2 left-1/3 text-cyan-400 opacity-30 w-16 h-16" />
+
+      {/* Content */}
+      <div className="relative z-10 max-w-5xl text-center px-16">
+        <h2 className="text-6xl font-extrabold text-blue-400 mb-8">{title}</h2>
+        <p className="text-3xl leading-relaxed text-gray-300">{content}</p>
+      </div>
+    </section>
+  );
+}
+
+/* Main Slide 5 – Holographic panels + icons */
+export function MainSlide5({ title, content, imageUrl }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-br from-gray-900 via-blue-950 to-purple-950 text-white flex items-center justify-center p-16 overflow-hidden">
+      {/* Holographic panels */}
+      <div className="absolute top-24 left-20 w-72 h-44 bg-blue-600/30 border border-blue-400/40 rounded-xl backdrop-blur-md transform rotate-6"></div>
+      <div className="absolute bottom-24 right-32 w-80 h-52 bg-purple-600/30 border border-purple-400/40 rounded-xl backdrop-blur-md transform -rotate-6"></div>
+
+      {/* Floating icons */}
+      <Wifi className="absolute top-12 right-16 text-cyan-400 opacity-30 w-14 h-14" />
+      <Database className="absolute bottom-20 left-32 text-blue-400 opacity-40 w-16 h-16" />
+      <Code2 className="absolute top-1/3 right-1/4 text-purple-300 opacity-30 w-12 h-12" />
+
+      {/* Content */}
+      <div className="relative z-10 flex flex-col lg:flex-row items-center gap-16">
+        {/* Image */}
+        <div className="w-[500px] h-[350px] flex items-center justify-center border-4 border-blue-500/50 rounded-xl shadow-[0_0_40px_rgba(59,130,246,0.6)] bg-gray-900/60">
+          {imageUrl ? (
+            <img src={imageUrl} alt="Hologram visual" className="w-full h-full object-contain rounded-lg" />
+          ) : (
+            <span className="text-gray-500">No Image</span>
+          )}
+        </div>
+
+        {/* Text */}
+        <div className="max-w-xl">
+          <h2 className="text-5xl font-bold text-purple-300 mb-6">{title}</h2>
+          <p className="text-2xl leading-relaxed text-gray-300">{content}</p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* Main Slide 6 – Futuristic HUD + icons */
+export function MainSlide6({ title, content }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-gray-950 text-white flex items-center justify-center overflow-hidden">
+      {/* HUD background */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.15),transparent_70%)]"></div>
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#00f_1px,transparent_1px),linear-gradient(to_bottom,#0ff_1px,transparent_1px)] bg-[size:100px_100px] opacity-10"></div>
+
+      {/* Futuristic rings */}
+      <div className="absolute w-[900px] h-[900px] border-8 border-blue-500/30 rounded-full animate-pulse"></div>
+      <div className="absolute w-[600px] h-[600px] border-4 border-purple-400/30 rounded-full"></div>
+
+      {/* Floating icons */}
+      <Cpu className="absolute top-40 left-40 text-blue-400 opacity-30 w-16 h-16" />
+      <CircuitBoard className="absolute bottom-40 right-40 text-purple-400 opacity-30 w-16 h-16" />
+      <Cloud className="absolute top-1/3 right-1/3 text-cyan-400 opacity-30 w-14 h-14" />
+
+      {/* Content */}
+      <div className="relative z-10 max-w-4xl text-center">
+        <h2 className="text-6xl font-extrabold text-cyan-300 mb-8">{title}</h2>
+        <p className="text-3xl leading-relaxed text-gray-300">{content}</p>
       </div>
     </section>
   );

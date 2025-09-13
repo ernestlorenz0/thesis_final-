@@ -81,6 +81,77 @@ export function MainSlide3({ title, content }) {
   );
 }
 
+/* Main Slide 4 – Scroll layout (ancient scroll effect) */
+export function MainSlide4({ title, content }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-b from-yellow-200 to-yellow-50 flex flex-col items-center justify-center text-gray-900 overflow-hidden">
+      {/* Scroll edges */}
+      <div className="absolute top-0 left-0 w-full h-20 bg-yellow-700 rounded-b-full"></div>
+      <div className="absolute bottom-0 left-0 w-full h-20 bg-yellow-700 rounded-t-full"></div>
+
+      {/* Title */}
+      <h2 className="relative z-10 text-6xl font-serif font-bold text-yellow-900 mb-10">
+        {title}
+      </h2>
+
+      {/* Content */}
+      <p className="relative z-10 max-w-5xl text-3xl font-serif leading-relaxed text-center px-12">
+        {content}
+      </p>
+    </section>
+  );
+}
+
+/* Main Slide 5 – Twin column parchment with gold divider */
+export function MainSlide5({ leftContent, rightContent, title }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] flex bg-gradient-to-br from-yellow-50 to-yellow-100 text-gray-900 overflow-hidden">
+      {/* Frame */}
+      <div className="absolute inset-10 border-[12px] border-yellow-700 rounded-xl"></div>
+
+      {/* Title top */}
+      <div className="absolute top-12 left-1/2 -translate-x-1/2 bg-gradient-to-r from-yellow-800 to-yellow-600 px-10 py-4 rounded shadow-lg">
+        <h2 className="text-5xl font-serif font-bold text-yellow-100">{title}</h2>
+      </div>
+
+      {/* Two-column content */}
+      <div className="relative z-10 flex w-full h-full items-center justify-center px-24 gap-12">
+        <div className="flex-1 text-2xl font-serif leading-relaxed text-left">
+          {leftContent}
+        </div>
+        <div className="w-[4px] h-2/3 bg-yellow-700"></div>
+        <div className="flex-1 text-2xl font-serif leading-relaxed text-right">
+          {rightContent}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* Main Slide 6 – Golden arch motif */
+export function MainSlide6({ title, content }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-br from-yellow-900 via-yellow-800 to-yellow-600 text-yellow-100 flex items-center justify-center overflow-hidden">
+      {/* Arch frame */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="w-[1200px] h-[800px] border-[16px] border-yellow-400/70 rounded-t-full rounded-b-lg opacity-40"></div>
+      </div>
+
+      {/* Inner glow arch */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="w-[1000px] h-[650px] border-[10px] border-yellow-300/50 rounded-t-full rounded-b-lg opacity-50"></div>
+      </div>
+
+      {/* Content inside the arch */}
+      <div className="relative z-10 text-center max-w-5xl">
+        <h2 className="text-6xl font-serif font-bold mb-8">{title}</h2>
+        <p className="text-3xl font-serif leading-relaxed">{content}</p>
+      </div>
+    </section>
+  );
+}
+
+
 
 /* Image Slide – Gold pedestal frame */
 export function ImageSlide({ title, imageUrl }) {

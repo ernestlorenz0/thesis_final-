@@ -83,6 +83,66 @@ export function MainSlide3({ title, content }) {
   );
 }
 
+/* ---------------- MAIN SLIDE 4 ---------------- */
+/* Diagonal split design with angled title band */
+export function MainSlide4({ title, content }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-orange-100 overflow-hidden flex">
+      {/* Diagonal title band */}
+      <div className="absolute -left-32 top-0 w-[60%] h-full bg-gradient-to-br from-yellow-400 to-orange-300 -skew-x-12 shadow-xl"></div>
+
+      {/* Text content */}
+      <div className="relative z-10 flex flex-col justify-center pl-32 w-2/3">
+        <h2 className="text-6xl font-extrabold text-yellow-900 mb-6">{title}</h2>
+        <p className="text-3xl text-orange-900 max-w-2xl leading-relaxed">
+          {content}
+        </p>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------- MAIN SLIDE 5 ---------------- */
+/* Circular spotlight content */
+export function MainSlide5({ title, content }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] flex items-center justify-center bg-gradient-to-br from-yellow-200 via-orange-100 to-yellow-50 overflow-hidden">
+      {/* Big circular spotlight */}
+      <div className="absolute w-[1400px] h-[1400px] rounded-full bg-white/70 border-[20px] border-yellow-400 shadow-2xl"></div>
+
+      {/* Text inside spotlight */}
+      <div className="relative z-10 text-center px-16">
+        <h2 className="text-7xl font-bold text-orange-800 mb-8">{title}</h2>
+        <p className="text-3xl text-yellow-900 max-w-4xl mx-auto leading-relaxed">
+          {content}
+        </p>
+      </div>
+    </section>
+  );
+}
+
+/* ---------------- MAIN SLIDE 6 ---------------- */
+/* Text flowing with layered waves */
+export function MainSlide6({ title, content }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] overflow-hidden bg-gradient-to-tr from-yellow-100 to-orange-50 flex flex-col justify-center">
+      {/* Background waves */}
+      <div className="absolute bottom-0 w-full h-[400px] bg-gradient-to-r from-yellow-400 to-orange-300 rounded-t-[50%]"></div>
+      <div className="absolute bottom-0 w-full h-[250px] bg-orange-400/60 rounded-t-[45%] blur-2xl"></div>
+
+      {/* Title and content directly on canvas */}
+      <div className="relative z-10 px-32">
+        <h2 className="text-7xl font-extrabold text-orange-900 mb-8">{title}</h2>
+        <p className="text-3xl text-yellow-900 leading-relaxed max-w-4xl">
+          {content}
+        </p>
+      </div>
+    </section>
+  );
+}
+
+
+
 /* ---------------- IMAGE SLIDE ---------------- */
 export function ImageSlide({ title, imageUrl }) {
   return (
