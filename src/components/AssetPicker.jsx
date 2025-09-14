@@ -125,7 +125,7 @@ export default function AssetPicker({ open, onClose, onSelect, onAIImageGenerate
         <div className="bg-white rounded-xl shadow-2xl p-6 w-[540px] max-h-[80vh] flex flex-col">
           <div className="flex items-center mb-4">
             <input
-              className="flex-1 border border-gray-300 rounded px-3 py-2 mr-3"
+              className="flex-1 border border-gray-300 rounded px-3 py-2 mr-3 text-black"
               placeholder="Search assets..."
               value={search}
               onChange={e => setSearch(e.target.value)}

@@ -61,7 +61,7 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack, p
     setCurrentSlideContainerRef(slideContainerRef);
   }, []);
 
-  const handleExportPNG = async () => {
+  const handleExportPNG = async (customFilename = '') => {
     if (!currentSlideContainerRef) {
       alert('Slide container not ready for export');
       return;
@@ -70,14 +70,14 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack, p
     setIsExporting(true);
     setExportProgress(0);
 
-    const filename = getTimestampedFilename('slide', 'png');
+    const filename = customFilename.trim() ? `${customFilename.trim()}.png` : getTimestampedFilename('slide', 'png');
     const result = await slideExporter.exportCurrentSlidePNG(currentSlideContainerRef, filename);
 
     // Save to history if export was successful
     if (result.success) {
       try {
         await saveHistoryItem({
-          filename: filename.replace('.png', ''),
+          filename: customFilename.trim() || filename.replace('.png', ''),
           slides: slides,
           templateName: selectedTemplate
         });
@@ -100,7 +100,7 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack, p
     });
   };
 
-  const handleExportPDF = async () => {
+  const handleExportPDF = async (customFilename = '') => {
     if (!slides.length) {
       alert('No slides to export');
       return;
@@ -132,14 +132,14 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack, p
       return slideContainer;
     };
 
-    const filename = getTimestampedFilename('presentation', 'pdf');
+    const filename = customFilename.trim() ? `${customFilename.trim()}.pdf` : getTimestampedFilename('presentation', 'pdf');
     const result = await slideExporter.exportAllSlidesPDF(slides, getSlideContainerForSlide, filename);
 
     // Save to history if export was successful
     if (result.success) {
       try {
         await saveHistoryItem({
-          filename: filename.replace('.pdf', ''),
+          filename: customFilename.trim() || filename.replace('.pdf', ''),
           slides: slides,
           templateName: selectedTemplate
         });
@@ -162,7 +162,7 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack, p
     });
   };
 
-  const handleExportPPTX = async () => {
+  const handleExportPPTX = async (customFilename = '') => {
     if (!slides.length) {
       alert('No slides to export');
       return;
@@ -194,14 +194,14 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack, p
       return slideContainer;
     };
 
-    const filename = getTimestampedFilename('presentation', 'pptx');
+    const filename = customFilename.trim() ? `${customFilename.trim()}.pptx` : getTimestampedFilename('presentation', 'pptx');
     const result = await slideExporter.exportAllSlidesPPTX(slides, getSlideContainerForSlide, filename);
 
     // Save to history if export was successful
     if (result.success) {
       try {
         await saveHistoryItem({
-          filename: filename.replace('.pptx', ''),
+          filename: customFilename.trim() || filename.replace('.pptx', ''),
           slides: slides,
           templateName: selectedTemplate
         });
@@ -407,7 +407,8 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack, p
       await saveHistoryItem({
         filename: filename,
         slides: slides,
-        templateName: selectedTemplate
+        templateName: selectedTemplate,
+        exportFormat: 'PDF'
       });
       
       // Download the PDF
