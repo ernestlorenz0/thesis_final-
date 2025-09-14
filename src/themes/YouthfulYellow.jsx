@@ -28,6 +28,42 @@ export function TitleSlide({ title, subtitle }) {
   );
 }
 
+export function TOCSlideYouthfulYellow({
+  title = "Table of Contents",
+  items = [],
+}) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-br from-[#fff9c4] via-[#fff176] to-[#fdd835] text-[#2b2b2b] flex flex-col items-center justify-center overflow-hidden">
+      {/* Background playful blobs */}
+      <div className="absolute top-16 left-10 w-64 h-64 bg-yellow-300/40 rounded-full blur-2xl"></div>
+      <div className="absolute bottom-24 right-24 w-72 h-72 bg-orange-300/40 rounded-full blur-2xl"></div>
+
+      {/* Doodle accents */}
+      <div className="absolute top-32 right-1/4 text-6xl rotate-12 text-orange-500/70">✨</div>
+      <div className="absolute bottom-32 left-1/4 text-6xl -rotate-12 text-pink-500/70">⭐</div>
+
+      {/* Title */}
+      <h2 className="text-6xl font-extrabold mb-16 tracking-wide text-yellow-900 drop-shadow-lg">
+        {title}
+      </h2>
+
+      {/* TOC Items */}
+      <ul className="text-3xl font-semibold space-y-10 max-w-3xl text-left relative z-10">
+        {items.map((item, index) => (
+          <li key={index} className="flex items-center gap-6">
+            {/* Fun badge number */}
+            <span className="w-12 h-12 flex items-center justify-center rounded-full bg-gradient-to-br from-yellow-500 to-orange-400 text-white font-bold shadow-md">
+              {index + 1}
+            </span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+
 /* ---------------- MAIN SLIDE 1 ---------------- */
 export function MainSlide1({ title, content }) {
   return (

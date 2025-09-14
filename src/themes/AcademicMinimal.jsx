@@ -29,6 +29,40 @@ export function TitleSlide({ title, subtitle, imageUrl }) {
     </section>
   );
 }
+
+/* Table of Contents Slide – Academic Minimal */
+export function TOCSlideAcademic({ title = "Table of Contents", items = [] }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-white text-gray-900 flex flex-col items-center justify-center overflow-hidden">
+      {/* Subtle border */}
+      <div className="absolute inset-12 border border-gray-300 rounded-lg"></div>
+
+      {/* Title */}
+      <h2 className="text-5xl font-serif font-bold text-gray-800 mb-16 tracking-wide">
+        {title}
+      </h2>
+
+      {/* List */}
+      <ul className="text-2xl font-light space-y-6 max-w-3xl text-left">
+        {items.map((item, index) => (
+          <li
+            key={index}
+            className="flex items-baseline gap-4 hover:text-gray-600 transition-colors duration-200"
+          >
+            <span className="text-gray-500 font-mono text-xl">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <span className="border-b border-gray-300 flex-1 pb-1">
+              {item}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+
 export function ImageSlide({ title, imageUrl }) {
   return (
     <section className="w-[1920px] h-[1080px] bg-white flex flex-col items-center justify-center p-24">

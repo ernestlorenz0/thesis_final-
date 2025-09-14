@@ -18,6 +18,84 @@ export function TitleSlide({ title, subtitle }) {
   );
 }
 
+/* Table of Contents Slide – History Heritage */
+export function TOCSlideHistoryHeritage({ title = "Table of Contents", items = [] }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-[#fdfaf3] text-[#2b2b2b] flex flex-col items-center justify-center overflow-hidden">
+      {/* Parchment texture overlay */}
+      <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/aged-paper.png')] opacity-40"></div>
+
+      {/* Ornamental borders */}
+      <div className="absolute inset-12 border-[6px] border-[#8b5e3c] rounded-xl shadow-md"></div>
+
+      {/* Decorative icons */}
+      <div className="absolute top-24 left-24 text-6xl text-[#8b5e3c]/50">🏛️</div>
+      <div className="absolute bottom-24 right-24 text-6xl text-[#b08d57]/50">📜</div>
+
+      {/* Title */}
+      <h2 className="text-6xl font-serif font-bold text-[#5a3d2b] mb-16 drop-shadow-lg">
+        {title}
+      </h2>
+
+      {/* TOC List */}
+      <ul className="text-3xl font-serif space-y-8 max-w-3xl text-left">
+        {items.map((item, index) => (
+          <li key={index} className="flex items-center gap-6">
+            {/* Number marker in old-gold circle */}
+            <span className="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-br from-[#d4af37] to-[#a67c00] text-white font-bold shadow-md">
+              {index + 1}
+            </span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+
+/* Table of Contents Slide – Science Spectrum */
+export function TOCSlideScienceSpectrum({ title = "Table of Contents", items = [] }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-[#0a0a0f] text-white flex flex-col items-center justify-center overflow-hidden">
+      {/* Gradient spectrum background */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-indigo-900 via-purple-700 to-cyan-500 opacity-40 blur-2xl"></div>
+
+      {/* Orbiting circles */}
+      <div className="absolute w-[600px] h-[600px] border border-cyan-400/40 rounded-full animate-pulse"></div>
+      <div className="absolute w-[900px] h-[900px] border border-purple-400/30 rounded-full animate-spin-slow"></div>
+
+      {/* Floating geometric accents */}
+      <div className="absolute top-20 left-20 w-24 h-24 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full blur-lg opacity-60"></div>
+      <div className="absolute bottom-32 right-24 w-32 h-32 bg-gradient-to-tr from-pink-400 to-purple-500 rotate-45"></div>
+
+      {/* Title */}
+      <h2 className="text-6xl font-extrabold mb-16 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent drop-shadow-lg">
+        {title}
+      </h2>
+
+      {/* TOC List */}
+      <ul className="text-3xl space-y-8 max-w-3xl text-left font-medium">
+        {items.map((item, index) => (
+          <li
+            key={index}
+            className="flex items-center gap-6 group"
+          >
+            {/* Spectrum bullet */}
+            <span className="w-8 h-8 rounded-full bg-gradient-to-r from-cyan-400 to-purple-500 flex items-center justify-center text-white font-bold shadow-md group-hover:scale-110 transition-transform duration-300">
+              {index + 1}
+            </span>
+            <span className="group-hover:text-cyan-300 transition-colors duration-200">
+              {item}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+
 /* Main Slide 1 – Title on top, spectrum underline, content below */
 export function MainSlide1({ title, content }) {
   return (

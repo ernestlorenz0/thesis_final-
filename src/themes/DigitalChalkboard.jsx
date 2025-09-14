@@ -21,6 +21,43 @@ export function TitleSlide({ title, subtitle }) {
   );
 }
 
+/* Table of Contents Slide – Digital Chalkboard */
+export function TOCSlideChalkboard({ title = "Table of Contents", items = [] }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-[#1b1b1b] text-white flex flex-col items-center justify-center overflow-hidden">
+      {/* Chalk smudge border */}
+      <div className="absolute inset-8 border-[6px] border-green-400/60 rounded-xl opacity-60"></div>
+
+      {/* Chalk doodles */}
+      <div className="absolute top-20 left-24 text-yellow-300/70 text-5xl">★</div>
+      <div className="absolute bottom-24 right-24 text-pink-400/70 text-4xl">✏️</div>
+      <div className="absolute top-2/3 left-12 text-cyan-300/60 text-5xl">+</div>
+
+      {/* Title */}
+      <h2 className="text-6xl font-mono font-bold text-green-300 mb-16 drop-shadow-lg">
+        {title}
+      </h2>
+
+      {/* List */}
+      <ul className="text-3xl font-mono space-y-6 text-gray-200 max-w-3xl text-left">
+        {items.map((item, index) => (
+          <li
+            key={index}
+            className="flex items-center gap-6 hover:text-yellow-300 transition-colors duration-200"
+          >
+            {/* Chalk circle number */}
+            <span className="w-10 h-10 flex items-center justify-center rounded-full border-2 border-pink-400 text-pink-300 font-bold">
+              {index + 1}
+            </span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+
 /* Main Slide 1 – Left title bar, chalk text on right */
 export function MainSlide1({ title, content }) {
   return (

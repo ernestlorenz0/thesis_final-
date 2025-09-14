@@ -82,6 +82,18 @@ export default function SlideCanvas({
       );
     }
 
+    // Table of Contents slide
+    if (slide.components?.some(c => c.type === "toc") && Theme.TOCSlide) {
+      const tocTitle = slide.components.find(c => c.type === "toc")?.content || "Table of Contents";
+      const tocItems = slide.components.filter(c => c.type === "toc_item").map(c => c.content);
+      return (
+        <Theme.TOCSlide
+          title={tocTitle}
+          items={tocItems}
+        />
+      );
+    }
+
     // End slide
     if (slide.components?.some(c => c.type === "end") && Theme.EndSlide) {
       return (

@@ -27,6 +27,50 @@ export function TitleSlide({ title, subtitle }) {
   );
 }
 
+/* Table of Contents Slide – STEM Modern Artistic */
+export function TOCSlideSTEM({ title = "Table of Contents", items = [] }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-[#0d0d0f] text-white flex flex-col items-center justify-center overflow-hidden">
+      {/* Abstract gradient blobs */}
+      <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 rounded-full blur-[180px] opacity-50"></div>
+      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-gradient-to-tr from-pink-500 via-purple-500 to-indigo-400 rounded-full blur-[200px] opacity-40"></div>
+
+      {/* Geometric + STEM-inspired lines */}
+      <div className="absolute inset-0 opacity-20 bg-[linear-gradient(to_right,rgba(255,255,255,0.12)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.12)_1px,transparent_1px)] bg-[size:60px_60px]"></div>
+
+      {/* Title */}
+      <h2 className="text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-pink-400 drop-shadow-lg mb-16">
+        {title}
+      </h2>
+
+      {/* List */}
+      <ul className="relative text-3xl font-light tracking-wide text-gray-200 space-y-8 max-w-5xl z-10">
+        {items.map((item, index) => (
+          <li
+            key={index}
+            className="flex items-center gap-6 hover:text-cyan-300 transition-colors duration-200"
+          >
+            {/* Icon as a geometric marker */}
+            <div className="w-6 h-6 rounded-full border-2 border-pink-400 flex items-center justify-center text-sm text-pink-400">
+              {index + 1}
+            </div>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+
+      {/* Decorative equations/doodles */}
+      <div className="absolute top-24 right-24 text-cyan-300/50 text-2xl font-mono">
+        E = mc²
+      </div>
+      <div className="absolute bottom-20 left-24 text-pink-400/50 text-xl font-mono">
+        ∫ f(x) dx
+      </div>
+    </section>
+  );
+}
+
+
 
 export function MainSlide1({ title, content }) {
   return (

@@ -20,6 +20,46 @@ export function TitleSlide({ title, subtitle }) {
   );
 }
 
+/* Table of Contents Slide – Playful Primary */
+export function TOCSlidePrimary({ title = "Table of Contents", items = [] }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-[#fff9e6] text-gray-900 flex flex-col items-center justify-center overflow-hidden">
+      {/* Background playful blobs */}
+      <div className="absolute -top-20 -left-20 w-[400px] h-[400px] bg-pink-300 rounded-full blur-[120px] opacity-50"></div>
+      <div className="absolute bottom-0 right-0 w-[450px] h-[450px] bg-yellow-300 rounded-full blur-[140px] opacity-50"></div>
+      <div className="absolute top-1/3 left-2/3 w-[300px] h-[300px] bg-cyan-300 rounded-full blur-[100px] opacity-50"></div>
+
+      {/* Fun doodles */}
+      <div className="absolute top-20 left-32 text-5xl text-yellow-400">⭐</div>
+      <div className="absolute bottom-28 right-32 text-5xl text-pink-400">✏️</div>
+      <div className="absolute top-2/3 left-16 text-4xl text-cyan-400">🎨</div>
+
+      {/* Title */}
+      <h2 className="text-6xl font-bold text-pink-500 mb-12 drop-shadow-lg">
+        {title}
+      </h2>
+
+      {/* List */}
+      <ul className="text-3xl font-semibold space-y-8 text-center z-10">
+        {items.map((item, index) => (
+          <li
+            key={index}
+            className="flex items-center gap-6 text-gray-800 hover:text-pink-500 transition-colors duration-200"
+          >
+            {/* Playful circle number */}
+            <div className={`w-12 h-12 flex items-center justify-center rounded-full text-white text-xl font-bold 
+              ${index % 3 === 0 ? "bg-pink-400" : index % 3 === 1 ? "bg-cyan-400" : "bg-yellow-400"}`}>
+              {index + 1}
+            </div>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+
 /* Main Slide 1 - Title + underline + content */
 export function MainSlide1({ title, content }) {
   return (

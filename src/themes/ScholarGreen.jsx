@@ -167,6 +167,41 @@ export function ImageSlide({ title, imageUrl }) {
   );
 }
 
+export function TOCSlideScholarGreen({
+  title = "Table of Contents",
+  items = [],
+}) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-br from-[#f0fdf4] via-[#dcfce7] to-[#bbf7d0] text-[#064e3b] flex flex-col items-center justify-center overflow-hidden">
+      {/* Subtle leaf accents */}
+      <div className="absolute top-16 left-20 text-7xl text-green-600/30">🌿</div>
+      <div className="absolute bottom-24 right-24 text-7xl text-green-700/30">📘</div>
+      <div className="absolute top-1/2 left-1/3 -rotate-12 text-6xl text-green-500/20">🍃</div>
+
+      {/* Decorative frame */}
+      <div className="absolute inset-12 border-[6px] border-green-700/30 rounded-xl"></div>
+
+      {/* Title */}
+      <h2 className="text-6xl font-serif font-bold mb-16 tracking-wide text-green-900 drop-shadow-md">
+        {title}
+      </h2>
+
+      {/* TOC Items */}
+      <ul className="text-3xl font-serif space-y-10 max-w-3xl text-left relative z-10">
+        {items.map((item, index) => (
+          <li key={index} className="flex items-center gap-6">
+            {/* Academic styled number badge */}
+            <span className="w-12 h-12 flex items-center justify-center rounded-full bg-gradient-to-br from-green-700 to-green-500 text-white font-bold shadow-md">
+              {index + 1}
+            </span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
 /* ---------------- END SLIDE ---------------- */
 export function EndSlide() {
   return (
@@ -181,6 +216,7 @@ export function EndSlide() {
 
 const ScholarGreen = {
   TitleSlide,
+  TOCSlide,
   MainSlide1,
   MainSlide2,
   MainSlide3,

@@ -440,6 +440,8 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack, p
 
   // === Slide manipulation ===
   const addSlide = () => setSlides([...slides, { id: uuidv4(), components: [] }]);
+  
+  
   const duplicateSlide = () => {
     const newSlide = { ...slides[current], id: uuidv4() };
     const newSlides = [...slides];
@@ -747,11 +749,17 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack, p
         deleteSlide={deleteSlide}
         renderThumb={(slide, index) => {
           const title = slide.components.find(c => c.type === "title")?.content;
+          const isTOC = slide.components.some(c => c.type === "toc");
+          const isEnd = slide.components.some(c => c.type === "end");
           return (
             <div className="flex-1 px-2 py-1 text-xs text-gray-700 truncate group">
-              <div className="font-medium">{title || "Untitled"}</div>
+              <div className="font-medium">
+                {title || (isTOC ? "Table of Contents" : isEnd ? "End Slide" : "Untitled")}
+              </div>
               <div className="text-xs text-gray-500 mt-1">
                 {slide.components.length} component{slide.components.length !== 1 ? 's' : ''}
+                {isTOC && <span className="ml-1 text-blue-600">📋</span>}
+                {isEnd && <span className="ml-1 text-gray-600">🏁</span>}
               </div>
             </div>
           );

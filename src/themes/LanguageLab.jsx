@@ -18,6 +18,53 @@ export function TitleSlide({ title, subtitle }) {
   );
 }
 
+export function TOCSlideLanguageLab({
+  title = "Table of Contents",
+  items = [],
+}) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-br from-[#fdfbff] via-[#f5f2fc] to-[#ece8f9] text-gray-900 flex flex-col items-center justify-center overflow-hidden">
+      {/* Decorative blobs */}
+      <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-purple-300/40 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-indigo-400/30 rounded-full blur-2xl"></div>
+
+      {/* Floating characters */}
+      <div className="absolute top-20 left-40 text-6xl font-bold text-indigo-500 opacity-40">
+        あ
+      </div>
+      <div className="absolute bottom-28 right-48 text-6xl font-bold text-pink-500 opacity-40">
+        A
+      </div>
+      <div className="absolute bottom-52 left-64 text-5xl font-bold text-blue-500 opacity-40">
+        Ж
+      </div>
+
+      {/* Speech bubble icon */}
+      <div className="absolute top-16 right-16 text-7xl text-purple-500/50">
+        💬
+      </div>
+
+      {/* Title */}
+      <h2 className="text-6xl font-bold font-sans text-indigo-900 mb-16 drop-shadow-lg">
+        {title}
+      </h2>
+
+      {/* TOC List */}
+      <ul className="text-3xl font-medium font-sans space-y-8 max-w-3xl text-left">
+        {items.map((item, index) => (
+          <li key={index} className="flex items-center gap-6">
+            {/* Number in a speech bubble */}
+            <span className="w-12 h-12 flex items-center justify-center rounded-full bg-gradient-to-tr from-pink-500 to-purple-500 text-white font-bold shadow-md">
+              {index + 1}
+            </span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
 /* Main Slide 1 – Split layout with giant quotation mark */
 export function MainSlide1({ title, content }) {
   return (

@@ -14,6 +14,47 @@ export function TitleSlide({ title, subtitle }) {
   );
 }
 
+export function TOCSlideBlueHorizon({
+  title = "Table of Contents",
+  items = [],
+}) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-b from-sky-700 via-sky-500 to-sky-300 text-white flex flex-col items-center justify-center overflow-hidden">
+      {/* Horizon glow effect */}
+      <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-sky-200/40 to-transparent"></div>
+
+      {/* Wave shapes */}
+      <div className="absolute bottom-0 w-full h-48 bg-gradient-to-t from-sky-800/80 to-transparent rounded-t-[100%]"></div>
+      <div className="absolute bottom-12 w-full h-40 bg-gradient-to-t from-blue-900/70 to-transparent rounded-t-[100%]"></div>
+
+      {/* Floating circles (bubbles/clouds) */}
+      <div className="absolute top-20 left-24 w-40 h-40 rounded-full bg-sky-200/30 blur-3xl"></div>
+      <div className="absolute top-32 right-40 w-60 h-60 rounded-full bg-blue-300/30 blur-3xl"></div>
+
+      {/* Title */}
+      <h2 className="text-6xl font-extrabold mb-16 tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-sky-200 via-white to-blue-200 drop-shadow-[0_0_20px_rgba(135,206,250,0.6)]">
+        {title}
+      </h2>
+
+      {/* TOC Items */}
+      <ul className="text-3xl font-medium space-y-10 max-w-3xl text-left relative z-10">
+        {items.map((item, index) => (
+          <li
+            key={index}
+            className="flex items-center gap-6 hover:text-sky-200 transition duration-300"
+          >
+            {/* Horizon-style badge */}
+            <span className="w-14 h-14 flex items-center justify-center rounded-full bg-gradient-to-tr from-sky-600 to-sky-300 text-white font-bold shadow-[0_0_15px_rgba(135,206,250,0.7)]">
+              {index + 1}
+            </span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}s
+
 export function MainSlide({ title, content }) {
   return (
     <section className="relative w-[1920px] h-[1080px] bg-[#ebf8ff] overflow-hidden flex flex-col items-center justify-center p-10 text-center">
@@ -136,6 +177,44 @@ export function MainSlide6({ title, content, imageUrl }) {
 }
 
 
+export function TOCSlide({ title = "Table of Contents", items = [] }) {
+  const defaultItems = [
+    "Introduction to the Topic",
+    "Key Concepts and Definitions", 
+    "Historical Background",
+    "Current Applications",
+    "Case Studies and Examples",
+    "Future Implications",
+    "Conclusion and Q&A"
+  ];
+  
+  const displayItems = items.length > 0 ? items : defaultItems;
+
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-[#2b6cb0] overflow-hidden flex flex-col items-center justify-center">
+      <div className="absolute top-0 left-0 w-40 h-40 bg-[#f6ad55] rotate-45 -translate-x-1/2 -translate-y-1/2"></div>
+      <div className="absolute bottom-0 right-0 w-48 h-48 bg-[#3182ce] rotate-45 translate-x-1/2 translate-y-1/2"></div>
+      
+      <div className="relative z-10 text-center max-w-4xl">
+        <h2 className="text-white font-[HedvigLettersSerif] text-6xl mb-16">
+          {title}
+        </h2>
+        
+        <ul className="text-2xl space-y-4 text-left text-white">
+          {displayItems.map((item, index) => (
+            <li key={index} className="flex items-center hover:text-blue-200 transition-colors duration-200">
+              <span className="w-8 h-8 bg-[#f6ad55] rounded-full flex items-center justify-center text-sm font-bold mr-4 flex-shrink-0 text-[#2b6cb0]">
+                {index + 1}
+              </span>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
 export function EndSlide() {
   return (
     <section className="relative w-[1920px] h-[1080px] bg-[#2b6cb0] overflow-hidden flex items-center justify-center">
@@ -148,6 +227,7 @@ export function EndSlide() {
 
 const BlueHorizon = { 
   TitleSlide, 
+  TOCSlide,
   MainSlide, 
   MainSlide2,
   MainSlide3,

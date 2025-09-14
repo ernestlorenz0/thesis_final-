@@ -20,6 +20,60 @@ export function TitleSlide({ title, subtitle }) {
   );
 }
 
+export function TOCSlideOrangeOrbit({
+  title = "Table of Contents",
+  items = [],
+}) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-b from-orange-700 via-orange-500 to-yellow-400 text-white flex flex-col items-center justify-center overflow-hidden">
+      {/* Planet-like glowing orbs */}
+      <div className="absolute -top-20 -left-20 w-96 h-96 rounded-full bg-orange-300/30 blur-3xl"></div>
+      <div className="absolute bottom-10 right-10 w-80 h-80 rounded-full bg-yellow-200/40 blur-3xl"></div>
+
+      {/* Orbital rings */}
+      <div className="absolute top-1/2 left-1/2 w-[800px] h-[800px] border-4 border-orange-200/30 rounded-full -translate-x-1/2 -translate-y-1/2 animate-spin-slow"></div>
+      <div className="absolute top-1/2 left-1/2 w-[1000px] h-[1000px] border-2 border-yellow-300/20 rounded-full -translate-x-1/2 -translate-y-1/2 animate-spin-slower"></div>
+
+      {/* Title */}
+      <h2 className="text-6xl font-extrabold mb-16 tracking-widest bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 via-orange-200 to-white drop-shadow-[0_0_25px_rgba(255,165,0,0.7)]">
+        {title}
+      </h2>
+
+      {/* TOC Items */}
+      <ul className="text-3xl font-semibold space-y-10 max-w-3xl text-left relative z-10">
+        {items.map((item, index) => (
+          <li
+            key={index}
+            className="flex items-center gap-6 hover:text-yellow-200 transition duration-300"
+          >
+            {/* Orbiting planet-like badge */}
+            <span className="w-14 h-14 flex items-center justify-center rounded-full bg-gradient-to-tr from-orange-600 to-yellow-400 text-white font-bold shadow-[0_0_20px_rgba(255,165,0,0.8)]">
+              {index + 1}
+            </span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+/* Extra orbit animations */
+<style>
+{`
+  .animate-spin-slow {
+    animation: spin 40s linear infinite;
+  }
+  .animate-spin-slower {
+    animation: spin 80s linear infinite;
+  }
+  @keyframes spin {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+`}
+</style>
+
 /* ---------------- MAIN SLIDE 1 ---------------- */
 /* Split left text, right orbit graphics */
 export function MainSlide1({ title, content }) {

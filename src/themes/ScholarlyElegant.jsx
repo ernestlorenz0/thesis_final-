@@ -16,6 +16,38 @@ export function TitleSlide({ title, subtitle }) {
   );
 }
 
+/* Table of Contents Slide – Scholarly Elegant */
+export function TOCSlideScholarly({ title = "Table of Contents", items = [] }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-[#0e1a2a] text-white flex flex-col items-center justify-center overflow-hidden">
+      {/* Elegant border frame */}
+      <div className="absolute inset-16 border-4 border-yellow-600/70 rounded-lg"></div>
+
+      {/* Title */}
+      <h2 className="text-5xl font-serif font-bold text-yellow-400 mb-20 tracking-wide">
+        {title}
+      </h2>
+
+      {/* List */}
+      <ul className="text-2xl font-light space-y-8 max-w-3xl text-left">
+        {items.map((item, index) => (
+          <li
+            key={index}
+            className="flex items-baseline gap-6 text-gray-200 hover:text-yellow-300 transition-colors duration-200"
+          >
+            {/* Roman numerals for elegance */}
+            <span className="text-yellow-400 font-serif text-xl">
+              {["I", "II", "III", "IV", "V", "VI", "VII", "VIII"][index] || index + 1}
+            </span>
+            <span className="flex-1 border-b border-gray-600/50 pb-1">{item}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+
 /* Main Slide 1 – Title on top, underline, content below */
 export function MainSlide1({ title, content }) {
   return (

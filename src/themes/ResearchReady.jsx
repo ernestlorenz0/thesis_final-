@@ -20,6 +20,43 @@ export function TitleSlide({ title, subtitle }) {
   );
 }
 
+export function TOCSlideResearchReady({
+  title = "Table of Contents",
+  items = [],
+}) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-br from-[#f7f9fc] to-[#e6ecf5] text-[#1c1c1c] flex flex-col items-center justify-center overflow-hidden">
+      {/* Subtle grid / notebook lines */}
+      <div className="absolute inset-0 opacity-30 bg-[linear-gradient(to_right,rgba(0,0,0,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.05)_1px,transparent_1px)] bg-[size:80px_80px]"></div>
+
+      {/* Accent shapes */}
+      <div className="absolute top-16 left-24 w-24 h-24 rounded-full bg-blue-500/20"></div>
+      <div className="absolute bottom-24 right-36 w-32 h-32 rounded-lg bg-indigo-400/20 rotate-12"></div>
+
+      {/* Title */}
+      <h2 className="text-6xl font-bold text-[#1e3a8a] mb-16 drop-shadow-sm tracking-wide">
+        {title}
+      </h2>
+
+      {/* TOC List */}
+      <ul className="text-3xl font-sans space-y-10 max-w-3xl text-left">
+        {items.map((item, index) => (
+          <li
+            key={index}
+            className="flex items-center gap-6"
+          >
+            {/* Number badge */}
+            <span className="w-12 h-12 flex items-center justify-center rounded-full bg-gradient-to-tr from-blue-600 to-indigo-500 text-white font-bold shadow-md">
+              {index + 1}
+            </span>
+            <span className="text-[#1c1c1c]">{item}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
 /* ---------------- MAIN SLIDE 1 ---------------- */
 export function MainSlide1({ title, content }) {
   return (

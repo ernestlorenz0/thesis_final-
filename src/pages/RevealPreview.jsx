@@ -88,6 +88,10 @@ export default function RevealPreview({ slides, selectedTemplate = 'ClassicClass
                 if (comp.type === 'title') return <Theme.TitleSlide title={comp.content} subtitle={''} />;
                 if (comp.type === 'image') return <Theme.ImageSlide title={''} imageUrl={comp.content} />;
                 if (comp.type === 'paragraph') return <Theme.ContentSlide title={''} content={comp.content} />;
+                if (comp.type === 'toc') {
+                  const tocItems = slide.components.filter(c => c.type === 'toc_item').map(c => c.content);
+                  return <Theme.TOCSlide title={comp.content} items={tocItems} />;
+                }
                 return null;
               })()
             ) : (
@@ -96,6 +100,10 @@ export default function RevealPreview({ slides, selectedTemplate = 'ClassicClass
                   if (comp.type === 'title') return <Theme.TitleSlide key={cidx} title={comp.content} subtitle={''} />;
                   if (comp.type === 'image') return <Theme.ImageSlide key={cidx} title={''} imageUrl={comp.content} />;
                   if (comp.type === 'paragraph') return <Theme.ContentSlide key={cidx} title={''} content={comp.content} />;
+                  if (comp.type === 'toc') {
+                    const tocItems = slide.components.filter(c => c.type === 'toc_item').map(c => c.content);
+                    return <Theme.TOCSlide key={cidx} title={comp.content} items={tocItems} />;
+                  }
                   return null;
                 })}
               </div>

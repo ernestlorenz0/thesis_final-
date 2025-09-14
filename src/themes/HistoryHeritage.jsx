@@ -16,6 +16,44 @@ export function TitleSlide({ title, subtitle }) {
   );
 }
 
+
+export function TOCSlideHistoryHeritage({
+  title = "Table of Contents",
+  items = [],
+}) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-[#fdfaf3] text-[#2b2b2b] flex flex-col items-center justify-center overflow-hidden">
+      {/* Parchment texture overlay */}
+      <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/aged-paper.png')] opacity-50"></div>
+
+      {/* Ornamental border */}
+      <div className="absolute inset-16 border-[8px] border-[#8b5e3c] rounded-xl shadow-lg"></div>
+
+      {/* Classical icons */}
+      <div className="absolute top-24 left-24 text-7xl text-[#8b5e3c]/40">🏛️</div>
+      <div className="absolute bottom-24 right-24 text-7xl text-[#b08d57]/40">📜</div>
+
+      {/* Title */}
+      <h2 className="text-6xl font-serif font-bold text-[#5a3d2b] mb-16 drop-shadow-lg">
+        {title}
+      </h2>
+
+      {/* TOC List */}
+      <ul className="text-3xl font-serif space-y-10 max-w-3xl text-left">
+        {items.map((item, index) => (
+          <li key={index} className="flex items-center gap-6">
+            {/* Gold marker */}
+            <span className="w-12 h-12 flex items-center justify-center rounded-full bg-gradient-to-br from-[#d4af37] to-[#a67c00] text-white font-bold shadow-md">
+              {index + 1}
+            </span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
 /* Main Slide 1 – Left gold column, right parchment content */
 export function MainSlide1({ title, content }) {
   return (

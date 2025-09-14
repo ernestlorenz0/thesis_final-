@@ -134,6 +134,41 @@ export function MainSlide6({ title, content }) {
 
 
 
+export function TOCSlideCalmCyan({
+  title = "Table of Contents",
+  items = [],
+}) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-br from-[#e0f7fa] via-[#b2ebf2] to-[#80deea] text-[#044e54] flex flex-col items-center justify-center overflow-hidden">
+      {/* Background soft waves */}
+      <div className="absolute bottom-0 w-full h-64 bg-gradient-to-t from-cyan-600/30 to-transparent rounded-t-[100%]"></div>
+      <div className="absolute top-0 w-full h-48 bg-gradient-to-b from-cyan-400/20 to-transparent rounded-b-[100%]"></div>
+
+      {/* Decorative circles */}
+      <div className="absolute top-20 left-20 w-40 h-40 rounded-full bg-cyan-300/30 blur-2xl"></div>
+      <div className="absolute bottom-20 right-20 w-56 h-56 rounded-full bg-teal-400/30 blur-2xl"></div>
+
+      {/* Title */}
+      <h2 className="text-6xl font-bold mb-16 tracking-wide text-cyan-900 drop-shadow-sm">
+        {title}
+      </h2>
+
+      {/* TOC Items */}
+      <ul className="text-3xl font-medium space-y-10 max-w-3xl text-left relative z-10">
+        {items.map((item, index) => (
+          <li key={index} className="flex items-center gap-6">
+            {/* Minimal badge number */}
+            <span className="w-12 h-12 flex items-center justify-center rounded-full bg-cyan-500 text-white font-bold shadow-md">
+              {index + 1}
+            </span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
 export function EndSlide() {
   return (
     <section className="relative w-[1920px] h-[1080px] bg-[#2c3e50] flex items-center justify-center">
@@ -146,5 +181,5 @@ export function EndSlide() {
   );
 }
 
-const CalmCyan = { TitleSlide, MainSlide, EndSlide };
+const CalmCyan = { TitleSlide, TOCSlide, MainSlide, EndSlide };
 export default CalmCyan;

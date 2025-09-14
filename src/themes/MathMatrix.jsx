@@ -22,6 +22,87 @@ export function TitleSlide({ title, subtitle }) {
   );
 }
 
+export function TOCSlideMathMatrix(props) {
+  const {
+    title,
+    items,
+    accent
+  } = props;
+
+  const accentMap = {
+    cyan: "from-cyan-400 to-blue-500",
+    lime: "from-lime-400 to-green-600",
+    amber: "from-amber-400 to-yellow-600",
+  };
+
+  const grad = accentMap[accent] || accentMap.cyan;
+
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-[#050607] text-white flex items-center justify-center overflow-hidden">
+      {/* Subtle grid / matrix background */}
+      <div className="absolute inset-0 opacity-20 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:48px_48px]"></div>
+
+      {/* Faint glowing diagonal band */}
+      <div className="absolute -left-80 -top-40 w-[900px] h-[900px] rounded-full bg-gradient-to-br opacity-40 blur-[160px] from-indigo-800 via-transparent to-transparent"></div>
+
+      <div className="relative z-10 flex w-11/12 gap-12 px-20">
+        {/* Left: TOC list */}
+        <div className="w-2/3 flex flex-col justify-center">
+          <h2 className="text-5xl font-mono font-bold mb-8 tracking-tight">
+            <span className={`bg-clip-text text-transparent bg-gradient-to-r ${grad}`}>
+              {title}
+            </span>
+          </h2>
+
+          <ul className="text-2xl font-mono space-y-6 text-gray-200 max-w-3xl">
+            {items.map((item, idx) => (
+              <li
+                key={idx}
+                className="flex items-center gap-6 group transition-colors duration-200"
+              >
+                <div className="w-12 h-12 flex items-center justify-center rounded-sm bg-[#0b0b0d] border border-white/10 shadow-inner">
+                  <div className={`text-lg font-semibold bg-clip-text text-transparent bg-gradient-to-r ${grad}`}>
+                    {String(idx + 1).padStart(2, "0")}
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <div className="text-xl font-medium group-hover:text-white transition-colors duration-200">
+                    {item}
+                  </div>
+                  <div className="text-xs text-gray-400 font-mono mt-1">
+                    {`Section ${idx + 1}`}
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+ 
+        <div className="w-1/3 flex items-center justify-center relative">
+          <div className="absolute left-0 transform -translate-x-6 text-8xl text-white/30 font-mono select-none">⎡</div>
+          <div className="relative w-[320px] h-[320px] bg-[#071018]/50 border border-white/10 rounded-lg flex items-center justify-center p-4">
+            <pre className="font-mono text-lg text-white/80 leading-[1.05]">
+{`[ 1  0  0  ... ]
+[ 0  1  2  ... ]
+[ 3  5  8  ... ]
+[ .  .  .  ... ]`}
+            </pre>
+            <div className={`absolute -bottom-6 left-6 w-36 h-2 rounded-full bg-gradient-to-r ${grad} opacity-80 blur-sm`}></div>
+          </div>
+          <div className="absolute right-0 transform translate-x-6 text-8xl text-white/30 font-mono select-none">⎦</div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+TOCSlideMathMatrix.defaultProps = {
+  title: "Table of Contents",
+  items: [],
+  accent: "cyan",
+};
+
+
 /* Main Slide 1 – Split screen with math sidebar */
 export function MainSlide1({ title, content }) {
   return (

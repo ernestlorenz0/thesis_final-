@@ -18,6 +18,41 @@ export function TitleSlide({ title, subtitle }) {
   );
 }
 
+export function TOCSlideCreativeCanvas({
+  title = "Table of Contents",
+  items = [],
+}) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-[#fafafa] text-[#1c1c1c] flex flex-col items-center justify-center overflow-hidden">
+      {/* Background paint strokes */}
+      <div className="absolute top-20 left-10 w-[600px] h-[200px] bg-gradient-to-r from-pink-400/60 to-orange-400/60 rounded-[50%] rotate-[-10deg] blur-2xl"></div>
+      <div className="absolute bottom-20 right-16 w-[500px] h-[180px] bg-gradient-to-r from-sky-400/60 to-violet-400/60 rounded-[50%] rotate-[15deg] blur-2xl"></div>
+
+      {/* Abstract blobs */}
+      <div className="absolute top-1/3 right-1/4 w-40 h-40 bg-yellow-300/50 rounded-full mix-blend-multiply"></div>
+      <div className="absolute bottom-1/3 left-1/4 w-56 h-56 bg-purple-300/50 rounded-full mix-blend-multiply"></div>
+
+      {/* Title */}
+      <h2 className="text-6xl font-extrabold mb-16 tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-orange-500 to-yellow-500 drop-shadow-lg">
+        {title}
+      </h2>
+
+      {/* TOC List */}
+      <ul className="text-3xl font-semibold space-y-10 max-w-4xl text-left relative z-10">
+        {items.map((item, index) => (
+          <li key={index} className="flex items-center gap-6">
+            {/* Brush stroke number marker */}
+            <span className="px-6 py-3 bg-gradient-to-r from-violet-500 to-sky-500 text-white rounded-full shadow-md">
+              {index + 1}
+            </span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
 /* ---------------- MAIN SLIDE 1 ---------------- */
 export function MainSlide1({ title, content }) {
   return (

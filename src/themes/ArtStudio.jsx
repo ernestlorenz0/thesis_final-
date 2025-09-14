@@ -43,6 +43,42 @@ export function TitleSlide({ title, subtitle }) {
   );
 }
 
+/* Table of Contents Slide – Art Studio */
+export function TOCSlideArtStudio({ title = "Table of Contents", items = [] }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-white text-[#222] flex flex-col items-center justify-center overflow-hidden">
+      {/* Background paint strokes */}
+      <div className="absolute inset-0">
+        <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-pink-400/40 rounded-full blur-3xl mix-blend-multiply"></div>
+        <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-cyan-400/40 rounded-full blur-3xl mix-blend-multiply"></div>
+      </div>
+
+      {/* Decorative brush doodles */}
+      <div className="absolute top-12 left-24 text-7xl text-orange-400/70 rotate-12">🖌️</div>
+      <div className="absolute bottom-20 right-28 text-7xl text-purple-400/70 -rotate-12">🎨</div>
+
+      {/* Title */}
+      <h2 className="text-7xl font-bold mb-16 tracking-tight drop-shadow-lg text-[#1f1f1f] font-serif">
+        {title}
+      </h2>
+
+      {/* TOC List with artistic markers */}
+      <ul className="text-3xl font-mono space-y-8 max-w-4xl text-left">
+        {items.map((item, index) => (
+          <li key={index} className="flex items-center gap-6">
+            {/* Artistic blob marker */}
+            <span className="w-12 h-12 flex items-center justify-center rounded-full bg-gradient-to-br from-pink-400 to-yellow-300 text-white font-bold shadow-lg -rotate-6">
+              {index + 1}
+            </span>
+            <span className="font-semibold text-[#333]">{item}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+
 // Main Slide 1
 export function MainSlide({ title, content }) {
   return (

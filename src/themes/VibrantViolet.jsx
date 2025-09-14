@@ -19,6 +19,44 @@ export function TitleSlide({ title, subtitle }) {
   );
 }
 
+export function TOCSlideVibrantViolet({
+  title = "Table of Contents",
+  items = [],
+}) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-br from-[#2e026d] via-[#6d28d9] to-[#9333ea] text-white flex flex-col items-center justify-center overflow-hidden">
+      {/* Glowing background orbs */}
+      <div className="absolute top-24 left-16 w-72 h-72 rounded-full bg-pink-500/40 blur-3xl"></div>
+      <div className="absolute bottom-24 right-20 w-80 h-80 rounded-full bg-indigo-400/40 blur-3xl"></div>
+
+      {/* Geometric accent shapes */}
+      <div className="absolute top-1/3 right-1/4 w-32 h-32 border-4 border-pink-400/50 rotate-12"></div>
+      <div className="absolute bottom-1/3 left-1/4 w-40 h-40 border-4 border-purple-300/50 -rotate-12 rounded-full"></div>
+
+      {/* Title */}
+      <h2 className="text-6xl font-extrabold mb-16 tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-pink-400 via-violet-300 to-indigo-400 drop-shadow-[0_0_25px_rgba(255,0,255,0.6)]">
+        {title}
+      </h2>
+
+      {/* TOC Items */}
+      <ul className="text-3xl font-medium space-y-10 max-w-3xl text-left relative z-10">
+        {items.map((item, index) => (
+          <li
+            key={index}
+            className="flex items-center gap-6 hover:text-pink-300 transition duration-300"
+          >
+            {/* Neon glowing number badge */}
+            <span className="w-12 h-12 flex items-center justify-center rounded-full bg-gradient-to-tr from-pink-500 to-purple-600 text-white font-bold shadow-[0_0_15px_rgba(255,0,255,0.7)]">
+              {index + 1}
+            </span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
 /* ---------------- MAIN SLIDE 1 ---------------- */
 /* Content inside a funky tilted card */
 export function MainSlide1({ title, content }) {
