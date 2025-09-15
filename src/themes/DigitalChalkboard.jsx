@@ -215,6 +215,7 @@ export function EndSlide({ message }) {
 
 const DigitalChalkboard = {
   TitleSlide,
+  TOCSlide: TOCSlideChalkboard,
   MainSlide1,
   MainSlide2,
   MainSlide3,

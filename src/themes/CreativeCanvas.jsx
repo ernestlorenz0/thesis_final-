@@ -216,6 +216,7 @@ export function EndSlide() {
 
 const CreativeCanvas = {
   TitleSlide,
+  TOCSlide: TOCSlideCreativeCanvas,
   MainSlide1,
   MainSlide2,
   MainSlide3,

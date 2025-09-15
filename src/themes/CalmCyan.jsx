@@ -181,5 +181,5 @@ export function EndSlide() {
   );
 }
 
-const CalmCyan = { TitleSlide, TOCSlide, MainSlide, EndSlide };
+const CalmCyan = { TitleSlide, TOCSlide: TOCSlideCalmCyan, MainSlide, EndSlide };
 export default CalmCyan;

@@ -221,6 +221,7 @@ export function EndSlide({ message }) {
 
 const LanguageLab = {
   TitleSlide,
+  TOCSlide: TOCSlideLanguageLab,
   MainSlide1,
   MainSlide2,
   MainSlide3,

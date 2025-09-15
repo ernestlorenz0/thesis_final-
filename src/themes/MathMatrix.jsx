@@ -269,6 +269,7 @@ export function EndSlide({ message }) {
 
 const MathMatrix = {
   TitleSlide,
+  TOCSlide: TOCSlideMathMatrix,
   MainSlide1,
   MainSlide2,
   MainSlide3,

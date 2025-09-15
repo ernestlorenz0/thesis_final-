@@ -260,6 +260,7 @@ export function MainSlide6({ title, content, imageUrl }) {
 
 const OrangeOrbit = {
   TitleSlide,
+  TOCSlide: TOCSlideOrangeOrbit,
   MainSlide1,
   MainSlide2,
   MainSlide3,

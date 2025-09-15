@@ -227,6 +227,7 @@ export function EndSlide({ message }) {
 
 const HistoryHeritage = {
   TitleSlide,
+  TOCSlide: TOCSlideHistoryHeritage,
   MainSlide1,
   MainSlide2,
   MainSlide3,

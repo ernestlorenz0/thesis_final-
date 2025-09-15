@@ -177,6 +177,7 @@ export function MainSlide6({ title, content }) {
 
 const ScholarlyElegant = {
   TitleSlide,
+  TOCSlide: TOCSlideScholarly,
   MainSlide1,
   MainSlide2,
   MainSlide3,

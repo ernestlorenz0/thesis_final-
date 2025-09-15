@@ -233,6 +233,7 @@ export function EndSlide() {
 
 const ResearchReady = {
   TitleSlide,
+  TOCSlide: TOCSlideResearchReady,
   MainSlide1,
   MainSlide2,
   MainSlide3,

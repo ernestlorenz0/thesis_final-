@@ -221,6 +221,7 @@ export function EndSlide() {
 
 const VibrantViolet = {
   TitleSlide,
+  TOCSlides: TOCSlideVibrantViolet,
   MainSlide1,
   MainSlide2,
   MainSlide3,

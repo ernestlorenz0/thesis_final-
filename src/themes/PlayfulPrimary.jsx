@@ -261,6 +261,7 @@ export function EndSlide({ message }) {
 
 const PlayfulPrimary = {
   TitleSlide,
+  TOCSlide: TOCSlidePrimary,
   MainSlide1,
   MainSlide2,
   MainSlide3,

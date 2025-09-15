@@ -15,40 +15,36 @@ export function TitleSlide({ title, subtitle }) {
   );
 }
 
-/* Table of Contents Slide – Classic Chalkboard List */
-export function TOCSlide({ title = "Table of Contents", items = [] }) {
-  // Default placeholder items if none provided
-  const defaultItems = [
-    "Introduction to the Topic",
-    "Key Concepts and Definitions", 
-    "Historical Background",
-    "Current Applications",
-    "Case Studies and Examples",
-    "Future Implications",
-    "Conclusion and Q&A"
-  ];
-  
-  const displayItems = items.length > 0 ? items : defaultItems;
-
+export function TOCSlideClassicClassroom({
+  title = "Table of Contents",
+  items = [],
+}) {
   return (
-    <section className="relative w-[1920px] h-[1080px] bg-[#1b1b1b] text-white flex flex-col items-center justify-center overflow-hidden">
-      {/* Chalk smudge border */}
-      <div className="absolute inset-8 border-[6px] border-yellow-400/60 rounded-xl opacity-60"></div>
+    <section className="relative w-[1920px] h-[1080px] bg-[#2f3e46] text-white flex flex-col items-center justify-center overflow-hidden">
+      {/* Chalkboard background effect */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#2f3e46] to-[#1c2529]"></div>
+      <div className="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/asfalt-light.png')]"></div>
 
-      {/* Chalk doodles */}
-      <div className="absolute top-16 left-20 text-cyan-300/70 text-5xl">✦</div>
-      <div className="absolute bottom-20 right-28 text-pink-400/70 text-4xl">✎</div>
+      {/* Wooden frame */}
+      <div className="absolute inset-0 border-[20px] border-[#5d4037] rounded-xl shadow-2xl"></div>
 
-      {/* Title */}
-      <h2 className="text-6xl font-mono text-green-300 mb-16 drop-shadow-lg">
+      {/* Title like chalk writing */}
+      <h2 className="text-6xl font-bold mb-16 tracking-wide text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.2)] font-serif">
         {title}
       </h2>
 
-      {/* List */}
-      <ul className="text-3xl font-mono text-gray-100 space-y-6 list-decimal list-inside max-w-4xl">
-        {displayItems.map((item, index) => (
-          <li key={index} className="hover:text-yellow-300 transition-colors duration-200">
-            {item}
+      {/* TOC Items */}
+      <ul className="text-3xl space-y-8 max-w-3xl text-left px-12 font-serif">
+        {items.map((item, index) => (
+          <li
+            key={index}
+            className="flex items-center gap-6 text-gray-100 hover:text-white transition duration-300"
+          >
+            {/* Chalk-style number */}
+            <span className="w-12 h-12 flex items-center justify-center rounded-full bg-[#5d4037]/80 border-2 border-white/40 text-white font-bold shadow-md">
+              {index + 1}
+            </span>
+            <span className="italic">{item}</span>
           </li>
         ))}
       </ul>
@@ -221,7 +217,7 @@ export function EndSlide() {
 }
 
 const ClassicClassroom = { TitleSlide, 
-                         TOCSlide,
+                         TOCSlide: TOCSlideClassicClassroom,
                          MainSlide, 
                          MainSlide2, 
                          MainSlide3, 

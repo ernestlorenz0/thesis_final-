@@ -216,7 +216,7 @@ export function EndSlide() {
 
 const ScholarGreen = {
   TitleSlide,
-  TOCSlide,
+  TOCSlide: TOCSlideScholarGreen,
   MainSlide1,
   MainSlide2,
   MainSlide3,

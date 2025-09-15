@@ -302,7 +302,8 @@ export function EndSlide() {
 }
 
 const ArtStudio = { TitleSlide, 
-                   MainSlide, 
+                   MainSlide,
+                   TOCSlide: TOCSlideArtStudio,
                    MainSlide2, 
                    MainSlide3, 
                    MainSlide4, 

@@ -111,6 +111,11 @@ export default function HomePage() {
           mapping['TitleSlide'] = 'TitleSlide';
         }
         
+        // Map TOCSlide
+        if (availableSlides.includes('TOCSlide')) {
+          mapping['TOCSlide'] = 'TOCSlide';
+        }
+        
         // Map ImageSlide (or similar)
         const imageSlideNames = ['ImageSlide', 'MainSlide4', 'SectionSlide'];
         for (const name of imageSlideNames) {
@@ -172,7 +177,7 @@ export default function HomePage() {
       }
 
       // Define the proper slide sequence for preview
-      const previewSequence = ['TitleSlide', 'ImageSlide','MainSlide', 'MainSlide1', 'MainSlide2', 'MainSlide3', 'MainSlide4', 'MainSlide5', 'MainSlide6', 'EndSlide'];
+      const previewSequence = ['TitleSlide', 'TOCSlide', 'ImageSlide','MainSlide', 'MainSlide1', 'MainSlide2', 'MainSlide3', 'MainSlide4', 'MainSlide5', 'MainSlide6', 'EndSlide'];
 
       previewSequence.forEach((layoutName, idx) => {
         if (slideMapping && slideMapping[layoutName]) {
@@ -186,6 +191,17 @@ export default function HomePage() {
             slide.components = [
               { id: 'title', type: 'title', content: selectedThemeName + ' — Title' },
               { id: 'subtitle', type: 'paragraph', content: 'Subtitle placeholder' }
+            ];
+          } else if (layoutName === 'TOCSlide') {
+            slide.components = [
+              { id: 'toc', type: 'toc', content: 'Table of Contents' },
+              { id: 'toc-item-1', type: 'toc_item', content: 'Introduction to the Topic' },
+              { id: 'toc-item-2', type: 'toc_item', content: 'Key Concepts and Definitions' },
+              { id: 'toc-item-3', type: 'toc_item', content: 'Historical Background' },
+              { id: 'toc-item-4', type: 'toc_item', content: 'Current Applications' },
+              { id: 'toc-item-5', type: 'toc_item', content: 'Case Studies and Examples' },
+              { id: 'toc-item-6', type: 'toc_item', content: 'Future Implications' },
+              { id: 'toc-item-7', type: 'toc_item', content: 'Conclusion and Q&A' }
             ];
           } else if (layoutName === 'ImageSlide') {
             slide.components = [
@@ -245,7 +261,7 @@ export default function HomePage() {
       let slideIndex = 0;
       
       // Define the slide layout sequence - we'll map theme-specific names to our standard sequence
-      const standardSequence = ['TitleSlide', 'ImageSlide', 'MainSlide1', 'MainSlide2', 'MainSlide3', 'MainSlide4', 'MainSlide5', 'MainSlide6', 'EndSlide'];
+      const standardSequence = ['TitleSlide', 'TOCSlide', 'ImageSlide', 'MainSlide1', 'MainSlide2', 'MainSlide3', 'MainSlide4', 'MainSlide5', 'MainSlide6', 'EndSlide'];
       
       // Map theme-specific slide names to our standard sequence
       const mapThemeSlidesToSequence = (themeModule) => {
@@ -255,6 +271,11 @@ export default function HomePage() {
         // Map TitleSlide
         if (availableSlides.includes('TitleSlide')) {
           mapping['TitleSlide'] = 'TitleSlide';
+        }
+        
+        // Map TOCSlide
+        if (availableSlides.includes('TOCSlide')) {
+          mapping['TOCSlide'] = 'TOCSlide';
         }
         
         // Map ImageSlide (or similar)
@@ -336,6 +357,22 @@ export default function HomePage() {
         });
       }
       
+      // Add TOC slide
+      if (slideMapping['TOCSlide']) {
+        slides.push({
+          id: `toc-${Date.now()}`,
+          layout: slideMapping['TOCSlide'],
+          components: [
+            { id: 'toc', type: 'toc', content: 'Table of Contents' },
+            { id: 'toc-item-1', type: 'toc_item', content: 'Introduction' },
+            { id: 'toc-item-2', type: 'toc_item', content: 'Key Concepts' },
+            { id: 'toc-item-3', type: 'toc_item', content: 'Analysis' },
+            { id: 'toc-item-4', type: 'toc_item', content: 'Results' },
+            { id: 'toc-item-5', type: 'toc_item', content: 'Conclusion' },
+          ],
+        });
+      }
+      
       // Collect all content for distribution
       const allContent = [];
       
@@ -368,7 +405,7 @@ export default function HomePage() {
       }
       
       // Distribute content across slides following the sequence
-      let currentLayoutIndex = 1; // Start after TitleSlide
+      let currentLayoutIndex = 2; // Start after TitleSlide and TOCSlide
       let mainSlideIndex = 0;
       
       // Debug logging
@@ -384,28 +421,28 @@ export default function HomePage() {
         
         let layout;
         
-        if (currentLayoutIndex === 1 && slideMapping && slideMapping['ImageSlide']) {
+        if (currentLayoutIndex === 2 && slideMapping && slideMapping['ImageSlide']) {
           // Image slide
           layout = slideMapping['ImageSlide'];
           // console.log(`Content ${i}: Using ImageSlide layout: ${layout}`);
           currentLayoutIndex++;
-        } else if (currentLayoutIndex >= 2 && currentLayoutIndex <= 7) {
+        } else if (currentLayoutIndex >= 3 && currentLayoutIndex <= 8) {
           // Main slides 1, 2, 3, 4, 5, 6
-          const mainSlideKey = ['MainSlide1', 'MainSlide2', 'MainSlide3', 'MainSlide4', 'MainSlide5', 'MainSlide6'][currentLayoutIndex - 2];
+          const mainSlideKey = ['MainSlide1', 'MainSlide2', 'MainSlide3', 'MainSlide4', 'MainSlide5', 'MainSlide6'][currentLayoutIndex - 3];
           if (slideMapping && slideMapping[mainSlideKey]) {
             layout = slideMapping[mainSlideKey];
             // console.log(`Content ${i}: Using ${mainSlideKey} layout: ${layout}`);
             currentLayoutIndex++;
-            if (currentLayoutIndex > 7) {
-              currentLayoutIndex = 2; // Reset to MainSlide1 for repetition
+            if (currentLayoutIndex > 8) {
+              currentLayoutIndex = 3; // Reset to MainSlide1 for repetition
               mainSlideIndex++;
             }
           } else {
             // Skip this slide type if not available
             // console.log(`Content ${i}: Skipping ${mainSlideKey} - not available in mapping`);
             currentLayoutIndex++;
-            if (currentLayoutIndex > 7) {
-              currentLayoutIndex = 2;
+            if (currentLayoutIndex > 8) {
+              currentLayoutIndex = 3;
             }
             continue;
           }

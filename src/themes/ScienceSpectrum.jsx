@@ -18,42 +18,6 @@ export function TitleSlide({ title, subtitle }) {
   );
 }
 
-/* Table of Contents Slide – History Heritage */
-export function TOCSlideHistoryHeritage({ title = "Table of Contents", items = [] }) {
-  return (
-    <section className="relative w-[1920px] h-[1080px] bg-[#fdfaf3] text-[#2b2b2b] flex flex-col items-center justify-center overflow-hidden">
-      {/* Parchment texture overlay */}
-      <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/aged-paper.png')] opacity-40"></div>
-
-      {/* Ornamental borders */}
-      <div className="absolute inset-12 border-[6px] border-[#8b5e3c] rounded-xl shadow-md"></div>
-
-      {/* Decorative icons */}
-      <div className="absolute top-24 left-24 text-6xl text-[#8b5e3c]/50">🏛️</div>
-      <div className="absolute bottom-24 right-24 text-6xl text-[#b08d57]/50">📜</div>
-
-      {/* Title */}
-      <h2 className="text-6xl font-serif font-bold text-[#5a3d2b] mb-16 drop-shadow-lg">
-        {title}
-      </h2>
-
-      {/* TOC List */}
-      <ul className="text-3xl font-serif space-y-8 max-w-3xl text-left">
-        {items.map((item, index) => (
-          <li key={index} className="flex items-center gap-6">
-            {/* Number marker in old-gold circle */}
-            <span className="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-br from-[#d4af37] to-[#a67c00] text-white font-bold shadow-md">
-              {index + 1}
-            </span>
-            <span>{item}</span>
-          </li>
-        ))}
-      </ul>
-    </section>
-  );
-}
-
-
 /* Table of Contents Slide – Science Spectrum */
 export function TOCSlideScienceSpectrum({ title = "Table of Contents", items = [] }) {
   return (
@@ -230,6 +194,7 @@ export function EndSlide({ message }) {
 
 const ScienceSpectrum = {
   TitleSlide,
+  TOCSlides: TOCSlideScienceSpectrum,
   MainSlide1,
   MainSlide2,
   MainSlide3,

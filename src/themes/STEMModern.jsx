@@ -321,5 +321,5 @@ export function EndSlide({ title }) {
   );
 }
 
-const STEMModern = { TitleSlide, ImageSlide, MainSlide1, MainSlide2, MainSlide3, EndSlide };
+const STEMModern = { TitleSlide, TOCSlides: TOCSlideSTEM, ImageSlide, MainSlide1, MainSlide2, MainSlide3, EndSlide };
 export default STEMModern;

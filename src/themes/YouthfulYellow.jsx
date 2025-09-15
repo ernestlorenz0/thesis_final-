@@ -219,6 +219,7 @@ export function EndSlide() {
 
 const YouthfulYellow = {
   TitleSlide,
+  TOCSlides: TOCSlideYouthfulYellow,
   MainSlide1,
   MainSlide2,
   MainSlide3,

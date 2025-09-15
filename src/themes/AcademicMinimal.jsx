@@ -289,6 +289,7 @@ export function MainSlide6({ title, content }) {
 
 
 const AcademicMinimal = { TitleSlide, 
+                          TOCSlide: TOCSlideAcademic,
                           ContentSlide, 
                           ImageSlide, 
                           ContentSlideText, 

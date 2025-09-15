@@ -23,42 +23,44 @@ export function TitleSlide({ title, subtitle }) {
 }
 
 
-export function TOCSlideHistoryHeritage({
+/* Table of Contents Slide – Tech Trends */
+export function TOCSlideTechTrends({
   title = "Table of Contents",
   items = [],
 }) {
   return (
-    <section className="relative w-[1920px] h-[1080px] bg-[#fdfaf3] text-[#2b2b2b] flex flex-col items-center justify-center overflow-hidden">
-      {/* Parchment texture overlay */}
-      <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/aged-paper.png')] opacity-50"></div>
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-br from-[#0f2027] via-[#203a43] to-[#2c5364] text-white flex flex-col items-center justify-center overflow-hidden">
+      {/* Futuristic glowing grid background */}
+      <div className="absolute inset-0 opacity-20 bg-[linear-gradient(to_right,rgba(255,255,255,0.1)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[size:80px_80px]"></div>
 
-      {/* Ornamental border */}
-      <div className="absolute inset-16 border-[8px] border-[#8b5e3c] rounded-xl shadow-lg"></div>
-
-      {/* Classical icons */}
-      <div className="absolute top-24 left-24 text-7xl text-[#8b5e3c]/40">🏛️</div>
-      <div className="absolute bottom-24 right-24 text-7xl text-[#b08d57]/40">📜</div>
+      {/* Neon circuit lines */}
+      <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-cyan-400 to-blue-600 shadow-lg"></div>
+      <div className="absolute bottom-0 right-0 w-2 h-full bg-gradient-to-b from-pink-500 to-purple-600 shadow-lg"></div>
 
       {/* Title */}
-      <h2 className="text-6xl font-serif font-bold text-[#5a3d2b] mb-16 drop-shadow-lg">
+      <h2 className="text-6xl font-bold tracking-wide text-cyan-300 mb-16 drop-shadow-[0_0_25px_rgba(0,255,255,0.7)]">
         {title}
       </h2>
 
-      {/* TOC List */}
-      <ul className="text-3xl font-serif space-y-10 max-w-3xl text-left">
+      {/* TOC Items */}
+      <ul className="text-3xl font-light space-y-10 max-w-4xl w-full">
         {items.map((item, index) => (
-          <li key={index} className="flex items-center gap-6">
-            {/* Gold marker */}
-            <span className="w-12 h-12 flex items-center justify-center rounded-full bg-gradient-to-br from-[#d4af37] to-[#a67c00] text-white font-bold shadow-md">
+          <li
+            key={index}
+            className="flex items-center gap-6 hover:text-cyan-400 transition duration-300"
+          >
+            {/* Futuristic number capsule */}
+            <span className="w-12 h-12 flex items-center justify-center rounded-full bg-gradient-to-tr from-purple-600 to-pink-500 text-white font-bold shadow-[0_0_15px_rgba(255,0,255,0.6)]">
               {index + 1}
             </span>
-            <span>{item}</span>
+            <span className="flex-1">{item}</span>
           </li>
         ))}
       </ul>
     </section>
   );
 }
+
 
 /* Main Slide 1 – Text left, image right */
 export function MainSlide1({ title, content, imageUrl }) {
@@ -279,6 +281,7 @@ export function EndSlide({ message }) {
 
 const TechTrends = {
   TitleSlide,
+  TOCSlides: TOCSlideTechTrends,
   MainSlide1,
   MainSlide2,
   MainSlide3,

@@ -53,7 +53,7 @@ export function TOCSlideBlueHorizon({
       </ul>
     </section>
   );
-}s
+}
 
 export function MainSlide({ title, content }) {
   return (
@@ -227,7 +227,7 @@ export function EndSlide() {
 
 const BlueHorizon = { 
   TitleSlide, 
-  TOCSlide,
+  TOCSlide: TOCSlideBlueHorizon,
   MainSlide, 
   MainSlide2,
   MainSlide3,
