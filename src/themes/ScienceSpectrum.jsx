@@ -1,4 +1,5 @@
 import React from "react";
+import { Atom, Microscope, FlaskConical, Beaker, Brain } from "lucide-react";
 
 /* Title Slide – Spectrum gradient background with atom motif */
 export function TitleSlide({ title, subtitle }) {
@@ -64,6 +65,14 @@ export function TOCSlideScienceSpectrum({ title = "Table of Contents", items = [
 export function MainSlide1({ title, content }) {
   return (
     <section className="w-[1920px] h-[1080px] bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 text-white flex flex-col px-24 py-16">
+      <Microscope className="absolute bottom-24 right-40 w-32 h-32 text-green-400 opacity-30 rotate-[-8deg]" />
+      <FlaskConical className="absolute top-1/3 right-1/4 w-28 h-28 text-blue-400 opacity-30" />
+      <Beaker className="absolute bottom-1/3 left-1/4 w-28 h-28 text-yellow-400 opacity-30" />
+      <Brain className="absolute top-1/2 left-12 w-32 h-32 text-purple-400 opacity-30 rotate-6" />
+
+      {/* Decorative glowing border */}
+      <div className="absolute inset-12 border-4 border-cyan-400 rounded-2xl opacity-30 shadow-[0_0_25px_rgba(34,211,238,0.5)]" />
+
       <h2 className="text-6xl font-bold mb-3">{title}</h2>
       <div className="h-[4px] w-56 bg-gradient-to-r from-yellow-300 via-green-300 to-cyan-400 mb-10"></div>
       <p className="text-3xl leading-relaxed max-w-5xl text-gray-100">{content}</p>

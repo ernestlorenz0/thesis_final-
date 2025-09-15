@@ -1,4 +1,5 @@
 import React from "react";
+import { BookOpen, Scroll, PenTool, GraduationCap } from "lucide-react";
 
 /* Title Slide – Split with vertical divider */
 export function TitleSlide({ title, subtitle }) {
@@ -52,6 +53,17 @@ export function TOCSlideScholarly({ title = "Table of Contents", items = [] }) {
 export function MainSlide1({ title, content }) {
   return (
     <section className="w-[1920px] h-[1080px] bg-white text-gray-900 px-24 py-16 flex flex-col">
+
+      <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.05),transparent_70%)]" />
+
+      {/* Scholarly faded icons */}
+      <Scroll className="absolute bottom-32 right-24 w-28 h-28 text-[#6e5a3d]/20" />
+      <PenTool className="absolute top-1/3 right-1/4 w-24 h-24 text-[#4a3826]/20 rotate-[-15deg]" />
+      <GraduationCap className="absolute bottom-20 left-1/4 w-28 h-28 text-[#5c4933]/20" />
+
+      {/* Decorative border frame */}
+      <div className="absolute inset-12 border-4 border-[#b9a07f] rounded-2xl opacity-40" />
+
       <h2 className="text-6xl font-serif font-bold mb-2">{title}</h2>
       <div className="h-[3px] w-40 bg-yellow-600 mb-8"></div>
       <div className="text-3xl font-serif leading-relaxed">{content}</div>
@@ -63,6 +75,17 @@ export function MainSlide1({ title, content }) {
 export function MainSlide2({ title, content }) {
   return (
     <section className="w-[1920px] h-[1080px] bg-gray-50 text-gray-900 px-20 py-16 flex">
+
+      <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.05),transparent_70%)]" />
+
+      {/* Scholarly faded icons */}
+      <Scroll className="absolute bottom-32 right-24 w-28 h-28 text-[#6e5a3d]/20" />
+      <PenTool className="absolute top-1/3 right-1/4 w-24 h-24 text-[#4a3826]/20 rotate-[-15deg]" />
+      <GraduationCap className="absolute bottom-20 left-1/4 w-28 h-28 text-[#5c4933]/20" />
+
+      {/* Decorative border frame */}
+      <div className="absolute inset-12 border-4 border-[#b9a07f] rounded-2xl opacity-40" />
+
       <div className="flex-1 pr-12">
         <h2 className="text-6xl font-serif font-bold mb-6">{title}</h2>
         <div className="text-3xl font-serif leading-relaxed">{content}</div>
@@ -109,9 +132,17 @@ export function ImageSlide({ title, imageUrl, caption }) {
 export function EndSlide({ message }) {
   return (
     <section className="relative w-[1920px] h-[1080px] bg-gradient-to-br from-gray-200 to-gray-100 flex flex-col items-center justify-center text-gray-900 overflow-hidden">
+
+      <div className="absolute inset-16 border-8 border-[#b9a07f] rounded-xl opacity-50" />
+
+      {/* Scholarly faded icons */}
+      <BookOpen className="absolute top-24 left-24 w-28 h-28 text-[#5a4632]/20" />
+      <Scroll className="absolute bottom-28 right-24 w-32 h-32 text-[#6e5a3d]/20" />
+      <PenTool className="absolute top-1/2 right-1/4 w-24 h-24 text-[#4a3826]/20 rotate-12" />
+
       <div className="absolute inset-6 border-4 border-yellow-600 rounded-xl"></div>
       <h2 className="text-5xl font-serif font-bold mb-6">{message}</h2>
-      <p className="text-2xl font-serif italic text-gray-700">Thank you</p>
+      <p className="text-8xl font-serif italic text-gray-700">Thank you</p>
     </section>
   );
 }

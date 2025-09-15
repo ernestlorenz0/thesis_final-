@@ -1,4 +1,5 @@
 import React from "react";
+import { Landmark, Scroll, BookOpen, Feather, Hourglass } from "lucide-react";
 
 /* Title Slide – Split diagonal gold panel */
 export function TitleSlide({ title, subtitle }) {
@@ -123,44 +124,64 @@ export function MainSlide3({ title, content }) {
 export function MainSlide4({ title, content }) {
   return (
     <section className="relative w-[1920px] h-[1080px] bg-gradient-to-b from-yellow-200 to-yellow-50 flex flex-col items-center justify-center text-gray-900 overflow-hidden">
+
+      {/* Subtle background icons */}
+      <Landmark className="absolute top-20 left-28 w-32 h-32 text-yellow-600 opacity-25 rotate-6" />
+      <Scroll className="absolute bottom-24 right-32 w-28 h-28 text-amber-500 opacity-25 rotate-[-8deg]" />
+      <BookOpen className="absolute top-1/3 right-1/4 w-28 h-28 text-orange-400 opacity-25" />
+      <Feather className="absolute bottom-1/3 left-1/4 w-24 h-24 text-red-400 opacity-25" />
+      <Hourglass className="absolute top-1/2 right-16 w-28 h-28 text-emerald-500 opacity-25 rotate-3" />
+
+      {/* Decorative border */}
+      <div className="absolute inset-12 border-4 border-amber-600 rounded-lg opacity-30" />
+
       {/* Scroll edges */}
       <div className="absolute top-0 left-0 w-full h-20 bg-yellow-700 rounded-b-full"></div>
       <div className="absolute bottom-0 left-0 w-full h-20 bg-yellow-700 rounded-t-full"></div>
 
-      {/* Title */}
-      <h2 className="relative z-10 text-6xl font-serif font-bold text-yellow-900 mb-10">
-        {title}
-      </h2>
+      {/* Content Wrapper */}
+      <div className="relative z-10 flex flex-col items-center justify-center text-center px-12">
+        {/* Title */}
+        <h2 className="text-6xl font-serif font-bold text-yellow-900 mb-10">
+          {title}
+        </h2>
 
-      {/* Content */}
-      <p className="relative z-10 max-w-5xl text-3xl font-serif leading-relaxed text-center px-12">
-        {content}
-      </p>
+        {/* Content */}
+        <p className="max-w-5xl text-3xl font-serif leading-relaxed">
+          {content}
+        </p>
+      </div>
+
     </section>
   );
 }
 
 /* Main Slide 5 – Twin column parchment with gold divider */
-export function MainSlide5({ leftContent, rightContent, title }) {
+export function MainSlide5({  title, content }) {
   return (
-    <section className="relative w-[1920px] h-[1080px] flex bg-gradient-to-br from-yellow-50 to-yellow-100 text-gray-900 overflow-hidden">
-      {/* Frame */}
-      <div className="absolute inset-10 border-[12px] border-yellow-700 rounded-xl"></div>
+    <section className="relative w-[1920px] h-[1080px] flex items-center justify-center bg-[#fdf6e3] text-gray-900 overflow-hidden">
 
-      {/* Title top */}
-      <div className="absolute top-12 left-1/2 -translate-x-1/2 bg-gradient-to-r from-yellow-800 to-yellow-600 px-10 py-4 rounded shadow-lg">
-        <h2 className="text-5xl font-serif font-bold text-yellow-100">{title}</h2>
-      </div>
+      {/* Subtle background icons */}
+      <Landmark className="absolute top-20 left-28 w-32 h-32 text-yellow-600 opacity-25 rotate-6" />
+      <Scroll className="absolute bottom-24 right-32 w-28 h-28 text-amber-500 opacity-25 rotate-[-8deg]" />
+      <BookOpen className="absolute top-1/3 right-1/4 w-28 h-28 text-orange-400 opacity-25" />
+      <Feather className="absolute bottom-1/3 left-1/4 w-24 h-24 text-red-400 opacity-25" />
+      <Hourglass className="absolute top-1/2 right-16 w-28 h-28 text-emerald-500 opacity-25 rotate-3" />
 
-      {/* Two-column content */}
-      <div className="relative z-10 flex w-full h-full items-center justify-center px-24 gap-12">
-        <div className="flex-1 text-2xl font-serif leading-relaxed text-left">
-          {leftContent}
-        </div>
-        <div className="w-[4px] h-2/3 bg-yellow-700"></div>
-        <div className="flex-1 text-2xl font-serif leading-relaxed text-right">
-          {rightContent}
-        </div>
+      {/* Decorative border */}
+      <div className="absolute inset-12 border-4 border-amber-600 rounded-lg opacity-30" />
+      {/* Gold divider */}
+      {/* Content Wrapper */}
+      <div className="relative z-10 flex flex-col items-center text-center px-12">
+        {/* Title */}
+        <h2 className="text-6xl font-serif font-bold text-yellow-900 mb-10">
+          {title}
+        </h2>
+
+        {/* Content */}
+        <p className="max-w-5xl text-3xl font-serif leading-relaxed">
+          {content}
+        </p>
       </div>
     </section>
   );
@@ -217,9 +238,16 @@ export function EndSlide({ message }) {
       {/* Diagonal overlay */}
       <div className="absolute inset-0 bg-gradient-to-tr from-yellow-700/50 to-yellow-500/30 transform skew-y-3"></div>
 
+      {/* Subtle background icons */}
+      <Landmark className="absolute top-24 left-24 w-32 h-32 text-yellow-600 opacity-25" />
+      <Scroll className="absolute bottom-28 right-28 w-28 h-28 text-amber-500 opacity-25" />
+      <BookOpen className="absolute top-1/3 left-1/4 w-28 h-28 text-orange-400 opacity-25" />
+      <Feather className="absolute bottom-1/3 right-1/4 w-24 h-24 text-red-400 opacity-25" />
+      <Hourglass className="absolute top-1/2 right-16 w-28 h-28 text-emerald-500 opacity-25" />
+
       <div className="relative z-10 text-center">
         <h2 className="text-6xl font-serif font-bold mb-4">{message}</h2>
-        <p className="text-2xl italic">Finis</p>
+        <p className="text-8xl italic">Thank You</p>
       </div>
     </section>
   );

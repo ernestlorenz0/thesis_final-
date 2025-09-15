@@ -1,5 +1,5 @@
 import React from "react";
-import { Pencil, BookOpen, Ruler, Sigma } from "lucide-react";
+import { Pencil, BookOpen, Ruler, Sigma, Apple, GraduationCap, Book } from "lucide-react";
 
 export function TitleSlide({ title, subtitle }) {
   return (
@@ -59,6 +59,15 @@ export function MainSlide({ title, content }) {
       <img src="src/svgs/line-swirl1.svg" alt="swirl top" className="absolute top-0 left-0 w-full" />
       <img src="src/svgs/line-swirl2.svg" alt="swirl bottom" className="absolute bottom-0 left-0 w-full" />
 
+      <div className="absolute inset-0 bg-gradient-to-br from-[#2f3e46] to-[#1c2529]" />
+
+      {/* Subtle classroom icons */}
+      <Book className="absolute top-16 left-24 w-28 h-28 text-white/10 rotate-[-15deg]" />
+      <Pencil className="absolute bottom-24 right-40 w-24 h-24 text-white/10 rotate-[20deg]" />
+      <Ruler className="absolute top-1/3 right-16 w-28 h-28 text-white/10 rotate-[45deg]" />
+      <Apple className="absolute bottom-16 left-40 w-24 h-24 text-white/10" />
+      <GraduationCap className="absolute top-1/4 left-1/2 w-28 h-28 text-white/10 -translate-x-1/2" />
+
       <div className="relative z-10 w-3/4 bg-[#0D3B36] border-4 border-[#EAD7B7] rounded-lg p-8 text-center shadow-lg">
         <h2 className="font-[HedvigLettersSerif] text-5xl mb-4">{title}</h2>
         <p className="text-3xl leading-relaxed">{content}</p>
@@ -72,6 +81,12 @@ export function MainSlide2({ title, content, imageUrl }) {
     <section className="relative w-[1920px] h-[1080px] bg-[#0D3B36] text-white flex items-center overflow-hidden">
       <img src="src/svgs/line-swirl1.svg" alt="swirl top" className="absolute top-0 left-0 w-full" />
       <img src="src/svgs/line-swirl2.svg" alt="swirl bottom" className="absolute bottom-0 left-0 w-full" />
+
+      {/* Chalk-style background icons */}
+      <Pencil className="absolute top-20 left-20 w-24 h-24 text-[#EAD7B7]/20" />
+      <BookOpen className="absolute bottom-24 left-40 w-28 h-28 text-[#EAD7B7]/20" />
+      <Sigma className="absolute top-32 right-32 w-28 h-28 text-[#EAD7B7]/20" />
+      <Ruler className="absolute bottom-32 right-16 w-28 h-28 text-[#EAD7B7]/20" />
 
       <div className="relative ml-20 z-10 w-1/2 h-4/5 border-8 border-[#EAD7B7] flex items-center justify-center bg-black/20">
         {imageUrl ? (
@@ -94,6 +109,12 @@ export function MainSlide3({ title, content, imageUrl }) {
       <img src="src/svgs/line-swirl1.svg" alt="swirl top" className="absolute top-0 left-0 w-full" />
       <img src="src/svgs/line-swirl2.svg" alt="swirl bottom" className="absolute bottom-0 left-0 w-full" />
 
+      {/* Chalk-style background icons */}
+      <Pencil className="absolute top-20 left-20 w-24 h-24 text-[#EAD7B7]/20" />
+      <BookOpen className="absolute bottom-24 left-40 w-28 h-28 text-[#EAD7B7]/20" />
+      <Sigma className="absolute top-32 right-32 w-28 h-28 text-[#EAD7B7]/20" />
+      <Ruler className="absolute bottom-32 right-16 w-28 h-28 text-[#EAD7B7]/20" />
+
       <div className="relative z-10 w-1/2 p-8 text-right">
         <h2 className="font-[HedvigLettersSerif] text-6xl mb-4 translate-y-[-100px]">{title}</h2>
         <p className="text-3xl leading-relaxed">{content}</p>
@@ -115,6 +136,12 @@ export function MainSlide4({ title, content, imageUrl }) {
       <img src="src/svgs/line-swirl1.svg" alt="swirl top" className="absolute top-0 left-0 w-full" />
       <img src="src/svgs/line-swirl2.svg" alt="swirl bottom" className="absolute bottom-0 left-0 w-full" />
 
+      {/* Chalk-style background icons */}
+      <Pencil className="absolute top-20 left-20 w-24 h-24 text-[#EAD7B7]/20" />
+      <BookOpen className="absolute bottom-24 left-40 w-28 h-28 text-[#EAD7B7]/20" />
+      <Sigma className="absolute top-32 right-32 w-28 h-28 text-[#EAD7B7]/20" />
+      <Ruler className="absolute bottom-32 right-16 w-28 h-28 text-[#EAD7B7]/20" />
+
       <div className="relative z-10 w-5/6 h-5/6 border-4 border-[#EAD7B7] flex flex-col items-center justify-center bg-black/20">
         {imageUrl ? (
           <img src={imageUrl} alt="content" className="w-full h-full object-contain" />
@@ -127,40 +154,6 @@ export function MainSlide4({ title, content, imageUrl }) {
             {content && <p className="text-2xl">{content}</p>}
           </div>
         )}
-      </div>
-    </section>
-  );
-}
-
-export function MainSlide5({ title, content }) {
-  // Placeholder for second content block (until backend supports multiple)
-  const secondTitle = "Second Section";
-  const secondContent = "This is the second content block placeholder. It will later be filled from backend.";
-
-  return (
-    <section className="relative w-[1920px] h-[1080px] bg-[#0D3B36] text-white flex flex-col p-24 overflow-hidden">
-      <img src="src/svgs/line-swirl1.svg" alt="swirl top" className="absolute top-0 left-0 w-full opacity-40" />
-      <img src="src/svgs/line-swirl2.svg" alt="swirl bottom" className="absolute bottom-0 left-0 w-full opacity-40" />
-
-      {/* Title */}
-      <h2 className="relative z-10 font-[HedvigLettersSerif] text-5xl text-center mb-12 text-[#EAD7B7]">
-        {title || "Class Notes"}
-      </h2>
-
-      {/* Two-column content with divider */}
-      <div className="relative z-10 flex flex-1 gap-12 items-start">
-        <div className="flex-1 text-right pr-8">
-          <h3 className="font-[HedvigLettersSerif] text-2xl mb-4">{title || "First Section"}</h3>
-          <p className="text-lg leading-relaxed">{content || "This is the first block of text."}</p>
-        </div>
-
-        {/* Divider (chalk line effect) */}
-        <div className="w-[2px] bg-[#EAD7B7]/50 mx-4"></div>
-
-        <div className="flex-1 text-left pl-8">
-          <h3 className="font-[HedvigLettersSerif] text-2xl mb-4">{secondTitle}</h3>
-          <p className="text-lg leading-relaxed">{secondContent}</p>
-        </div>
       </div>
     </section>
   );
@@ -209,9 +202,17 @@ export function MainSlide6({ title, content }) {
 export function EndSlide() {
   return (
     <section className="relative w-[1920px] h-[1080px] bg-[#0D3B36] flex items-center justify-center text-white overflow-hidden">
-      <img src="src/svgs/line-swirl1.svg" alt="swirl top" className="absolute top-0 left-0 w-full" />
-      <img src="src/svgs/line-swirl2.svg" alt="swirl bottom" className="absolute bottom-0 left-0 w-full" />
-      <h1 className="relative z-10 font-[HedvigLettersSerif] text-6xl">Thank You</h1>
+
+      <div className="absolute inset-0 border-[30px] border-[#5d4037] rounded-xl shadow-2xl" />
+
+      {/* Chalk-style icons */}
+      <Book className="absolute top-16 left-24 w-28 h-28 text-white/10 rotate-[-15deg]" />
+      <Pencil className="absolute bottom-24 right-40 w-24 h-24 text-white/10 rotate-[20deg]" />
+      <Ruler className="absolute top-1/3 right-16 w-28 h-28 text-white/10 rotate-[45deg]" />
+      <Apple className="absolute bottom-16 left-40 w-24 h-24 text-white/10" />
+      <GraduationCap className="absolute top-1/4 left-1/2 w-28 h-28 text-white/10 -translate-x-1/2" />
+
+      <h1 className="relative z-10 font-[HedvigLettersSerif] text-8xl">Thank You</h1>
     </section>
   );
 }
@@ -222,7 +223,6 @@ const ClassicClassroom = { TitleSlide,
                          MainSlide2, 
                          MainSlide3, 
                          MainSlide4, 
-                         MainSlide5,
                          MainSlide6,
                          EndSlide };
 export default ClassicClassroom;

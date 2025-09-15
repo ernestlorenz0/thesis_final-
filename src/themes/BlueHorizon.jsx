@@ -1,4 +1,5 @@
 import React from "react";
+import { Compass, Globe, Waves, Sun, Star, Moon, Cloud } from "lucide-react";
 
 export function TitleSlide({ title, subtitle }) {
   return (
@@ -60,6 +61,11 @@ export function MainSlide({ title, content }) {
     <section className="relative w-[1920px] h-[1080px] bg-[#ebf8ff] overflow-hidden flex flex-col items-center justify-center p-10 text-center">
       <div className="absolute top-0 left-0 w-32 h-full bg-[#3182ce] clip-path-polygon"></div>
       <div className="absolute bottom-0 right-0 w-32 h-full bg-[#2b6cb0]"></div>
+
+      <Compass className="absolute top-20 left-28 w-32 h-32 text-blue-800 opacity-30 drop-shadow-md" />
+      <Globe className="absolute bottom-24 right-40 w-28 h-28 text-indigo-700 opacity-30 drop-shadow-md" />
+      <Waves className="absolute bottom-1/3 left-1/4 w-24 h-24 text-blue-900 opacity-25 drop-shadow-md" />
+      <Sun className="absolute top-1/2 right-16 w-28 h-28 text-amber-600 opacity-25 drop-shadow-md" />
 
       <div className="relative z-10 max-w-3xl">
         <h2 className="font-[HedvigLettersSerif] text-6xl text-[#2b6cb0] mb-4">{title}</h2>
@@ -218,6 +224,12 @@ export function TOCSlide({ title = "Table of Contents", items = [] }) {
 export function EndSlide() {
   return (
     <section className="relative w-[1920px] h-[1080px] bg-[#2b6cb0] overflow-hidden flex items-center justify-center">
+      <Star className="absolute top-20 left-40 w-16 h-16 text-cyan-200 opacity-40" />
+      <Star className="absolute top-32 right-48 w-12 h-12 text-blue-200 opacity-40" />
+      <Moon className="absolute top-1/4 right-1/3 w-28 h-28 text-amber-200 opacity-60" />
+      <Cloud className="absolute bottom-28 left-1/4 w-36 h-36 text-blue-300 opacity-30" />
+      <Waves className="absolute bottom-12 right-1/4 w-28 h-28 text-cyan-300 opacity-25" />
+
       <div className="absolute top-0 left-0 w-40 h-40 bg-[#f6ad55] rotate-45 -translate-x-1/2 -translate-y-1/2"></div>
       <div className="absolute bottom-0 right-0 w-48 h-48 bg-[#3182ce] rotate-45 translate-x-1/2 translate-y-1/2"></div>
       <h1 className="text-white font-[HedvigLettersSerif] text-6xl">End Slide</h1>

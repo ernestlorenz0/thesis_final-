@@ -1,4 +1,5 @@
 import React from "react";
+import { BookOpen, PenTool, GraduationCap, Scroll, Globe } from "lucide-react";
 
 /* ---------------- TITLE SLIDE ---------------- */
 export function TitleSlide({ title, subtitle }) {
@@ -34,21 +35,6 @@ export function MainSlide1({ title, content }) {
   );
 }
 
-/* ---------------- MAIN SLIDE 2 ---------------- */
-/* Title at top, content split into two flowing columns */
-export function MainSlide2({ title, content }) {
-  return (
-    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-tr from-green-200 to-green-100 flex flex-col p-12">
-      <h2 className="text-6xl font-bold text-green-900 mb-8">{title}</h2>
-
-      {/* Two-column flowing layout */}
-      <div className="flex-1 grid grid-cols-2 gap-12 text-green-800 leading-relaxed text-2xl">
-        <p>{content}</p>
-        <p>{content}</p>
-      </div>
-    </section>
-  );
-}
 
 /* ---------------- MAIN SLIDE 3 ---------------- */
 /* Fullscreen background with diagonal ribbon for text */
@@ -206,6 +192,12 @@ export function TOCSlideScholarGreen({
 export function EndSlide() {
   return (
     <section className="relative w-[1920px] h-[1080px] bg-gradient-to-b from-emerald-900 to-green-700 flex flex-col items-center justify-center">
+      <BookOpen className="absolute top-24 left-24 w-32 h-32 text-green-800 opacity-25" />
+      <PenTool className="absolute bottom-28 right-28 w-28 h-28 text-emerald-700 opacity-25" />
+      <GraduationCap className="absolute top-1/3 left-1/4 w-28 h-28 text-lime-800 opacity-25" />
+      <Scroll className="absolute bottom-1/3 right-1/4 w-24 h-24 text-green-900 opacity-25" />
+      <Globe className="absolute top-1/2 right-16 w-28 h-28 text-emerald-900 opacity-25" />
+      
       <h1 className="text-5xl font-serif text-green-100 font-bold mb-4">
         End of Presentation
       </h1>
@@ -218,7 +210,6 @@ const ScholarGreen = {
   TitleSlide,
   TOCSlide: TOCSlideScholarGreen,
   MainSlide1,
-  MainSlide2,
   MainSlide3,
   ImageSlide,
   EndSlide,
