@@ -1,18 +1,169 @@
 import React from 'react';
 
 export default function HelpPage() {
+  const helpSteps = [
+    {
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+        </svg>
+      ),
+      title: "Upload PDF Files",
+      description: "Upload one or more PDF files using the drag-and-drop upload box. Maximum file size is 5MB per file."
+    },
+    {
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+      ),
+      title: "AI Image Generation",
+      description: "Optionally, enter a prompt for AI image generation to enhance your presentation with custom visuals."
+    },
+    {
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z" />
+        </svg>
+      ),
+      title: "Select Template",
+      description: "Click 'Generate PowerPoint' and choose from our collection of professional presentation templates."
+    },
+    {
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+        </svg>
+      ),
+      title: "Edit & Customize",
+      description: "Review and edit your slides in our powerful editor. Add text, images, and customize layouts to your liking."
+    },
+    {
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+      ),
+      title: "Export & Share",
+      description: "Export your presentation as PDF, PNG, or PPTX format. All exports are saved to your history for easy access."
+    }
+  ];
+
+  const faqs = [
+    {
+      question: "What file formats are supported?",
+      answer: "Currently, we support PDF files for upload. You can export your presentations as PDF, PNG, or PPTX."
+    },
+    {
+      question: "Is there a file size limit?",
+      answer: "Yes, each PDF file must be under 5MB. You can upload multiple files at once."
+    },
+    {
+      question: "How does AI image generation work?",
+      answer: "Enter a descriptive prompt and our AI will generate relevant images to enhance your presentation content."
+    },
+    {
+      question: "Can I edit slides after generation?",
+      answer: "Absolutely! Our slide editor allows you to modify text, add images, change layouts, and customize your presentation."
+    }
+  ];
+
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-[#F3EDFF] via-[#F7F4FF] to-[#F5F1FF] p-8">
-      <div className="bg-white rounded-2xl shadow-xl p-8 max-w-xl w-full flex flex-col items-center">
-        <h2 className="text-2xl font-bold text-[#8C6BFA] mb-4">How to Use KenbiLearn</h2>
-        <ol className="list-decimal list-inside text-gray-700 text-left space-y-2">
-          <li>Upload one or more PDF files using the upload box.</li>
-          <li>Optionally, enter a prompt for image generation.</li>
-          <li>Click "Generate PowerPoint" and select a template.</li>
-          <li>Review and edit your slides in the editor.</li>
-          <li>Export your presentation or save your work.</li>
-        </ol>
-        <div className="mt-6 text-sm text-gray-400">For more help, contact support or see the FAQ.</div>
+    <div className="h-full flex flex-col overflow-hidden">
+      {/* Header */}
+      <div className="text-center mb-6">
+        <h2 className="text-2xl font-bold text-white mb-2">How to Use KENBILEARN</h2>
+        <p className="text-gray-300">Follow these simple steps to create amazing presentations</p>
+      </div>
+
+      {/* Content Area */}
+      <div className="flex-1 overflow-y-auto">
+        <div className="space-y-8">
+          
+          {/* Steps Section */}
+          <div>
+            <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+              <svg className="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Getting Started
+            </h3>
+            
+            <div className="space-y-4">
+              {helpSteps.map((step, index) => (
+                <div key={index} className="group relative">
+                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-purple-600/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="relative p-4 bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl hover:bg-white/10 transition-all duration-300">
+                    <div className="flex items-start gap-4">
+                      <div className="flex-shrink-0">
+                        <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center text-white font-bold">
+                          {index + 1}
+                        </div>
+                      </div>
+                      
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-2">
+                          <div className="text-cyan-400">
+                            {step.icon}
+                          </div>
+                          <h4 className="text-white font-semibold">{step.title}</h4>
+                        </div>
+                        <p className="text-gray-300 text-sm leading-relaxed">{step.description}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* FAQ Section */}
+          <div>
+            <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+              <svg className="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Frequently Asked Questions
+            </h3>
+            
+            <div className="space-y-3">
+              {faqs.map((faq, index) => (
+                <div key={index} className="group relative">
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-pink-600/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="relative p-4 bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl hover:bg-white/10 transition-all duration-300">
+                    <h4 className="text-white font-semibold mb-2">{faq.question}</h4>
+                    <p className="text-gray-300 text-sm leading-relaxed">{faq.answer}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Contact Section */}
+          <div className="p-6 bg-gradient-to-r from-cyan-500/20 to-purple-600/20 rounded-xl border border-white/20">
+            <div className="text-center">
+              <div className="mb-4">
+                <div className="inline-flex items-center justify-center w-12 h-12 bg-white/10 rounded-full">
+                  <svg className="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M12 2.25a9.75 9.75 0 100 19.5 9.75 9.75 0 000-19.5z" />
+                  </svg>
+                </div>
+              </div>
+              <h4 className="text-white font-semibold mb-2">Need More Help?</h4>
+              <p className="text-gray-300 text-sm mb-4">
+                Can't find what you're looking for? Our support team is here to help you succeed.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <button className="px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold rounded-lg hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-500/50">
+                  Contact Support
+                </button>
+                <button className="px-4 py-2 bg-white/10 border border-white/20 text-white font-semibold rounded-lg hover:bg-white/20 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white/30">
+                  View Documentation
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

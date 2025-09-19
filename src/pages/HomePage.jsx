@@ -556,151 +556,285 @@ export default function HomePage() {
   // Render
   // =========================
   return (
-    <div className={`min-h-screen flex flex-col items-center justify-center bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-[#F3EDFF] via-[#F7F4FF] to-[#F5F1FF]`}>
-      {/* Mobile navigation */}
-      {isMobile && (
-        <nav className="w-full bg-white border-b border-[#E3D9FA] flex flex-row items-center justify-between px-4 py-3 relative z-10 animate-slide-up shadow-sm">
-          <h1 className="text-lg font-extrabold tracking-wide text-[#8C6BFA] font-montserrat">KENBILEARN</h1>
-          <MenuMobile menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-        </nav>
-      )}
-
-      {/* Main content */}
-      <main className="w-full flex flex-col items-center justify-center relative min-h-screen px-4 sm:px-6 md:px-8">
-  {/* Header title and subtitle */}
-  <div className="w-full flex flex-col items-center justify-center mt-8 sm:mt-12 mb-6 sm:mb-8">
-    <h1 className="text-2xl sm:text-3xl md:text-[2.5rem] lg:text-[2.8rem] font-extrabold text-[#8C6BFA] mb-2 leading-tight text-center drop-shadow-sm px-2">Transform PDFs into PowerPoints</h1>
-    <p className="text-sm sm:text-base md:text-lg text-[#888] font-medium text-center max-w-xl mb-2 px-4">Upload your PDF documents and let our AI generate beautiful PowerPoint presentations with optional custom imagery.</p>
-  </div>
-        {/* Top bar for desktop and tablet */}
-        <div className="absolute top-0 left-0 w-full flex justify-between items-center px-6 sm:px-8 lg:px-12 pt-6 sm:pt-8 pb-4 animate-fade-in z-40">
-          <button
-            className="px-4 sm:px-6 py-2 sm:py-3 rounded-lg sm:rounded-xl font-semibold text-sm sm:text-base bg-[#8C6BFA] text-white hover:bg-[#7B61FF] focus:outline-none focus:ring-2 focus:ring-[#BFA8FF] transition-all duration-200 shadow-lg"
-            onClick={() => {
-              setIsPreviewMode(true);
-              setShowTemplates(true);
-            }}
-          >
-            <span className="hidden sm:inline">Preview Themes</span>
-            <span className="sm:hidden">Themes</span>
-          </button>
-          <UserMenuDropdown userMenuOpen={userMenuOpen} setUserMenuOpen={setUserMenuOpen} userMenuRef={userMenuRef} />
+    <>
+      {/* Custom Animations */}
+      <style jsx>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        @keyframes grid-move {
+          0% { transform: translate(0, 0); }
+          100% { transform: translate(50px, 50px); }
+        }
+        @keyframes glow {
+          0%, 100% { box-shadow: 0 0 20px rgba(34, 211, 238, 0.4); }
+          50% { box-shadow: 0 0 40px rgba(34, 211, 238, 0.8), 0 0 60px rgba(147, 51, 234, 0.4); }
+        }
+        @keyframes pulse-glow {
+          0%, 100% { box-shadow: 0 0 10px rgba(34, 211, 238, 0.3); }
+          50% { box-shadow: 0 0 30px rgba(34, 211, 238, 0.6), 0 0 40px rgba(147, 51, 234, 0.3); }
+        }
+        .animate-float {
+          animation: float 6s ease-in-out infinite;
+        }
+        .animate-glow {
+          animation: glow 3s ease-in-out infinite;
+        }
+        .animate-pulse-glow {
+          animation: pulse-glow 2s ease-in-out infinite;
+        }
+      `}</style>
+      
+      <div className="h-screen relative overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute w-96 h-96 bg-gradient-to-r from-cyan-400/10 to-purple-600/10 rounded-full blur-3xl animate-pulse top-10 -left-20" />
+          <div className="absolute w-80 h-80 bg-gradient-to-r from-blue-400/10 to-indigo-600/10 rounded-full blur-2xl animate-bounce bottom-10 -right-20" />
+          <div className="absolute top-1/4 left-1/4 w-4 h-4 bg-cyan-400/60 rotate-45 animate-spin" style={{ animationDuration: '8s' }} />
+          <div className="absolute bottom-1/4 right-1/4 w-3 h-3 bg-purple-400/50 rounded-full animate-pulse" />
+          <div className="absolute top-1/3 right-1/3 w-5 h-5 bg-indigo-400/30 transform rotate-45 animate-spin" style={{ animationDuration: '12s', animationDelay: '0.5s' }} />
         </div>
 
-        {/* Upload box and file list */}
-        <div className="w-full max-w-2xl flex flex-col items-center justify-center min-h-[60vh] sm:min-h-[70vh] mt-8 sm:mt-16 animate-fade-in">
-  <label htmlFor="pdf-upload" className="w-full border border-dashed border-[#E3D9FA] rounded-xl sm:rounded-2xl py-12 sm:py-20 px-8 sm:px-16 flex flex-col items-center bg-white cursor-pointer shadow-[0_2px_18px_0_rgba(120,90,200,0.06)] transition hover:bg-[#F6F2FF] animate-slide-up">
-  {loading ? (
-    <Loader2 className="animate-spin mb-3 sm:mb-4 text-[#BFA8FF]" size={isMobile ? 36 : 48} />
-  ) : (
-    <Upload size={isMobile ? 36 : 48} className="mb-3 sm:mb-4 text-[#BFA8FF]" />
-  )}
-  <span className="text-[#222] font-semibold text-base sm:text-lg">Upload PDF(s)</span>
-  <span className="text-xs sm:text-sm text-[#888] mt-1 text-center px-2">Drop your files here or click to browse<br/>(max 5MB each, multiple allowed)</span>
-  <input
-    id="pdf-upload"
-    type="file"
-    accept="application/pdf"
-    className="hidden"
-    ref={fileInputRef}
-    onChange={handleFileChange}
-    disabled={loading}
-    multiple
-  />
-</label>
-  <div className="w-full mt-6 sm:mt-8 mb-2">
-  <div className="bg-white rounded-xl shadow-sm px-4 sm:px-8 py-4 sm:py-6 flex flex-col gap-2 border border-[#E3D9FA]">
-    <label className="text-xs sm:text-sm font-semibold text-[#444] mb-2">Image Generation Prompt (optional):</label>
-    <input
-      type="text"
-      value={imagePrompt}
-      onChange={e => setImagePrompt(e.target.value)}
-      placeholder="Type a prompt for image generation, or leave blank for no image"
-      className="w-full px-4 sm:px-8 py-3 sm:py-5 rounded-lg border border-[#E3D9FA] text-sm sm:text-lg focus:outline-none focus:ring-2 focus:ring-[#BFA8FF] transition bg-transparent text-[#444] placeholder-[#BFA8FF]"
-      disabled={loading}
-    />
-  </div>
-</div>
-          {error && <div className="mt-4 text-[#8C6BFA] text-base font-bold animate-fade-in animate-bounce-short">{error}</div>}
-          {showEditor && selectedTemplate !== null && !error && (
-            <div className="fixed inset-0 z-[9999] bg-blue-950/85 animate-fade-in">
-              <SlideEditor
-                initialSlides={results || []}
-                selectedTemplate={selectedTemplate}
-                onBack={() => {
-                  setShowEditor(false);
-                  setResults(null);
-                  setSelectedTemplate(null);
-                }}
-              />
+        {/* Enhanced Floating Geometric Shapes */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute top-20 left-10 w-4 h-4 bg-cyan-400/60 rotate-45 animate-spin" style={{ animationDuration: '8s' }} />
+          <div className="absolute top-40 right-20 w-6 h-6 bg-purple-400/40 rounded-full animate-bounce" style={{ animationDelay: '1s' }} />
+          <div className="absolute bottom-32 left-1/4 w-3 h-3 bg-blue-400/50 rotate-12 animate-pulse" style={{ animationDelay: '2s' }} />
+          <div className="absolute top-1/2 left-5 animate-float" style={{ animationDelay: '1s' }}>
+            <svg className="w-6 h-6 text-cyan-300/40" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+          </div>
+          <div className="absolute bottom-20 right-1/3 animate-float" style={{ animationDelay: '4s' }}>
+            <svg className="w-8 h-8 text-purple-300/30" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+            </svg>
+          </div>
+        </div>
+
+        {/* Top Navigation Bar */}
+        <div className="absolute top-0 left-0 w-full flex justify-between items-center px-6 sm:px-8 lg:px-12 pt-6 sm:pt-8 pb-4 z-40">
+          {/* Logo */}
+          <div className="flex items-center">
+            <div className="relative group">
+              <div className="w-10 h-10 bg-gradient-to-br from-cyan-400 via-blue-500 to-purple-600 rounded-xl shadow-lg transform rotate-6 group-hover:rotate-12 transition-transform duration-300 animate-pulse" />
+              <div className="absolute inset-1 bg-gradient-to-br from-white/90 to-white/70 rounded-lg flex items-center justify-center transform -rotate-6 group-hover:-rotate-12 transition-transform duration-300">
+                <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
             </div>
-          )}
-          {uploadedFiles.length > 0 && (
-            <div className="mt-4 sm:mt-6 w-full max-w-md animate-fade-in">
-              <h2 className="text-[#8C6BFA] font-bold mb-2 text-sm sm:text-base">PDFs to Process:</h2>
-              <ul className="bg-blue-50 rounded-lg p-3 sm:p-4 m-0 list-none shadow-md">
-                {uploadedFiles.map((file, idx) => (
-                  <li key={idx} className="flex justify-between items-center text-[#8C6BFA] text-sm sm:text-base border-b border-blue-200 pb-1 mb-1 animate-slide-up">
-                    <span className="truncate max-w-[150px] sm:max-w-[200px]">{file.name}</span>
-                    <button
-                      className="ml-2 sm:ml-4 text-[#8C6BFA] font-bold hover:text-[#8C6BFA] transition disabled:opacity-60 text-xs sm:text-sm px-2 py-1 rounded"
-                      onClick={() => handleRemoveFile(idx)}
+            <h1 className="ml-3 text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600">KENBILEARN</h1>
+          </div>
+
+          {/* Navigation Buttons */}
+          <div className="flex items-center gap-4">
+            <button
+              className="px-4 sm:px-6 py-2 sm:py-3 rounded-xl font-semibold text-sm sm:text-base bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 transition-all duration-300 shadow-lg"
+              onClick={() => {
+                setIsPreviewMode(true);
+                setShowTemplates(true);
+              }}
+            >
+              <span className="hidden sm:inline">Preview Themes</span>
+              <span className="sm:hidden">Themes</span>
+            </button>
+            <UserMenuDropdown userMenuOpen={userMenuOpen} setUserMenuOpen={setUserMenuOpen} userMenuRef={userMenuRef} />
+          </div>
+        </div>
+
+        {/* Main Content */}
+        <div className="relative z-10 h-full flex flex-col items-center justify-center px-4 pt-20 pb-4">
+          {/* Hero Section */}
+          <div className="text-center mb-6 max-w-4xl">
+            <h1 className="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 mb-4 leading-tight">
+              Transform PDFs into
+              <br />
+              <span className="text-white">Beautiful Presentations</span>
+            </h1>
+            <p className="text-lg text-gray-300 mb-6 max-w-2xl mx-auto leading-relaxed">
+              Upload your PDF documents and let our AI generate stunning PowerPoint presentations with 
+              <span className="text-cyan-400 font-semibold"> intelligent content extraction</span>
+            </p>
+          </div>
+
+          {/* Upload Section */}
+          <div className="w-full max-w-2xl flex-1 flex flex-col">
+            {/* 3D Upload Container */}
+            <div className="relative group flex-1 flex flex-col">
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-purple-600/20 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-300" />
+              <div className="relative bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl shadow-2xl p-6 flex-1 flex flex-col">
+                
+                {/* Upload Area */}
+                <label htmlFor="pdf-upload" className="block cursor-pointer flex-1">
+                  <div className="border-2 border-dashed border-white/30 rounded-2xl py-8 px-6 text-center hover:border-cyan-400/50 hover:bg-white/5 transition-all duration-300 group h-full flex flex-col justify-center">
+                    {loading ? (
+                      <div className="flex flex-col items-center">
+                        <Loader2 className="animate-spin mb-3 text-cyan-400" size={40} />
+                        <span className="text-white font-semibold">Processing your PDFs...</span>
+                      </div>
+                    ) : (
+                      <div className="flex flex-col items-center">
+                        <div className="mb-4 p-3 bg-white/10 rounded-full backdrop-blur-sm border border-white/20 group-hover:bg-white/20 transition-all duration-300 animate-pulse-glow">
+                          <Upload size={40} className="text-cyan-400" />
+                        </div>
+                        <h3 className="text-xl font-bold text-white mb-2">Upload PDF Documents</h3>
+                        <p className="text-gray-300 mb-2">Drop your files here or click to browse</p>
+                        <p className="text-sm text-gray-400">(Max 5MB each, multiple files allowed)</p>
+                      </div>
+                    )}
+                  </div>
+                  <input
+                    id="pdf-upload"
+                    type="file"
+                    accept="application/pdf"
+                    className="hidden"
+                    ref={fileInputRef}
+                    onChange={handleFileChange}
+                    disabled={loading}
+                    multiple
+                  />
+                </label>
+
+                {/* Image Generation Prompt */}
+                <div className="mt-4">
+                  <label className="block text-white font-semibold text-sm mb-2">
+                    AI Image Generation Prompt (Optional)
+                  </label>
+                  <div className="relative group">
+                    <input
+                      type="text"
+                      value={imagePrompt}
+                      onChange={e => setImagePrompt(e.target.value)}
+                      placeholder="Describe images you'd like AI to generate..."
+                      className="w-full px-4 py-2 bg-white/5 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 transition-all duration-300 backdrop-blur-sm text-sm"
                       disabled={loading}
-                    >Remove</button>
-                  </li>
-                ))}
-              </ul>
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-purple-600/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                  </div>
+                </div>
+
+                {/* Error Display */}
+                {error && (
+                  <div className="mt-4 p-3 bg-red-500/20 border border-red-500/30 rounded-xl text-red-300 text-center animate-pulse text-sm">
+                    {error}
+                  </div>
+                )}
+
+                {/* Uploaded Files List */}
+                {uploadedFiles.length > 0 && (
+                  <div className="mt-4">
+                    <h3 className="text-white font-semibold mb-2 text-sm">Files Ready for Processing:</h3>
+                    <div className="space-y-1 max-h-24 overflow-y-auto">
+                      {uploadedFiles.map((file, idx) => (
+                        <div key={idx} className="flex items-center justify-between p-2 bg-white/5 rounded-lg border border-white/10 hover:bg-white/10 transition-all duration-300">
+                          <div className="flex items-center">
+                            <svg className="w-4 h-4 text-red-400 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
+                            </svg>
+                            <span className="text-white truncate max-w-xs text-sm">{file.name}</span>
+                          </div>
+                          <button
+                            onClick={() => handleRemoveFile(idx)}
+                            className="ml-2 text-gray-400 hover:text-red-400 transition-colors duration-200"
+                            disabled={loading}
+                          >
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Action Buttons */}
+                <div className="flex flex-col sm:flex-row gap-3 mt-4">
+                  <button
+                    onClick={() => {
+                      setIsPreviewMode(false);
+                      setShowTemplates(true);
+                    }}
+                    disabled={loading || uploadedFiles.length === 0}
+                    className="flex-1 relative group py-3 px-6 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-cyan-500/50 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none animate-glow"
+                  >
+                    <span className="relative z-10">
+                      {loading ? "Generating Presentation..." : "Generate PowerPoint"}
+                    </span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-xl blur opacity-0 group-hover:opacity-75 transition-opacity duration-300" />
+                  </button>
+                  
+                  <button
+                    onClick={() => setUploadedFiles([])}
+                    disabled={loading || uploadedFiles.length === 0}
+                    className="sm:w-auto px-6 py-3 bg-white/10 backdrop-blur-sm border border-white/20 text-white font-semibold rounded-xl shadow-xl hover:bg-white/20 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-white/30 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    Clear All
+                  </button>
+                </div>
+              </div>
             </div>
-          )}
-          <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 mt-6 sm:mt-8 animate-fade-in w-full justify-center items-center">
-          <button
-            className={`w-full sm:w-[340px] py-3 sm:py-4 rounded-xl font-bold text-base sm:text-lg shadow transition-all duration-200 
-              bg-[#E5D8FF] text-[#8C6BFA] hover:bg-[#E7E0FF] focus:outline-none focus:ring-2 focus:ring-[#BFA8FF] 
-              ${loading || uploadedFiles.length === 0 ? 'opacity-60 cursor-not-allowed' : ''}`}
-            onClick={() => {
-              setIsPreviewMode(false);
-              setShowTemplates(true);
-            }}
-            disabled={loading || uploadedFiles.length === 0}
-          >
-            {loading ? "Generating PowerPoint..." : "Generate PowerPoint"}
-          </button>
-  <button
-    className={`w-full sm:w-auto px-6 py-3 rounded-xl font-semibold text-sm sm:text-base border border-[#E3D9FA] text-[#8C6BFA] bg-white hover:bg-[#F6F2FF] focus:outline-none focus:ring-2 focus:ring-[#BFA8FF] transition-all duration-200 ${loading || uploadedFiles.length === 0 ? 'opacity-60 cursor-not-allowed' : ''}`}
-    onClick={() => setUploadedFiles([])}
-    disabled={loading || uploadedFiles.length === 0}
-  >
-    Clear All
-  </button>
-</div>
+          </div>
         </div>
 
-        {/* Template selection modal */}
-        {showTemplates && (
-  <div className="fixed inset-0 flex items-center justify-center z-[9999] animate-fade-in p-4" style={{background: 'radial-gradient(ellipse at top left, #F3EDFF 0%, #F7F4FF 60%, #F5F1FF 100%)'}}>
-    <div className="rounded-xl sm:rounded-2xl px-0 pt-0 pb-4 sm:pb-8 max-w-7xl w-full max-h-[90vh] animate-slide-up shadow-2xl border border-[#E3D9FA] relative overflow-hidden bg-white">
-      <div className="w-full flex items-center justify-between px-4 sm:px-8 pt-4 sm:pt-7 pb-3 sm:pb-4 border-b border-[#E3D9FA]">
-        <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-[#8C6BFA] tracking-tight">Choose a Template</h2>
-        <button className="text-gray-400 hover:text-[#8C6BFA] text-xl sm:text-2xl px-2 py-1 rounded-full transition" onClick={() => setShowTemplates(false)}>&times;</button>
-      </div>
-      <div className="w-full px-4 sm:px-8 pt-4 sm:pt-6 overflow-y-auto" style={{maxHeight: 'calc(90vh - 120px)'}}>
-        <div className={`grid gap-2 sm:gap-1 no-scrollbar ${
-          isMobile ? 'grid-cols-2' : isTablet ? 'grid-cols-3' : 'grid-cols-5'
-        }`}>
-          {themeNames.map((themeName, idx) => (
-            <TemplateThumbnail
-              key={idx}
-              themeName={themeName}
-              onClick={() => handleSelectTemplate(idx)}
+        {/* Slide Editor Modal */}
+        {showEditor && selectedTemplate !== null && !error && (
+          <div className="fixed inset-0 z-[9999] bg-black/60 backdrop-blur-sm">
+            <SlideEditor
+              initialSlides={results || []}
+              selectedTemplate={selectedTemplate}
+              onBack={() => {
+                setShowEditor(false);
+                setResults(null);
+                setSelectedTemplate(null);
+              }}
             />
-          ))}
-        </div>
-        <button className="mt-4 sm:mt-8 block mx-auto px-6 sm:px-8 py-2 rounded-xl bg-[#23202B] text-[#8C6BFA] hover:bg-[#2a2740] font-bold shadow-lg transition-all text-sm sm:text-base" onClick={() => setShowTemplates(false)}>Cancel</button>
+          </div>
+        )}
+
+        {/* Template Selection Modal */}
+        {showTemplates && (
+          <div className="fixed inset-0 flex items-center justify-center z-[9999] bg-black/60 backdrop-blur-sm p-4">
+            <div className="relative group max-w-7xl w-full max-h-[90vh]">
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-purple-600/20 rounded-3xl blur-xl" />
+              <div className="relative bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl shadow-2xl overflow-hidden">
+                <div className="flex items-center justify-between px-8 pt-6 pb-4 border-b border-white/20">
+                  <h2 className="text-2xl font-bold text-white">Choose a Template</h2>
+                  <button 
+                    className="text-gray-400 hover:text-red-400 text-2xl font-bold focus:outline-none transition-colors duration-200" 
+                    onClick={() => setShowTemplates(false)}
+                  >
+                    ×
+                  </button>
+                </div>
+                <div className="px-8 pt-6 pb-8 overflow-y-auto" style={{maxHeight: 'calc(90vh - 120px)'}}>
+                  <div className={`grid gap-4 ${
+                    isMobile ? 'grid-cols-2' : isTablet ? 'grid-cols-3' : 'grid-cols-5'
+                  }`}>
+                    {themeNames.map((themeName, idx) => (
+                      <TemplateThumbnail
+                        key={idx}
+                        themeName={themeName}
+                        onClick={() => handleSelectTemplate(idx)}
+                      />
+                    ))}
+                  </div>
+                  <div className="flex justify-center mt-8">
+                    <button 
+                      className="px-8 py-3 bg-white/10 backdrop-blur-sm border border-white/20 text-white font-semibold rounded-xl hover:bg-white/20 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-white/30" 
+                      onClick={() => setShowTemplates(false)}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
-    </div>
-  </div>
-)}
-      </main>
-    </div>
+    </>
   );
 }

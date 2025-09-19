@@ -807,29 +807,73 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack, p
           />
         </div>
 
-        <div className="flex flex-wrap gap-2 sm:gap-4 mt-4 sm:mt-8 justify-center px-4">
-          <button className="bg-purple-600 hover:bg-purple-700 text-white px-3 sm:px-4 py-2 rounded shadow transition-colors text-sm sm:text-base" onClick={() => fileInputRef.current && fileInputRef.current.click()}>
+        <div className="flex flex-wrap gap-2 sm:gap-3 mt-4 sm:mt-8 justify-center px-4">
+          {/* Add Image Button */}
+          <button 
+            className="group relative flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 sm:py-3 rounded-xl bg-gradient-to-r from-purple-500 to-pink-600 text-white font-bold hover:scale-105 transition-all duration-300 shadow-lg text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-purple-500/50" 
+            onClick={() => fileInputRef.current && fileInputRef.current.click()}
+          >
+            <svg className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
             <span className="hidden sm:inline">Add Image</span>
             <span className="sm:hidden">Image</span>
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-500 rounded-xl blur opacity-0 group-hover:opacity-75 transition-opacity duration-300 pointer-events-none" />
           </button>
+
+          {/* Predefined Assets Button */}
           <button 
-            className="bg-indigo-600 hover:bg-indigo-700 text-white px-3 sm:px-4 py-2 rounded shadow transition-colors text-sm sm:text-base"
+            className="group relative flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 sm:py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-bold hover:scale-105 transition-all duration-300 shadow-lg text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
             onClick={() => setShowAssetPicker(true)}
           >
-            <span className="hidden sm:inline">Predefined Assets</span>
+            <svg className="w-4 h-4 group-hover:rotate-12 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+            </svg>
+            <span className="hidden sm:inline">Assets</span>
             <span className="sm:hidden">Assets</span>
+            <div className="absolute inset-0 bg-gradient-to-r from-indigo-400 to-purple-500 rounded-xl blur opacity-0 group-hover:opacity-75 transition-opacity duration-300 pointer-events-none" />
           </button>
-          <button className="bg-green-600 hover:bg-green-700 text-white px-3 sm:px-4 py-2 rounded shadow transition-colors text-sm sm:text-base" onClick={duplicateSlide}>
+
+          {/* Duplicate Slide Button */}
+          <button 
+            className="group relative flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 sm:py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold hover:scale-105 transition-all duration-300 shadow-lg text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-emerald-500/50" 
+            onClick={duplicateSlide}
+          >
+            <svg className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+            </svg>
             <span className="hidden sm:inline">Duplicate Slide</span>
             <span className="sm:hidden">Duplicate</span>
+            <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-xl blur opacity-0 group-hover:opacity-75 transition-opacity duration-300 pointer-events-none" />
           </button>
-          <button className="bg-red-600 hover:bg-red-700 text-white px-3 sm:px-4 py-2 rounded shadow transition-colors text-sm sm:text-base" onClick={deleteSlide} disabled={slides.length <= 1}>
+
+          {/* Delete Slide Button */}
+          <button 
+            className="group relative flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 sm:py-3 rounded-xl bg-gradient-to-r from-red-500 to-rose-600 text-white font-bold hover:scale-105 transition-all duration-300 shadow-lg text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-red-500/50 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none" 
+            onClick={deleteSlide} 
+            disabled={slides.length <= 1}
+          >
+            <svg className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
             <span className="hidden sm:inline">Delete Slide</span>
             <span className="sm:hidden">Delete</span>
+            {slides.length > 1 && (
+              <div className="absolute inset-0 bg-gradient-to-r from-red-400 to-rose-500 rounded-xl blur opacity-0 group-hover:opacity-75 transition-opacity duration-300 pointer-events-none" />
+            )}
           </button>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-3 sm:px-4 py-2 rounded shadow transition-colors text-sm sm:text-base" onClick={() => insertSlideAt(current + 1)}>
-            <span className="hidden sm:inline">Insert Slide After</span>
+
+          {/* Insert Slide After Button */}
+          <button 
+            className="group relative flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 sm:py-3 rounded-xl bg-gradient-to-r from-blue-500 to-cyan-600 text-white font-bold hover:scale-105 transition-all duration-300 shadow-lg text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-blue-500/50" 
+            onClick={() => insertSlideAt(current + 1)}
+          >
+            <svg className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            </svg>
+            <span className="hidden sm:inline">Insert Slide</span>
             <span className="sm:hidden">Insert</span>
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-cyan-500 rounded-xl blur opacity-0 group-hover:opacity-75 transition-opacity duration-300 pointer-events-none" />
           </button>
         </div>
 
