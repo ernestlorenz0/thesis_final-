@@ -6,9 +6,15 @@ Test script for Hugging Face image generation API
 import requests
 import base64
 import os
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 # Configuration
-API_KEY = "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"  # Your API key
+API_KEY = os.getenv('HUGGINGFACE_API_KEY')
+if not API_KEY:
+    raise ValueError("HUGGINGFACE_API_KEY environment variable is not set. Please check your .env file.")
 # Try FLUX first, fallback to Stable Diffusion if needed
 FLUX_MODEL_ID = 'black-forest-labs/FLUX.1-dev'  # Correct FLUX model ID
 STABLE_DIFFUSION_MODEL_ID = 'runwayml/stable-diffusion-v1-5'  # Fallback model

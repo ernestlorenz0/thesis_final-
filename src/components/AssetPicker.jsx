@@ -17,12 +17,19 @@ export default function AssetPicker({ open, onClose, onSelect, onAIImageGenerate
 
   const loadGeneratedImages = () => {
     try {
+      console.log('🎨 AssetPicker: Loading generated images from localStorage...');
       const saved = localStorage.getItem('kenbilearn_generated_images');
+      console.log('🎨 AssetPicker: Raw localStorage data:', saved);
       if (saved) {
-        setGeneratedImages(JSON.parse(saved));
+        const parsed = JSON.parse(saved);
+        console.log('🎨 AssetPicker: Parsed generated images:', parsed.length, 'images found');
+        setGeneratedImages(parsed);
+      } else {
+        console.log('🎨 AssetPicker: No generated images found in localStorage');
+        setGeneratedImages([]);
       }
     } catch (error) {
-      console.error('Failed to load generated images:', error);
+      console.error('🎨 AssetPicker: Failed to load generated images:', error);
     }
   };
 

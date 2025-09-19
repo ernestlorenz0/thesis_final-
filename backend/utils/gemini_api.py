@@ -2,6 +2,11 @@ import requests
 import logging
 import google.generativeai as genai
 import base64
+import os
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 GEMINI_IMAGE_MODEL = 'models/imagen-3'
 
@@ -13,8 +18,12 @@ def generate_image_from_prompt(prompt):
     image_b64 = base64.b64encode(image_bytes).decode('utf-8')
     return image_b64
 
-GEMINI_API_KEY = 'AIzaSyCtDRuoS7R0G40ZHBOsSCP1C6kSIxbtBQY'
-GEMINI_API_URL =      "https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash-lite-001:generateContent?key=" + GEMINI_API_KEY #tangina if the gemini is not working just change this shit
+# Get API key from environment variables
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
+if not GEMINI_API_KEY:
+    raise ValueError("GEMINI_API_KEY environment variable is not set. Please check your .env file.")
+
+GEMINI_API_URL = f"https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash-lite-001:generateContent?key={GEMINI_API_KEY}"
    
     
 

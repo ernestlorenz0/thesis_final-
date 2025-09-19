@@ -14,7 +14,7 @@ def test_backend_endpoint():
     
     # Test data
     test_data = {
-        "prompt": "A simple test image of a cat"
+        "topic": "A simple test image of a cat"
     }
     
     try:

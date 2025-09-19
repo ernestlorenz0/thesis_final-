@@ -24,7 +24,7 @@ export default function LocalImageModal({ open, images, onSelect, onClose }) {
               <div className="grid grid-cols-4 gap-4">
                 {imgs.map(img => (
                   <button key={img.url} className="flex flex-col items-center" onClick={() => onSelect(img)}>
-                    <img src={img.url.startsWith('http') ? img.url : `http://localhost:5000${img.url}`} alt={img.name} className="w-24 h-24 object-contain border rounded mb-1 shadow" />
+                    <img src={img.url.startsWith('http') ? img.url : `http://127.0.0.1:5000${img.url}`} alt={img.name} className="w-24 h-24 object-contain border rounded mb-1 shadow" />
                     <span className="text-xs truncate w-24">{img.name}</span>
                   </button>
                 ))}

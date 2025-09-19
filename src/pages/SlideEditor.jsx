@@ -929,6 +929,12 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack, p
               ]
             } : slide));
           }}
+          onAIImageGenerated={generatedImage => {
+            console.log('🎨 SlideEditor: AI image generated and adding to slide:', generatedImage);
+            // The AssetPicker already handles adding to the slide via onSelect,
+            // but we can add additional logic here if needed
+            console.log('🎨 AI-generated image automatically added to slide');
+          }}
         />
 
       <LocalImageModal

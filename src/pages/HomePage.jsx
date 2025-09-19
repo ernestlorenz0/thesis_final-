@@ -59,6 +59,67 @@ export default function HomePage() {
     setShowTemplates(true);
   };
 
+
+  // Generate AI image if prompt exists
+  const generateImageIfPromptExists = async () => {
+    console.log('🎨 HomePage: generateImageIfPromptExists called with prompt:', imagePrompt);
+    if (!imagePrompt.trim()) {
+      console.log('🎨 HomePage: No image prompt provided, skipping image generation');
+      return null; // No prompt, skip image generation
+    }
+
+    try {
+      console.log('🎨 HomePage: Auto-generating AI image during PowerPoint creation:', imagePrompt.trim());
+      
+      const response = await fetch('http://127.0.0.1:5000/generate-image', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ prompt: imagePrompt.trim() }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.error('Image generation failed:', data.error);
+        return null; // Don't fail the whole process if image generation fails
+      }
+
+      if (data.image_base64) {
+        const imageData = `data:image/png;base64,${data.image_base64}`;
+        const generatedImage = {
+          url: imageData,
+          name: `AI Generated: ${imagePrompt.trim()}`,
+          prompt: imagePrompt.trim(),
+          generatedAt: new Date().toISOString()
+        };
+
+        // Save to localStorage
+        try {
+          console.log('🎨 HomePage: Attempting to save image to localStorage...');
+          const existingImages = JSON.parse(localStorage.getItem('kenbilearn_generated_images') || '[]');
+          console.log('🎨 HomePage: Existing images in localStorage:', existingImages.length);
+          const updatedImages = [generatedImage, ...existingImages];
+          localStorage.setItem('kenbilearn_generated_images', JSON.stringify(updatedImages));
+          console.log('🎨 HomePage: AI image saved to localStorage during PowerPoint generation. Total images now:', updatedImages.length);
+          
+          // Verify it was saved
+          const verification = JSON.parse(localStorage.getItem('kenbilearn_generated_images') || '[]');
+          console.log('🎨 HomePage: Verification - localStorage now contains:', verification.length, 'images');
+          
+          return generatedImage;
+        } catch (storageError) {
+          console.error('🎨 HomePage: Failed to save generated image to localStorage:', storageError);
+          return null;
+        }
+      }
+    } catch (err) {
+      console.error('Auto image generation error:', err);
+      return null; // Don't fail the whole process
+    }
+  };
+
   // When a template is selected, process PDFs and show SlideEditor
   const themeNames = [
     'Classic Classroom',
@@ -235,10 +296,14 @@ export default function HomePage() {
     setError('');
     try {
       console.log('Starting API call to process files:', uploadedFiles.map(f => f.name));
+      
+      // Generate AI image if prompt exists (parallel with PDF processing)
+      const imageGenerationPromise = generateImageIfPromptExists();
+      
       const formData = new FormData();
       uploadedFiles.forEach(f => formData.append('file', f));
       
-      const res = await fetch('http://localhost:5000/upload', {
+      const res = await fetch('http://127.0.0.1:5000/upload', {
         method: 'POST',
         body: formData,
       });
@@ -384,7 +449,7 @@ export default function HomePage() {
           file.extracted_images.forEach((imgPath, idx) => {
             allContent.push({
               type: 'image',
-              content: `http://localhost:5000/${imgPath.replace(/\\/g, "/")}`,
+              content: `http://127.0.0.1:5000/${imgPath.replace(/\\/g, "/")}`,
               source: 'extracted_image'
             });
           });
@@ -519,6 +584,31 @@ export default function HomePage() {
           ],
         });
       }
+      
+      // Wait for image generation to complete and show result
+      try {
+        console.log('🎨 HomePage: Waiting for image generation to complete...');
+        const generatedImage = await imageGenerationPromise;
+        if (generatedImage) {
+          console.log('🎨 HomePage: AI image generation completed successfully:', generatedImage);
+          console.log('🎨 HomePage: Image saved to localStorage with key: kenbilearn_generated_images');
+          setImagePrompt(''); // Clear the prompt since image was generated
+          
+          // Show success alert
+          setTimeout(() => {
+            alert('✅ AI image generated successfully! You can find it in the slide editor under "Assets > Images Generated"');
+          }, 1000);
+        } else {
+          console.log('🎨 HomePage: No image was generated (likely no prompt provided)');
+        }
+      } catch (imageError) {
+        console.error('🎨 HomePage: Image generation failed but continuing with presentation:', imageError);
+        // Show error alert
+        setTimeout(() => {
+          alert('⚠️ AI image generation failed, but your presentation was created successfully. You can try generating images separately in the slide editor.');
+        }, 1000);
+      }
+      
       setResults(slides);
       setUploadedFiles([]);
       setShowEditor(true);
@@ -672,7 +762,12 @@ export default function HomePage() {
                     {loading ? (
                       <div className="flex flex-col items-center">
                         <Loader2 className="animate-spin mb-3 text-cyan-400" size={40} />
-                        <span className="text-white font-semibold">Processing your PDFs...</span>
+                        <span className="text-white font-semibold">
+                          {imagePrompt.trim() 
+                            ? "Processing PDFs and generating AI images..." 
+                            : "Processing your PDFs..."
+                          }
+                        </span>
                       </div>
                     ) : (
                       <div className="flex flex-col items-center">
@@ -707,7 +802,7 @@ export default function HomePage() {
                       type="text"
                       value={imagePrompt}
                       onChange={e => setImagePrompt(e.target.value)}
-                      placeholder="Describe images you'd like AI to generate..."
+                      placeholder="Describe images you'd like AI to generate (will be processed with PowerPoint generation)..."
                       className="w-full px-4 py-2 bg-white/5 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 transition-all duration-300 backdrop-blur-sm text-sm"
                       disabled={loading}
                     />
@@ -761,7 +856,10 @@ export default function HomePage() {
                     className="flex-1 relative group py-3 px-6 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-cyan-500/50 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none animate-glow"
                   >
                     <span className="relative z-10">
-                      {loading ? "Generating Presentation..." : "Generate PowerPoint"}
+                      {loading 
+                        ? (imagePrompt.trim() ? "Generating Presentation & AI Images..." : "Generating Presentation...")
+                        : (imagePrompt.trim() ? "Generate PowerPoint + AI Images" : "Generate PowerPoint")
+                      }
                     </span>
                     <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-xl blur opacity-0 group-hover:opacity-75 transition-opacity duration-300" />
                   </button>

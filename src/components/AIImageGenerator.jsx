@@ -17,7 +17,11 @@ export default function AIImageGenerator({ open, onClose, onImageGenerated }) {
     setGeneratedImage(null);
 
     try {
-      const response = await fetch('/generate-image', {
+      console.log('🎨 AIImageGenerator: Making request to backend...');
+      console.log('🎨 AIImageGenerator: URL:', 'http://127.0.0.1:5000/generate-image');
+      console.log('🎨 AIImageGenerator: Prompt:', prompt.trim());
+      
+      const response = await fetch('http://127.0.0.1:5000/generate-image', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -25,7 +29,10 @@ export default function AIImageGenerator({ open, onClose, onImageGenerated }) {
         body: JSON.stringify({ prompt: prompt.trim() }),
       });
 
+      console.log('🎨 AIImageGenerator: Response received:', response.status, response.statusText);
+      
       const data = await response.json();
+      console.log('🎨 AIImageGenerator: Response data keys:', Object.keys(data));
 
       if (!response.ok) {
         throw new Error(data.error || 'Failed to generate image');
@@ -76,9 +83,9 @@ export default function AIImageGenerator({ open, onClose, onImageGenerated }) {
     <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center">
       <div className="bg-white rounded-xl shadow-2xl p-6 w-[600px] max-h-[80vh] flex flex-col">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-bold text-gray-800">AI Image Generator</h2>
+          <h2 className="text-xl font-bold text-gray-900">AI Image Generator</h2>
           <button 
-            className="text-gray-500 hover:text-gray-800 text-xl" 
+            className="text-gray-600 hover:text-gray-900 text-xl font-bold" 
             onClick={handleClose}
           >
             ✕
@@ -86,11 +93,11 @@ export default function AIImageGenerator({ open, onClose, onImageGenerated }) {
         </div>
 
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-gray-900 mb-2">
             Describe the image you want to generate:
           </label>
           <textarea
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 resize-none"
+            className="w-full border-2 border-gray-300 rounded-lg px-3 py-2 resize-none text-gray-900 placeholder-gray-500 focus:border-purple-500 focus:ring-2 focus:ring-purple-200"
             rows="3"
             placeholder="e.g., A futuristic classroom with holographic displays and students using VR headsets"
             value={prompt}
@@ -100,7 +107,7 @@ export default function AIImageGenerator({ open, onClose, onImageGenerated }) {
         </div>
 
         {error && (
-          <div className="mb-4 p-3 bg-red-100 border border-red-300 text-red-700 rounded-lg">
+          <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-800 rounded-lg font-medium">
             {error}
           </div>
         )}
@@ -131,19 +138,19 @@ export default function AIImageGenerator({ open, onClose, onImageGenerated }) {
 
         {generatedImage && (
           <div className="flex-1 overflow-y-auto">
-            <div className="border border-gray-200 rounded-lg p-4">
-              <h3 className="text-sm font-medium text-gray-700 mb-2">Generated Image:</h3>
+            <div className="border-2 border-gray-300 rounded-lg p-4 bg-gray-50">
+              <h3 className="text-sm font-bold text-gray-900 mb-2">Generated Image:</h3>
               <div className="flex flex-col items-center">
                 <img 
                   src={generatedImage.url} 
                   alt={generatedImage.name}
-                  className="w-full max-w-md h-auto rounded-lg shadow-md mb-3"
+                  className="w-full max-w-md h-auto rounded-lg shadow-md mb-3 border border-gray-200"
                 />
-                <p className="text-sm text-gray-600 text-center mb-3">
-                  <strong>Prompt:</strong> {generatedImage.prompt}
+                <p className="text-sm text-gray-800 text-center mb-3 font-medium">
+                  <strong className="text-gray-900">Prompt:</strong> {generatedImage.prompt}
                 </p>
                 <button
-                  className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
+                  className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 font-medium transition-colors duration-200"
                   onClick={handleUseImage}
                 >
                   Use This Image
@@ -153,9 +160,6 @@ export default function AIImageGenerator({ open, onClose, onImageGenerated }) {
           </div>
         )}
 
-        <div className="mt-4 text-xs text-gray-500 text-center">
-          Powered by Hugging Face FLUX.1-dev AI model
-        </div>
       </div>
     </div>
   );

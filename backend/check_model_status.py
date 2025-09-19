@@ -4,10 +4,18 @@ Check the status of the FLUX model on Hugging Face
 """
 
 import requests
+import time
 import json
+import os
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 # Configuration
-API_KEY = "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"
+API_KEY = os.getenv('HUGGINGFACE_API_KEY')
+if not API_KEY:
+    raise ValueError("HUGGINGFACE_API_KEY environment variable is not set. Please check your .env file.")
 MODEL_ID = 'black-forest-labs/FLUX.1-dev'
 API_URL = f'https://api-inference.huggingface.co/models/{MODEL_ID}'
 
