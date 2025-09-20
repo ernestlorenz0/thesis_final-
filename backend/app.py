@@ -5,21 +5,17 @@ from utils.gemini_api import extract_key_terms_and_topics
 import os
 import requests
 import base64
-from dotenv import load_dotenv
 
-# Load environment variables
-load_dotenv()
+# API Keys
+HUGGINGFACE_API_KEY = ""
+GEMINI_API_KEY = "AIzaSyCtDRuoS7R0G40ZHBOsSCP1C6kSIxbtBQY"
 
 app = Flask(__name__, static_folder='static')
 CORS(app)
 
-# Hugging Face image generation config
-HUGGINGFACE_API_KEY = os.getenv('HUGGINGFACE_API_KEY')
-if not HUGGINGFACE_API_KEY:
-    raise ValueError("HUGGINGFACE_API_KEY environment variable is not set. Please check your .env file.")
-# Try FLUX first, fallback to Stable Diffusion if needed
-FLUX1_MODEL_ID = 'black-forest-labs/FLUX.1-dev'  # Correct FLUX model ID
-STABLE_DIFFUSION_MODEL_ID = 'runwayml/stable-diffusion-v1-5'  # Fallback model
+# Hugging Face Models
+FLUX1_MODEL_ID = 'black-forest-labs/FLUX.1-dev'
+STABLE_DIFFUSION_MODEL_ID = 'runwayml/stable-diffusion-v1-5'
 HF_API_URL = f'https://api-inference.huggingface.co/models/{FLUX1_MODEL_ID}'
 
 # Serve extracted_images statically
@@ -32,11 +28,8 @@ def serve_extracted_image(filename):
 def serve_generated_image(filename):
     return send_from_directory(os.path.join(os.path.dirname(__file__), 'generated_images'), filename)
 
-# --- Hugging Face Image Generation Endpoint ---
 @app.route('/generate-image', methods=['POST'])
 def generate_image():
-    if not HUGGINGFACE_API_KEY:
-        return jsonify({'error': 'Hugging Face API key is not set. Please check your .env file.'}), 500
 
     data = request.get_json()
     # Support both 'topic' and 'prompt' for backward compatibility
@@ -59,8 +52,13 @@ def generate_image():
             }
         }
         models_to_try = [
+            # Try FLUX first (requires special access)
             (FLUX1_MODEL_ID, f'https://api-inference.huggingface.co/models/{FLUX1_MODEL_ID}'),
-            (STABLE_DIFFUSION_MODEL_ID, f'https://api-inference.huggingface.co/models/{STABLE_DIFFUSION_MODEL_ID}')
+            # Fallback to Stable Diffusion
+            (STABLE_DIFFUSION_MODEL_ID, f'https://api-inference.huggingface.co/models/{STABLE_DIFFUSION_MODEL_ID}'),
+            # Additional fallback models that are more accessible
+            ('stabilityai/stable-diffusion-2-1', 'https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-2-1'),
+            ('CompVis/stable-diffusion-v1-4', 'https://api-inference.huggingface.co/models/CompVis/stable-diffusion-v1-4')
         ]
         response = None
         last_error = None
