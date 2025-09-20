@@ -130,7 +130,7 @@ export function MainSlide2({ title, content, imageUrl }) {
       <FunctionSquare className="absolute bottom-40 left-1/4 w-28 h-28 text-green-400/20 rotate-[-15deg]" />
 
       {/* Left side text */}
-      <div className="w-1/2 flex flex-col justify-center p-12">
+      <div className="w-1/2 flex flex-col justify-center p-12 ml-20">
         <h2 className="text-6xl font-bold font-mono text-cyan-300 mb-4">
           {title}
         </h2>
@@ -141,17 +141,7 @@ export function MainSlide2({ title, content, imageUrl }) {
 
       {/* Right side image */}
       <div className="w-1/2 flex items-center justify-center p-6">
-        {imageUrl ? (
-          <img
-            src={imageUrl}
-            alt="visual"
-            className="rounded-lg shadow-[0_0_25px_rgba(0,246,255,0.4)] max-h-[450px]"
-          />
-        ) : (
-          <div className="w-full h-[400px] bg-white/10 border border-cyan-400/40 flex items-center justify-center text-gray-400 rounded-lg">
-            No Image
-          </div>
-        )}
+        <img src="src/svgs/engineer.svg" alt="engineer" className="w-[600px]"/>
       </div>
     </section>
   );

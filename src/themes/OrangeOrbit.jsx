@@ -83,9 +83,9 @@ export function MainSlide1({ title, content }) {
       <div className="absolute right-[-150px] top-1/2 -translate-y-1/2 w-[600px] h-[600px] border-[20px] border-orange-400/30 rounded-full"></div>
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col justify-center px-20 max-w-xl">
-        <h2 className="text-6xl font-bold text-orange-800 mb-6">{title}</h2>
-        <p className="text-3xl text-gray-800 leading-relaxed">{content}</p>
+      <div className="relative z-10 flex flex-col justify-center px-20 max-w-5xl">
+        <h2 className="text-7xl font-bold text-orange-800 mb-6">{title}</h2>
+        <p className="text-4xl text-gray-800 leading-relaxed">{content}</p>
       </div>
     </section>
   );
@@ -250,9 +250,9 @@ export function MainSlide6({ title, content, imageUrl }) {
       <div className="absolute right-[-150px] top-1/2 -translate-y-1/2 w-[600px] h-[600px] border-[20px] border-orange-400/30 rounded-full"></div>
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col justify-center px-20 max-w-xl">
-        <h2 className="text-6xl font-bold text-orange-800 mb-6">{title}</h2>
-        <p className="text-3xl text-gray-800 leading-relaxed">{content}</p>
+      <div className="relative z-10 flex flex-col justify-center px-20 max-w-5xl text-center">
+        <h2 className="text-7xl font-bold text-orange-800 mb-6">{title}</h2>
+        <p className="text-4xl text-gray-800 leading-relaxed">{content}</p>
       </div>
     </section>
   );

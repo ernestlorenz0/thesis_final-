@@ -64,12 +64,12 @@ export function MainSlide1({ title, content }) {
     <section className="relative w-[1920px] h-[1080px] bg-[#2a2a2a] text-white flex">
       {/* Vertical title bar */}
       <div className="w-1/3 bg-[#1b1b1b] flex flex-col justify-center items-center border-r-4 border-green-400/40">
-        <h2 className="text-5xl font-mono text-green-300 -rotate-2">{title}</h2>
+        <h2 className="text-7xl font-mono text-green-300 -rotate-2">{title}</h2>
       </div>
 
       {/* Content */}
       <div className="flex-1 p-16 flex items-center">
-        <p className="text-3xl font-mono leading-relaxed text-gray-200 whitespace-pre-line">
+        <p className="text-4xl font-mono leading-relaxed text-gray-200 whitespace-pre-line">
           {content}
         </p>
       </div>
@@ -81,9 +81,9 @@ export function MainSlide1({ title, content }) {
 export function MainSlide2({ title, content }) {
   return (
     <section className="relative w-[1920px] h-[1080px] bg-[#1b1b1b] text-white flex flex-col items-center justify-start p-16">
-      <h2 className="text-6xl font-mono text-yellow-300 mb-2">{title}</h2>
+      <h2 className="text-7xl font-mono text-yellow-300 mb-2">{title}</h2>
       <div className="w-64 h-[3px] bg-pink-400/70 mb-12 -rotate-1"></div>
-      <p className="text-3xl font-mono leading-relaxed max-w-4xl text-center text-gray-200">
+      <p className="text-4xl font-mono leading-relaxed max-w-4xl text-center text-gray-200">
         {content}
       </p>
     </section>
@@ -99,13 +99,13 @@ export function MainSlide3({ title, content }) {
 
       {/* Content */}
       <div className="flex-1 z-10 pr-12">
-        <h2 className="text-6xl font-mono text-cyan-300 mb-20 mt-[-200px]">{title}</h2>
-        <p className="text-3xl font-mono text-gray-200 leading-relaxed">{content}</p>
+        <h2 className="text-7xl font-mono text-cyan-300 mb-20 mt-[-200px]">{title}</h2>
+        <p className="text-4xl font-mono text-gray-200 leading-relaxed">{content}</p>
       </div>
 
       {/* Doodle area */}
       <div className="flex-1 flex items-center justify-center z-10">
-        <div className="text-7xl text-pink-400/70">✎</div>
+        <div className="text-8xl text-pink-400/70">✎</div>
       </div>
     </section>
   );
@@ -123,13 +123,17 @@ export function MainSlide4({ title, content }) {
       <div className="absolute bottom-20 right-24 text-6xl opacity-20">📐</div>
 
       {/* Text */}
-      <div className="relative z-10 px-24 max-w-2xl">
-        <h2 className="font-mono font-bold text-6xl mb-6 text-yellow-200">
+      <div className="relative z-10 px-24 max-w-4xl">
+        <h2 className="font-mono font-bold text-7xl mb-6 text-yellow-200">
           {title}
         </h2>
-        <p className="font-mono text-3xl leading-relaxed text-white/90">
+        <p className="font-mono text-4xl leading-relaxed text-white/90">
           {content}
         </p>
+      </div>
+
+      <div className="absolute flex-1 pl-16 z-10 ml-[1000px]">
+        <img src="src/svgs/Elearning.svg" alt="Elearning1" className="w-[700px] border-none"/>
       </div>
     </section>
   );
@@ -145,10 +149,10 @@ export function MainSlide5({ title, content }) {
 
       {/* Left column */}
       <div className="flex-1 pr-16 z-10">
-        <h2 className="font-mono font-bold text-6xl mb-6 text-yellow-200">
+        <h2 className="font-mono font-bold text-7xl mb-6 text-yellow-200">
           {title}
         </h2>
-        <p className="font-mono text-3xl leading-relaxed text-white/90">{content}</p>
+        <p className="font-mono text-4xl leading-relaxed text-white/90">{content}</p>
       </div>
 
       {/* Divider */}
@@ -156,9 +160,7 @@ export function MainSlide5({ title, content }) {
 
       {/* Right column */}
       <div className="flex-1 pl-16 z-10">
-        <p className="font-mono text-3xl leading-relaxed text-white">
-          {content}
-        </p>
+        <img src="src/svgs/Elearning1.svg" alt="Elearning1" className="w-[700px] border-none"/>
       </div>
     </section>
   );
@@ -178,10 +180,10 @@ export function MainSlide6({ title, content }) {
 
       {/* Main text */}
       <div className="relative z-10 max-w-4xl text-center">
-        <h2 className="font-mono font-bold text-6xl mb-8 text-yellow-200">
+        <h2 className="font-mono font-bold text-7xl mb-8 text-yellow-200">
           {title}
         </h2>
-        <p className="font-mono text-3xl leading-relaxed text-white/90">{content}</p>
+        <p className="font-mono text-4xl leading-relaxed text-white/90">{content}</p>
       </div>
     </section>
   );
@@ -204,11 +206,11 @@ export function ImageSlide({ title, imageUrl }) {
 }
 
 /* End Slide – Big thanks in chalk */
-export function EndSlide({ message }) {
+export function EndSlide() {
   return (
     <section className="relative w-[1920px] h-[1080px] bg-[#1b1b1b] text-white flex flex-col items-center justify-center">
       <div className="absolute inset-10 border-[6px] border-pink-400/60 rounded-xl opacity-60"></div>
-      <h2 className="text-6xl font-mono text-green-300 drop-shadow-lg">{message}</h2>
+      <h2 className="text-8xl font-mono text-green-300 drop-shadow-lg">Thank You!</h2>
     </section>
   );
 }

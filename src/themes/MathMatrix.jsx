@@ -82,10 +82,10 @@ export function TOCSlideMathMatrix(props) {
           <div className="absolute left-0 transform -translate-x-6 text-8xl text-white/30 font-mono select-none">⎡</div>
           <div className="relative w-[320px] h-[320px] bg-[#071018]/50 border border-white/10 rounded-lg flex items-center justify-center p-4">
             <pre className="font-mono text-lg text-white/80 leading-[1.05]">
-{`[ 1  0  0  ... ]
-[ 0  1  2  ... ]
-[ 3  5  8  ... ]
-[ .  .  .  ... ]`}
+              {`[ 1  0  0  ... ]
+              [ 0  1  2  ... ]
+              [ 3  5  8  ... ]
+              [ .  .  .  ... ]`}
             </pre>
             <div className={`absolute -bottom-6 left-6 w-36 h-2 rounded-full bg-gradient-to-r ${grad} opacity-80 blur-sm`}></div>
           </div>
@@ -122,6 +122,8 @@ export function MainSlide1({ title, content }) {
         <p className="text-3xl font-mono leading-relaxed">{content}</p>
       </div>
     </section>
+
+    
   );
 }
 
@@ -136,9 +138,13 @@ export function MainSlide2({ title, content }) {
       <p className="absolute top-8 right-12 text-green-500 opacity-40 text-lg font-mono">∫ f(x) dx</p>
       <p className="absolute bottom-8 left-8 text-green-500 opacity-40 text-lg font-mono">E = mc²</p>
 
-      <div className="relative z-10 max-w-5xl">
-        <h2 className="text-6xl font-mono font-bold mb-4">{title}</h2>
-        <p className="text-3xl font-mono leading-relaxed">{content}</p>
+      <div className="relative z-10 max-w-5xl ml-[100px] mt-[100px]">
+        <h2 className="text-7xl font-mono font-bold mb-4">{title}</h2>
+        <p className="text-4xl font-mono leading-relaxed">{content}</p>
+      </div>
+
+      <div className="absolute bottom-30 right-0 w-[700px] h-[600px] mr-20">
+        <img src="src/svgs/math.svg" alt="math"/>
       </div>
     </section>
   );
@@ -159,6 +165,10 @@ export function MainSlide3({ title, content }) {
       <div className="relative z-10 px-12">
         <h2 className="text-6xl font-mono font-bold mb-4">{title}</h2>
         <p className="text-3xl font-mono leading-relaxed">{content}</p>
+      </div>
+
+      <div className="absolute bottom-30 right-0 w-[700px] h-[600px] mr-20">
+        <img src="src/svgs/math1.svg" alt="math"/>
       </div>
     </section>
   );

@@ -64,9 +64,9 @@ export function MainSlide1({ title, content }) {
       {/* Decorative border frame */}
       <div className="absolute inset-12 border-4 border-[#b9a07f] rounded-2xl opacity-40" />
 
-      <h2 className="text-6xl font-serif font-bold mb-2">{title}</h2>
+      <h2 className="text-8xl font-serif font-bold mb-2">{title}</h2>
       <div className="h-[3px] w-40 bg-yellow-600 mb-8"></div>
-      <div className="text-3xl font-serif leading-relaxed">{content}</div>
+      <div className="text-4xl font-serif leading-relaxed">{content}</div>
     </section>
   );
 }
@@ -87,11 +87,11 @@ export function MainSlide2({ title, content }) {
       <div className="absolute inset-12 border-4 border-[#b9a07f] rounded-2xl opacity-40" />
 
       <div className="flex-1 pr-12">
-        <h2 className="text-6xl font-serif font-bold mb-6">{title}</h2>
-        <div className="text-3xl font-serif leading-relaxed">{content}</div>
+        <h2 className="text-7xl font-serif font-bold mb-6">{title}</h2>
+        <div className="text-4xl font-serif leading-relaxed">{content}</div>
       </div>
       <div className="flex-1 flex items-center justify-center">
-        <div className="w-[80%] h-[80%] border-2 border-yellow-600 rounded-lg opacity-30"></div>
+        <img src="src/svgs/abroad.svg" alt="abroad" className="w-[700px]"/>
       </div>
     </section>
   );
@@ -102,8 +102,8 @@ export function MainSlide3({ title, content }) {
   return (
     <section className="relative w-[1920px] h-[1080px] bg-gradient-to-br from-gray-100 to-white text-gray-900 px-24 py-16 flex flex-col items-center justify-center">
       <div className="absolute inset-8 border-4 border-yellow-600 rounded-xl opacity-40"></div>
-      <h2 className="text-6xl font-serif font-bold mb-[150px] z-10 mt-[-250px] ">{title}</h2>
-      <div className="text-3xl font-serif leading-relaxed max-w-5xl text-center z-10">{content}</div>
+      <h2 className="text-7xl font-serif font-bold mb-[150px] z-10 mt-[-250px] ">{title}</h2>
+      <div className="text-4xl font-serif leading-relaxed max-w-5xl text-center z-10">{content}</div>
     </section>
   );
 }
@@ -157,8 +157,8 @@ export function MainSlide4({ title, content }) {
 
       {/* Left */}
       <div className="flex-1 px-24 py-20 z-10 flex flex-col justify-center">
-        <h2 className="text-5xl font-serif font-bold mb-8">{title}</h2>
-        <p className="text-2xl font-serif leading-relaxed">{content}</p>
+        <h2 className="text-7xl font-serif font-bold mb-8">{title}</h2>
+        <p className="text-4xl font-serif leading-relaxed">{content}</p>
       </div>
 
       {/* Divider */}
@@ -166,24 +166,7 @@ export function MainSlide4({ title, content }) {
 
       {/* Right */}
       <div className="flex-1 px-24 py-20 z-10 flex items-center">
-        <p className="text-2xl font-serif leading-relaxed opacity-80">{content}</p>
-      </div>
-    </section>
-  );
-}
-
-/* Main Slide 5 – Vertical orientation (title on top, content stacked in sections) */
-export function MainSlide5({ title, content }) {
-  return (
-    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-t from-gray-50 to-white text-gray-900 flex flex-col items-center px-24 py-20 overflow-hidden">
-      {/* Background accents */}
-      <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-full h-40 bg-yellow-500/10"></div>
-      <div className="absolute bottom-0 right-0 w-80 h-80 bg-gray-400/20 rounded-full blur-3xl"></div>
-
-      <h2 className="text-6xl font-serif font-bold mb-12 z-10">{title}</h2>
-      <div className="grid grid-cols-1 gap-10 max-w-5xl z-10">
-        <p className="text-2xl font-serif leading-relaxed">{content}</p>
-        <p className="text-2xl font-serif leading-relaxed opacity-80">{content}</p>
+        <img src="src/svgs/studying1.svg" alt="studying1" className="w-[700px]"/>
       </div>
     </section>
   );
@@ -198,8 +181,8 @@ export function MainSlide6({ title, content }) {
       <div className="absolute bottom-10 right-10 w-64 h-64 bg-yellow-500/20 rounded-lg rotate-12 blur-2xl"></div>
 
       <div className="relative z-10 max-w-4xl text-left">
-        <h2 className="text-5xl font-serif font-bold mb-8">{title}</h2>
-        <p className="text-2xl font-serif leading-relaxed">{content}</p>
+        <h2 className="text-7xl font-serif font-bold mb-8">{title}</h2>
+        <p className="text-4xl font-serif leading-relaxed">{content}</p>
       </div>
     </section>
   );

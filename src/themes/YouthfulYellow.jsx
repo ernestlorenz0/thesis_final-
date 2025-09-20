@@ -70,13 +70,13 @@ export function MainSlide1({ title, content }) {
     <section className="relative w-[1920px] h-[1080px] bg-yellow-100 flex overflow-hidden">
       {/* Left column for title */}
       <div className="w-1/3 bg-yellow-400/90 p-12 flex flex-col justify-center items-start shadow-lg z-10">
-        <h2 className="text-5xl font-bold text-yellow-900 mb-6">{title}</h2>
+        <h2 className="text-6xl font-bold text-yellow-900 mb-6">{title}</h2>
       </div>
 
       {/* Right content with curved wave */}
       <div className="flex-1 p-16 flex items-center justify-center relative">
         <div className="absolute inset-y-0 left-1/3 w-[200%] bg-yellow-200 rounded-l-[50%]"></div>
-        <p className="relative z-10 text-3xl text-yellow-900 leading-relaxed max-w-2xl">
+        <p className="relative z-10 text-4xl text-yellow-900 leading-relaxed max-w-2xl">
           {content}
         </p>
       </div>
@@ -90,8 +90,8 @@ export function MainSlide2({ title, content }) {
     <section className="relative w-[1920px] h-[1080px] bg-gradient-to-br from-yellow-200 to-orange-100 flex items-center justify-center overflow-hidden">
       {/* Floating card tilted */}
       <div className="relative bg-white/90 p-12 rounded-3xl shadow-2xl border-8 border-yellow-400 rotate-[-2deg] max-w-3xl text-center">
-        <h2 className="text-6xl font-bold text-yellow-800 mb-6">{title}</h2>
-        <p className="text-3xl text-yellow-900 leading-relaxed">{content}</p>
+        <h2 className="text-7xl font-bold text-yellow-800 mb-6">{title}</h2>
+        <p className="text-4xl text-yellow-900 leading-relaxed">{content}</p>
       </div>
     </section>
   );
@@ -110,8 +110,8 @@ export function MainSlide3({ title, content }) {
 
       {/* Content split */}
       <div className="relative z-10 w-full flex flex-col items-center justify-center text-center px-16">
-        <h2 className="text-6xl font-extrabold text-yellow-900 mb-6">{title}</h2>
-        <p className="text-3xl text-yellow-800 leading-relaxed max-w-3xl">
+        <h2 className="text-7xl font-extrabold text-yellow-900 mb-6">{title}</h2>
+        <p className="text-4xl text-yellow-800 leading-relaxed max-w-3xl">
           {content}
         </p>
       </div>
@@ -129,10 +129,14 @@ export function MainSlide4({ title, content }) {
 
       {/* Text content */}
       <div className="relative z-10 flex flex-col justify-center pl-32 w-2/3">
-        <h2 className="text-6xl font-extrabold text-yellow-900 mb-6">{title}</h2>
-        <p className="text-3xl text-orange-900 max-w-2xl leading-relaxed">
+        <h2 className="text-7xl font-extrabold text-yellow-900 mb-6">{title}</h2>
+        <p className="text-4xl text-orange-900 max-w-2xl leading-relaxed">
           {content}
         </p>
+      </div>
+
+      <div className="absolute right-20 top-0 w-1/3 h-full flex items-center justify-center">
+        <img src="src/svgs/bulb.svg" alt="bulb" />
       </div>
     </section>
   );

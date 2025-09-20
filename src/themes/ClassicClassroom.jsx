@@ -88,16 +88,12 @@ export function MainSlide2({ title, content, imageUrl }) {
       <Sigma className="absolute top-32 right-32 w-28 h-28 text-[#EAD7B7]/20" />
       <Ruler className="absolute bottom-32 right-16 w-28 h-28 text-[#EAD7B7]/20" />
 
-      <div className="relative ml-20 z-10 w-1/2 h-4/5 border-8 border-[#EAD7B7] flex items-center justify-center bg-black/20">
-        {imageUrl ? (
-          <img src={imageUrl} alt="content" className="w-full h-full object-contain" />
-        ) : (
-          <span>No Image</span>
-        )}
+      <div className="relative ml-20 z-10 w-[800px] h-4/5 flex items-center justify-center">
+        <img src="src/svgs/classroom.svg" alt="classroom_img"/>
       </div>
       <div className="relative z-10 w-1/2 p-8">
-        <h2 className="font-[HedvigLettersSerif] text-6xl mb-4 translate-y-[-100px]">{title}</h2>
-        <p className="text-3xl leading-relaxed">{content}</p>
+        <h2 className="font-[HedvigLettersSerif] text-7xl mb-4 translate-y-[-50px]">{title}</h2>
+        <p className="text-4xl leading-relaxed">{content}</p>
       </div>
     </section>
   );
@@ -106,8 +102,7 @@ export function MainSlide2({ title, content, imageUrl }) {
 export function MainSlide3({ title, content, imageUrl }) {
   return (
     <section className="relative w-[1920px] h-[1080px] bg-[#0D3B36] text-white flex items-center overflow-hidden">
-      <img src="src/svgs/line-swirl1.svg" alt="swirl top" className="absolute top-0 left-0 w-full" />
-      <img src="src/svgs/line-swirl2.svg" alt="swirl bottom" className="absolute bottom-0 left-0 w-full" />
+      <div className="absolute inset-0 border-[30px] border-[#5d4037] rounded-xl shadow-2xl" />
 
       {/* Chalk-style background icons */}
       <Pencil className="absolute top-20 left-20 w-24 h-24 text-[#EAD7B7]/20" />
@@ -116,15 +111,11 @@ export function MainSlide3({ title, content, imageUrl }) {
       <Ruler className="absolute bottom-32 right-16 w-28 h-28 text-[#EAD7B7]/20" />
 
       <div className="relative z-10 w-1/2 p-8 text-right">
-        <h2 className="font-[HedvigLettersSerif] text-6xl mb-4 translate-y-[-100px]">{title}</h2>
-        <p className="text-3xl leading-relaxed">{content}</p>
+        <h2 className="font-[HedvigLettersSerif] text-7xl mb-4 translate-y-[-100px]">{title}</h2>
+        <p className="text-4xl leading-relaxed">{content}</p>
       </div>
-      <div className="relative mr-20 z-10 w-1/2 h-4/5 border-8 border-[#EAD7B7] flex items-center justify-center bg-black/20">
-        {imageUrl ? (
-          <img src={imageUrl} alt="content" className="w-full h-full object-contain" />
-        ) : (
-          <span>No Image</span>
-        )}
+      <div className="relative mr-20 z-10 w-[800px] h-4/5flex items-center justify-center">
+        <img src="src/svgs/classroom1.svg" alt="classroom1" className="w-[700px]"/>
       </div>
     </section>
   );
@@ -133,8 +124,7 @@ export function MainSlide3({ title, content, imageUrl }) {
 export function MainSlide4({ title, content, imageUrl }) {
   return (
     <section className="relative w-[1920px] h-[1080px] bg-[#0D3B36] flex items-center justify-center overflow-hidden">
-      <img src="src/svgs/line-swirl1.svg" alt="swirl top" className="absolute top-0 left-0 w-full" />
-      <img src="src/svgs/line-swirl2.svg" alt="swirl bottom" className="absolute bottom-0 left-0 w-full" />
+      <div className="absolute inset-0 border-[30px] border-[#5d4037] rounded-xl shadow-2xl" />
 
       {/* Chalk-style background icons */}
       <Pencil className="absolute top-20 left-20 w-24 h-24 text-[#EAD7B7]/20" />
@@ -142,18 +132,11 @@ export function MainSlide4({ title, content, imageUrl }) {
       <Sigma className="absolute top-32 right-32 w-28 h-28 text-[#EAD7B7]/20" />
       <Ruler className="absolute bottom-32 right-16 w-28 h-28 text-[#EAD7B7]/20" />
 
-      <div className="relative z-10 w-5/6 h-5/6 border-4 border-[#EAD7B7] flex flex-col items-center justify-center bg-black/20">
-        {imageUrl ? (
-          <img src={imageUrl} alt="content" className="w-full h-full object-contain" />
-        ) : (
-          <span className="text-white">No Image</span>
-        )}
-        {(title || content) && (
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-center text-white bg-black/50 px-4 py-2 rounded">
-            {title && <h2 className="font-[HedvigLettersSerif] text-5xl">{title}</h2>}
-            {content && <p className="text-2xl">{content}</p>}
+      <div className="relative z-10 w-5/6 h-5/6  flex flex-col items-center justify-center">
+        <div className="absolute left-1/2 -translate-x-1/2 text-center text-white  px-4 py-2 rounded">
+            {title && <h2 className="font-[HedvigLettersSerif] text-7xl mb-20">{title}</h2>}
+            {content && <p className="text-4xl">{content}</p>}
           </div>
-        )}
       </div>
     </section>
   );

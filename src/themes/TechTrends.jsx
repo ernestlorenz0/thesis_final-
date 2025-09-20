@@ -68,23 +68,13 @@ export function MainSlide1({ title, content, imageUrl }) {
     <section className="relative w-[1920px] h-[1080px] flex bg-gray-900 text-white">
       {/* Left text */}
       <div className="w-1/2 p-16 flex flex-col justify-center">
-        <h2 className="text-6xl font-bold text-blue-400 mb-6">{title}</h2>
-        <p className="text-3xl leading-relaxed text-gray-300">{content}</p>
+        <h2 className="text-7xl font-bold text-blue-400 mb-6">{title}</h2>
+        <p className="text-4xl leading-relaxed text-gray-300">{content}</p>
       </div>
 
       {/* Right image */}
       <div className="w-1/2 flex items-center justify-center bg-gradient-to-l from-purple-700/30 to-transparent">
-        {imageUrl ? (
-          <img
-            src={imageUrl}
-            alt="Tech visual"
-            className="max-h-[400px] rounded-lg shadow-lg border border-blue-500"
-          />
-        ) : (
-          <div className="w-[400px] h-[300px] flex items-center justify-center text-gray-500 border border-dashed border-blue-500">
-            No Image
-          </div>
-        )}
+        <img src="src/svgs/techtalks.svg" alt="techtalks" className="w-[700px]"/>
       </div>
     </section>
   );
@@ -96,23 +86,13 @@ export function MainSlide2({ title, content, imageUrl }) {
     <section className="relative w-[1920px] h-[1080px] flex bg-gradient-to-r from-blue-950 to-gray-900 text-white">
       {/* Left image */}
       <div className="w-1/2 flex items-center justify-center bg-gradient-to-r from-blue-700/30 to-transparent">
-        {imageUrl ? (
-          <img
-            src={imageUrl}
-            alt="Tech visual"
-            className="max-h-[420px] rounded-xl shadow-lg border border-purple-400"
-          />
-        ) : (
-          <div className="w-[400px] h-[300px] flex items-center justify-center text-gray-500 border border-dashed border-purple-400">
-            No Image
-          </div>
-        )}
+        <img src="src/svgs/server.svg" alt="server" className="w-[700px]"/>
       </div>
 
       {/* Right text */}
-      <div className="w-1/2 p-16 flex flex-col justify-center">
-        <h2 className="text-6xl font-bold text-purple-400 mb-6">{title}</h2>
-        <p className="text-3xl leading-relaxed text-gray-300">{content}</p>
+      <div className="w-1/2 p-16 flex flex-col justify-center ml-[-100px]">
+        <h2 className="text-7xl font-bold text-purple-400 mb-6">{title}</h2>
+        <p className="text-4xl leading-relaxed text-gray-300">{content}</p>
       </div>
     </section>
   );
@@ -127,9 +107,9 @@ export function MainSlide3({ title, content }) {
       <div className="absolute top-0 right-0 w-2/3 h-full bg-gradient-to-bl from-purple-800/80 to-transparent transform -skew-x-6"></div>
 
       {/* Content */}
-      <div className="relative z-10 px-24 max-w-3xl">
-        <h2 className="text-5xl font-extrabold text-blue-300 mb-6 translate-y-[-200px]">{title}</h2>
-        <p className="text-3xl leading-relaxed text-gray-200 translate-x-[450px] translate-y-[-150px]">{content}</p>
+      <div className="relative z-10 px-24 max-w-4xl">
+        <h2 className="text-7xl font-extrabold text-blue-300 mb-6 translate-y-[-200px]">{title}</h2>
+        <p className="text-4xl leading-relaxed text-gray-200 translate-x-[700px] translate-y-[-150px]">{content}</p>
       </div>
     </section>
   );
@@ -177,18 +157,14 @@ export function MainSlide5({ title, content, imageUrl }) {
       {/* Content */}
       <div className="relative z-10 flex flex-col lg:flex-row items-center gap-16">
         {/* Image */}
-        <div className="w-[500px] h-[350px] flex items-center justify-center border-4 border-blue-500/50 rounded-xl shadow-[0_0_40px_rgba(59,130,246,0.6)] bg-gray-900/60">
-          {imageUrl ? (
-            <img src={imageUrl} alt="Hologram visual" className="w-full h-full object-contain rounded-lg" />
-          ) : (
-            <span className="text-gray-500">No Image</span>
-          )}
+        <div className="w-[700px] h-[350px] flex items-center justify-center">
+          <img src="src/svgs/robot.svg" alt="robot" />
         </div>
 
         {/* Text */}
         <div className="max-w-xl">
-          <h2 className="text-5xl font-bold text-purple-300 mb-6">{title}</h2>
-          <p className="text-2xl leading-relaxed text-gray-300">{content}</p>
+          <h2 className="text-7xl font-bold text-purple-300 mb-6">{title}</h2>
+          <p className="text-4xl leading-relaxed text-gray-300">{content}</p>
         </div>
       </div>
     </section>

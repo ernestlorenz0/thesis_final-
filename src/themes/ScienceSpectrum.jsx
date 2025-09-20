@@ -11,7 +11,7 @@ export function TitleSlide({ title, subtitle }) {
       <div className="absolute top-1/3 right-1/4 text-7xl opacity-30">🧪</div>
 
       {/* Title text */}
-      <h1 className="text-6xl font-extrabold font-sans drop-shadow-lg mb-4">
+      <h1 className="text-8xl font-extrabold font-sans drop-shadow-lg mb-4">
         {title}
       </h1>
       <h2 className="text-2xl font-light opacity-90">{subtitle}</h2>
@@ -88,8 +88,8 @@ export function MainSlide2({ title, content }) {
         <h2 className="text-6xl font-bold mb-20 mt-[-200px]">{title}</h2>
         <p className="text-3xl leading-relaxed text-gray-100">{content}</p>
       </div>
-      <div className="flex-1 flex items-center justify-center text-8xl opacity-40">
-        🧬
+      <div className="flex-1 flex items-center justify-center">
+        <img src="src/svgs/chemistrylab.svg" alt="chemistrylab" className="w-[700px]"/>
       </div>
     </section>
   );
@@ -130,19 +130,13 @@ export function MainSlide4({ title, content, imageUrl }) {
   return (
     <section className="relative w-[1920px] h-[1080px] bg-gradient-to-r from-blue-800 via-purple-700 to-pink-600 text-white flex overflow-hidden">
       {/* Left image area */}
-      <div className="w-1/2 flex items-center justify-center bg-black/30">
-        {imageUrl && (
-          <img
-            src={imageUrl}
-            alt="visual"
-            className="max-h-[600px] rounded-xl border-4 border-pink-400 shadow-lg object-contain"
-          />
-        )}
+      <div className="w-1/2 flex items-center justify-center">
+        <img src="src/svgs/sciencelab.svg" alt="sciencelab" className="w-[600px]"/>
       </div>
       {/* Right text area */}
       <div className="w-1/2 flex flex-col justify-center px-20">
-        <h2 className="text-6xl font-bold mb-8">{title}</h2>
-        <p className="text-3xl leading-relaxed text-gray-100">{content}</p>
+        <h2 className="text-7xl font-bold mb-8">{title}</h2>
+        <p className="text-4xl leading-relaxed text-gray-100">{content}</p>
       </div>
 
       {/* Science accents */}

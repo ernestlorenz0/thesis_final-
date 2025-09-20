@@ -90,9 +90,7 @@ export function MainSlide2({ title, content, imageUrl }) {
         <p className="text-3xl font-sans leading-relaxed">{content}</p>
       </div>
       <div className="flex-1 flex items-center justify-center z-10">
-        <div className="w-72 h-72 bg-playful-100 border-4 border-playful-900 rounded-2xl shadow-lg flex items-center justify-center text-8xl">
-          {imageUrl}
-        </div>
+        <img src="src/svgs/puzzle.svg" alt="puzzle" />
       </div>
     </section>
   );

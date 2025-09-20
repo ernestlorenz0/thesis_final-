@@ -161,9 +161,17 @@ export function MainSlide3({ title, content }) {
       />
 
       {/* Text (now on the left, top-aligned) */}
-      <div className="relative z-10 px-12 pt-12 max-w-xl text-left">
-        <h2 className="font-[BebasNeue] text-6xl mb-6">{title}</h2>
-        <p className="font-[Poppins] text-3xl leading-relaxed">{content}</p>
+      <div className="relative z-10 px-12 pt-12 max-w-5xl text-left ml-[50px] mt-[50px]">
+        <h2 className="font-[BebasNeue] text-7xl mb-6">{title}</h2>
+        <p className="font-[Poppins] text-4xl leading-relaxed">{content}</p>
+      </div>
+
+      <div className="absolute right-0 top-0 h-full">
+        <img
+          src="src/svgs/painting.svg"
+          alt="right blob"
+          className="h-full w-[600px] translate-y-[-1 00px] translate-x-[-50px] "
+        />
       </div>
     </section>
   );
@@ -181,33 +189,6 @@ export function MainSlide4({ title, content }) {
       />
 
       {/* Title on the left (black background) */}
-      <div className="relative z-10 w-1/2 flex items-center justify-center px-12">
-        <h2 className="font-[BebasNeue] text-5xl text-white-400  translate-y-[-200px] translate-x-[-150px]">{title}</h2>
-      </div>
-
-      {/* Content inside half orange */}
-      <div className="relative z-20 w-1/2 flex items-center px-16">
-        <p className="font-[Poppins] text-3xl leading-relaxed text-white drop-shadow-lg translate-y-[-100px] translate-x-[-70px]">
-          {content}
-        </p>
-      </div>
-    </section>
-  );
-}
-
-
-
-// Main Slide 5
-export function MainSlide5({ title, content }) {
-  return (
-    <section className="relative w-[1920px] h-[1080px] bg-black text-white overflow-hidden flex items-center">
-      {/* Top Purple + Orange Blob */}
-      <img src="src/svgs/ellipse-top.svg" alt="top accent" className="absolute top-0 w-[500px]" />
-
-      {/* Bottom Paint */}
-      <img src="src/svgs/paint-background2.svg" alt="paint background" className="absolute bottom-0 w-full" />
-
-      {/* Text */}
       <div className="relative z-10 w-1/2 flex items-center justify-center px-12">
         <h2 className="font-[BebasNeue] text-5xl text-white-400  translate-y-[-200px] translate-x-[-150px]">{title}</h2>
       </div>
@@ -306,7 +287,6 @@ const ArtStudio = { TitleSlide,
                    TOCSlide: TOCSlideArtStudio,
                    MainSlide2, 
                    MainSlide3, 
-                   MainSlide4, 
-                   MainSlide5, 
+                   MainSlide4,
                    EndSlide };
 export default ArtStudio;

@@ -120,17 +120,7 @@ export function MainSlide({ title, content, imageUrl }) {
 
       {/* Image Section */}
       <div className="flex-1 flex items-center justify-center">
-        {imageUrl ? (
-          <img
-            src={imageUrl}
-            alt="content"
-            className="w-full h-full object-cover rounded-xl shadow-lg"
-          />
-        ) : (
-          <div className="w-full h-full bg-gray-300 rounded-xl flex items-center justify-center text-black">
-            No Image
-          </div>
-        )}
+        <img src="src/svgs/paper.svg" alt="paper" />
       </div>
     </section>
   );
@@ -140,8 +130,8 @@ export function MainSlide({ title, content, imageUrl }) {
 export function MainSlide1({ title, content, imageUrl }) {
   return (
     <section className="w-[1920px] h-[1080px] bg-white flex p-24 gap-12">
-      <div className="w-1/2 flex items-center justify-center bg-gray-300">
-        {imageUrl && <img src={imageUrl} alt="content" className="w-full h-full object-cover" />}
+      <div className="w-1/2 flex items-center justify-center">
+        <img src="src/svgs/books.svg" alt="books" className="w-[600px]"/>
       </div>
       <div className="w-1/2 flex flex-col">
         <h2 className="font-merriweather font-bold text-6xl mb-8 text-black">{title}</h2>
@@ -151,29 +141,13 @@ export function MainSlide1({ title, content, imageUrl }) {
   );
 }
 
-export function MainSlide2({ title, content, images }) {
+export function MainSlide2({ title, content,  }) {
   return (
     <section className="w-[1920px] h-[1080px] bg-white flex flex-col p-24">
       <h2 className="font-merriweather font-bold text-6xl mb-8 text-black">{title}</h2>
       <p className="font-lato font-light text-3xl mb-12 text-black">{content}</p>
       <div className="flex justify-between">
-        {images.map((img, index) => (
-          <div key={index} className="w-[30%] h-[300px] bg-gray-300 flex items-center justify-center">
-            {img && <img src={img} alt={`content-${index}`} className="w-full h-full object-cover" />}
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-export function MainSlide3({ title, content, imageUrl }) {
-  return (
-    <section className="w-[1920px] h-[1080px] bg-white flex flex-col p-24">
-      <h2 className="font-merriweather font-bold text-5xl mb-8 text-black">{title}</h2>
-      <p className="font-lato font-light text-3xl mb-12 text-black">{content}</p>
-      <div className="w-full h-[500px] bg-gray-300 flex items-center justify-center">
-        {imageUrl && <img src={imageUrl} alt="content" className="w-full h-full object-cover" />}
+        
       </div>
     </section>
   );
@@ -196,22 +170,17 @@ export function EndSlide({ message = "Thank You!", subtitle }) {
 }
 
 export function MainSlide4({ title, content }) {
-  // Placeholder second block for preview
-  const secondTitle = "Second Title Placeholder";
-  const secondContent =
-    "This is the second content block placeholder. It will later be filled in from backend.";
-
   return (
     <section className="w-[1920px] h-[1080px] bg-white flex flex-col p-24">
       {/* Two-column layout with divider */}
       <div className="flex flex-1 items-stretch justify-center gap-16">
         {/* Left block */}
         <div className="flex-1 flex flex-col justify-center pr-8 text-right">
-          <h3 className="font-merriweather font-bold text-5xl mb-4 text-black">
-            {title || "First Title"}
-          </h3>
-          <p className="font-lato font-light text-3xl leading-relaxed text-gray-800">
-            {content || "This is the first content block placeholder."}
+          <h2 className="font-merriweather font-bold text-7xl mb-4 text-black">
+            {title}
+          </h2>
+          <p className="font-lato font-light text-4xl leading-relaxed text-gray-800">
+            {content}
           </p>
         </div>
 
@@ -222,57 +191,12 @@ export function MainSlide4({ title, content }) {
 
         {/* Right block */}
         <div className="flex-1 flex flex-col justify-center pl-8 text-left">
-          <h3 className="font-merriweather font-bold text-5xl mb-4 text-black">
-            {secondTitle}
-          </h3>
-          <p className="font-lato font-light text-3xl leading-relaxed text-gray-800">
-            {secondContent}
-          </p>
+          <img src="src/svgs/studying.svg" alt="studying" className="w-[600px]"/>
         </div>
       </div>
     </section>
   );
 }
-
-
-export function MainSlide5({ title, content }) {
-  // Placeholder second block for preview
-  const secondTitle = "Second Title Placeholder";
-  const secondContent =
-    "This is the second content block placeholder. It will later be filled from backend.";
-
-  return (
-    <section className="w-[1920px] h-[1080px] bg-white flex flex-col p-24">
-      {/* Wrapper for equal halves */}
-      <div className="flex flex-1 flex-col">
-        {/* Top half */}
-        <div className="flex-1 flex flex-col justify-center">
-          <h2 className="font-merriweather font-bold text-5xl mb-4 text-black text-center">
-            {title || "First Title"}
-          </h2>
-          <p className="font-lato font-light text-3xl leading-relaxed text-gray-800 text-center">
-            {content || "This is the first content block placeholder."}
-          </p>
-        </div>
-
-        {/* Divider line in center */}
-        <div className="w-full h-[2px] bg-gray-300 my-8"></div>
-
-        {/* Bottom half */}
-        <div className="flex-1 flex flex-col justify-center">
-          <h2 className="font-merriweather font-bold text-5xl mb-4 text-black text-center">
-            {secondTitle}
-          </h2>
-          <p className="font-lato font-light text-3xl leading-relaxed text-gray-800 text-center">
-            {secondContent}
-          </p>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-
 
 // 3. ContentSlideWideCenterText
 // Wide centered block with optional background accent
@@ -293,6 +217,6 @@ const AcademicMinimal = { TitleSlide,
                           ContentSlide, 
                           ImageSlide, 
                           ContentSlideText, 
-                          MainSlide, MainSlide1, MainSlide2, MainSlide3, MainSlide4, MainSlide5, MainSlide6,
+                          MainSlide, MainSlide1, MainSlide2, MainSlide4, MainSlide6,
                           EndSlide };
 export default AcademicMinimal;

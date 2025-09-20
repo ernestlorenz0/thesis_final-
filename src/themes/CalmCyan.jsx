@@ -81,11 +81,12 @@ export function MainSlide4({ title, content }) {
     <section className="w-[1920px] h-[1080px] flex">
       {/* Left white with cyan wave */}
       <div className="w-1/2 bg-white flex items-center justify-center p-10">
+      <img src="src/svgs/thesis1.svg" alt="thesis" />
       </div>
       {/* Right navy side */}
       <div className="w-1/2 bg-[#2c3e50] flex flex-col items-center justify-center p-10">
-        <h3 className="text-5xl font-semibold text-white mb-4 translate-y-[-200px]">{title}</h3>
-        <p className="text-white translate-y-[-150px] text-2xl">{content}</p>
+        <h3 className="text-6xl font-semibold text-white mb-4 translate-y-[-200px]">{title}</h3>
+        <p className="text-white translate-y-[-150px] text-3xl">{content}</p>
       </div>
     </section>
   );

@@ -85,9 +85,13 @@ export function MainSlide2({ title, content }) {
       <div className="absolute w-[400px] h-[400px] bg-fuchsia-400/30 rounded-[60%_40%_30%_70%] blur-2xl bottom-10 right-10"></div>
 
       {/* Content side */}
-      <div className="relative z-10 px-20 max-w-3xl">
+      <div className="relative z-10 px-20 max-w-5xl">
         <h2 className="text-6xl font-bold text-purple-800 mb-6">{title}</h2>
         <p className="text-3xl text-purple-900 leading-relaxed">{content}</p>
+      </div>
+
+      <div className="absolute right-20 top-30">
+        <img src="src/svgs/working.svg" alt="working" className="w-[700px]"/>
       </div>
     </section>
   );

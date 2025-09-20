@@ -59,13 +59,17 @@ export function MainSlide1({ title, content }) {
     <section className="relative w-[1920px] h-[1080px] bg-gradient-to-r from-blue-200 to-purple-200 flex overflow-hidden">
       {/* Left angled panel */}
       <div className="w-2/5 bg-white/90 backdrop-blur-md p-10 rotate-[-2deg] shadow-xl m-8 rounded-lg relative z-10">
-        <h2 className="text-5xl font-bold font-serif text-purple-800 mb-4">{title}</h2>
-        <p className="text-2xl font-sans text-gray-800 leading-relaxed">{content}</p>
+        <h2 className="text-6xl font-bold font-serif text-purple-800 mb-4">{title}</h2>
+        <p className="text-4xl font-sans text-gray-800 leading-relaxed">{content}</p>
       </div>
 
       {/* Right abstract paint area */}
       <div className="flex-1 relative">
         <div className="absolute inset-0 bg-gradient-to-tl from-pink-300/50 to-yellow-200/40 rotate-3"></div>
+      </div>
+
+      <div className="absolute bottom-[300px] right-32 w-[800px] items-center justify-center">
+        <img src="src/svgs/creative.svg" alt="creative" />
       </div>
     </section>
   );
@@ -80,8 +84,8 @@ export function MainSlide2({ title, content }) {
 
       {/* Floating framed card */}
       <div className="relative z-10 bg-white/90 p-12 rounded-3xl border-[6px] border-cyan-400 shadow-2xl rotate-1 max-w-3xl">
-        <h2 className="text-6xl font-extrabold text-cyan-700 mb-6">{title}</h2>
-        <p className="text-3xl text-gray-800 leading-relaxed">{content}</p>
+        <h2 className="text-7xl font-extrabold text-cyan-700 mb-6">{title}</h2>
+        <p className="text-4xl text-gray-800 leading-relaxed">{content}</p>
       </div>
     </section>
   );
@@ -97,8 +101,8 @@ export function MainSlide3({ title, content }) {
 
       {/* Content card */}
       <div className="relative z-10 m-auto bg-white/90 p-12 rounded-2xl border-4 border-purple-400 shadow-lg max-w-3xl text-center">
-        <h2 className="text-6xl font-bold text-purple-800 mb-4">{title}</h2>
-        <p className="text-3xl text-gray-800 leading-relaxed">{content}</p>
+        <h2 className="text-7xl font-bold text-purple-800 mb-4">{title}</h2>
+        <p className="text-4xl text-gray-800 leading-relaxed">{content}</p>
       </div>
     </section>
   );
@@ -139,10 +143,10 @@ export function MainSlide5({ title, content }) {
       <h2 className="relative z-10 text-8xl font-bold text-yellow-600 mb-8">{title}</h2>
 
       {/* Divider bar */}
-      <div className="relative z-10 w-2/3 h-4 bg-gradient-to-r from-pink-400 to-yellow-400 rounded-full mb-10"></div>
+      <div className="relative z-10 w-2/3 h-2 bg-gradient-to-r from-pink-400 to-yellow-400 rounded-full mb-10"></div>
 
       {/* Content text */}
-      <p className="relative z-10 text-3xl text-gray-700 leading-relaxed max-w-5xl text-center">
+      <p className="relative z-10 text-4xl text-gray-700 leading-relaxed max-w-5xl text-center">
         {content}
       </p>
     </section>
@@ -159,7 +163,7 @@ export function MainSlide6({ title, content }) {
       {/* Left column with text */}
       <div className="z-10">
         <h2 className="text-7xl font-extrabold text-blue-700 mb-8">{title}</h2>
-        <p className="text-3xl text-gray-800 leading-relaxed">{content}</p>
+        <p className="text-4xl text-gray-800 leading-relaxed">{content}</p>
       </div>
 
       {/* Right column with icons */}

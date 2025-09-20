@@ -72,9 +72,13 @@ export function MainSlide1({ title, content }) {
       {/* Big decorative quote mark */}
       <div className="absolute top-10 left-10 text-[200px] text-pink-300 opacity-80 font-serif">“</div>
 
-      <div className="flex-1 p-20 flex flex-col justify-center">
-        <h2 className="text-6xl font-bold mb-6">{title}</h2>
-        <p className="text-3xl leading-relaxed max-w-3xl">{content}</p>
+      <div className="flex-1 p-20 flex flex-col justify-center ml-[100px]">
+        <h2 className="text-7xl font-bold mb-6">{title}</h2>
+        <p className="text-4xl leading-relaxed max-w-3xl">{content}</p>
+      </div>
+
+      <div className="absolute mt-[160px] bottom-30 right-0 w-[700px] h-[600px] mr-20">
+        <img src="src/svgs/discussion.svg" alt="math"/>
       </div>
     </section>
   );
@@ -110,8 +114,12 @@ export function MainSlide3({ title, content }) {
 
       {/* Content */}
       <div className="relative z-10 flex flex-col justify-center max-w-4xl">
-        <h2 className="text-6xl font-bold text-gray-900 mb-6">{title}</h2>
-        <p className="text-3xl text-gray-800 leading-relaxed">{content}</p>
+        <h2 className="text-7xl font-bold text-gray-900 mb-6">{title}</h2>
+        <p className="text-4xl text-gray-800 leading-relaxed">{content}</p>
+      </div>
+
+      <div className="absolute mt-[200px] bottom-30 right-0 w-[700px] h-[600px] mr-20">
+        <img src="src/svgs/speech.svg" alt="math"/>
       </div>
     </section>
   );
@@ -127,13 +135,13 @@ export function MainSlide4({ title, content }) {
 
       {/* Left side – title */}
       <div className="w-1/2 flex flex-col justify-center px-20">
-        <h2 className="text-6xl font-bold mb-6">{title}</h2>
+        <h2 className="text-7xl font-bold mb-6">{title}</h2>
       </div>
 
       {/* Right side – content inside bubble */}
       <div className="w-1/2 flex items-center justify-center">
         <div className="relative bg-white shadow-lg rounded-3xl p-12 max-w-xl">
-          <p className="text-3xl text-gray-800 leading-relaxed">{content}</p>
+          <p className="text-4xl text-gray-800 leading-relaxed">{content}</p>
           <div className="absolute -bottom-6 left-12 w-8 h-8 bg-white rotate-45 shadow-md"></div>
         </div>
       </div>
@@ -171,8 +179,12 @@ export function MainSlide6({ title, content }) {
 
       {/* Content */}
       <div className="relative z-10 flex flex-col justify-center px-32 max-w-5xl">
-        <h2 className="text-6xl font-bold text-gray-900 mb-6">{title}</h2>
-        <p className="text-3xl leading-relaxed text-gray-800">{content}</p>
+        <h2 className="text-7xl font-bold text-gray-900 mb-6">{title}</h2>
+        <p className="text-4xl leading-relaxed text-gray-800">{content}</p>
+      </div>
+
+      <div className="absolute mt-[160px] bottom-30 right-0 w-[700px] h-[600px] mr-20">
+        <img src="src/svgs/talking.svg" alt="math"/>
       </div>
     </section>
   );
