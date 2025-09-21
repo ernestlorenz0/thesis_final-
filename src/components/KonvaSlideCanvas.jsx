@@ -202,14 +202,23 @@ export default function KonvaSlideCanvas({
 
     // Table of Contents slide
     if (slide.components?.some(c => c.type === "toc") && Theme.TOCSlide) {
-      const tocTitle = slide.components.find(c => c.type === "toc")?.content || "Table of Contents";
-      const tocItems = slide.components.filter(c => c.type === "toc_item").map(c => c.content);
-      return (
-        <Theme.TOCSlide
-          title={tocTitle}
-          items={tocItems}
-        />
-      );
+      const tocComponent = slide.components.find(c => c.type === "toc");
+      const tocData = tocComponent?.tocData;
+      
+      // Use new TOC data structure if available, otherwise fallback to old format
+      if (tocData) {
+        return <Theme.TOCSlide tocData={tocData} />;
+      } else {
+        // Fallback to old format for backward compatibility
+        const tocTitle = tocComponent?.content || "Table of Contents";
+        const tocItems = slide.components.filter(c => c.type === "toc_item").map(c => c.content);
+        return (
+          <Theme.TOCSlide
+            title={tocTitle}
+            items={tocItems}
+          />
+        );
+      }
     }
 
     // End slide
@@ -346,7 +355,7 @@ export default function KonvaSlideCanvas({
 
   return (
     <div 
-      className="w-[960px] h-[540px] bg-white rounded-2xl shadow-2xl border-2 border-purple-200 flex flex-col relative overflow-hidden backdrop-blur-lg"
+      className="w-[960px] h-[540px] bg-white shadow-2xl border-2 border-purple-200 flex flex-col relative overflow-hidden backdrop-blur-lg"
       onDragOver={onDragOver}
       onDrop={onDrop}
     >

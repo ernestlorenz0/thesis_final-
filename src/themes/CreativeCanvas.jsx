@@ -18,10 +18,21 @@ export function TitleSlide({ title, subtitle }) {
   );
 }
 
-export function TOCSlideCreativeCanvas({
-  title = "Table of Contents",
-  items = [],
-}) {
+export function TOCSlide({ tocData }) {
+  // Handle both old format (items array) and new format (tocData object)
+  const title = tocData?.title || "Table of Contents";
+  const sections = tocData?.sections || [];
+  
+  // Convert to simple list with proper alignment
+  const items = [];
+  sections.forEach(section => {
+    items.push(section.title);
+    if (section.subsections && section.subsections.length > 0) {
+      section.subsections.forEach(sub => {
+        items.push(`  ${sub}`);
+      });
+    }
+  });
   return (
     <section className="relative w-[1920px] h-[1080px] bg-[#fafafa] text-[#1c1c1c] flex flex-col items-center justify-center overflow-hidden">
       {/* Background paint strokes */}
@@ -218,9 +229,18 @@ export function EndSlide() {
   );
 }
 
+// Keep old component for backward compatibility
+export function TOCSlideCreativeCanvas({ title = "Table of Contents", items = [] }) {
+  const tocData = {
+    title,
+    sections: items.map(item => ({ title: item, subsections: [] }))
+  };
+  return <TOCSlide tocData={tocData} />;
+}
+
 const CreativeCanvas = {
   TitleSlide,
-  TOCSlide: TOCSlideCreativeCanvas,
+  TOCSlide,
   MainSlide1,
   MainSlide2,
   MainSlide3,

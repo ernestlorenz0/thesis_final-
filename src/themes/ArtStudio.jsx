@@ -44,7 +44,10 @@ export function TitleSlide({ title, subtitle }) {
 }
 
 /* Table of Contents Slide – Art Studio */
-export function TOCSlideArtStudio({ title = "Table of Contents", items = [] }) {
+export function TOCSlide({ tocData }) {
+  // Handle both old format (items array) and new format (tocData object)
+  const title = tocData?.title || "Table of Contents";
+  const sections = tocData?.sections || [];
   return (
     <section className="relative w-[1920px] h-[1080px] bg-white text-[#222] flex flex-col items-center justify-center overflow-hidden">
       {/* Background paint strokes */}
@@ -62,18 +65,36 @@ export function TOCSlideArtStudio({ title = "Table of Contents", items = [] }) {
         {title}
       </h2>
 
-      {/* TOC List with artistic markers */}
-      <ul className="text-3xl font-mono space-y-8 max-w-4xl text-left">
-        {items.map((item, index) => (
-          <li key={index} className="flex items-center gap-6">
-            {/* Artistic blob marker */}
-            <span className="w-12 h-12 flex items-center justify-center rounded-full bg-gradient-to-br from-pink-400 to-yellow-300 text-white font-bold shadow-lg -rotate-6">
-              {index + 1}
-            </span>
-            <span className="font-semibold text-[#333]">{item}</span>
-          </li>
+      {/* Hierarchical List with artistic styling and proper alignment */}
+      <div className="text-3xl font-semibold space-y-6 max-w-5xl z-10">
+        {sections.map((section, sectionIndex) => (
+          <div key={sectionIndex} className="space-y-3">
+            {/* Main section */}
+            <div className="flex items-center gap-6 text-gray-800 hover:text-pink-600 transition-colors duration-200">
+              <div className={`w-12 h-12 flex items-center justify-center rounded-full text-white text-xl font-bold flex-shrink-0
+                ${sectionIndex % 4 === 0 ? "bg-pink-500" : sectionIndex % 4 === 1 ? "bg-purple-500" : sectionIndex % 4 === 2 ? "bg-blue-500" : "bg-green-500"}`}>
+                {sectionIndex + 1}
+              </div>
+              <span className="text-3xl font-bold text-left">{section.title}</span>
+            </div>
+            
+            {/* Subsections with proper indentation */}
+            {section.subsections && section.subsections.length > 0 && (
+              <div className="ml-18 space-y-2">
+                {section.subsections.map((subsection, subIndex) => (
+                  <div key={subIndex} className="flex items-center gap-4 text-gray-700 hover:text-purple-600 transition-colors duration-200">
+                    <div className={`w-8 h-8 flex items-center justify-center rounded-full text-white text-sm font-semibold flex-shrink-0
+                      ${subIndex % 2 === 0 ? "bg-purple-400" : "bg-pink-400"}`}>
+                      {sectionIndex + 1}.{subIndex + 1}
+                    </div>
+                    <span className="text-2xl text-left">{subsection}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         ))}
-      </ul>
+      </div>
     </section>
   );
 }
@@ -282,9 +303,18 @@ export function EndSlide() {
   );
 }
 
+// Keep old component for backward compatibility
+export function TOCSlideArtStudio({ title = "Table of Contents", items = [] }) {
+  const tocData = {
+    title,
+    sections: items.map(item => ({ title: item, subsections: [] }))
+  };
+  return <TOCSlide tocData={tocData} />;
+}
+
 const ArtStudio = { TitleSlide, 
                    MainSlide,
-                   TOCSlide: TOCSlideArtStudio,
+                   TOCSlide,
                    MainSlide2, 
                    MainSlide3, 
                    MainSlide4,

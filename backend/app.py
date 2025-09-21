@@ -1,14 +1,14 @@
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 from utils.pdf_utils import extract_pdf_text, extract_images_from_pdf
-from utils.gemini_api import extract_key_terms_and_topics
+from utils.gemini_api import extract_key_terms_and_topics, generate_table_of_contents
 import os
 import requests
 import base64
 
 # API Keys
 HUGGINGFACE_API_KEY = ""
-GEMINI_API_KEY = "AIzaSyCtDRuoS7R0G40ZHBOsSCP1C6kSIxbtBQY"
+GEMINI_API_KEY = "AIzaSyC5cVZm3uW9KjuEW1OV_HPI9PlteSkxz-g"
 
 app = Flask(__name__, static_folder='static')
 CORS(app)
@@ -234,7 +234,17 @@ def upload_pdf():
             import logging
             image_b64 = None
             # Image generation is now handled by the frontend via the /generate-image endpoint
-            results.append({'filename': file.filename, 'terms': deduped_terms, 'extracted_images': extracted_images})
+            # Generate Table of Contents from the full text
+            print("📋 Generating Table of Contents...")
+            toc_result = generate_table_of_contents(text)
+            print(f"✅ TOC generated with {len(toc_result.get('sections', []))} sections")
+            
+            results.append({
+                'filename': file.filename, 
+                'terms': deduped_terms, 
+                'extracted_images': extracted_images,
+                'toc': toc_result
+            })
         except Exception as e:
             results.append({'filename': file.filename, 'error': str(e)})
     return jsonify({'success': True, 'results': results})
@@ -276,6 +286,32 @@ def list_extracted_images():
                 })
     
     return jsonify({'images': image_files})
+
+@app.route('/generate-toc', methods=['POST'])
+def generate_toc():
+    """
+    Generate table of contents from provided text using Gemini AI
+    """
+    data = request.get_json()
+    text = data.get('text')
+    
+    if not text:
+        return jsonify({'error': 'Missing text for TOC generation'}), 400
+    
+    try:
+        print("📋 Generating Table of Contents using Gemini AI...")
+        toc_result = generate_table_of_contents(text)
+        
+        print(f"✅ TOC generated successfully with {len(toc_result.get('sections', []))} sections")
+        return jsonify({
+            'success': True,
+            'toc': toc_result
+        })
+        
+    except Exception as e:
+        error_msg = f"Error generating TOC: {str(e)}"
+        print(f"❌ {error_msg}")
+        return jsonify({'error': error_msg}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)

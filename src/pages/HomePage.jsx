@@ -422,18 +422,64 @@ export default function HomePage() {
         });
       }
       
-      // Add TOC slide
+      // Add TOC slide with generated content
       if (slideMapping['TOCSlide']) {
+        // Collect TOC data from all files
+        let combinedTOC = null;
+        for (const file of data.results) {
+          if (file.toc && file.toc.sections && file.toc.sections.length > 0) {
+            combinedTOC = file.toc;
+            break; // Use the first valid TOC
+          }
+        }
+        
+        // Fallback to default TOC if no generated TOC available
+        if (!combinedTOC) {
+          combinedTOC = {
+            title: "Table of Contents",
+            sections: [
+              { 
+                title: "Introduction and Problem Statement", 
+                categories: [
+                  { name: "Problem Statement and Background", terms: ["Research Context", "Problem Definition", "Literature Review", "Scope Analysis"] },
+                  { name: "Research Objectives and Methodology", terms: ["Primary Goals", "Research Questions", "Methodology Framework", "Study Design"] }
+                ]
+              },
+              { 
+                title: "Theoretical Framework and Key Concepts", 
+                categories: [
+                  { name: "Theoretical Framework and Definitions", terms: ["Core Concepts", "Mathematical Models", "System Theory", "Technical Definitions"] },
+                  { name: "Fundamental Principles and Methods", terms: ["Algorithm Design", "Implementation Methods", "System Architecture", "Design Patterns"] }
+                ]
+              },
+              { 
+                title: "System Implementation and Analysis", 
+                categories: [
+                  { name: "Analysis Methods and Techniques", terms: ["Data Analysis", "Performance Metrics", "Statistical Methods", "Validation Techniques"] },
+                  { name: "Practical Applications and Implementation", terms: ["Real-world Examples", "System Implementation", "Use Case Studies", "Deployment Strategies"] }
+                ]
+              },
+              { 
+                title: "Results and Future Research Directions", 
+                categories: [
+                  { name: "Research Findings and Results", terms: ["Experimental Results", "Performance Analysis", "Key Findings", "Statistical Outcomes"] },
+                  { name: "Future Work and Research Directions", terms: ["Research Extensions", "Future Studies", "Improvement Areas", "Technology Trends"] }
+                ]
+              }
+            ]
+          };
+        }
+        
         slides.push({
           id: `toc-${Date.now()}`,
           layout: slideMapping['TOCSlide'],
           components: [
-            { id: 'toc', type: 'toc', content: 'Table of Contents' },
-            { id: 'toc-item-1', type: 'toc_item', content: 'Introduction' },
-            { id: 'toc-item-2', type: 'toc_item', content: 'Key Concepts' },
-            { id: 'toc-item-3', type: 'toc_item', content: 'Analysis' },
-            { id: 'toc-item-4', type: 'toc_item', content: 'Results' },
-            { id: 'toc-item-5', type: 'toc_item', content: 'Conclusion' },
+            { 
+              id: 'toc', 
+              type: 'toc', 
+              content: combinedTOC.title,
+              tocData: combinedTOC // Store the full TOC data for theme components
+            }
           ],
         });
       }

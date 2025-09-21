@@ -15,10 +15,21 @@ export function TitleSlide({ title, subtitle }) {
   );
 }
 
-export function TOCSlideClassicClassroom({
-  title = "Table of Contents",
-  items = [],
-}) {
+export function TOCSlide({ tocData }) {
+  // Handle both old format (items array) and new format (tocData object)
+  const title = tocData?.title || "Table of Contents";
+  const sections = tocData?.sections || [];
+  
+  // Convert to simple list for Classic Classroom
+  const items = [];
+  sections.forEach(section => {
+    items.push(section.title);
+    if (section.subsections && section.subsections.length > 0) {
+      section.subsections.forEach(sub => {
+        items.push(`  ${sub}`);
+      });
+    }
+  });
   return (
     <section className="relative w-[1920px] h-[1080px] bg-[#2f3e46] text-white flex flex-col items-center justify-center overflow-hidden">
       {/* Chalkboard background effect */}
@@ -200,8 +211,17 @@ export function EndSlide() {
   );
 }
 
+// Keep old component for backward compatibility
+export function TOCSlideClassicClassroom({ title = "Table of Contents", items = [] }) {
+  const tocData = {
+    title,
+    sections: items.map(item => ({ title: item, subsections: [] }))
+  };
+  return <TOCSlide tocData={tocData} />;
+}
+
 const ClassicClassroom = { TitleSlide, 
-                         TOCSlide: TOCSlideClassicClassroom,
+                         TOCSlide,
                          MainSlide, 
                          MainSlide2, 
                          MainSlide3, 

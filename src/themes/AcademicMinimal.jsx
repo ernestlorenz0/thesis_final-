@@ -31,7 +31,11 @@ export function TitleSlide({ title, subtitle, imageUrl }) {
 }
 
 /* Table of Contents Slide – Academic Minimal */
-export function TOCSlideAcademic({ title = "Table of Contents", items = [] }) {
+export function TOCSlide({ tocData }) {
+  // Handle both old format (items array) and new format (tocData object)
+  const title = tocData?.title || "Table of Contents";
+  const sections = tocData?.sections || [];
+  
   return (
     <section className="relative w-[1920px] h-[1080px] bg-white text-gray-900 flex flex-col items-center justify-center overflow-hidden">
       {/* Subtle border */}
@@ -42,24 +46,49 @@ export function TOCSlideAcademic({ title = "Table of Contents", items = [] }) {
         {title}
       </h2>
 
-      {/* List */}
-      <ul className="text-2xl font-light space-y-6 max-w-3xl text-left">
-        {items.map((item, index) => (
-          <li
-            key={index}
-            className="flex items-baseline gap-4 hover:text-gray-600 transition-colors duration-200"
-          >
-            <span className="text-gray-500 font-mono text-xl">
-              {String(index + 1).padStart(2, "0")}
-            </span>
-            <span className="border-b border-gray-300 flex-1 pb-1">
-              {item}
-            </span>
-          </li>
+      {/* Hierarchical List with proper alignment */}
+      <div className="text-2xl font-light space-y-6 max-w-5xl w-full text-left">
+        {sections.map((section, sectionIndex) => (
+          <div key={sectionIndex} className="space-y-3">
+            {/* Main section */}
+            <div className="flex items-start gap-4 hover:text-gray-600 transition-colors duration-200">
+              <span className="text-gray-500 font-mono text-xl flex-shrink-0 mt-1">
+                {String(sectionIndex + 1).padStart(2, "0")}
+              </span>
+              <span className="border-b border-gray-300 flex-1 pb-1 text-left leading-tight font-semibold">
+                {section.title}
+              </span>
+            </div>
+            
+            {/* Subsections */}
+            {section.subsections && section.subsections.length > 0 && (
+              <div className="ml-8 space-y-2">
+                {section.subsections.map((subsection, subIndex) => (
+                  <div key={subIndex} className="flex items-start gap-3 hover:text-gray-500 transition-colors duration-200">
+                    <span className="text-gray-400 font-mono text-sm flex-shrink-0 mt-1">
+                      {String(sectionIndex + 1).padStart(2, "0")}.{subIndex + 1}
+                    </span>
+                    <span className="text-lg text-left leading-tight flex-1 opacity-80">
+                      {subsection}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         ))}
-      </ul>
+      </div>
     </section>
   );
+}
+
+// Keep old component for backward compatibility
+export function TOCSlideAcademic({ title = "Table of Contents", items = [] }) {
+  const tocData = {
+    title,
+    sections: items.map(item => ({ title: item, subsections: [] }))
+  };
+  return <TOCSlide tocData={tocData} />;
 }
 
 
@@ -213,7 +242,7 @@ export function MainSlide6({ title, content }) {
 
 
 const AcademicMinimal = { TitleSlide, 
-                          TOCSlide: TOCSlideAcademic,
+                          TOCSlide, 
                           ContentSlide, 
                           ImageSlide, 
                           ContentSlideText, 

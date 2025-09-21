@@ -20,40 +20,85 @@ export function TitleSlide({ title, subtitle }) {
   );
 }
 
-export function TOCSlideOrangeOrbit({
-  title = "Table of Contents",
-  items = [],
-}) {
+export function TOCSlide({ tocData }) {
+  // Handle both old format (items array) and new format (tocData object)
+  const title = tocData?.title || "Table of Contents";
+  const sections = tocData?.sections || [];
+  
   return (
-    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-b from-orange-700 via-orange-500 to-yellow-400 text-white flex flex-col items-center justify-center overflow-hidden">
-      {/* Planet-like glowing orbs */}
-      <div className="absolute -top-20 -left-20 w-96 h-96 rounded-full bg-orange-300/30 blur-3xl"></div>
-      <div className="absolute bottom-10 right-10 w-80 h-80 rounded-full bg-yellow-200/40 blur-3xl"></div>
-
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f3460] text-white flex flex-col items-center justify-center overflow-hidden">
       {/* Orbital rings */}
-      <div className="absolute top-1/2 left-1/2 w-[800px] h-[800px] border-4 border-orange-200/30 rounded-full -translate-x-1/2 -translate-y-1/2 animate-spin-slow"></div>
-      <div className="absolute top-1/2 left-1/2 w-[1000px] h-[1000px] border-2 border-yellow-300/20 rounded-full -translate-x-1/2 -translate-y-1/2 animate-spin-slower"></div>
+      <div className="absolute w-[800px] h-[800px] border-2 border-orange-500/30 rounded-full animate-spin-slow"></div>
+      <div className="absolute w-[600px] h-[600px] border border-orange-400/20 rounded-full animate-pulse"></div>
+      <div className="absolute w-[400px] h-[400px] border border-orange-300/15 rounded-full"></div>
+
+      {/* Floating orbs */}
+      <div className="absolute top-20 left-20 w-16 h-16 bg-orange-500/40 rounded-full blur-xl animate-pulse"></div>
+      <div className="absolute bottom-20 right-20 w-20 h-20 bg-orange-400/30 rounded-full blur-2xl"></div>
+      <div className="absolute top-1/2 left-10 w-12 h-12 bg-orange-600/50 rounded-full blur-lg"></div>
 
       {/* Title */}
-      <h2 className="text-6xl font-extrabold mb-16 tracking-widest bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 via-orange-200 to-white drop-shadow-[0_0_25px_rgba(255,165,0,0.7)]">
+      <h2 className="text-6xl font-extrabold mb-16 tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-orange-400 via-yellow-300 to-orange-500 drop-shadow-[0_0_30px_rgba(251,146,60,0.8)]">
         {title}
       </h2>
 
-      {/* TOC Items */}
-      <ul className="text-3xl font-semibold space-y-10 max-w-3xl text-left relative z-10">
-        {items.map((item, index) => (
-          <li
-            key={index}
-            className="flex items-center gap-6 hover:text-yellow-200 transition duration-300"
-          >
-            {/* Orbiting planet-like badge */}
-            <span className="w-14 h-14 flex items-center justify-center rounded-full bg-gradient-to-tr from-orange-600 to-yellow-400 text-white font-bold shadow-[0_0_20px_rgba(255,165,0,0.8)]">
-              {index + 1}
-            </span>
-            <span>{item}</span>
-          </li>
+      {/* Categories and Terms */}
+      <div className="text-3xl font-light space-y-6 max-w-5xl w-full z-10">
+        {sections.map((section, sectionIndex) => (
+          <div key={sectionIndex} className="space-y-4">
+            {/* Main section */}
+            <div className="flex items-start gap-6 text-gray-200 hover:text-orange-300 transition-colors duration-200">
+              <div className={`w-12 h-12 flex items-center justify-center rounded-full text-white text-xl font-bold shadow-[0_0_20px_rgba(251,146,60,0.6)] flex-shrink-0 mt-1
+                ${sectionIndex % 3 === 0 ? "bg-gradient-to-r from-orange-500 to-yellow-400" : sectionIndex % 3 === 1 ? "bg-gradient-to-r from-orange-400 to-red-500" : "bg-gradient-to-r from-yellow-400 to-orange-600"}`}>
+                {sectionIndex + 1}
+              </div>
+              <span className="text-3xl font-bold text-left leading-tight flex-1">{section.title}</span>
+            </div>
+
+            {/* Categories and Terms */}
+            {(section.categories || section.subsections) && (
+              <div className="ml-18 space-y-4">
+                {/* Handle new categories format */}
+                {section.categories && section.categories.map((category, catIndex) => (
+                  <div key={catIndex} className="space-y-2">
+                    {/* Category name */}
+                    <div className="flex items-start gap-4 text-orange-200 hover:text-yellow-300 transition-colors duration-200">
+                      <div className={`w-8 h-8 flex items-center justify-center rounded-full text-white text-sm font-semibold shadow-[0_0_15px_rgba(251,146,60,0.4)] flex-shrink-0 mt-1
+                        ${catIndex % 2 === 0 ? "bg-gradient-to-r from-orange-400 to-yellow-400" : "bg-gradient-to-r from-yellow-400 to-orange-500"}`}>
+                        {sectionIndex + 1}.{catIndex + 1}
+                      </div>
+                      <span className="text-2xl font-bold text-left leading-tight flex-1">{category.name}</span>
+                    </div>
+                    
+                    {/* Terms under category */}
+                    {category.terms && category.terms.length > 0 && (
+                      <div className="ml-12 space-y-1">
+                        {category.terms.map((term, termIndex) => (
+                          <div key={termIndex} className="flex items-center gap-3 text-orange-100 hover:text-yellow-200 transition-colors duration-200">
+                            <span className="text-orange-400 text-lg">-</span>
+                            <span className="text-xl text-left leading-tight">{term}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+                
+                {/* Handle old subsections format for backward compatibility */}
+                {!section.categories && section.subsections && section.subsections.map((subsection, subIndex) => (
+                  <div key={subIndex} className="flex items-start gap-4 text-orange-200 hover:text-yellow-300 transition-colors duration-200">
+                    <div className={`w-8 h-8 flex items-center justify-center rounded-full text-white text-sm font-semibold shadow-[0_0_15px_rgba(251,146,60,0.4)] flex-shrink-0 mt-1
+                      ${subIndex % 2 === 0 ? "bg-gradient-to-r from-orange-400 to-yellow-400" : "bg-gradient-to-r from-yellow-400 to-orange-500"}`}>
+                      {sectionIndex + 1}.{subIndex + 1}
+                    </div>
+                    <span className="text-2xl text-left leading-tight flex-1">{subsection}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         ))}
-      </ul>
+      </div>
     </section>
   );
 }
@@ -258,9 +303,18 @@ export function MainSlide6({ title, content, imageUrl }) {
   );
 }
 
+// Keep old component for backward compatibility
+export function TOCSlideOrangeOrbit({ title = "Table of Contents", items = [] }) {
+  const tocData = {
+    title,
+    sections: items.map(item => ({ title: item, subsections: [] }))
+  };
+  return <TOCSlide tocData={tocData} />;
+}
+
 const OrangeOrbit = {
   TitleSlide,
-  TOCSlide: TOCSlideOrangeOrbit,
+  TOCSlide,
   MainSlide1,
   MainSlide2,
   MainSlide3,

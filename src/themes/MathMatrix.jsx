@@ -22,12 +22,12 @@ export function TitleSlide({ title, subtitle }) {
   );
 }
 
-export function TOCSlideMathMatrix(props) {
-  const {
-    title,
-    items,
-    accent
-  } = props;
+export function TOCSlide({ tocData }) {
+  // Handle both old format (items array) and new format (tocData object)
+  const title = tocData?.title || "Table of Contents";
+  const sections = tocData?.sections || [];
+  
+  const accent = "cyan"; // Default accent color
 
   const accentMap = {
     cyan: "from-cyan-400 to-blue-500",
@@ -38,69 +38,157 @@ export function TOCSlideMathMatrix(props) {
   const grad = accentMap[accent] || accentMap.cyan;
 
   return (
-    <section className="relative w-[1920px] h-[1080px] bg-[#050607] text-white flex items-center justify-center overflow-hidden">
+    <section className="relative w-[1920px] h-[1080px] bg-[#050607] text-white flex flex-col items-center justify-center overflow-hidden">
       {/* Subtle grid / matrix background */}
       <div className="absolute inset-0 opacity-20 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:48px_48px]"></div>
 
       {/* Faint glowing diagonal band */}
       <div className="absolute -left-80 -top-40 w-[900px] h-[900px] rounded-full bg-gradient-to-br opacity-40 blur-[160px] from-indigo-800 via-transparent to-transparent"></div>
 
-      <div className="relative z-10 flex w-11/12 gap-12 px-20">
-        {/* Left: TOC list */}
-        <div className="w-2/3 flex flex-col justify-center">
-          <h2 className="text-5xl font-mono font-bold mb-8 tracking-tight">
-            <span className={`bg-clip-text text-transparent bg-gradient-to-r ${grad}`}>
-              {title}
-            </span>
-          </h2>
+      {/* Title */}
+      <h2 className="text-5xl font-mono font-bold mb-16 tracking-tight">
+        <span className={`bg-clip-text text-transparent bg-gradient-to-r ${grad}`}>
+          {title}
+        </span>
+      </h2>
 
-          <ul className="text-2xl font-mono space-y-6 text-gray-200 max-w-3xl">
-            {items.map((item, idx) => (
-              <li
-                key={idx}
-                className="flex items-center gap-6 group transition-colors duration-200"
-              >
-                <div className="w-12 h-12 flex items-center justify-center rounded-sm bg-[#0b0b0d] border border-white/10 shadow-inner">
-                  <div className={`text-lg font-semibold bg-clip-text text-transparent bg-gradient-to-r ${grad}`}>
-                    {String(idx + 1).padStart(2, "0")}
+      {/* Two-Column Layout for TOC */}
+      <div className="grid grid-cols-2 gap-12 z-10 max-w-7xl w-full px-20">
+        {/* Left Column */}
+        <div className="space-y-6">
+          {sections.slice(0, Math.ceil(sections.length / 2)).map((section, sectionIndex) => (
+            <div key={sectionIndex} className="space-y-3">
+              {/* Main section */}
+              <div className="flex items-start gap-4 text-gray-200 hover:text-cyan-300 transition-colors duration-200">
+                <div className="w-10 h-10 flex items-center justify-center rounded-sm bg-[#0b0b0d] border border-white/10 shadow-inner flex-shrink-0 mt-1">
+                  <div className={`text-sm font-semibold bg-clip-text text-transparent bg-gradient-to-r ${grad}`}>
+                    {String(sectionIndex + 1).padStart(2, "0")}
                   </div>
                 </div>
-                <div className="flex-1">
-                  <div className="text-xl font-medium group-hover:text-white transition-colors duration-200">
-                    {item}
-                  </div>
-                  <div className="text-xs text-gray-400 font-mono mt-1">
-                    {`Section ${idx + 1}`}
-                  </div>
+                <span className="text-2xl font-mono font-bold text-left leading-tight flex-1">{section.title}</span>
+              </div>
+              
+              {/* Categories and Terms */}
+              {(section.categories || section.subsections) && (
+                <div className="ml-14 space-y-3">
+                  {/* Handle new categories format */}
+                  {section.categories && section.categories.map((category, catIndex) => (
+                    <div key={catIndex} className="space-y-2">
+                      {/* Category name */}
+                      <div className="flex items-start gap-3 text-gray-300 hover:text-green-300 transition-colors duration-200">
+                        <div className="w-6 h-6 flex items-center justify-center rounded-sm bg-[#0b0b0d] border border-green-500/30 text-green-400 text-xs font-mono flex-shrink-0 mt-1">
+                          {sectionIndex + 1}.{catIndex + 1}
+                        </div>
+                        <span className="text-lg font-mono font-bold text-left leading-tight flex-1">{category.name}</span>
+                      </div>
+                      
+                      {/* Terms under category */}
+                      {category.terms && category.terms.length > 0 && (
+                        <div className="ml-9 space-y-1">
+                          {category.terms.map((term, termIndex) => (
+                            <div key={termIndex} className="flex items-center gap-2 text-gray-400 hover:text-cyan-200 transition-colors duration-200">
+                              <span className="text-cyan-400 text-sm font-mono">{'>'}</span>
+                              <span className="text-base font-mono text-left leading-tight">{term}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                  
+                  {/* Handle old subsections format for backward compatibility */}
+                  {!section.categories && section.subsections && section.subsections.map((subsection, subIndex) => (
+                    <div key={subIndex} className="flex items-start gap-3 text-gray-300 hover:text-green-300 transition-colors duration-200">
+                      <div className="w-6 h-6 flex items-center justify-center rounded-sm bg-[#0b0b0d] border border-green-500/30 text-green-400 text-xs font-mono flex-shrink-0 mt-1">
+                        {sectionIndex + 1}.{subIndex + 1}
+                      </div>
+                      <span className="text-base font-mono text-left leading-tight flex-1">{subsection}</span>
+                    </div>
+                  ))}
                 </div>
-              </li>
-            ))}
-          </ul>
+              )}
+            </div>
+          ))}
         </div>
- 
-        <div className="w-1/3 flex items-center justify-center relative">
-          <div className="absolute left-0 transform -translate-x-6 text-8xl text-white/30 font-mono select-none">⎡</div>
-          <div className="relative w-[320px] h-[320px] bg-[#071018]/50 border border-white/10 rounded-lg flex items-center justify-center p-4">
-            <pre className="font-mono text-lg text-white/80 leading-[1.05]">
-              {`[ 1  0  0  ... ]
-              [ 0  1  2  ... ]
-              [ 3  5  8  ... ]
-              [ .  .  .  ... ]`}
-            </pre>
-            <div className={`absolute -bottom-6 left-6 w-36 h-2 rounded-full bg-gradient-to-r ${grad} opacity-80 blur-sm`}></div>
-          </div>
-          <div className="absolute right-0 transform translate-x-6 text-8xl text-white/30 font-mono select-none">⎦</div>
+
+        {/* Right Column */}
+        <div className="space-y-6">
+          {sections.slice(Math.ceil(sections.length / 2)).map((section, sectionIndex) => {
+            const actualIndex = Math.ceil(sections.length / 2) + sectionIndex;
+            return (
+              <div key={actualIndex} className="space-y-3">
+                {/* Main section */}
+                <div className="flex items-start gap-4 text-gray-200 hover:text-cyan-300 transition-colors duration-200">
+                  <div className="w-10 h-10 flex items-center justify-center rounded-sm bg-[#0b0b0d] border border-white/10 shadow-inner flex-shrink-0 mt-1">
+                    <div className={`text-sm font-semibold bg-clip-text text-transparent bg-gradient-to-r ${grad}`}>
+                      {String(actualIndex + 1).padStart(2, "0")}
+                    </div>
+                  </div>
+                  <span className="text-2xl font-mono font-bold text-left leading-tight flex-1">{section.title}</span>
+                </div>
+                
+                {/* Categories and Terms */}
+                {(section.categories || section.subsections) && (
+                  <div className="ml-14 space-y-3">
+                    {/* Handle new categories format */}
+                    {section.categories && section.categories.map((category, catIndex) => (
+                      <div key={catIndex} className="space-y-2">
+                        {/* Category name */}
+                        <div className="flex items-start gap-3 text-gray-300 hover:text-green-300 transition-colors duration-200">
+                          <div className="w-6 h-6 flex items-center justify-center rounded-sm bg-[#0b0b0d] border border-green-500/30 text-green-400 text-xs font-mono flex-shrink-0 mt-1">
+                            {actualIndex + 1}.{catIndex + 1}
+                          </div>
+                          <span className="text-lg font-mono font-bold text-left leading-tight flex-1">{category.name}</span>
+                        </div>
+                        
+                        {/* Terms under category */}
+                        {category.terms && category.terms.length > 0 && (
+                          <div className="ml-9 space-y-1">
+                            {category.terms.map((term, termIndex) => (
+                              <div key={termIndex} className="flex items-center gap-2 text-gray-400 hover:text-cyan-200 transition-colors duration-200">
+                                <span className="text-cyan-400 text-sm font-mono">{'>'}</span>
+                                <span className="text-base font-mono text-left leading-tight">{term}</span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                    
+                    {/* Handle old subsections format for backward compatibility */}
+                    {!section.categories && section.subsections && section.subsections.map((subsection, subIndex) => (
+                      <div key={subIndex} className="flex items-start gap-3 text-gray-300 hover:text-green-300 transition-colors duration-200">
+                        <div className="w-6 h-6 flex items-center justify-center rounded-sm bg-[#0b0b0d] border border-green-500/30 text-green-400 text-xs font-mono flex-shrink-0 mt-1">
+                          {actualIndex + 1}.{subIndex + 1}
+                        </div>
+                        <span className="text-base font-mono text-left leading-tight flex-1">{subsection}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
   );
 }
 
-TOCSlideMathMatrix.defaultProps = {
-  title: "Table of Contents",
-  items: [],
-  accent: "cyan",
-};
+// Keep old component for backward compatibility
+export function TOCSlideMathMatrix(props) {
+  const {
+    title = "Table of Contents",
+    items = [],
+    accent = "cyan"
+  } = props;
+  
+  const tocData = {
+    title,
+    sections: items.map(item => ({ title: item, subsections: [] }))
+  };
+  return <TOCSlide tocData={tocData} />;
+}
 
 
 /* Main Slide 1 – Split screen with math sidebar */
@@ -279,7 +367,7 @@ export function EndSlide({ message }) {
 
 const MathMatrix = {
   TitleSlide,
-  TOCSlide: TOCSlideMathMatrix,
+  TOCSlide,
   MainSlide1,
   MainSlide2,
   MainSlide3,

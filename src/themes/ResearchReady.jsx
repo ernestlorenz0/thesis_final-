@@ -20,10 +20,11 @@ export function TitleSlide({ title, subtitle }) {
   );
 }
 
-export function TOCSlideResearchReady({
-  title = "Table of Contents",
-  items = [],
-}) {
+export function TOCSlide({ tocData }) {
+  // Handle both old format (items array) and new format (tocData object)
+  const title = tocData?.title || "Table of Contents";
+  const sections = tocData?.sections || [];
+  
   return (
     <section className="relative w-[1920px] h-[1080px] bg-gradient-to-br from-[#f7f9fc] to-[#e6ecf5] text-[#1c1c1c] flex flex-col items-center justify-center overflow-hidden">
       {/* Subtle grid / notebook lines */}
@@ -38,21 +39,34 @@ export function TOCSlideResearchReady({
         {title}
       </h2>
 
-      {/* TOC List */}
-      <ul className="text-3xl font-sans space-y-10 max-w-3xl text-left">
-        {items.map((item, index) => (
-          <li
-            key={index}
-            className="flex items-center gap-6"
-          >
-            {/* Number badge */}
-            <span className="w-12 h-12 flex items-center justify-center rounded-full bg-gradient-to-tr from-blue-600 to-indigo-500 text-white font-bold shadow-md">
-              {index + 1}
-            </span>
-            <span className="text-[#1c1c1c]">{item}</span>
-          </li>
+      {/* Hierarchical List */}
+      <div className="text-2xl font-light space-y-6 max-w-5xl w-full text-left z-10">
+        {sections.map((section, sectionIndex) => (
+          <div key={sectionIndex} className="space-y-3">
+            {/* Main section */}
+            <div className="flex items-start gap-4 hover:text-blue-600 transition-colors duration-200">
+              <span className="w-8 h-8 flex items-center justify-center rounded-full bg-blue-500 text-white text-sm font-bold flex-shrink-0 mt-1">
+                {sectionIndex + 1}
+              </span>
+              <span className="flex-1 text-left leading-tight font-semibold">{section.title}</span>
+            </div>
+            
+            {/* Subsections */}
+            {section.subsections && section.subsections.length > 0 && (
+              <div className="ml-12 space-y-2">
+                {section.subsections.map((subsection, subIndex) => (
+                  <div key={subIndex} className="flex items-start gap-3 hover:text-indigo-600 transition-colors duration-200">
+                    <span className="w-6 h-6 flex items-center justify-center rounded-full bg-indigo-400 text-white text-xs font-semibold flex-shrink-0 mt-1">
+                      {sectionIndex + 1}.{subIndex + 1}
+                    </span>
+                    <span className="text-lg text-left leading-tight flex-1 opacity-90">{subsection}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         ))}
-      </ul>
+      </div>
     </section>
   );
 }
@@ -231,9 +245,18 @@ export function EndSlide() {
   );
 }
 
+// Keep old component for backward compatibility
+export function TOCSlideResearchReady({ title = "Table of Contents", items = [] }) {
+  const tocData = {
+    title,
+    sections: items.map(item => ({ title: item, subsections: [] }))
+  };
+  return <TOCSlide tocData={tocData} />;
+}
+
 const ResearchReady = {
   TitleSlide,
-  TOCSlide: TOCSlideResearchReady,
+  TOCSlide,
   MainSlide1,
   MainSlide2,
   MainSlide3,

@@ -153,10 +153,11 @@ export function ImageSlide({ title, imageUrl }) {
   );
 }
 
-export function TOCSlideScholarGreen({
-  title = "Table of Contents",
-  items = [],
-}) {
+export function TOCSlide({ tocData }) {
+  // Handle both old format (items array) and new format (tocData object)
+  const title = tocData?.title || "Table of Contents";
+  const sections = tocData?.sections || [];
+  
   return (
     <section className="relative w-[1920px] h-[1080px] bg-gradient-to-br from-[#f0fdf4] via-[#dcfce7] to-[#bbf7d0] text-[#064e3b] flex flex-col items-center justify-center overflow-hidden">
       {/* Subtle leaf accents */}
@@ -168,22 +169,125 @@ export function TOCSlideScholarGreen({
       <div className="absolute inset-12 border-[6px] border-green-700/30 rounded-xl"></div>
 
       {/* Title */}
-      <h2 className="text-6xl font-serif font-bold mb-16 tracking-wide text-green-900 drop-shadow-md">
+      <h2 className="text-6xl font-serif font-bold text-green-800 mb-16 drop-shadow-sm">
         {title}
       </h2>
 
-      {/* TOC Items */}
-      <ul className="text-3xl font-serif space-y-10 max-w-3xl text-left relative z-10">
-        {items.map((item, index) => (
-          <li key={index} className="flex items-center gap-6">
-            {/* Academic styled number badge */}
-            <span className="w-12 h-12 flex items-center justify-center rounded-full bg-gradient-to-br from-green-700 to-green-500 text-white font-bold shadow-md">
-              {index + 1}
-            </span>
-            <span>{item}</span>
-          </li>
-        ))}
-      </ul>
+      {/* Two-Column Layout for TOC */}
+      <div className="grid grid-cols-2 gap-12 z-10 max-w-7xl w-full">
+        {/* Left Column */}
+        <div className="space-y-6">
+          {sections.slice(0, Math.ceil(sections.length / 2)).map((section, sectionIndex) => (
+            <div key={sectionIndex} className="space-y-3">
+              {/* Main section */}
+              <div className="flex items-start gap-4 text-green-900 hover:text-green-600 transition-colors duration-200">
+                <span className="w-10 h-10 flex items-center justify-center rounded-full bg-green-600 text-white font-bold flex-shrink-0 mt-1">
+                  {sectionIndex + 1}
+                </span>
+                <span className="text-3xl font-bold text-left leading-tight flex-1">{section.title}</span>
+              </div>
+              
+              {/* Categories and Terms */}
+              {(section.categories || section.subsections) && (
+                <div className="ml-14 space-y-3">
+                  {/* Handle new categories format */}
+                  {section.categories && section.categories.map((category, catIndex) => (
+                    <div key={catIndex} className="space-y-2">
+                      {/* Category name */}
+                      <div className="flex items-start gap-3 text-green-800 hover:text-green-500 transition-colors duration-200">
+                        <span className="w-6 h-6 flex items-center justify-center rounded-full bg-green-500 text-white text-xs font-semibold flex-shrink-0 mt-1">
+                          {sectionIndex + 1}.{catIndex + 1}
+                        </span>
+                        <span className="text-xl font-bold text-left leading-tight flex-1">{category.name}</span>
+                      </div>
+                      
+                      {/* Terms under category */}
+                      {category.terms && category.terms.length > 0 && (
+                        <div className="ml-9 space-y-1">
+                          {category.terms.map((term, termIndex) => (
+                            <div key={termIndex} className="flex items-center gap-2 text-green-800 hover:text-green-500 transition-colors duration-200">
+                              <span className="text-green-600 text-sm">-</span>
+                              <span className="text-lg text-left leading-tight">{term}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                  
+                  {/* Handle old subsections format for backward compatibility */}
+                  {!section.categories && section.subsections && section.subsections.map((subsection, subIndex) => (
+                    <div key={subIndex} className="flex items-start gap-3 text-green-800 hover:text-green-500 transition-colors duration-200">
+                      <span className="w-6 h-6 flex items-center justify-center rounded-full bg-green-500 text-white text-xs font-semibold flex-shrink-0 mt-1">
+                        {sectionIndex + 1}.{subIndex + 1}
+                      </span>
+                      <span className="text-lg text-left leading-tight flex-1 opacity-90">{subsection}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* Right Column */}
+        <div className="space-y-6">
+          {sections.slice(Math.ceil(sections.length / 2)).map((section, sectionIndex) => {
+            const actualIndex = Math.ceil(sections.length / 2) + sectionIndex;
+            return (
+              <div key={actualIndex} className="space-y-3">
+                {/* Main section */}
+                <div className="flex items-start gap-4 text-green-900 hover:text-green-600 transition-colors duration-200">
+                  <span className="w-10 h-10 flex items-center justify-center rounded-full bg-green-600 text-white font-bold flex-shrink-0 mt-1">
+                    {actualIndex + 1}
+                  </span>
+                  <span className="text-3xl font-bold text-left leading-tight flex-1">{section.title}</span>
+                </div>
+                
+                {/* Categories and Terms */}
+                {(section.categories || section.subsections) && (
+                  <div className="ml-14 space-y-3">
+                    {/* Handle new categories format */}
+                    {section.categories && section.categories.map((category, catIndex) => (
+                      <div key={catIndex} className="space-y-2">
+                        {/* Category name */}
+                        <div className="flex items-start gap-3 text-green-800 hover:text-green-500 transition-colors duration-200">
+                          <span className="w-6 h-6 flex items-center justify-center rounded-full bg-green-500 text-white text-xs font-semibold flex-shrink-0 mt-1">
+                            {actualIndex + 1}.{catIndex + 1}
+                          </span>
+                          <span className="text-xl font-bold text-left leading-tight flex-1">{category.name}</span>
+                        </div>
+                        
+                        {/* Terms under category */}
+                        {category.terms && category.terms.length > 0 && (
+                          <div className="ml-9 space-y-1">
+                            {category.terms.map((term, termIndex) => (
+                              <div key={termIndex} className="flex items-center gap-2 text-green-800 hover:text-green-500 transition-colors duration-200">
+                                <span className="text-green-600 text-sm">-</span>
+                                <span className="text-lg text-left leading-tight">{term}</span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                    
+                    {/* Handle old subsections format for backward compatibility */}
+                    {!section.categories && section.subsections && section.subsections.map((subsection, subIndex) => (
+                      <div key={subIndex} className="flex items-start gap-3 text-green-800 hover:text-green-500 transition-colors duration-200">
+                        <span className="w-6 h-6 flex items-center justify-center rounded-full bg-green-500 text-white text-xs font-semibold flex-shrink-0 mt-1">
+                          {actualIndex + 1}.{subIndex + 1}
+                        </span>
+                        <span className="text-lg text-left leading-tight flex-1 opacity-90">{subsection}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </section>
   );
 }
@@ -206,9 +310,18 @@ export function EndSlide() {
   );
 }
 
+// Keep old component for backward compatibility
+export function TOCSlideScholarGreen({ title = "Table of Contents", items = [] }) {
+  const tocData = {
+    title,
+    sections: items.map(item => ({ title: item, subsections: [] }))
+  };
+  return <TOCSlide tocData={tocData} />;
+}
+
 const ScholarGreen = {
   TitleSlide,
-  TOCSlide: TOCSlideScholarGreen,
+  TOCSlide,
   MainSlide1,
   MainSlide3,
   ImageSlide,
