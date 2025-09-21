@@ -67,3 +67,7 @@ node_modules/
 
 # dataconnect generated files
 .dataconnect
+
+# Backend extracted images (should not be committed)
+backend/extracted_images/
+backend/generated_images/

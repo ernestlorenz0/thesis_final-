@@ -176,6 +176,19 @@ def list_assets():
         ]
     return jsonify(result)
 
+def clear_extracted_images():
+    """Clear all files in the extracted_images directory"""
+    extracted_images_dir = os.path.join(os.path.dirname(__file__), 'extracted_images')
+    if os.path.exists(extracted_images_dir):
+        for filename in os.listdir(extracted_images_dir):
+            file_path = os.path.join(extracted_images_dir, filename)
+            try:
+                if os.path.isfile(file_path):
+                    os.unlink(file_path)
+                    print(f"🗑️ Deleted old extracted image: {filename}")
+            except Exception as e:
+                print(f"❌ Error deleting {filename}: {e}")
+
 @app.route('/upload', methods=['POST'])
 def upload_pdf():
     if 'file' not in request.files:
@@ -184,6 +197,11 @@ def upload_pdf():
     generate_image = request.form.get('generate_image', 'true').lower() == 'true'
     if not files or all(f.filename == '' for f in files):
         return jsonify({'error': 'No selected file'}), 400
+    
+    # Clear old extracted images before processing new PDFs
+    clear_extracted_images()
+    print("🔄 Cleared old PDF images before processing new upload")
+    
     results = []
     for file in files:
         if not file.filename.lower().endswith('.pdf'):
@@ -237,6 +255,26 @@ def list_local_images():
                 rel_file = os.path.join(rel_dir, file) if rel_dir != '.' else file
                 image_url = url_for('static', filename=rel_file.replace('\\', '/'))
                 image_files.append({'name': file, 'url': image_url, 'folder': rel_dir})
+    return jsonify({'images': image_files})
+
+@app.route('/api/extracted-images')
+def list_extracted_images():
+    """List all extracted PDF images"""
+    extracted_images_dir = os.path.join(os.path.dirname(__file__), 'extracted_images')
+    image_extensions = {'.png', '.jpg', '.jpeg', '.gif', '.webp', '.bmp'}
+    image_files = []
+    
+    if os.path.exists(extracted_images_dir):
+        for file in os.listdir(extracted_images_dir):
+            ext = os.path.splitext(file)[1].lower()
+            if ext in image_extensions:
+                image_url = request.url_root.rstrip('/') + f"/extracted_images/{file}"
+                image_files.append({
+                    'name': file,
+                    'url': image_url,
+                    'source': 'pdf_extraction'
+                })
+    
     return jsonify({'images': image_files})
 
 if __name__ == '__main__':

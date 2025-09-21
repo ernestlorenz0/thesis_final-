@@ -4,14 +4,16 @@ import AIImageGenerator from './AIImageGenerator';
 export default function AssetPicker({ open, onClose, onSelect, onAIImageGenerated }) {
   const [assets, setAssets] = useState({ icons: [] });
   const [generatedImages, setGeneratedImages] = useState([]);
+  const [pdfImages, setPdfImages] = useState([]);
   const [search, setSearch] = useState('');
   const [showAIGenerator, setShowAIGenerator] = useState(false);
-  const [activeTab, setActiveTab] = useState('predefined'); // 'predefined' or 'generated'
+  const [activeTab, setActiveTab] = useState('predefined'); // 'predefined', 'generated', or 'pdf'
 
   useEffect(() => {
     if (open) {
       loadStaticAssets();
       loadGeneratedImages();
+      loadPdfImages();
     }
   }, [open]);
 
@@ -40,6 +42,24 @@ export default function AssetPicker({ open, onClose, onSelect, onAIImageGenerate
       localStorage.setItem('kenbilearn_generated_images', JSON.stringify(updated));
     } catch (error) {
       console.error('Failed to save generated image:', error);
+    }
+  };
+
+  const loadPdfImages = async () => {
+    try {
+      console.log('📄 AssetPicker: Loading PDF extracted images...');
+      const response = await fetch('http://127.0.0.1:5000/api/extracted-images');
+      if (response.ok) {
+        const data = await response.json();
+        console.log('📄 AssetPicker: PDF images loaded:', data.images.length, 'images found');
+        setPdfImages(data.images);
+      } else {
+        console.log('📄 AssetPicker: No PDF images found');
+        setPdfImages([]);
+      }
+    } catch (error) {
+      console.error('📄 AssetPicker: Failed to load PDF images:', error);
+      setPdfImages([]);
     }
   };
 
@@ -132,6 +152,10 @@ export default function AssetPicker({ open, onClose, onSelect, onAIImageGenerate
       return generatedImages.filter(img => 
         img.name.toLowerCase().includes(search.toLowerCase())
       );
+    } else if (activeTab === 'pdf') {
+      return pdfImages.filter(img => 
+        img.name.toLowerCase().includes(search.toLowerCase())
+      );
     } else {
       return assets.icons.filter(a => 
         a.name.toLowerCase().includes(search.toLowerCase())
@@ -210,33 +234,51 @@ export default function AssetPicker({ open, onClose, onSelect, onAIImageGenerate
             {/* Navigation Tabs */}
             <div className="flex gap-1 mb-4 p-1 bg-gray-100 rounded-lg">
               <button
-                className={`flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-md font-semibold transition-all duration-200 text-sm ${
+                className={`flex-1 flex items-center justify-center gap-1 px-2 py-2 rounded-md font-semibold transition-all duration-200 text-xs ${
                   activeTab === 'predefined'
                     ? 'bg-white text-indigo-600 shadow-sm'
                     : 'text-gray-600 hover:text-gray-800'
                 }`}
                 onClick={() => setActiveTab('predefined')}
               >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                 </svg>
-                Predefined Assets
+                Assets
               </button>
               <button
-                className={`flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-md font-semibold transition-all duration-200 text-sm ${
+                className={`flex-1 flex items-center justify-center gap-1 px-2 py-2 rounded-md font-semibold transition-all duration-200 text-xs ${
                   activeTab === 'generated'
                     ? 'bg-white text-indigo-600 shadow-sm'
                     : 'text-gray-600 hover:text-gray-800'
                 }`}
                 onClick={() => setActiveTab('generated')}
               >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
-                Images Generated
+                Generated
                 {generatedImages.length > 0 && (
-                  <span className="bg-indigo-500 text-white text-xs px-1.5 py-0.5 rounded-full">
+                  <span className="bg-indigo-500 text-white text-xs px-1 py-0.5 rounded-full">
                     {generatedImages.length}
+                  </span>
+                )}
+              </button>
+              <button
+                className={`flex-1 flex items-center justify-center gap-1 px-2 py-2 rounded-md font-semibold transition-all duration-200 text-xs ${
+                  activeTab === 'pdf'
+                    ? 'bg-white text-indigo-600 shadow-sm'
+                    : 'text-gray-600 hover:text-gray-800'
+                }`}
+                onClick={() => setActiveTab('pdf')}
+              >
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                PDF Images
+                {pdfImages.length > 0 && (
+                  <span className="bg-indigo-500 text-white text-xs px-1 py-0.5 rounded-full">
+                    {pdfImages.length}
                   </span>
                 )}
               </button>
@@ -246,7 +288,11 @@ export default function AssetPicker({ open, onClose, onSelect, onAIImageGenerate
             <div className="relative mb-4">
               <input
                 className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all duration-200 text-sm"
-                placeholder={activeTab === 'predefined' ? 'Search predefined assets...' : 'Search generated images...'}
+                placeholder={
+                  activeTab === 'predefined' ? 'Search predefined assets...' : 
+                  activeTab === 'generated' ? 'Search generated images...' : 
+                  'Search PDF images...'
+                }
                 value={search}
                 onChange={e => setSearch(e.target.value)}
               />
@@ -294,7 +340,19 @@ export default function AssetPicker({ open, onClose, onSelect, onAIImageGenerate
               <div className="grid grid-cols-6 gap-2">
                 {filteredAssets.length === 0 && (
                   <div className="col-span-6 text-gray-500 text-center py-6">
-                    {activeTab === 'generated' ? (
+                    {activeTab === 'pdf' ? (
+                      <>
+                        <svg className="w-8 h-8 mx-auto mb-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        <p className="text-sm">
+                          {pdfImages.length === 0 
+                            ? "No PDF images extracted yet. Upload a PDF with images to see them here!" 
+                            : "No PDF images match your search."
+                          }
+                        </p>
+                      </>
+                    ) : activeTab === 'generated' ? (
                       <>
                         <svg className="w-8 h-8 mx-auto mb-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
