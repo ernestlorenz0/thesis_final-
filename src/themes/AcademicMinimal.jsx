@@ -1,4 +1,5 @@
 import React from "react";
+import { GraduationCap, BookOpen, PenTool } from "lucide-react";
 
 export function TitleSlide({ title, subtitle, imageUrl }) {
   return (
@@ -91,30 +92,6 @@ export function TOCSlideAcademic({ title = "Table of Contents", items = [] }) {
   return <TOCSlide tocData={tocData} />;
 }
 
-
-export function ImageSlide({ title, imageUrl }) {
-  return (
-    <section className="w-[1920px] h-[1080px] bg-white flex flex-col items-center justify-center p-24">
-      <div className="w-full h-[70%] bg-gray-300 flex items-center justify-center mb-8">
-        {imageUrl ? (
-          <img
-            src={imageUrl}
-            alt="Presentation visual"
-            className="w-full h-full object-cover"
-          />
-        ) : (
-          <span className="text-gray-500">Image Placeholder</span>
-        )}
-      </div>
-      {title && (
-        <h2 className="font-merriweather font-bold text-3xl text-black text-center">
-          {title}
-        </h2>
-      )}
-    </section>
-  );
-}
-
 export function ContentSlide({ title, content }) {
   return (
     <section className="w-[1920px] h-[1080px] bg-white flex flex-col p-24">
@@ -170,17 +147,62 @@ export function MainSlide1({ title, content, imageUrl }) {
   );
 }
 
-export function MainSlide2({ title, content,  }) {
+export function MainSlide2({ title, content, onTitleClick, onContentClick }) {
+  console.log("🎯 AcademicMinimal MainSlide2 rendered with props:", {
+    title,
+    content,
+    hasOnTitleClick: !!onTitleClick,
+    hasOnContentClick: !!onContentClick,
+  });
+
+  const handleTitleClick = (e) => {
+    console.log("🎯 Title clicked in AcademicMinimal!");
+    if (onTitleClick) {
+      onTitleClick(e);
+    }
+  };
+
+  const handleContentClick = (e) => {
+    console.log("🎯 Content clicked in AcademicMinimal!");
+    if (onContentClick) {
+      onContentClick(e);
+    }
+  };
+
   return (
-    <section className="w-[1920px] h-[1080px] bg-white flex flex-col p-24">
-      <h2 className="font-merriweather font-bold text-6xl mb-8 text-black">{title}</h2>
-      <p className="font-lato font-light text-3xl mb-12 text-black">{content}</p>
-      <div className="flex justify-between">
-        
-      </div>
+    <section className="relative w-[1920px] h-[1080px] bg-white flex flex-col p-24 overflow-hidden">
+      {/* Background grid pattern */}
+      <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle,_#000_1px,_transparent_1px)] [background-size:24px_24px]" />
+
+      {/* Faint academic visuals */}
+      <GraduationCap className="absolute top-20 right-28 w-40 h-40 text-gray-400/10" />
+      <BookOpen className="absolute bottom-24 left-32 w-36 h-36 text-gray-400/10" />
+      <PenTool className="absolute top-1/2 right-1/4 w-32 h-32 text-gray-400/10 rotate-12" />
+
+      {/* Title */}
+      <h2
+        className="relative z-10 font-merriweather font-bold text-6xl mb-4 text-gray-900 cursor-pointer p-2 transition-all duration-200"
+        onClick={handleTitleClick}
+        onDoubleClick={handleTitleClick}
+      >
+        {title}
+      </h2>
+
+      {/* Accent underline */}
+      <div className="relative z-10 w-40 h-1 bg-gradient-to-r from-gray-700 to-gray-400 mb-8 rounded-full"></div>
+
+      {/* Content area */}
+      <p
+        className="relative z-10 font-lato font-light text-3xl max-w-4xl leading-relaxed text-gray-800 cursor-pointer hover:bg-gray-50 hover:shadow-md rounded-xl p-6 transition-all duration-200"
+        onClick={handleContentClick}
+        onDoubleClick={handleContentClick}
+      >
+        {content}
+      </p>
     </section>
   );
 }
+
 
 export function EndSlide({ message = "Thank You!", subtitle }) {
   return (
@@ -244,7 +266,6 @@ export function MainSlide6({ title, content }) {
 const AcademicMinimal = { TitleSlide, 
                           TOCSlide, 
                           ContentSlide, 
-                          ImageSlide, 
                           ContentSlideText, 
                           MainSlide, MainSlide1, MainSlide2, MainSlide4, MainSlide6,
                           EndSlide };

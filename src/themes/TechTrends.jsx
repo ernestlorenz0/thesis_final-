@@ -297,40 +297,6 @@ export function MainSlide6({ title, content }) {
   );
 }
 
-/* Image Slide – Framed neon */
-export function ImageSlide({ title, imageUrl }) {
-  return (
-    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-br from-gray-950 via-blue-950 to-purple-950 text-white flex items-center justify-center overflow-hidden">
-      {/* Background grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#3b82f6_1px,transparent_1px),linear-gradient(to_bottom,#3b82f6_1px,transparent_1px)] bg-[size:80px_80px] opacity-10"></div>
-
-      {/* Title holographic bar */}
-      <div className="absolute top-10 px-12 py-4 bg-gradient-to-r from-blue-600/80 to-purple-600/80 rounded-lg shadow-lg backdrop-blur-md border border-blue-400/40">
-        <h3 className="text-3xl font-bold tracking-wide text-blue-200">{title}</h3>
-      </div>
-
-      {/* Image showcase */}
-      <div className="relative z-10 w-[900px] h-[500px] flex items-center justify-center rounded-xl overflow-hidden shadow-[0_0_40px_rgba(59,130,246,0.6)] border-4 border-blue-500/70 transform perspective-[1200px] rotate-x-2">
-        {imageUrl ? (
-          <img
-            src={imageUrl}
-            alt="Tech visual"
-            className="w-full h-full object-contain rounded-lg"
-          />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center text-gray-500 bg-gray-900/50">
-            No Image
-          </div>
-        )}
-      </div>
-
-      {/* Glow accents */}
-      <div className="absolute bottom-20 w-[400px] h-[400px] rounded-full bg-blue-500 opacity-20 blur-3xl"></div>
-      <div className="absolute top-40 right-20 w-[300px] h-[300px] rounded-full bg-purple-500 opacity-20 blur-3xl"></div>
-    </section>
-  );
-}
-
 /* End Slide – Trend line graph vibe */
 export function EndSlide({ message }) {
   return (
@@ -370,7 +336,6 @@ const TechTrends = {
   MainSlide1,
   MainSlide2,
   MainSlide3,
-  ImageSlide,
   EndSlide,
 };
 

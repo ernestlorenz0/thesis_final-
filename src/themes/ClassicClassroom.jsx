@@ -63,29 +63,43 @@ export function TOCSlide({ tocData }) {
   );
 }
 
-
 export function MainSlide({ title, content }) {
   return (
     <section className="relative w-[1920px] h-[1080px] bg-[#0D3B36] text-white flex items-center justify-center overflow-hidden">
-      <img src="src/svgs/line-swirl1.svg" alt="swirl top" className="absolute top-0 left-0 w-full" />
-      <img src="src/svgs/line-swirl2.svg" alt="swirl bottom" className="absolute bottom-0 left-0 w-full" />
+      {/* Background swirls */}
+      <img src="src/svgs/line-swirl1.svg" alt="swirl top" className="absolute top-0 left-0 w-full opacity-70" />
+      <img src="src/svgs/line-swirl2.svg" alt="swirl bottom" className="absolute bottom-0 left-0 w-full opacity-70" />
 
-      <div className="absolute inset-0 bg-gradient-to-br from-[#2f3e46] to-[#1c2529]" />
+      {/* Gradient overlay for depth */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#1c2529]/80 via-transparent to-[#2f3e46]/90" />
 
-      {/* Subtle classroom icons */}
+      {/* Floating abstract circles */}
+      <div className="absolute w-[500px] h-[500px] bg-[#EAD7B7]/10 rounded-full blur-3xl top-[-150px] left-[-150px]" />
+      <div className="absolute w-[400px] h-[400px] bg-[#FFD166]/5 rounded-full blur-3xl bottom-[-120px] right-[-120px]" />
+
+      {/* Thematic icons (faded) */}
       <Book className="absolute top-16 left-24 w-28 h-28 text-white/10 rotate-[-15deg]" />
+      <GraduationCap className="absolute top-1/4 left-1/2 w-28 h-28 text-white/10 -translate-x-1/2" />
       <Pencil className="absolute bottom-24 right-40 w-24 h-24 text-white/10 rotate-[20deg]" />
       <Ruler className="absolute top-1/3 right-16 w-28 h-28 text-white/10 rotate-[45deg]" />
       <Apple className="absolute bottom-16 left-40 w-24 h-24 text-white/10" />
-      <GraduationCap className="absolute top-1/4 left-1/2 w-28 h-28 text-white/10 -translate-x-1/2" />
 
-      <div className="relative z-10 w-3/4 bg-[#0D3B36] border-4 border-[#EAD7B7] rounded-lg p-8 text-center shadow-lg">
-        <h2 className="font-[HedvigLettersSerif] text-5xl mb-4">{title}</h2>
-        <p className="text-3xl leading-relaxed">{content}</p>
+      {/* Main content card */}
+      <div className="relative z-10 w-3/4 bg-gradient-to-br from-[#0D3B36] to-[#1b4842] border-4 border-[#EAD7B7] rounded-2xl p-12 text-center shadow-2xl shadow-black/50">
+        <h2 className="font-[HedvigLettersSerif] text-6xl mb-6 tracking-wide drop-shadow-lg">
+          {title}
+        </h2>
+        <p className="text-3xl leading-relaxed text-gray-100/90">
+          {content}
+        </p>
+
+        {/* Decorative bottom accent line */}
+        <div className="mt-8 w-2/3 h-1 mx-auto bg-gradient-to-r from-[#FFD166] via-[#EAD7B7] to-[#FFD166] rounded-full" />
       </div>
     </section>
   );
 }
+
 
 export function MainSlide2({ title, content, imageUrl }) {
   return (
@@ -153,8 +167,6 @@ export function MainSlide4({ title, content, imageUrl }) {
   );
 }
 
-
-
 export function MainSlide6({ title, content }) {
   return (
     <section className="relative w-[1920px] h-[1080px] bg-[#0D3B36] flex items-center justify-center overflow-hidden">
@@ -162,33 +174,44 @@ export function MainSlide6({ title, content }) {
       <img
         src="src/svgs/line-swirl1.svg"
         alt="swirl top"
-        className="absolute top-0 left-0 w-full opacity-40"
+        className="absolute top-0 left-0 w-full opacity-30"
       />
       <img
         src="src/svgs/line-swirl2.svg"
         alt="swirl bottom"
-        className="absolute bottom-0 left-0 w-full opacity-40"
+        className="absolute bottom-0 left-0 w-full opacity-30"
       />
 
-      {/* Chalk-style background icons */}
-      <Pencil className="absolute top-20 left-20 w-24 h-24 text-[#EAD7B7]/20" />
-      <BookOpen className="absolute bottom-24 left-40 w-28 h-28 text-[#EAD7B7]/20" />
-      <Sigma className="absolute top-32 right-32 w-28 h-28 text-[#EAD7B7]/20" />
-      <Ruler className="absolute bottom-32 right-16 w-28 h-28 text-[#EAD7B7]/20" />
+      {/* Subtle spotlight effect */}
+      <div className="absolute inset-0 bg-radial-gradient from-[#ffffff0d] to-transparent" />
 
-      {/* Blackboard-style card */}
-      <div className="relative z-10 max-w-[70%] text-center border-[14px] border-[#EAD7B7] rounded-2xl p-16 bg-white shadow-2xl">
-        <h2 className="font-[HedvigLettersSerif] text-5xl mb-6 text-[#0D3B36]">
+      {/* Chalk-style faded icons */}
+      <Pencil className="absolute top-20 left-20 w-24 h-24 text-[#EAD7B7]/15 rotate-[-10deg]" />
+      <BookOpen className="absolute bottom-24 left-40 w-28 h-28 text-[#EAD7B7]/15" />
+      <Sigma className="absolute top-32 right-32 w-28 h-28 text-[#EAD7B7]/15 rotate-[12deg]" />
+      <Ruler className="absolute bottom-32 right-16 w-28 h-28 text-[#EAD7B7]/15 rotate-[25deg]" />
+
+      {/* Blackboard-style content card */}
+      <div className="relative z-10 max-w-[70%] text-center border-[14px] border-[#EAD7B7] rounded-3xl p-16 bg-gradient-to-br from-[#fafafa] to-[#e9e7e3] shadow-2xl shadow-black/40">
+        {/* Decorative top accent line */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2/3 h-[6px] bg-gradient-to-r from-[#FFD166] via-[#EAD7B7] to-[#FFD166] rounded-full -translate-y-3" />
+
+        <h2 className="font-[HedvigLettersSerif] text-6xl mb-8 text-[#0D3B36] drop-shadow-md">
           {title || "Key Concept"}
         </h2>
-        <p className="font-[HedvigLettersSerif] text-2xl leading-relaxed text-[#222]">
+
+        <p className="font-[HedvigLettersSerif] text-3xl leading-relaxed text-[#1c1c1c] tracking-wide">
           {content ||
             "This is a central highlighted concept, styled as if it were written on a framed classroom blackboard."}
         </p>
+
+        {/* Decorative chalk underline */}
+        <div className="mt-10 w-1/2 h-[4px] mx-auto bg-[#0D3B36]/50 rounded-full blur-[1px]" />
       </div>
     </section>
   );
 }
+
 
 
 

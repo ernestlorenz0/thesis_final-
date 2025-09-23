@@ -238,7 +238,7 @@ export default function HomePage() {
       }
 
       // Define the proper slide sequence for preview
-      const previewSequence = ['TitleSlide', 'TOCSlide', 'ImageSlide','MainSlide', 'MainSlide1', 'MainSlide2', 'MainSlide3', 'MainSlide4', 'MainSlide5', 'MainSlide6', 'EndSlide'];
+      const previewSequence = ['TitleSlide', 'TOCSlide','MainSlide', 'MainSlide1', 'MainSlide2', 'MainSlide3', 'MainSlide4', 'MainSlide5', 'MainSlide6', 'EndSlide'];
 
       previewSequence.forEach((layoutName, idx) => {
         if (slideMapping && slideMapping[layoutName]) {
@@ -263,11 +263,6 @@ export default function HomePage() {
               { id: 'toc-item-5', type: 'toc_item', content: 'Case Studies and Examples' },
               { id: 'toc-item-6', type: 'toc_item', content: 'Future Implications' },
               { id: 'toc-item-7', type: 'toc_item', content: 'Conclusion and Q&A' }
-            ];
-          } else if (layoutName === 'ImageSlide') {
-            slide.components = [
-              { id: 'img-title', type: 'title', content: 'Image Slide' },
-              { id: 'img-placeholder', type: 'image', content: '' }
             ];
           } else if (layoutName.startsWith('MainSlide')) {
             slide.components = [
@@ -326,7 +321,7 @@ export default function HomePage() {
       let slideIndex = 0;
       
       // Define the slide layout sequence - we'll map theme-specific names to our standard sequence
-      const standardSequence = ['TitleSlide', 'TOCSlide', 'ImageSlide', 'MainSlide1', 'MainSlide2', 'MainSlide3', 'MainSlide4', 'MainSlide5', 'MainSlide6', 'EndSlide'];
+      const standardSequence = ['TitleSlide', 'TOCSlide', 'MainSlide1', 'MainSlide2', 'MainSlide3', 'MainSlide4', 'MainSlide5', 'MainSlide6', 'EndSlide'];
       
       // Map theme-specific slide names to our standard sequence
       const mapThemeSlidesToSequence = (themeModule) => {
@@ -341,15 +336,6 @@ export default function HomePage() {
         // Map TOCSlide
         if (availableSlides.includes('TOCSlide')) {
           mapping['TOCSlide'] = 'TOCSlide';
-        }
-        
-        // Map ImageSlide (or similar)
-        const imageSlideNames = ['ImageSlide', 'MainSlide4', 'SectionSlide'];
-        for (const name of imageSlideNames) {
-          if (availableSlides.includes(name)) {
-            mapping['ImageSlide'] = name;
-            break;
-          }
         }
         
         // Map MainSlide1 (or MainSlide)

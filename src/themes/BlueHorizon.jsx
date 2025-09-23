@@ -203,22 +203,45 @@ export function MainSlide3({ title, content, imageUrl }) {
   );
 }
 
-/* ---------------- MAIN SLIDE 4 ---------------- */
-/* Vertical split: left colored sidebar with title, right side content */
 export function MainSlide4({ title, content }) {
   return (
-    <section className="relative w-[1920px] h-[1080px] flex overflow-hidden">
-      {/* Left sidebar */}
-      <div className="w-1/3 bg-[#2b6cb0] flex flex-col justify-center items-center p-12 text-white">
-        <h2 className="font-[HedvigLettersSerif] text-5xl font-bold mb-6">
+    <section className="relative w-[1920px] h-[1080px] flex overflow-hidden bg-gradient-to-br from-sky-50 to-blue-100">
+      {/* ===== LEFT SIDEBAR ===== */}
+      <div className="w-1/3 bg-gradient-to-b from-sky-700 to-blue-800 flex flex-col justify-center items-center p-16 text-white relative overflow-hidden">
+        {/* Glow Blob */}
+        <div className="absolute -top-32 -right-32 w-[400px] h-[400px] bg-sky-400/20 rounded-full blur-3xl"></div>
+
+        {/* Decorative Diagonal Ribbon */}
+        <div className="absolute -left-20 bottom-10 w-[350px] h-[80px] bg-sky-500/30 rotate-12 rounded-xl"></div>
+
+        <h2 className="font-[HedvigLettersSerif] text-5xl font-bold mb-6 drop-shadow-lg relative z-10">
           {title}
         </h2>
-        <div className="h-[4px] w-24 bg-[#f6ad55] rounded-full"></div>
+
+        {/* Horizon line */}
+        <div className="h-[5px] w-28 bg-gradient-to-r from-sky-300 to-amber-300 rounded-full relative z-10"></div>
+
+        {/* Bottom Wave Shape */}
+        <svg
+          className="absolute bottom-0 left-0 w-full text-sky-500/20"
+          viewBox="0 0 1440 320"
+          fill="currentColor"
+        >
+          <path d="M0,256L80,240C160,224,320,192,480,181.3C640,171,800,181,960,202.7C1120,224,1280,256,1360,272L1440,288V320H0Z" />
+        </svg>
       </div>
 
-      {/* Right content */}
-      <div className="flex-1 bg-[#ebf8ff] flex items-center justify-center p-16">
-        <p className="text-3xl text-gray-800 leading-relaxed max-w-3xl text-center">
+      {/* ===== RIGHT CONTENT ===== */}
+      <div className="flex-1 relative flex items-center justify-center bg-gradient-to-tl from-blue-50 to-sky-100 p-20 overflow-hidden">
+        {/* Soft Blobs */}
+        <div className="absolute top-10 right-16 w-72 h-72 bg-blue-300/20 rounded-full blur-2xl"></div>
+        <div className="absolute bottom-20 left-16 w-60 h-60 bg-sky-400/20 rounded-full blur-2xl"></div>
+
+        {/* Geometric Shapes */}
+        <div className="absolute top-1/3 left-1/4 w-32 h-32 border-4 border-sky-300/40 rounded-full"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-40 h-40 rotate-45 border-4 border-blue-400/30"></div>
+
+        <p className="text-3xl text-gray-700 leading-relaxed max-w-3xl text-center drop-shadow-sm relative z-10">
           {content}
         </p>
       </div>
@@ -229,21 +252,29 @@ export function MainSlide4({ title, content }) {
 export function MainSlide5({ title, content }) {
   return (
     <section className="relative w-[1920px] h-[1080px] bg-gradient-to-tr from-[#bee3f8] to-[#ebf8ff] flex items-center justify-center overflow-hidden">
-      {/* Geometric accents */}
-      <div className="absolute top-10 left-10 w-32 h-32 bg-[#2b6cb0]/40 rotate-45"></div>
-      <div className="absolute bottom-10 right-20 w-40 h-40 bg-[#3182ce]/30 rotate-12"></div>
+      {/* ===== Glowing Blobs for Depth ===== */}
+      <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-[#90cdf4]/30 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-0 right-0 w-[450px] h-[450px] bg-[#63b3ed]/25 rounded-full blur-3xl"></div>
 
-      {/* Center content block */}
+      {/* ===== Geometric Accents with Glow ===== */}
+      <div className="absolute top-10 left-10 w-32 h-32 bg-[#2b6cb0]/40 rotate-45 shadow-[0_0_80px_20px_rgba(43,108,176,0.3)]"></div>
+      <div className="absolute bottom-10 right-20 w-40 h-40 bg-[#3182ce]/30 rotate-12 shadow-[0_0_100px_25px_rgba(49,130,206,0.25)]"></div>
+
+      {/* Subtle glowing outline circle */}
+      <div className="absolute top-1/2 left-1/4 w-60 h-60 border-4 border-sky-400/30 rounded-full blur-sm shadow-[0_0_60px_15px_rgba(56,178,255,0.25)]"></div>
+
+      {/* ===== Center Content ===== */}
       <div className="relative z-10 text-center max-w-4xl">
-        <h2 className="font-[HedvigLettersSerif] text-6xl text-[#2b6cb0] mb-6">
+        <h2 className="font-[HedvigLettersSerif] text-6xl text-[#2b6cb0] mb-6 drop-shadow-md">
           {title}
         </h2>
-        <p className="text-3xl text-gray-800 leading-relaxed">{content}</p>
+        <p className="text-3xl text-gray-800 leading-relaxed drop-shadow-sm">
+          {content}
+        </p>
       </div>
     </section>
   );
 }
-
 
 
 export function EndSlide() {

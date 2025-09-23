@@ -77,9 +77,7 @@ export function MainSlide4({ title, content }) {
   );
 }
 
-/* ---------------- MAIN SLIDE 5 ---------------- */
-/* ---------------- MAIN SLIDE 5 ---------------- */
-/* Split horizontal bands with content overlay */
+
 export function MainSlide5({ title, content }) {
   return (
     <section className="relative w-[1920px] h-[1080px] flex flex-col overflow-hidden">
@@ -116,38 +114,6 @@ export function MainSlide6({ title, content }) {
           {title}
         </h2>
         <p className="text-3xl text-green-800 leading-relaxed">{content}</p>
-      </div>
-    </section>
-  );
-}
-
-
-/* ---------------- IMAGE SLIDE ---------------- */
-/* Split layout: left big image, right caption block */
-export function ImageSlide({ title, imageUrl }) {
-  return (
-    <section className="relative w-[1920px] h-[1080px] bg-green-50 flex">
-      {/* Image side */}
-      <div className="w-2/3 h-full overflow-hidden">
-        {imageUrl ? (
-          <img
-            src={imageUrl}
-            alt="Scholar Green visual"
-            className="w-full h-full object-cover"
-          />
-        ) : (
-          <div className="w-full h-full bg-green-200 flex items-center justify-center text-green-700">
-            No Image
-          </div>
-        )}
-      </div>
-
-      {/* Caption side */}
-      <div className="flex-1 bg-green-700 flex flex-col justify-center p-12 text-white">
-        <h3 className="text-3xl font-serif font-bold mb-4">{title}</h3>
-        <p className="text-lg leading-relaxed opacity-90">
-          Supporting text or description goes here.
-        </p>
       </div>
     </section>
   );
@@ -324,7 +290,6 @@ const ScholarGreen = {
   TOCSlide,
   MainSlide1,
   MainSlide3,
-  ImageSlide,
   EndSlide,
 };
 export default ScholarGreen;

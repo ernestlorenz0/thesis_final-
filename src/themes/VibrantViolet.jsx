@@ -203,27 +203,67 @@ export function MainSlide2({ title, content }) {
   );
 }
 
-/* ---------------- MAIN SLIDE 3 ---------------- */
-/* Diagonal split background with funky wave */
 export function MainSlide3({ title, content }) {
   return (
-    <section className="relative w-[1920px] h-[1080px] flex overflow-hidden">
-      {/* Diagonal split */}
-      <div className="absolute inset-0 bg-gradient-to-tr from-fuchsia-500 to-purple-600 clip-path-diagonal"></div>
+    <section className="relative w-[1920px] h-[1080px] flex overflow-hidden bg-black">
+      {/* Base diagonal gradient */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-fuchsia-500 via-purple-600 to-indigo-700 clip-path-diagonal"></div>
 
-      {/* Overlay for readability */}
-      <div className="absolute inset-0 bg-black/20"></div>
+      {/* Static Blobs */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Pink blob */}
+        <div className="absolute -top-32 -left-32 w-[600px] h-[600px] bg-fuchsia-400/40 rounded-full mix-blend-screen blur-3xl"></div>
 
-      {/* Text block */}
+        {/* Purple blob */}
+        <div className="absolute top-1/2 -right-48 w-[500px] h-[500px] bg-purple-500/40 rounded-full mix-blend-screen blur-3xl"></div>
+
+        {/* Indigo blob */}
+        <div className="absolute bottom-0 left-1/3 w-[450px] h-[450px] bg-indigo-400/40 rounded-full mix-blend-screen blur-3xl"></div>
+      </div>
+
+      {/* Geometric Shapes */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Triangle */}
+        <svg
+          className="absolute top-20 left-40 w-24 h-24 text-white/20"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          viewBox="0 0 24 24"
+        >
+          <path d="M12 2 L22 20 H2 Z" />
+        </svg>
+
+        {/* Outline circle */}
+        <div className="absolute bottom-40 right-40 w-36 h-36 border-2 border-white/20 rounded-full"></div>
+
+        {/* Thin vertical line */}
+        <div className="absolute top-1/3 left-1/2 w-0.5 h-64 bg-white/10"></div>
+
+        {/* Dotted grid */}
+        <div className="absolute bottom-16 left-16 grid grid-cols-6 gap-3">
+          {Array.from({ length: 24 }).map((_, i) => (
+            <div key={i} className="w-2 h-2 bg-white/10 rounded-full"></div>
+          ))}
+        </div>
+      </div>
+
+      {/* Dark overlay for text readability */}
+      <div className="absolute inset-0 bg-black/30"></div>
+
+      {/* Main Text */}
       <div className="relative z-10 flex flex-col items-center justify-center w-full text-center px-16">
-        <h2 className="text-6xl font-extrabold text-white mb-6">{title}</h2>
-        <p className="text-3xl text-purple-100 leading-relaxed max-w-3xl">
+        <h2 className="text-6xl font-extrabold text-white mb-6 drop-shadow-2xl">
+          {title}
+        </h2>
+        <p className="text-3xl text-purple-100 leading-relaxed max-w-3xl drop-shadow-xl">
           {content}
         </p>
       </div>
     </section>
   );
 }
+
 
 /* ---------------- MAIN SLIDE 4 ---------------- */
 /* Circular focal layout with layered blobs */
@@ -264,55 +304,46 @@ export function MainSlide5({ title, content }) {
   );
 }
 
-/* ---------------- MAIN SLIDE 6 ---------------- */
-/* Funky zig-zag ribbon background */
 export function MainSlide6({ title, content }) {
   return (
-    <section className="relative w-[1920px] h-[1080px] bg-violet-100 flex items-center justify-center overflow-hidden">
-      {/* Zig-zag ribbon */}
-      <div className="absolute -rotate-6 w-[140%] h-[300px] bg-gradient-to-r from-purple-600 to-fuchsia-500 top-1/3 shadow-2xl"></div>
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-br from-purple-100 via-violet-200 to-fuchsia-100 flex items-center justify-center overflow-hidden">
+      {/* Layered Ribbons */}
+      <div className="absolute top-1/3 -rotate-6 w-[160%] h-[340px] bg-gradient-to-r from-fuchsia-600 via-purple-600 to-indigo-600 shadow-2xl"></div>
+      <div className="absolute top-1/3 -rotate-6 w-[160%] h-[340px] bg-gradient-to-r from-pink-400/30 to-purple-400/30 blur-2xl"></div>
 
-      {/* Content block */}
+      {/* Background Accents */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Big blurred blobs */}
+        <div className="absolute -top-20 -left-20 w-[500px] h-[500px] bg-fuchsia-300/30 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-10 right-20 w-[400px] h-[400px] bg-purple-400/30 rounded-full blur-3xl"></div>
+
+        {/* Outline circle */}
+        <div className="absolute top-20 right-1/3 w-40 h-40 border-4 border-white/30 rounded-full"></div>
+
+        {/* Thin accent line */}
+        <div className="absolute bottom-24 left-1/4 w-1 h-64 bg-white/20 rotate-12"></div>
+
+        {/* Small dots grid */}
+        <div className="absolute bottom-16 left-16 grid grid-cols-5 gap-4">
+          {Array.from({ length: 15 }).map((_, i) => (
+            <div key={i} className="w-3 h-3 bg-white/15 rounded-full"></div>
+          ))}
+        </div>
+      </div>
+
+      {/* Content */}
       <div className="relative z-10 text-center max-w-4xl px-12">
-        <h2 className="text-6xl font-extrabold text-white-800 mb-6">{title}</h2>
-        <p className="text-3xl text-white-900 leading-relaxed">{content}</p>
+        <h2 className="text-7xl font-extrabold text-white drop-shadow-2xl mb-6">
+          {title}
+        </h2>
+        <p className="text-3xl text-purple-50 leading-relaxed drop-shadow-xl">
+          {content}
+        </p>
       </div>
     </section>
   );
 }
 
-
-/* ---------------- IMAGE SLIDE ---------------- */
-/* Fun frame with blobs around image */
-export function ImageSlide({ title, imageUrl }) {
-  return (
-    <section className="relative w-[1920px] h-[1080px] bg-violet-50 flex items-center justify-center overflow-hidden">
-      {/* Decorative blobs */}
-      <div className="absolute top-0 left-0 w-72 h-72 bg-purple-300/40 rounded-full blur-2xl"></div>
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-fuchsia-400/30 rounded-full blur-3xl"></div>
-
-      {/* Image container */}
-      <div className="relative bg-white border-[10px] border-purple-600 rounded-3xl shadow-2xl overflow-hidden max-w-4xl w-[900px] h-[500px]">
-        {imageUrl ? (
-          <img
-            src={imageUrl}
-            alt="Vibrant Violet visual"
-            className="w-full h-full object-cover"
-          />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center text-purple-700">
-            No Image
-          </div>
-        )}
-      </div>
-
-      {/* Title below image */}
-      <div className="absolute bottom-12 bg-purple-700 text-white px-8 py-3 rounded-full shadow-lg">
-        <h3 className="text-2xl font-bold">{title}</h3>
-      </div>
-    </section>
-  );
-}
 
 /* ---------------- END SLIDE ---------------- */
 export function EndSlide() {
@@ -344,7 +375,6 @@ const VibrantViolet = {
   MainSlide1,
   MainSlide2,
   MainSlide3,
-  ImageSlide,
   EndSlide,
 };
 export default VibrantViolet;

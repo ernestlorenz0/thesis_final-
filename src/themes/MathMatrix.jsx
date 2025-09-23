@@ -326,30 +326,6 @@ export function MainSlide6({ title, content }) {
   );
 }
 
-
-/* Image Slide – Framed like a chalkboard */
-export function ImageSlide({ title, imageUrl }) {
-  return (
-    <section className="relative w-[1920px] h-[1080px] bg-black flex flex-col items-center justify-center text-green-400 p-8">
-      {/* Frame */}
-      <div className="absolute inset-4 border-4 border-green-700"></div>
-
-      {imageUrl ? (
-        <img
-          src={imageUrl}
-          alt="math visual"
-          className="relative z-10 max-h-[500px] object-contain mb-4 border-4 border-green-500 shadow-lg"
-        />
-      ) : (
-        <div className="relative z-10 w-[800px] h-[400px] flex items-center justify-center border-4 border-green-700 text-green-600">
-          No Image
-        </div>
-      )}
-      <h3 className="relative z-10 text-xl font-mono font-bold mt-2">{title}</h3>
-    </section>
-  );
-}
-
 /* End Slide – Digital matrix style */
 export function EndSlide({ message }) {
   return (
@@ -371,7 +347,6 @@ const MathMatrix = {
   MainSlide1,
   MainSlide2,
   MainSlide3,
-  ImageSlide,
   EndSlide,
 };
 

@@ -1,18 +1,36 @@
 import React from "react";
+import { Zap, Rocket, Sparkles, BookAudio, Layers, Globe} from "lucide-react";
 
 export function TitleSlide({ title, subtitle }) {
   return (
-    <section className="relative w-[1920px] h-[1080px] bg-white overflow-hidden flex items-center">
-      {/* Big circle */}
-      <img src="src/svgs/big-circle.svg" alt="circle" className="absolute right-0 bottom-0 w-[700px]" />
-      {/* Small navy circle */}
-      <img src="src/svgs/small-circle.svg" alt="circle" className="absolute top-10 right-40 w-10" />
-      {/* Peach corner shape */}
-      <img src="src/svgs/small-rec.svg" alt="shape" className="absolute bottom-0 left-0 w-[200px]" />
+    <section className="relative w-[1920px] h-[1080px] bg-cyan-50 overflow-hidden flex items-center">
+      {/* Big circle - bottom right */}
+      <img
+        src="src/svgs/big-circle.svg"
+        alt="circle"
+        className="absolute right-[-120px] bottom-[-120px] w-[800px] opacity-90"
+      />
 
-      <div className="relative z-10 ml-16">
-        <h1 className="text-5xl font-bold text-gray-800">{title}</h1>
-        {subtitle && <p className="text-lg mt-3 text-gray-600">{subtitle}</p>}
+      {/* Small navy circle - top right */}
+      <img
+        src="src/svgs/small-circle.svg"
+        alt="circle"
+        className="absolute top-20 right-48 w-16 opacity-80"
+      />
+
+      {/* Peach corner shape - bottom left */}
+      <img
+        src="src/svgs/small-rec.svg"
+        alt="shape"
+        className="absolute bottom-[-40px] left-[-40px] w-[280px] opacity-90"
+      />
+
+      {/* Text content */}
+      <div className="relative z-10 ml-24">
+        <h1 className="text-7xl font-bold text-cyan-900">{title}</h1>
+        {subtitle && (
+          <p className="text-2xl mt-4 text-cyan-700 max-w-2xl">{subtitle}</p>
+        )}
       </div>
     </section>
   );
@@ -21,12 +39,25 @@ export function TitleSlide({ title, subtitle }) {
 export function MainSlide({ title, content }) {
   return (
     <section className="relative w-[1920px] h-[1080px] bg-white overflow-hidden flex items-center justify-between p-10">
-      {/* Left shapes */}
-      <img src="src/svgs/circle-left.svg" alt="circle" className="absolute left-0 top-0 w-[500px]" />
-      <img src="src/svgs/circle-right.svg" alt="shape" className="absolute bottom-0 right-0 w-[350px]" />
+      {/* Background accent bar */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-100/60 to-transparent transform -skew-y-6"></div>
 
-      <div className="relative z-10 w-1/2 bg-white shadow-lg rounded-lg p-8 ml-[300px]">
-        <h2 className="text-6xl font-semibold text-gray-800 mb-4">{title}</h2>
+      {/* Decorative circles */}
+      <img
+        src="src/svgs/circle-left.svg"
+        alt="circle"
+        className="absolute left-0 top-0 w-[500px] opacity-80"
+      />
+      <img
+        src="src/svgs/circle-right.svg"
+        alt="shape"
+        className="absolute bottom-0 right-0 w-[350px] opacity-80"
+      />
+      <div className="absolute top-1/3 right-1/3 w-40 h-40 bg-blue-200/40 rounded-full blur-xl"></div>
+
+      {/* Content box */}
+      <div className="relative z-10 w-1/2 bg-white shadow-lg rounded-lg p-12 ml-[300px]">
+        <h2 className="text-6xl font-semibold text-gray-800 mb-6">{title}</h2>
         <p className="text-2xl text-gray-700 leading-relaxed">{content}</p>
       </div>
     </section>
@@ -35,42 +66,98 @@ export function MainSlide({ title, content }) {
 
 export function MainSlide1({ title, content }) {
   return (
-    <section className="w-[1920px] h-[1080px] bg-cyan-200 flex items-center justify-center">
-      <div className="text-center">
-        <h2 className="text-5xl font-bold text-gray-800 mt-[-300px]">{title}</h2>
-        <div className="mt-2 h-[2px] w-40 bg-gray-700 mx-auto mb-40"></div>
-        <p className="text-xl text-gray-700 leading-relaxed">{content}</p>
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-br from-cyan-200 to-cyan-100 flex items-center justify-center overflow-hidden">
+      {/* Background geometric shapes */}
+      <div className="absolute top-16 left-24 w-72 h-72 border-8 border-cyan-400 rounded-full opacity-70"></div>
+      <div className="absolute bottom-20 right-32 w-96 h-96 bg-cyan-300/40 rounded-full"></div>
+      <div className="absolute top-1/3 right-1/4 w-40 h-40 bg-cyan-400/60 rotate-12 rounded-lg"></div>
+      <div className="absolute bottom-1/4 left-1/5 w-32 h-32 border-8 border-cyan-500 rotate-45"></div>
+
+      {/* Top accent bar */}
+      <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-r from-cyan-400/40 to-transparent"></div>
+
+      {/* Main content */}
+      <div className="relative z-10 text-center px-12 max-w-4xl">
+        <h2 className="text-7xl font-bold text-gray-800 mb-6 drop-shadow-lg">{title}</h2>
+        <div className="h-[5px] w-44 bg-cyan-600 mx-auto mb-12 rounded-full"></div>
+        <p className="text-4xl text-gray-700 leading-relaxed">{content}</p>
       </div>
     </section>
   );
 }
 
-export function MainSlide2({ items = [] }) {
+
+
+export function MainSlide2({ title, content }) {
   return (
-    <section className="w-[1920px] h-[1080px] bg-[#2c3e50] flex items-center justify-center space-x-6 p-10">
-      {items.map((item, idx) => (
-        <div key={idx} className="flex flex-col items-center">
-          <div className="w-40 h-40 mb-4 bg-cyan-400 rounded-lg flex items-center justify-center">
-            <span className="text-2xl">📦</span>
-          </div>
-          <p className="text-white text-lg">{item}</p>
+    <section className="relative w-[1920px] h-[1080px] bg-[#2c3e50] flex flex-col items-center justify-center p-16 text-center overflow-hidden">
+      {/* Decorative shapes */}
+      <div className="absolute top-20 left-32 w-40 h-40 bg-cyan-500/30 rounded-full blur-xl"></div>
+      <div className="absolute bottom-24 right-40 w-60 h-60 border-8 border-cyan-400 rounded-full opacity-50"></div>
+      <div className="absolute top-1/3 right-1/4 w-32 h-32 bg-cyan-300/40 rotate-12 rounded-lg"></div>
+
+      {/* Title */}
+      <h2 className="relative z-10 text-6xl font-bold text-white mb-6 drop-shadow-lg">
+        {title}
+      </h2>
+
+      {/* Divider */}
+      <div className="relative z-10 h-[5px] w-44 bg-cyan-400 mx-auto mb-12 rounded-full"></div>
+
+      {/* Content */}
+      <p className="relative z-10 text-2xl text-gray-200 max-w-4xl leading-relaxed">
+        {content}
+      </p>
+
+      {/* Icon accents */}
+      <div className="flex space-x-8 mt-16 relative z-10">
+        <div className="w-28 h-28 bg-cyan-400/30 rounded-2xl flex items-center justify-center">
+          <Zap size={48} className="text-cyan-300" />
         </div>
-      ))}
+        <div className="w-28 h-28 bg-cyan-400/30 rounded-2xl flex items-center justify-center">
+          <Rocket size={48} className="text-cyan-300" />
+        </div>
+        <div className="w-28 h-28 bg-cyan-400/30 rounded-2xl flex items-center justify-center">
+          <Sparkles size={48} className="text-cyan-300" />
+        </div>
+      </div>
     </section>
   );
 }
+
 
 export function MainSlide3({ title, content }) {
   return (
-    <section className="w-[1920px] h-[1080px] flex">
+    <section className="w-[1920px] h-[1080px] flex overflow-hidden">
       {/* Left cyan side */}
-      <div className="w-1/2 bg-cyan-200 flex flex-col items-center justify-center p-10">
-        <h2 className="text-5xl font-semibold mb-4 text-black translate-y-[-200px]">{title}</h2>
-        <p className="text-gray-700 translate-y-[-150px] text-2xl">{content}</p>
+      <div className="w-1/2 bg-cyan-200 flex flex-col items-center justify-center p-10 relative">
+        {/* Decorative shape */}
+        <div className="absolute top-20 left-20 w-40 h-40 bg-white/40 rounded-full blur-xl"></div>
+
+        <h2 className="text-6xl font-bold mb-6 text-gray-900 relative z-10">
+          {title}
+        </h2>
+        <p className="text-gray-800 text-2xl max-w-lg leading-relaxed relative z-10">
+          {content}
+        </p>
       </div>
-      {/* Right white side */}
-      <div className="w-1/2 bg-white flex flex-col items-center justify-center p-10">
-        
+
+      {/* Right white side with icons */}
+      <div className="w-1/2 bg-white flex flex-col items-center justify-center p-10 relative">
+        {/* Decorative cyan circle */}
+        <div className="absolute bottom-20 right-24 w-60 h-60 bg-cyan-100 rounded-full blur-xl"></div>
+
+        <div className="grid grid-cols-3 gap-12 relative z-10">
+          <div className="w-32 h-32 flex items-center justify-center rounded-2xl bg-cyan-200/40 shadow-md">
+            <Layers size={48} className="text-cyan-600" />
+          </div>
+          <div className="w-32 h-32 flex items-center justify-center rounded-2xl bg-cyan-200/40 shadow-md">
+            <BookAudio size={48} className="text-cyan-600" />
+          </div>
+          <div className="w-32 h-32 flex items-center justify-center rounded-2xl bg-cyan-200/40 shadow-md">
+            <Globe size={48} className="text-cyan-600" />
+          </div>
+        </div>
       </div>
     </section>
   );

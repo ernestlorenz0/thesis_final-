@@ -217,21 +217,6 @@ export function MainSlide3({ title, content }) {
   );
 }
 
-/* Image Slide – Spectrum border with centered image */
-export function ImageSlide({ title, imageUrl }) {
-  return (
-    <section className="relative w-[1920px] h-[1080px] bg-white text-gray-900 flex flex-col items-center justify-center">
-      <div className="absolute inset-8 border-[6px] border-transparent rounded-xl bg-gradient-to-r from-pink-500 via-yellow-400 to-green-400 bg-clip-border"></div>
-      <img
-        src={imageUrl}
-        alt="science visual"
-        className="rounded-lg shadow-lg max-h-[500px] mb-6 border-4 border-gray-200 object-contain"
-      />
-      <h3 className="text-2xl font-bold">{title}</h3>
-    </section>
-  );
-}
-
 /* Main Slide 4 – Left Image, Right Text with Spectrum Accent */
 export function MainSlide4({ title, content, imageUrl }) {
   return (
@@ -317,7 +302,6 @@ const ScienceSpectrum = {
   MainSlide1,
   MainSlide2,
   MainSlide3,
-  ImageSlide,
   EndSlide,
 };
 

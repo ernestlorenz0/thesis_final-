@@ -198,41 +198,48 @@ export function MainSlide2({ title, content, imageUrl }) {
   );
 }
 
-export function MainSlide3({ title, imageUrl }) {
+export function MainSlide3({ title, content }) {
   return (
-    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-br from-playful-200 via-playful-300 to-playful-400 flex items-center justify-center overflow-hidden">
-      {/* Background shapes */}
-      <div className="absolute top-12 left-16 w-28 h-28 bg-playful-500 rounded-full opacity-70 animate-bounce"></div>
-      <div className="absolute bottom-20 right-20 w-36 h-36 bg-playful-600 rounded-2xl opacity-70 rotate-12 animate-pulse"></div>
-      <div className="absolute top-[30%] right-1/4 w-20 h-20 bg-playful-700 rounded-full opacity-60 animate-bounce"></div>
-      <div className="absolute bottom-10 left-1/3 w-24 h-24 bg-playful-400 rounded-full opacity-60 animate-bounce"></div>
-      <div className="absolute top-1/4 left-1/2 w-16 h-16 bg-playful-300 rounded-lg opacity-60 animate-pulse"></div>
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-br from-playful-200 via-playful-300 to-playful-400 overflow-hidden flex items-center justify-center">
+      {/* --- Strong Background Shapes --- */}
+      <div className="absolute -top-32 -left-32 w-[600px] h-[600px] bg-playful-500 rounded-full opacity-70 blur-lg" />
+      <div className="absolute bottom-[-120px] right-[-120px] w-[500px] h-[500px] bg-playful-700 rounded-3xl rotate-12 opacity-60 blur-md" />
+      
+      {/* Triangle */}
+      <div className="absolute top-[20%] left-[10%] w-0 h-0 border-l-[120px] border-l-transparent border-r-[120px] border-r-transparent border-b-[200px] border-b-playful-600 opacity-80 rotate-12" />
 
-      {/* Main framed image container */}
-      <div className="relative z-10 max-w-[1000px] w-[80%] bg-white rounded-3xl overflow-hidden shadow-2xl border-8 border-playful-700 flex flex-col items-center justify-center p-6">
-        {imageUrl ? (
-          <img
-            src={imageUrl}
-            alt={title || "Slide image"}
-            className="object-contain max-h-[500px] w-full rounded-md"
-          />
-        ) : (
-          <div className="w-full h-[500px] flex items-center justify-center text-playful-800 font-bold text-3xl">
-            No Image
-          </div>
-        )}
+      {/* Zigzag stripe */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="w-[1400px] h-[200px] bg-playful-400 opacity-25 rotate-12 skew-y-6"></div>
+      </div>
 
-        {/* Title badge (only show if title exists) */}
-        {title && (
-          <div className="mt-4 px-5 py-2 bg-playful-600 text-white rounded-full text-xl font-semibold shadow-md">
-            {title}
-          </div>
-        )}
+      {/* Dotted Circle */}
+      <div className="absolute top-[25%] right-[20%] w-[280px] h-[280px] border-[12px] border-dashed border-white rounded-full opacity-70" />
+
+      {/* --- Content Area --- */}
+      <div className="relative z-10 flex flex-col items-center text-center max-w-5xl">
+        {/* Title */}
+        <h2 className="text-7xl font-extrabold text-playful-900 drop-shadow-2xl">
+          {title || "Playful Concept"}
+        </h2>
+
+        {/* Decorative underline */}
+        <div className="mt-6 w-48 h-3 bg-gradient-to-r from-playful-500 via-playful-600 to-playful-700 rounded-full shadow-lg" />
+
+        {/* Content Card */}
+        <div className="mt-12 bg-white p-12 rounded-[3rem] border-[8px] border-playful-600 shadow-2xl relative max-w-3xl">
+          <p className="text-3xl text-gray-900 leading-relaxed font-medium">
+            {content ||
+              "Here’s a slide with strong geometric visuals: big colorful blobs, a triangle, zigzag stripe, and dotted circle. They make the background unmistakable while the text stays readable."}
+          </p>
+
+          {/* Bubble pointer */}
+          <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-12 h-12 bg-white border-[8px] border-playful-600 rotate-45" />
+        </div>
       </div>
     </section>
   );
 }
-
 
 export function MainSlide4({ title, content }) {
   const points = [
@@ -309,42 +316,6 @@ export function MainSlide6() {
   );
 }
 
-
-
-export function ImageSlide({ title, imageUrl }) {
-  return (
-    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-br from-playful-200 via-playful-300 to-playful-400 overflow-hidden flex flex-col">
-      {/* Playful floating shapes */}
-      <div className="absolute top-12 left-16 w-28 h-28 bg-playful-500 rounded-full opacity-70 animate-bounce"></div>
-      <div className="absolute bottom-20 right-20 w-36 h-36 bg-playful-600 rounded-2xl opacity-70 rotate-12 animate-pulse"></div>
-      <div className="absolute top-[30%] right-1/4 w-20 h-20 bg-playful-700 rounded-full opacity-60 animate-bounce"></div>
-      <div className="absolute bottom-10 left-1/3 w-24 h-24 bg-playful-400 rounded-full opacity-60 animate-bounce"></div>
-      <div className="absolute top-1/4 left-1/2 w-16 h-16 bg-playful-300 rounded-lg opacity-60 animate-pulse"></div>
-
-      {/* Image + Title */}
-      <div className="relative z-10 flex flex-col items-center justify-center h-full px-10 text-center">
-        {imageUrl ? (
-          <img
-            src={imageUrl}
-            alt={title || "Slide image"}
-            className="rounded-2xl shadow-2xl max-h-[70%] object-contain mb-6 border-8 border-white"
-          />
-        ) : (
-          <div className="w-full h-[70%] flex items-center justify-center bg-playful-200 text-playful-800 font-bold rounded-2xl border-8 border-white shadow-xl mb-6">
-            No Image
-          </div>
-        )}
-        <h3 className="text-3xl font-extrabold font-sans text-playful-900 drop-shadow-md bg-white/70 px-6 py-2 rounded-xl">
-          {title}
-        </h3>
-      </div>
-    </section>
-  );
-}
-
-
-
-
 /* End Slide */
 export function EndSlide({ message }) {
   return (
@@ -377,7 +348,6 @@ const PlayfulPrimary = {
   MainSlide4,
   MainSlide5,
   MainSlide6,
-  ImageSlide,
   EndSlide,
 };
 

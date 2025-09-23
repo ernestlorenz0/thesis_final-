@@ -1,4 +1,7 @@
 import React from "react";
+import { FaRegLightbulb } from "react-icons/fa";
+import { MdOutlineMenuBook } from "react-icons/md";
+import { FaRegCommentDots } from "react-icons/fa";
 
 /* ---------------- TITLE SLIDE ---------------- */
 export function TitleSlide({ title, subtitle }) {
@@ -173,25 +176,34 @@ export function TOCSlide({ tocData }) {
   );
 }
 
-/* ---------------- MAIN SLIDE 1 ---------------- */
 export function MainSlide1({ title, content }) {
   return (
-    <section className="relative w-[1920px] h-[1080px] bg-yellow-100 flex overflow-hidden">
-      {/* Left column for title */}
-      <div className="w-1/3 bg-yellow-400/90 p-12 flex flex-col justify-center items-start shadow-lg z-10">
-        <h2 className="text-6xl font-bold text-yellow-900 mb-6">{title}</h2>
+    <section className="relative w-[1920px] h-[1080px] flex overflow-hidden bg-yellow-100">
+      {/* Decorative Blobs */}
+      <div className="absolute -top-20 -left-32 w-[500px] h-[500px] bg-yellow-300/40 rounded-full blur-2xl"></div>
+      <div className="absolute bottom-[-100px] right-[-100px] w-[600px] h-[600px] bg-orange-200/40 rounded-full blur-3xl"></div>
+
+      {/* Left title column */}
+      <div className="w-1/3 bg-yellow-400/90 p-16 flex flex-col justify-center items-start shadow-2xl relative z-10">
+        <h2 className="text-7xl font-extrabold text-yellow-950 leading-tight drop-shadow-md">
+          {title}
+        </h2>
+        <div className="mt-6 w-24 h-2 bg-yellow-900/70 rounded-full"></div>
       </div>
 
-      {/* Right content with curved wave */}
-      <div className="flex-1 p-16 flex items-center justify-center relative">
-        <div className="absolute inset-y-0 left-1/3 w-[200%] bg-yellow-200 rounded-l-[50%]"></div>
-        <p className="relative z-10 text-4xl text-yellow-900 leading-relaxed max-w-2xl">
+      {/* Right content column */}
+      <div className="flex-1 flex items-center justify-center px-24 relative">
+        {/* Curved divider that blends yellow shades */}
+        <div className="absolute inset-y-0 left-0 w-[120%] bg-gradient-to-r from-yellow-200 via-yellow-100 to-yellow-50 rounded-l-[50%]"></div>
+        
+        <p className="relative z-10 text-4xl text-yellow-900 leading-relaxed max-w-3xl font-light">
           {content}
         </p>
       </div>
     </section>
   );
 }
+
 
 /* ---------------- MAIN SLIDE 2 ---------------- */
 export function MainSlide2({ title, content }) {
@@ -206,20 +218,33 @@ export function MainSlide2({ title, content }) {
   );
 }
 
-/* ---------------- MAIN SLIDE 3 ---------------- */
 export function MainSlide3({ title, content }) {
   return (
     <section className="relative w-[1920px] h-[1080px] bg-yellow-50 flex overflow-hidden">
-      {/* Background pattern dots */}
+      {/* Background dots grid */}
       <div className="absolute inset-0 grid grid-cols-12 grid-rows-6 gap-6 opacity-20">
         {Array.from({ length: 72 }).map((_, i) => (
           <div key={i} className="w-3 h-3 bg-yellow-400 rounded-full"></div>
         ))}
       </div>
 
-      {/* Content split */}
+      {/* Soft blobs */}
+      <div className="absolute -top-32 -left-40 w-[600px] h-[600px] bg-yellow-300/40 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-[-100px] right-[-150px] w-[700px] h-[700px] bg-orange-200/40 rounded-full blur-3xl"></div>
+
+      {/* Subtle diagonal gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-yellow-100/50 via-transparent to-yellow-200/40"></div>
+
+      {/* Floating icons */}
+      <FaRegLightbulb className="absolute top-24 left-32 text-yellow-600 opacity-30 text-8xl" />
+      <MdOutlineMenuBook className="absolute bottom-32 left-48 text-orange-400 opacity-25 text-9xl" />
+      <FaRegCommentDots className="absolute top-40 right-32 text-yellow-500 opacity-30 text-8xl" />
+
+      {/* Content */}
       <div className="relative z-10 w-full flex flex-col items-center justify-center text-center px-16">
-        <h2 className="text-7xl font-extrabold text-yellow-900 mb-6">{title}</h2>
+        <h2 className="text-7xl font-extrabold text-yellow-900 mb-6 drop-shadow-md">
+          {title}
+        </h2>
         <p className="text-4xl text-yellow-800 leading-relaxed max-w-3xl">
           {content}
         </p>
@@ -290,35 +315,6 @@ export function MainSlide6({ title, content }) {
   );
 }
 
-
-
-/* ---------------- IMAGE SLIDE ---------------- */
-export function ImageSlide({ title, imageUrl }) {
-  return (
-    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-t from-orange-200 to-yellow-100 flex flex-col items-center justify-center">
-      {/* Title banner */}
-      <div className="bg-yellow-400 text-yellow-900 px-10 py-4 rounded-full mb-6 shadow-md">
-        <h3 className="text-2xl font-bold">{title}</h3>
-      </div>
-
-      {/* Framed image */}
-      <div className="relative w-[900px] h-[500px] bg-white rounded-2xl shadow-xl border-[12px] border-yellow-400 overflow-hidden">
-        {imageUrl ? (
-          <img
-            src={imageUrl}
-            alt="Youthful visual"
-            className="w-full h-full object-cover"
-          />
-        ) : (
-          <span className="text-yellow-700 flex items-center justify-center w-full h-full">
-            No Image
-          </span>
-        )}
-      </div>
-    </section>
-  );
-}
-
 /* ---------------- END SLIDE ---------------- */
 export function EndSlide() {
   return (
@@ -345,7 +341,6 @@ const YouthfulYellow = {
   MainSlide1,
   MainSlide2,
   MainSlide3,
-  ImageSlide,
   EndSlide,
 };
 export default YouthfulYellow;

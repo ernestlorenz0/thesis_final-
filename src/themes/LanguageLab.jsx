@@ -193,21 +193,26 @@ export function MainSlide1({ title, content }) {
   );
 }
 
-/* Main Slide 2 – Dialogue boxes layout */
 export function MainSlide2({ title, content }) {
   return (
-    <section className="w-[1920px] h-[1080px] bg-gradient-to-tr from-blue-100 to-purple-100 flex flex-col items-center justify-center p-16 relative overflow-hidden">
-      {/* Background bubbles */}
-      <div className="absolute inset-0 flex justify-around items-center opacity-50 text-9xl text-blue-300">
-        <FaRegCommentDots />
-        <PiTextTBold />
-        <MdTranslate />
-      </div>
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-tr from-blue-100 via-indigo-100 to-purple-100 flex items-center justify-center overflow-hidden">
+      {/* Floating language-themed visuals */}
+      <FaRegCommentDots className="absolute top-20 left-24 text-[160px] text-blue-400/30 animate-bounce-slow" />
+      <PiTextTBold className="absolute bottom-28 left-1/3 text-[140px] text-purple-400/30 animate-pulse" />
+      <MdTranslate className="absolute top-1/3 right-28 text-[150px] text-indigo-400/30 animate-spin-slow" />
 
-      {/* Content area */}
-      <div className="relative z-10 bg-white shadow-lg rounded-2xl p-12 max-w-4xl">
-        <h2 className="text-5xl font-bold mb-4 text-blue-900">{title}</h2>
-        <p className="text-3xl leading-8 text-gray-800">{content}</p>
+      {/* Abstract bubbles */}
+      <div className="absolute top-40 right-1/4 w-32 h-32 rounded-full bg-blue-300/20 blur-2xl"></div>
+      <div className="absolute bottom-20 left-1/4 w-40 h-40 rounded-full bg-purple-300/30 blur-3xl"></div>
+
+      {/* Card area */}
+      <div className="relative z-10 bg-white shadow-2xl rounded-3xl p-16 max-w-4xl border-8 border-indigo-200">
+        <h2 className="text-6xl font-bold mb-8 text-blue-900 text-center">
+          {title}
+        </h2>
+        <p className="text-3xl leading-relaxed text-gray-800 text-center">
+          {content}
+        </p>
       </div>
     </section>
   );
@@ -234,24 +239,32 @@ export function MainSlide3({ title, content }) {
   );
 }
 
-/* Main Slide 4 – Split Conversation Layout */
 export function MainSlide4({ title, content }) {
   return (
-    <section className="relative w-[1920px] h-[1080px] flex bg-gradient-to-r from-pink-100 via-purple-100 to-blue-100 text-gray-900">
-      {/* Decorative speech bubbles */}
-      <FaRegCommentDots className="absolute top-16 left-20 text-7xl text-pink-400 opacity-30" />
-      <MdTranslate className="absolute bottom-16 right-24 text-8xl text-purple-400 opacity-20" />
+    <section className="relative w-[1920px] h-[1080px] flex bg-gradient-to-r from-pink-100 via-purple-100 to-blue-100 text-gray-900 overflow-hidden">
+      {/* Floating decorative shapes */}
+      <div className="absolute top-24 left-1/3 w-32 h-32 bg-pink-300/30 rounded-full blur-2xl"></div>
+      <div className="absolute bottom-20 right-1/4 w-40 h-40 bg-blue-300/30 rounded-full blur-3xl"></div>
+      <div className="absolute top-1/2 left-12 w-28 h-28 border-8 border-purple-300/40 rounded-full animate-spin-slow"></div>
 
-      {/* Left side – title */}
-      <div className="w-1/2 flex flex-col justify-center px-20">
-        <h2 className="text-7xl font-bold mb-6">{title}</h2>
+      {/* Big faded icons */}
+      <FaRegCommentDots className="absolute top-12 left-20 text-[140px] text-pink-400/20" />
+      <MdTranslate className="absolute bottom-16 right-24 text-[160px] text-purple-400/20" />
+      <PiTextTBold className="absolute top-1/4 right-1/3 text-[120px] text-blue-400/20" />
+
+      {/* Left side – title area */}
+      <div className="relative z-10 w-1/2 flex flex-col justify-center px-20">
+        <h2 className="text-7xl font-bold mb-6 drop-shadow-sm">{title}</h2>
+        <div className="h-2 w-40 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full"></div>
       </div>
 
-      {/* Right side – content inside bubble */}
-      <div className="w-1/2 flex items-center justify-center">
-        <div className="relative bg-white shadow-lg rounded-3xl p-12 max-w-xl">
+      {/* Right side – content inside speech bubble */}
+      <div className="relative z-10 w-1/2 flex items-center justify-center">
+        <div className="relative bg-white shadow-2xl rounded-3xl p-16 max-w-xl border-8 border-pink-200">
           <p className="text-4xl text-gray-800 leading-relaxed">{content}</p>
-          <div className="absolute -bottom-6 left-12 w-8 h-8 bg-white rotate-45 shadow-md"></div>
+
+          {/* Speech bubble tail */}
+          <div className="absolute -bottom-6 left-20 w-10 h-10 bg-white rotate-45 shadow-md border-l border-b border-pink-200"></div>
         </div>
       </div>
     </section>
@@ -299,32 +312,6 @@ export function MainSlide6({ title, content }) {
   );
 }
 
-
-
-/* Image Slide – Dictionary style card */
-export function ImageSlide({ title, imageUrl }) {
-  return (
-    <section className="relative w-[1920px] h-[1080px] bg-white flex flex-col items-center justify-center text-gray-900">
-      {/* Border frame */}
-      <div className="absolute inset-8 border-4 border-blue-700 rounded-lg"></div>
-
-      {imageUrl ? (
-        <img
-          src={imageUrl}
-          alt="language visual"
-          className="relative z-10 max-h-[400px] object-contain mb-6 shadow-lg rounded-md border-4 border-pink-400"
-        />
-      ) : (
-        <div className="relative z-10 w-[640px] h-[360px] flex items-center justify-center text-gray-400 border-4 border-blue-700">
-          No Image
-        </div>
-      )}
-
-      <h3 className="relative z-10 text-2xl font-bold mt-2">{title}</h3>
-    </section>
-  );
-}
-
 /* End Slide – Speech bubble close */
 export function EndSlide({ message }) {
   return (
@@ -355,7 +342,6 @@ const LanguageLab = {
   MainSlide1,
   MainSlide2,
   MainSlide3,
-  ImageSlide,
   EndSlide,
 };
 

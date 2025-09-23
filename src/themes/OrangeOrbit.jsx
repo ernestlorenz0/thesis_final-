@@ -179,38 +179,6 @@ export function MainSlide3({ title, content }) {
   );
 }
 
-/* ---------------- IMAGE SLIDE ---------------- */
-/* Image in a planet-like circle */
-export function ImageSlide({ title, imageUrl }) {
-  return (
-    <section className="relative w-[1920px] h-[1080px] bg-orange-50 flex items-center justify-center overflow-hidden">
-      {/* Orbit rings */}
-      <div className="absolute w-[600px] h-[600px] border-8 border-orange-400/30 rounded-full"></div>
-      <div className="absolute w-[400px] h-[400px] border-4 border-orange-500/40 rounded-full"></div>
-
-      {/* Image container as planet */}
-      <div className="relative w-[450px] h-[450px] rounded-full border-[12px] border-orange-600 shadow-2xl overflow-hidden">
-        {imageUrl ? (
-          <img
-            src={imageUrl}
-            alt="Orange Orbit visual"
-            className="w-full h-full object-cover"
-          />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center text-orange-600">
-            No Image
-          </div>
-        )}
-      </div>
-
-      {/* Title */}
-      <div className="absolute bottom-12 bg-orange-600 text-white px-8 py-3 rounded-full shadow-lg">
-        <h3 className="text-2xl font-bold">{title}</h3>
-      </div>
-    </section>
-  );
-}
-
 /* ---------------- END SLIDE ---------------- */
 export function EndSlide() {
   return (
@@ -321,7 +289,6 @@ const OrangeOrbit = {
   MainSlide4,
   MainSlide5,
   MainSlide6,
-  ImageSlide,
   EndSlide,
   style,
 };

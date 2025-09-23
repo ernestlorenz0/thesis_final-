@@ -292,22 +292,6 @@ export function MainSlide6({ title, content }) {
   );
 }
 
-
-/* Image Slide – Chalk border with image inside */
-export function ImageSlide({ title, imageUrl }) {
-  return (
-    <section className="relative w-[1920px] h-[1080px] bg-[#1b1b1b] text-white flex flex-col items-center justify-center">
-      <div className="absolute inset-6 border-4 border-cyan-400/70 rounded-lg opacity-60"></div>
-      <img
-        src={imageUrl}
-        alt="slide visual"
-        className="rounded-lg shadow-lg max-h-[500px] mb-6 border-4 border-white/20 object-contain"
-      />
-      <h3 className="text-2xl font-mono text-yellow-300">{title}</h3>
-    </section>
-  );
-}
-
 /* End Slide – Big thanks in chalk */
 export function EndSlide() {
   return (
@@ -333,7 +317,6 @@ const DigitalChalkboard = {
   MainSlide1,
   MainSlide2,
   MainSlide3,
-  ImageSlide,
   EndSlide,
 };
 

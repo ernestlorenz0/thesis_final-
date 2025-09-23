@@ -190,34 +190,6 @@ export function MainSlide6({ title, content }) {
   );
 }
 
-
-/* ---------------- IMAGE SLIDE ---------------- */
-export function ImageSlide({ title, imageUrl }) {
-  return (
-    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-r from-yellow-100 to-pink-100 flex flex-col items-center justify-center overflow-hidden">
-      {/* Title on paint stroke bar */}
-      <div className="relative z-10 mb-6 px-8 py-3 bg-gradient-to-r from-pink-400 to-yellow-400 rounded-xl rotate-[-2deg] shadow-lg">
-        <h3 className="text-2xl font-bold text-white drop-shadow">{title}</h3>
-      </div>
-
-      {/* Image with irregular border */}
-      <div className="relative z-10 w-[900px] h-[500px] bg-white rounded-[2rem] border-[10px] border-purple-300 shadow-2xl rotate-2 overflow-hidden">
-        {imageUrl ? (
-          <img
-            src={imageUrl}
-            alt="Creative visual"
-            className="w-full h-full object-cover"
-          />
-        ) : (
-          <span className="text-gray-600 flex items-center justify-center w-full h-full">
-            No Image
-          </span>
-        )}
-      </div>
-    </section>
-  );
-}
-
 /* ---------------- END SLIDE ---------------- */
 export function EndSlide() {
   return (
@@ -244,7 +216,6 @@ const CreativeCanvas = {
   MainSlide1,
   MainSlide2,
   MainSlide3,
-  ImageSlide,
   EndSlide,
 };
 export default CreativeCanvas;

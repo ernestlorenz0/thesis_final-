@@ -1,4 +1,5 @@
 import React from "react";
+import { Watermark } from "../components/Watermark";
 
 /* ---------------- TITLE SLIDE ---------------- */
 export function TitleSlide({ title, subtitle }) {
@@ -75,13 +76,13 @@ export function TOCSlide({ tocData }) {
 export function MainSlide1({ title, content }) {
   return (
     <section className="relative w-[1920px] h-[1080px] bg-white flex flex-col px-20 py-16">
-      {/* Header with divider */}
+      <Watermark type="book" />
+
       <h2 className="text-6xl font-serif font-bold text-blue-900 mb-2">
         {title}
       </h2>
       <div className="h-[3px] w-24 bg-blue-700 mb-6"></div>
 
-      {/* Content */}
       <p className="text-3xl font-sans text-gray-800 leading-relaxed">
         {content}
       </p>
@@ -93,6 +94,8 @@ export function MainSlide1({ title, content }) {
 export function MainSlide2({ title, content }) {
   return (
     <section className="relative w-[1920px] h-[1080px] bg-gray-50 flex items-center justify-center px-24 py-16">
+      <Watermark type="flask" />
+
       <div className="max-w-4xl w-full">
         <h2 className="text-6xl font-serif font-semibold text-gray-900 mb-6">
           {title}
@@ -111,7 +114,8 @@ export function MainSlide2({ title, content }) {
 export function MainSlide3({ title, content }) {
   return (
     <section className="relative w-[1920px] h-[1080px] bg-white flex">
-      {/* Left sidebar accent */}
+      <Watermark type="chart" />
+
       <div className="w-8 bg-blue-900"></div>
 
       <div className="flex-1 flex flex-col justify-center px-16">
@@ -130,14 +134,14 @@ export function MainSlide3({ title, content }) {
 export function MainSlide4({ title, content }) {
   return (
     <section className="relative w-[1920px] h-[1080px] bg-gradient-to-r from-gray-50 to-white flex items-center px-24 py-16">
+      <Watermark type="idea" />
+
       <div className="max-w-5xl">
-        {/* Title with underline accent */}
         <h2 className="text-6xl font-serif font-bold text-blue-900 mb-4">
           {title}
         </h2>
         <div className="h-[4px] w-32 bg-blue-700 mb-10 rounded"></div>
 
-        {/* Elegant content box */}
         <div className="bg-white border border-gray-200 shadow-lg rounded-lg p-12">
           <p className="text-3xl font-sans text-gray-800 leading-relaxed">
             {content}
@@ -151,27 +155,22 @@ export function MainSlide4({ title, content }) {
 /* ---------------- MAIN SLIDE 5 ---------------- */
 export function MainSlide5({ title, content }) {
   return (
-    <section className="relative w-[1920px] h-[1080px] bg-white px-24 py-16 flex flex-col">
-      {/* Header */}
-      <h2 className="text-6xl font-serif font-bold text-blue-900 mb-4">
+    <section className="relative w-[1920px] h-[1080px] bg-gray-50 px-24 py-16">
+      {/* Subtle watermark accent (like the others) */}
+      <div className="absolute top-20 right-24 text-blue-100 text-[180px] opacity-10 pointer-events-none select-none">
+        📑
+      </div>
+
+      {/* Header with divider */}
+      <h2 className="text-6xl font-serif font-bold text-blue-900 mb-4 relative z-10">
         {title}
       </h2>
-      <div className="h-[3px] w-28 bg-blue-700 mb-10"></div>
+      <div className="h-[3px] w-28 bg-blue-700 mb-10 relative z-10"></div>
 
-      {/* Split layout with diagonal design accent */}
-      <div className="grid grid-cols-2 gap-12 items-center">
-        <p className="text-3xl font-sans text-gray-800 leading-relaxed">
-          {content}
-        </p>
-
-        {/* Placeholder for visuals with background accent */}
-        <div className="relative bg-gray-50 border border-gray-300 rounded-lg shadow-md p-8 flex items-center justify-center">
-          <span className="text-gray-500 font-sans">Insert Graph / Image</span>
-
-          {/* Subtle blue diagonal accent */}
-          <div className="absolute -top-4 -right-4 w-20 h-20 bg-blue-100 rotate-12 rounded-md"></div>
-        </div>
-      </div>
+      {/* Content */}
+      <p className="text-3xl font-sans text-gray-800 leading-relaxed max-w-5xl relative z-10">
+        {content}
+      </p>
     </section>
   );
 }
@@ -180,7 +179,8 @@ export function MainSlide5({ title, content }) {
 export function MainSlide6({ title, points }) {
   return (
     <section className="relative w-[1920px] h-[1080px] bg-gray-50 px-24 py-16">
-      {/* Header with side bar accent */}
+      <Watermark type="academy" />
+
       <div className="flex items-center mb-10">
         <div className="w-3 h-20 bg-blue-700 mr-6 rounded"></div>
         <h2 className="text-6xl font-serif font-bold text-blue-900">
@@ -188,7 +188,6 @@ export function MainSlide6({ title, points }) {
         </h2>
       </div>
 
-      {/* Bullet points with subtle icon + divider line */}
       <ul className="space-y-8 text-3xl font-sans text-gray-800 leading-relaxed max-w-5xl">
         {points && points.length > 0 ? (
           points.map((point, i) => (
@@ -206,32 +205,6 @@ export function MainSlide6({ title, points }) {
           <li className="text-gray-500">No points provided</li>
         )}
       </ul>
-    </section>
-  );
-}
-
-
-/* ---------------- IMAGE SLIDE ---------------- */
-export function ImageSlide({ title, imageUrl }) {
-  return (
-    <section className="relative w-[1920px] h-[1080px] bg-gray-50 flex flex-col items-center justify-center px-10">
-      {/* Title on top */}
-      <h3 className="text-2xl font-serif font-semibold text-gray-900 mb-6">
-        {title}
-      </h3>
-
-      {/* Framed image area (like a research figure) */}
-      <div className="w-[1000px] h-[500px] border border-gray-400 rounded-md shadow-md bg-white flex items-center justify-center">
-        {imageUrl ? (
-          <img
-            src={imageUrl}
-            alt="Research visual"
-            className="max-h-full max-w-full object-contain"
-          />
-        ) : (
-          <span className="text-gray-500 font-sans">No Image</span>
-        )}
-      </div>
     </section>
   );
 }
@@ -260,7 +233,6 @@ const ResearchReady = {
   MainSlide1,
   MainSlide2,
   MainSlide3,
-  ImageSlide,
   EndSlide,
 };
 export default ResearchReady;

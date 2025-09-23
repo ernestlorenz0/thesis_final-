@@ -281,45 +281,6 @@ export function MainSlide3({ title, content }) {
   );
 }
 
-// STEM Modern Image Slide
-export function ImageSlide({ title, imageUrl }) {
-  return (
-    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-r from-[#0a192f] to-[#112d4e] flex items-center justify-center">
-
-      {/* Background shapes (STEM vibe) */}
-      <div className="absolute inset-0 opacity-10">
-        {/* Grid lines */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(56,189,248,0.2)_1px,transparent_1px),linear-gradient(to_bottom,rgba(56,189,248,0.2)_1px,transparent_1px)] bg-[size:60px_60px]"></div>
-        {/* Hexagon shape */}
-        <div className="absolute top-16 left-20 w-40 h-40 border-2 border-cyan-400/40 rotate-45"></div>
-        <div className="absolute bottom-24 right-24 w-32 h-32 border-2 border-cyan-400/30 rotate-12"></div>
-      </div>
-
-      <div className="relative bg-white/5 backdrop-blur-md border border-cyan-400/40 rounded-xl shadow-2xl overflow-hidden w-[900px]">
-        {/* Title bar */}
-        <div className="bg-cyan-500/20 text-cyan-300 font-mono text-3xl font-semibold px-6 py-3 border-b border-cyan-400/40">
-          {title}
-        </div>
-
-        {/* Image area */}
-        <div className="flex items-center justify-center p-6">
-          {imageUrl ? (
-            <img
-              src={imageUrl}
-              alt="slide visual"
-              className="rounded-lg max-h-[400px] shadow-[0_0_20px_rgba(0,246,255,0.4)]"
-            />
-          ) : (
-            <div className="w-full h-[400px] flex items-center justify-center text-gray-400">
-              No Image
-            </div>
-          )}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 export function MainSlide4({ title, content }) {
   return (
     <section className="relative w-[1920px] h-[1080px] bg-gradient-to-tr from-[#0a192f] to-[#112d4e] text-white overflow-hidden flex items-center justify-center">
@@ -412,5 +373,5 @@ export function TOCSlideSTEM({ title = "Table of Contents", items = [] }) {
   return <TOCSlide tocData={tocData} />;
 }
 
-const STEMModern = { TitleSlide, TOCSlides: TOCSlide, ImageSlide, MainSlide1, MainSlide2, MainSlide3, MainSlide4, MainSlide6, EndSlide };
+const STEMModern = { TitleSlide, TOCSlides: TOCSlide, MainSlide1, MainSlide2, MainSlide3, MainSlide4, MainSlide6, EndSlide };
 export default STEMModern;

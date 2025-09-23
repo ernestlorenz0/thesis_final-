@@ -1,5 +1,5 @@
 import React from "react";
-import { Landmark, Scroll, BookOpen, Feather, Hourglass } from "lucide-react";
+import { Landmark, Scroll,ScrollText, BookOpen, Feather, Hourglass, Crown } from "lucide-react";
 
 /* Title Slide – Split diagonal gold panel */
 export function TitleSlide({ title, subtitle }) {
@@ -162,62 +162,107 @@ export function TOCSlide({ tocData }) {
 /* Main Slide 1 – Left gold column, right parchment content */
 export function MainSlide1({ title, content }) {
   return (
-    <section className="w-[1920px] h-[1080px] flex">
-      {/* Gold sidebar */}
-      <div className="w-1/3 bg-gradient-to-b from-yellow-800 to-yellow-500 flex items-center justify-center">
-        <h2 className="text-5xl font-serif font-bold text-yellow-100 text-center px-4">
+    <section className="relative w-[1920px] h-[1080px] flex overflow-hidden">
+      {/* Left Sidebar (Golden Heritage Panel) */}
+      <div className="w-1/3 bg-gradient-to-b from-yellow-900 via-yellow-800 to-yellow-600 flex items-center justify-center relative">
+        {/* Decorative ornaments */}
+        <Crown className="absolute top-12 left-1/2 -translate-x-1/2 w-20 h-20 text-yellow-200/30" />
+        <Landmark className="absolute bottom-12 left-1/2 -translate-x-1/2 w-24 h-24 text-yellow-200/20" />
+
+        <h2 className="relative z-10 text-5xl font-serif font-bold text-yellow-100 text-center px-8 drop-shadow-lg">
           {title}
         </h2>
       </div>
 
-      {/* Content area */}
-      <div className="flex-1 bg-gradient-to-br from-yellow-50 to-yellow-100 p-16 flex items-center">
-        <p className="text-3xl font-serif leading-relaxed text-gray-900">{content}</p>
+      {/* Right Content Area (Parchment Style) */}
+      <div className="flex-1 bg-gradient-to-br from-yellow-50 to-yellow-100 p-20 flex items-center relative">
+        {/* Background visuals */}
+        <ScrollText className="absolute top-16 right-20 w-28 h-28 text-yellow-800/10" />
+        <Feather className="absolute bottom-20 left-20 w-24 h-24 text-yellow-800/10 rotate-12" />
+
+        {/* Content box */}
+        <div className="relative z-10 bg-white/70 border-4 border-yellow-800 rounded-2xl shadow-xl p-12 max-w-4xl">
+          <p className="text-3xl font-serif leading-relaxed text-gray-900">
+            {content}
+          </p>
+
+          {/* Ornamental underline */}
+          <div className="mt-6 h-1 w-40 bg-gradient-to-r from-yellow-800 to-yellow-500 rounded-full" />
+        </div>
       </div>
     </section>
   );
 }
 
-
-/* Main Slide 2 – Framed parchment with top banner */
 export function MainSlide2({ title, content }) {
   return (
-    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-tr from-yellow-200 to-yellow-50 text-gray-900 p-16">
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-tr from-yellow-200 to-yellow-50 text-gray-900 p-20 overflow-hidden">
       {/* Ornamental frame */}
-      <div className="absolute inset-6 border-[8px] border-yellow-700 rounded-lg"></div>
+      <div className="absolute inset-6 border-[12px] border-yellow-800 rounded-[2rem] shadow-inner" />
 
-      {/* Title banner */}
-      <div className="relative bg-gradient-to-r from-yellow-800 to-yellow-600 px-12 py-4 mb-10 shadow-lg w-fit">
-        <h2 className="text-6xl font-serif font-bold text-yellow-100">{title}</h2>
+      {/* Faint heritage visuals */}
+      <Landmark className="absolute top-24 left-28 w-40 h-40 text-yellow-900/10" />
+      <ScrollText className="absolute bottom-28 right-32 w-36 h-36 text-yellow-900/10" />
+      <Feather className="absolute top-1/2 left-1/2 w-32 h-32 text-yellow-900/10 rotate-12 -translate-x-1/2" />
+
+      {/* Title banner like a scroll */}
+      <div className="relative bg-gradient-to-r from-yellow-900 to-yellow-700 px-16 py-6 mb-12 shadow-xl rounded-lg inline-block">
+        <h2 className="text-6xl font-serif font-bold text-yellow-100 drop-shadow-md">
+          {title}
+        </h2>
+        {/* Ribbon tails */}
+        <div className="absolute -left-6 top-1/2 -translate-y-1/2 w-6 h-10 bg-yellow-800 skew-y-12" />
+        <div className="absolute -right-6 top-1/2 -translate-y-1/2 w-6 h-10 bg-yellow-800 -skew-y-12" />
       </div>
 
-      <p className="text-3xl font-serif max-w-5xl leading-relaxed relative z-10">{content}</p>
+      {/* Content */}
+      <div className="relative z-10 max-w-5xl bg-white/70 border-4 border-yellow-800 rounded-xl p-10 shadow-md">
+        <p className="text-3xl font-serif leading-relaxed">{content}</p>
+        {/* Decorative underline */}
+        <div className="mt-8 h-1.5 w-52 bg-gradient-to-r from-yellow-800 to-yellow-500 rounded-full" />
+      </div>
     </section>
   );
 }
 
-/* Main Slide 3 – Diagonal cut layout with golden overlay */
 export function MainSlide3({ title, content }) {
   return (
-    <section className="relative w-[1920px] h-[1080px] flex text-yellow-100">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-yellow-900 via-yellow-800 to-yellow-600"></div>
+    <section className="relative w-[1920px] h-[1080px] flex text-yellow-100 overflow-hidden">
+      {/* Background base gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-yellow-900 via-yellow-800 to-yellow-600" />
 
       {/* Diagonal gold overlay */}
-      <div className="absolute top-0 right-0 w-2/3 h-full bg-gradient-to-bl from-yellow-700/80 to-yellow-500/70 transform -skew-x-6 origin-top-right"></div>
+      <div className="absolute top-0 right-0 w-2/3 h-full bg-gradient-to-bl from-yellow-700/80 to-yellow-500/70 transform -skew-x-6 origin-top-right" />
+
+      {/* Ornamental border frame */}
+      <div className="absolute inset-10 border-[10px] border-yellow-400/40 rounded-xl pointer-events-none" />
+
+      {/* Background faded heritage visuals */}
+      <Landmark className="absolute top-24 left-24 w-40 h-40 text-yellow-200/15" />
+      <ScrollText className="absolute bottom-28 right-32 w-32 h-32 text-yellow-200/15" />
+      <Crown className="absolute top-1/2 left-1/2 w-36 h-36 text-yellow-200/10 -translate-x-1/2 -translate-y-1/2" />
+      <Feather className="absolute bottom-20 left-1/3 w-28 h-28 text-yellow-200/15 -rotate-12" />
 
       {/* Layout */}
       <div className="relative z-10 flex w-full h-full">
         {/* Title sidebar */}
-        <div className="w-1/3 flex items-center justify-center bg-yellow-900/40">
-          <h2 className="text-5xl font-serif font-bold text-yellow-100 text-center px-6">
+        <div className="w-1/3 flex items-center justify-center bg-yellow-900/40 border-r-4 border-yellow-700/50 relative">
+          <h2 className="text-5xl font-serif font-bold text-yellow-100 text-center px-6 drop-shadow-lg">
             {title}
           </h2>
+          {/* Ornamental icon top corner */}
+          <Crown className="absolute top-10 right-10 w-16 h-16 text-yellow-300/20" />
         </div>
 
         {/* Content area */}
-        <div className="flex-1 flex items-center p-16">
-          <p className="text-3xl font-serif leading-relaxed">{content}</p>
+        <div className="flex-1 flex items-center p-20 relative">
+          <div className="bg-white/10 p-12 rounded-xl border-4 border-yellow-300/40 shadow-lg max-w-4xl">
+            <p className="text-3xl font-serif leading-relaxed text-yellow-50">
+              {content}
+            </p>
+            {/* Decorative underline */}
+            <div className="mt-8 h-1.5 w-48 bg-gradient-to-r from-yellow-400 to-yellow-200 rounded-full" />
+          </div>
         </div>
       </div>
     </section>
@@ -314,25 +359,6 @@ export function MainSlide6({ title, content }) {
   );
 }
 
-
-
-/* Image Slide – Gold pedestal frame */
-export function ImageSlide({ title, imageUrl }) {
-  return (
-    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-b from-yellow-100 to-yellow-50 flex flex-col items-center justify-center">
-      {/* Frame */}
-      <div className="absolute inset-10 border-[10px] border-yellow-700 rounded-xl"></div>
-
-      <img
-        src={imageUrl}
-        alt="heritage visual"
-        className="relative z-10 max-h-[420px] rounded-lg shadow-2xl border-8 border-yellow-600 mb-6"
-      />
-      <h3 className="text-2xl font-serif font-bold text-yellow-900">{title}</h3>
-    </section>
-  );
-}
-
 /* End Slide – Strong regal close with diagonal overlay */
 export function EndSlide({ message }) {
   return (
@@ -372,7 +398,6 @@ const HistoryHeritage = {
   MainSlide1,
   MainSlide2,
   MainSlide3,
-  ImageSlide,
   EndSlide,
 };
 

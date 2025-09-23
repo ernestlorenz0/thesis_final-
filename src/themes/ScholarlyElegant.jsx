@@ -212,26 +212,6 @@ export function MainSlide3({ title, content }) {
   );
 }
 
-/* Image Slide – Left image, right caption */
-export function ImageSlide({ title, imageUrl, caption }) {
-  return (
-    <section className="w-[1920px] h-[1080px] bg-gray-100 text-gray-900 px-20 py-12 flex items-center">
-      <div className="flex-1 flex items-center justify-center pr-12">
-        <img
-          src={imageUrl}
-          alt="scholarly visual"
-          className="border-4 border-gray-700 rounded-lg shadow-xl max-h-[500px] object-contain"
-        />
-      </div>
-      <div className="w-[2px] h-[80%] bg-yellow-600"></div>
-      <div className="flex-1 pl-12">
-        <h3 className="text-5xl font-serif font-bold mb-4">{title}</h3>
-        <p className="text-lg font-serif leading-relaxed">{caption}</p>
-      </div>
-    </section>
-  );
-}
-
 /* End Slide – Framed closing */
 export function EndSlide({ message }) {
   return (
@@ -308,7 +288,6 @@ const ScholarlyElegant = {
   MainSlide1,
   MainSlide2,
   MainSlide3,
-  ImageSlide,
   EndSlide,
 };
 
