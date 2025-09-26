@@ -312,31 +312,34 @@ export default function HistoryPage() {
 
   return (
     <div className="h-full flex flex-col overflow-hidden">
-      {/* Header */}
+      {/* STI Header */}
       <div className="text-center mb-6">
-        <h2 className="text-2xl font-bold text-white mb-2">Presentation History</h2>
-        <p className="text-gray-300">View and manage your exported presentations</p>
+        <h2 className="text-2xl font-bold mb-2" style={{ color: '#003D7A' }}>Presentation History</h2>
+        <p style={{ color: '#2C2C2C' }}>View and manage your exported presentations</p>
       </div>
 
-      {/* Export Progress */}
+      {/* STI Export Progress */}
       {exportingItemId && (
-        <div className="mb-4 p-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl">
+        <div className="mb-4 p-4 bg-white rounded-xl border shadow-lg" style={{ borderColor: '#E5E5E5' }}>
           <div className="flex justify-between items-center mb-2">
-            <span className="text-white font-semibold">{exportStatus || 'Exporting...'}</span>
-            <span className="text-cyan-400 font-bold">{exportProgress}%</span>
+            <span className="font-semibold" style={{ color: '#003D7A' }}>{exportStatus || 'Exporting...'}</span>
+            <span className="font-bold" style={{ color: '#FFC72C' }}>{exportProgress}%</span>
           </div>
-          <div className="w-full bg-white/20 rounded-full h-2">
+          <div className="w-full rounded-full h-2" style={{ backgroundColor: '#E5E5E5' }}>
             <div 
-              className="bg-gradient-to-r from-cyan-500 to-blue-600 h-2 rounded-full transition-all duration-300" 
-              style={{ width: `${exportProgress}%` }}
+              className="h-2 rounded-full transition-all duration-300" 
+              style={{ 
+                width: `${exportProgress}%`,
+                backgroundColor: '#003D7A'
+              }}
             />
           </div>
         </div>
       )}
 
-      {/* Error Message */}
+      {/* STI Error Message */}
       {error && (
-        <div className="mb-4 p-3 bg-red-500/20 border border-red-500/30 rounded-xl text-red-300 text-sm">
+        <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm">
           {error}
         </div>
       )}
@@ -345,7 +348,7 @@ export default function HistoryPage() {
       <div className="flex-1 flex flex-col overflow-hidden">
         {loading ? (
           <div className="flex-1 flex items-center justify-center">
-            <div className="flex items-center gap-3 text-white">
+            <div className="flex items-center gap-3" style={{ color: '#003D7A' }}>
               <svg className="animate-spin h-6 w-6" fill="none" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
@@ -355,27 +358,27 @@ export default function HistoryPage() {
           </div>
         ) : items.length === 0 ? (
           <div className="flex-1 flex flex-col items-center justify-center text-center">
-            <div className="mb-4 p-6 bg-white/10 rounded-full">
-              <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="mb-4 p-6 rounded-full" style={{ backgroundColor: '#F9F9F9', border: '2px solid #E5E5E5' }}>
+              <svg className="w-12 h-12" fill="none" stroke="#666666" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold text-white mb-2">No presentations yet</h3>
-            <p className="text-gray-300">Your exported presentations will appear here</p>
+            <h3 className="text-xl font-semibold mb-2" style={{ color: '#003D7A' }}>No presentations yet</h3>
+            <p style={{ color: '#2C2C2C' }}>Your exported presentations will appear here</p>
           </div>
         ) : (
           <div className="flex-1 overflow-y-auto">
             <div className="space-y-3">
               {items.map(item => (
                 <div key={item.id} className="group relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-purple-600/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="relative p-4 bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl hover:bg-white/10 transition-all duration-300">
+                  <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: 'linear-gradient(135deg, rgba(0, 61, 122, 0.05) 0%, rgba(255, 199, 44, 0.05) 100%)' }} />
+                  <div className="relative p-4 bg-white rounded-xl border hover:shadow-lg transition-all duration-300" style={{ borderColor: '#E5E5E5' }}>
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                       
-                      {/* File Info */}
+                      {/* STI File Info */}
                       <div className="flex-1 flex items-center gap-3">
-                        <div className="p-2 bg-white/10 rounded-lg">
-                          <svg className="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div className="p-2 rounded-lg" style={{ backgroundColor: '#F9F9F9', border: '1px solid #E5E5E5' }}>
+                          <svg className="w-5 h-5" fill="none" stroke="#003D7A" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                           </svg>
                         </div>
@@ -383,7 +386,14 @@ export default function HistoryPage() {
                         <div className="flex-1 min-w-0">
                           {editingId === item.id ? (
                             <input
-                              className="w-full px-3 py-2 bg-white/10 border border-white/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 transition-all duration-300"
+                              className="w-full px-3 py-2 bg-white border-2 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:border-transparent text-sm"
+                              style={{ 
+                                borderColor: '#E5E5E5',
+                                color: '#2C2C2C',
+                                '--tw-ring-color': 'rgba(255, 199, 44, 0.5)'
+                              }}
+                              onFocus={e => e.target.style.borderColor = '#FFC72C'}
+                              onBlur={e => e.target.style.borderColor = '#E5E5E5'}
                               value={editingName}
                               onChange={e => setEditingName(e.target.value)}
                               autoFocus
@@ -391,8 +401,8 @@ export default function HistoryPage() {
                             />
                           ) : (
                             <>
-                              <h3 className="text-white font-semibold truncate">{item.filename}</h3>
-                              <p className="text-gray-400 text-sm">
+                              <h3 className="font-semibold truncate" style={{ color: '#003D7A' }}>{item.filename}</h3>
+                              <p className="text-sm" style={{ color: '#666666' }}>
                                 {(() => {
                                   const date = new Date(item.generatedAt);
                                   const year = date.getFullYear();

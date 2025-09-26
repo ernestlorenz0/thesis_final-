@@ -70,20 +70,20 @@ export default function HelpPage() {
 
   return (
     <div className="h-full flex flex-col overflow-hidden">
-      {/* Header */}
+      {/* STI Header */}
       <div className="text-center mb-6">
-        <h2 className="text-2xl font-bold text-white mb-2">How to Use KENBILEARN</h2>
-        <p className="text-gray-300">Follow these simple steps to create amazing presentations</p>
+        <h2 className="text-2xl font-bold mb-2" style={{ color: '#003D7A' }}>How to Use KENBILEARN</h2>
+        <p style={{ color: '#2C2C2C' }}>Follow these simple steps to create amazing presentations</p>
       </div>
 
       {/* Content Area */}
       <div className="flex-1 overflow-y-auto">
         <div className="space-y-8">
           
-          {/* Steps Section */}
+          {/* STI Steps Section */}
           <div>
-            <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-              <svg className="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <h3 className="text-lg font-semibold mb-4 flex items-center gap-2" style={{ color: '#003D7A' }}>
+              <svg className="w-5 h-5" fill="none" stroke="#FFC72C" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               Getting Started
@@ -92,23 +92,23 @@ export default function HelpPage() {
             <div className="space-y-4">
               {helpSteps.map((step, index) => (
                 <div key={index} className="group relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-purple-600/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="relative p-4 bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl hover:bg-white/10 transition-all duration-300">
+                  <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: 'linear-gradient(135deg, rgba(0, 61, 122, 0.05) 0%, rgba(255, 199, 44, 0.05) 100%)' }} />
+                  <div className="relative p-4 bg-white rounded-xl border hover:shadow-lg transition-all duration-300" style={{ borderColor: '#E5E5E5' }}>
                     <div className="flex items-start gap-4">
                       <div className="flex-shrink-0">
-                        <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center text-white font-bold">
+                        <div className="w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold" style={{ backgroundColor: '#003D7A' }}>
                           {index + 1}
                         </div>
                       </div>
                       
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-2">
-                          <div className="text-cyan-400">
+                          <div style={{ color: '#FFC72C' }}>
                             {step.icon}
                           </div>
-                          <h4 className="text-white font-semibold">{step.title}</h4>
+                          <h4 className="font-semibold" style={{ color: '#003D7A' }}>{step.title}</h4>
                         </div>
-                        <p className="text-gray-300 text-sm leading-relaxed">{step.description}</p>
+                        <p className="text-sm leading-relaxed" style={{ color: '#2C2C2C' }}>{step.description}</p>
                       </div>
                     </div>
                   </div>
@@ -117,10 +117,10 @@ export default function HelpPage() {
             </div>
           </div>
 
-          {/* FAQ Section */}
+          {/* STI FAQ Section */}
           <div>
-            <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-              <svg className="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <h3 className="text-lg font-semibold mb-4 flex items-center gap-2" style={{ color: '#003D7A' }}>
+              <svg className="w-5 h-5" fill="none" stroke="#FFC72C" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               Frequently Asked Questions
@@ -129,35 +129,35 @@ export default function HelpPage() {
             <div className="space-y-3">
               {faqs.map((faq, index) => (
                 <div key={index} className="group relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-pink-600/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="relative p-4 bg-white/5 backdrop-blur-sm border border-white/20 rounded-xl hover:bg-white/10 transition-all duration-300">
-                    <h4 className="text-white font-semibold mb-2">{faq.question}</h4>
-                    <p className="text-gray-300 text-sm leading-relaxed">{faq.answer}</p>
+                  <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: 'linear-gradient(135deg, rgba(0, 61, 122, 0.05) 0%, rgba(255, 199, 44, 0.05) 100%)' }} />
+                  <div className="relative p-4 bg-white rounded-xl border hover:shadow-lg transition-all duration-300" style={{ borderColor: '#E5E5E5' }}>
+                    <h4 className="font-semibold mb-2" style={{ color: '#003D7A' }}>{faq.question}</h4>
+                    <p className="text-sm leading-relaxed" style={{ color: '#2C2C2C' }}>{faq.answer}</p>
                   </div>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Contact Section */}
-          <div className="p-6 bg-gradient-to-r from-cyan-500/20 to-purple-600/20 rounded-xl border border-white/20">
+          {/* STI Contact Section */}
+          <div className="p-6 rounded-xl border" style={{ background: 'linear-gradient(135deg, rgba(0, 61, 122, 0.1) 0%, rgba(255, 199, 44, 0.1) 100%)', borderColor: '#E5E5E5' }}>
             <div className="text-center">
               <div className="mb-4">
-                <div className="inline-flex items-center justify-center w-12 h-12 bg-white/10 rounded-full">
-                  <svg className="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full" style={{ backgroundColor: '#F9F9F9', border: '2px solid #E5E5E5' }}>
+                  <svg className="w-6 h-6" fill="none" stroke="#FFC72C" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M12 2.25a9.75 9.75 0 100 19.5 9.75 9.75 0 000-19.5z" />
                   </svg>
                 </div>
               </div>
-              <h4 className="text-white font-semibold mb-2">Need More Help?</h4>
-              <p className="text-gray-300 text-sm mb-4">
+              <h4 className="font-semibold mb-2" style={{ color: '#003D7A' }}>Need More Help?</h4>
+              <p className="text-sm mb-4" style={{ color: '#2C2C2C' }}>
                 Can't find what you're looking for? Our support team is here to help you succeed.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                <button className="px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold rounded-lg hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-500/50">
+                <button className="px-4 py-2 text-white font-semibold rounded-lg hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-2" style={{ backgroundColor: '#003D7A', '--tw-ring-color': 'rgba(255, 199, 44, 0.5)' }}>
                   Contact Support
                 </button>
-                <button className="px-4 py-2 bg-white/10 border border-white/20 text-white font-semibold rounded-lg hover:bg-white/20 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white/30">
+                <button className="px-4 py-2 bg-white border font-semibold rounded-lg hover:shadow-lg transition-all duration-300 focus:outline-none focus:ring-2" style={{ color: '#003D7A', borderColor: '#E5E5E5', '--tw-ring-color': 'rgba(0, 61, 122, 0.3)' }}>
                   View Documentation
                 </button>
               </div>
