@@ -144,86 +144,108 @@ export default function ProfilePage() {
   return (
     <div className="h-full flex items-center justify-center overflow-hidden">
       <div className="w-full max-w-2xl">
-        {/* Profile Header */}
+        {/* STI Profile Header */}
         <div className="text-center mb-8">
           <div className="relative inline-block mb-4">
-            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-cyan-400 via-blue-500 to-purple-600 flex items-center justify-center text-2xl font-bold text-white shadow-2xl">
+            <div className="w-20 h-20 rounded-full flex items-center justify-center text-2xl font-bold text-white shadow-2xl" style={{ backgroundColor: '#003D7A' }}>
               {profile.fullname ? profile.fullname.split(' ').map(n => n[0]).join('').toUpperCase() : 'U'}
             </div>
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-400/20 to-purple-600/20 blur animate-pulse" />
+            <div className="absolute inset-0 rounded-full blur animate-pulse" style={{ backgroundColor: '#FFC72C', opacity: 0.3 }} />
           </div>
-          <h2 className="text-2xl font-bold text-white mb-2">Profile Settings</h2>
-          <p className="text-gray-300">Manage your account information</p>
+          <h2 className="text-2xl font-bold mb-2" style={{ color: '#003D7A' }}>Profile Settings</h2>
+          <p style={{ color: '#2C2C2C' }}>Manage your account information</p>
         </div>
 
         {/* Profile Form */}
         <form onSubmit={handleSave} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Full Name */}
+            {/* STI Full Name */}
             <div className="space-y-2">
-              <label className="block text-white font-semibold text-sm">Full Name</label>
+              <label className="block font-semibold text-sm" style={{ color: '#003D7A' }}>Full Name</label>
               <div className="relative group">
                 <input
                   name="fullname"
-                  className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 transition-all duration-300 backdrop-blur-sm disabled:opacity-60"
+                  className="w-full px-4 py-3 bg-white border-2 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:border-transparent disabled:opacity-60"
+                  style={{ 
+                    borderColor: '#E5E5E5',
+                    color: '#2C2C2C',
+                    '--tw-ring-color': 'rgba(255, 199, 44, 0.5)'
+                  }}
+                  onFocus={e => e.target.style.borderColor = '#FFC72C'}
+                  onBlur={e => e.target.style.borderColor = '#E5E5E5'}
                   value={profile.fullname}
                   onChange={handleChange}
                   disabled={!editing}
                   placeholder="Enter your full name"
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-purple-600/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" style={{ background: 'linear-gradient(135deg, rgba(0, 61, 122, 0.05) 0%, rgba(255, 199, 44, 0.05) 100%)' }} />
               </div>
             </div>
 
-            {/* Email (Non-editable) */}
+            {/* STI Email (Non-editable) */}
             <div className="space-y-2">
-              <label className="block text-white font-semibold text-sm">Email Address</label>
+              <label className="block font-semibold text-sm" style={{ color: '#003D7A' }}>Email Address</label>
               <div className="relative">
                 <input
                   name="email"
                   type="email"
-                  className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-xl text-gray-400 backdrop-blur-sm cursor-not-allowed opacity-60"
+                  className="w-full px-4 py-3 bg-gray-50 border rounded-xl cursor-not-allowed opacity-60"
+                  style={{ borderColor: '#E5E5E5', color: '#666666' }}
                   value={profile.email}
                   disabled={true}
                   placeholder="Email address"
                 />
                 <div className="absolute right-3 top-1/2 -translate-y-1/2">
-                  <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4" fill="none" stroke="#666666" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                   </svg>
                 </div>
               </div>
-              <p className="text-xs text-gray-400">Email cannot be changed for security reasons</p>
+              <p className="text-xs" style={{ color: '#666666' }}>Email cannot be changed for security reasons</p>
             </div>
 
-            {/* Username */}
+            {/* STI Username */}
             <div className="space-y-2 md:col-span-2">
-              <label className="block text-white font-semibold text-sm">Username</label>
+              <label className="block font-semibold text-sm" style={{ color: '#003D7A' }}>Username</label>
               <div className="relative group">
                 <input
                   name="username"
-                  className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 transition-all duration-300 backdrop-blur-sm disabled:opacity-60"
+                  className="w-full px-4 py-3 bg-white border-2 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:border-transparent disabled:opacity-60"
+                  style={{ 
+                    borderColor: '#E5E5E5',
+                    color: '#2C2C2C',
+                    '--tw-ring-color': 'rgba(255, 199, 44, 0.5)'
+                  }}
+                  onFocus={e => e.target.style.borderColor = '#FFC72C'}
+                  onBlur={e => e.target.style.borderColor = '#E5E5E5'}
                   value={profile.username}
                   onChange={handleChange}
                   disabled={!editing}
                   placeholder="Enter your username"
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-purple-600/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" style={{ background: 'linear-gradient(135deg, rgba(0, 61, 122, 0.05) 0%, rgba(255, 199, 44, 0.05) 100%)' }} />
               </div>
             </div>
           </div>
-          {/* Password Section */}
+          {/* STI Password Section */}
           {editing ? (
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-white">Change Password</h3>
+              <h3 className="text-lg font-semibold" style={{ color: '#003D7A' }}>Change Password</h3>
               
-              {/* Current Password */}
+              {/* STI Current Password */}
               <div className="space-y-2">
-                <label className="block text-white font-semibold text-sm">Current Password</label>
+                <label className="block font-semibold text-sm" style={{ color: '#003D7A' }}>Current Password</label>
                 <div className="relative group">
                   <input
                     type={showCurrentPassword ? 'text' : 'password'}
-                    className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 transition-all duration-300 backdrop-blur-sm pr-12"
+                    className="w-full px-4 py-3 bg-white border-2 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:border-transparent pr-12"
+                    style={{ 
+                      borderColor: '#E5E5E5',
+                      color: '#2C2C2C',
+                      '--tw-ring-color': 'rgba(255, 199, 44, 0.5)'
+                    }}
+                    onFocus={e => e.target.style.borderColor = '#FFC72C'}
+                    onBlur={e => e.target.style.borderColor = '#E5E5E5'}
                     value={currentPassword}
                     onChange={(e) => setCurrentPassword(e.target.value)}
                     placeholder="Enter current password"
@@ -306,16 +328,16 @@ export default function ProfilePage() {
             </div>
           ) : (
             <div className="space-y-2">
-              <label className="block text-white font-semibold text-sm">Password</label>
-              <div className="px-4 py-3 bg-white/5 border border-white/20 rounded-xl text-gray-400 backdrop-blur-sm">
+              <label className="block font-semibold text-sm" style={{ color: '#003D7A' }}>Password</label>
+              <div className="px-4 py-3 bg-gray-50 border rounded-xl" style={{ borderColor: '#E5E5E5', color: '#666666' }}>
                 ••••••••••••
               </div>
             </div>
           )}
 
-          {/* Error Messages */}
+          {/* STI Error Messages */}
           {deleteError && (
-            <div className="p-3 bg-red-500/20 border border-red-500/30 rounded-xl text-red-300 text-sm">
+            <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm">
               {deleteError}
             </div>
           )}
@@ -327,7 +349,11 @@ export default function ProfilePage() {
                 <button 
                   type="submit" 
                   disabled={isUpdating}
-                  className="flex-1 relative group py-3 px-6 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-cyan-500/50 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                  className="flex-1 relative group py-3 px-6 text-white font-bold rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                  style={{ 
+                    backgroundColor: '#003D7A',
+                    '--tw-ring-color': 'rgba(255, 199, 44, 0.5)'
+                  }}
                 >
                   <span className="relative z-10">
                     {isUpdating ? (
@@ -340,14 +366,19 @@ export default function ProfilePage() {
                       </div>
                     ) : 'Save Changes'}
                   </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-xl blur opacity-0 group-hover:opacity-75 transition-opacity duration-300" />
+                  <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-20 transition-opacity duration-300" style={{ backgroundColor: '#FFC72C' }} />
                 </button>
                 
                 <button 
                   type="button"
                   onClick={handleCancel}
                   disabled={isUpdating}
-                  className="flex-1 px-6 py-3 bg-white/10 backdrop-blur-sm border border-white/20 text-white font-semibold rounded-xl hover:bg-white/20 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-white/30 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 px-6 py-3 bg-white border font-semibold rounded-xl hover:shadow-lg transition-all duration-300 focus:outline-none focus:ring-4 disabled:opacity-50 disabled:cursor-not-allowed"
+                  style={{ 
+                    color: '#003D7A',
+                    borderColor: '#E5E5E5',
+                    '--tw-ring-color': 'rgba(0, 61, 122, 0.3)'
+                  }}
                 >
                   Cancel
                 </button>
@@ -356,10 +387,14 @@ export default function ProfilePage() {
               <button
                 type="button"
                 onClick={(e) => { e.preventDefault(); e.stopPropagation(); setEditing(true); }}
-                className="w-full relative group py-3 px-6 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-cyan-500/50"
+                className="w-full relative group py-3 px-6 text-white font-bold rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4"
+                style={{ 
+                  backgroundColor: '#003D7A',
+                  '--tw-ring-color': 'rgba(255, 199, 44, 0.5)'
+                }}
               >
                 <span className="relative z-10">Edit Profile</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-xl blur opacity-0 group-hover:opacity-75 transition-opacity duration-300" />
+                <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-20 transition-opacity duration-300" style={{ backgroundColor: '#FFC72C' }} />
               </button>
             )}
           </div>

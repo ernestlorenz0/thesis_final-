@@ -693,122 +693,197 @@ export default function HomePage() {
   // =========================
   return (
     <>
-      {/* Custom Animations */}
+      {/* STI Modern Animations */}
       <style jsx>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-20px) rotate(5deg); }
+        @keyframes fadeInUp {
+          from { opacity: 0; transform: translateY(30px); }
+          to { opacity: 1; transform: translateY(0); }
         }
-        @keyframes grid-move {
-          0% { transform: translate(0, 0); }
-          100% { transform: translate(50px, 50px); }
+        @keyframes slideInLeft {
+          from { opacity: 0; transform: translateX(-50px); }
+          to { opacity: 1; transform: translateX(0); }
         }
-        @keyframes glow {
-          0%, 100% { box-shadow: 0 0 20px rgba(34, 211, 238, 0.4); }
-          50% { box-shadow: 0 0 40px rgba(34, 211, 238, 0.8), 0 0 60px rgba(147, 51, 234, 0.4); }
+        @keyframes slideInRight {
+          from { opacity: 0; transform: translateX(50px); }
+          to { opacity: 1; transform: translateX(0); }
         }
         @keyframes pulse-glow {
-          0%, 100% { box-shadow: 0 0 10px rgba(34, 211, 238, 0.3); }
-          50% { box-shadow: 0 0 30px rgba(34, 211, 238, 0.6), 0 0 40px rgba(147, 51, 234, 0.3); }
+          0%, 100% { box-shadow: 0 0 20px rgba(255, 199, 44, 0.3); }
+          50% { box-shadow: 0 0 40px rgba(255, 199, 44, 0.6); }
         }
-        .animate-float {
+        @keyframes gradient-shift {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        .animate-fadeInUp { animation: fadeInUp 0.8s ease-out; }
+        .animate-slideInLeft { animation: slideInLeft 0.8s ease-out; }
+        .animate-slideInRight { animation: slideInRight 0.8s ease-out; }
+        .animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+        .gradient-text {
+          background: linear-gradient(-45deg, #003D7A, #FFC72C, #003D7A, #FFC72C);
+          background-size: 400% 400%;
+          animation: gradient-shift 3s ease infinite;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+        .modern-card {
+          background: rgba(255, 255, 255, 0.95);
+          backdrop-filter: blur(20px);
+          border: 1px solid rgba(0, 61, 122, 0.1);
+          box-shadow: 0 20px 40px rgba(0, 61, 122, 0.08);
+        }
+        .floating-element {
           animation: float 6s ease-in-out infinite;
         }
-        .animate-glow {
-          animation: glow 3s ease-in-out infinite;
-        }
-        .animate-pulse-glow {
-          animation: pulse-glow 2s ease-in-out infinite;
+        @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-15px); }
         }
       `}</style>
       
-      <div className="h-screen relative overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-        {/* Animated Background Elements */}
+      <div className="min-h-screen relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #F9F9F9 0%, #FFFFFF 100%)' }}>
+        {/* STI Themed Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute w-96 h-96 bg-gradient-to-r from-cyan-400/10 to-purple-600/10 rounded-full blur-3xl animate-pulse top-10 -left-20" />
-          <div className="absolute w-80 h-80 bg-gradient-to-r from-blue-400/10 to-indigo-600/10 rounded-full blur-2xl animate-bounce bottom-10 -right-20" />
-          <div className="absolute top-1/4 left-1/4 w-4 h-4 bg-cyan-400/60 rotate-45 animate-spin" style={{ animationDuration: '8s' }} />
-          <div className="absolute bottom-1/4 right-1/4 w-3 h-3 bg-purple-400/50 rounded-full animate-pulse" />
-          <div className="absolute top-1/3 right-1/3 w-5 h-5 bg-indigo-400/30 transform rotate-45 animate-spin" style={{ animationDuration: '12s', animationDelay: '0.5s' }} />
+          <div className="absolute w-96 h-96 rounded-full blur-3xl animate-pulse top-10 -left-20" style={{ background: 'radial-gradient(circle, rgba(0, 61, 122, 0.1) 0%, rgba(255, 199, 44, 0.05) 100%)' }} />
+          <div className="absolute w-80 h-80 rounded-full blur-2xl animate-bounce bottom-10 -right-20" style={{ background: 'radial-gradient(circle, rgba(255, 199, 44, 0.1) 0%, rgba(0, 61, 122, 0.05) 100%)' }} />
+          <div className="absolute top-1/4 left-1/4 w-4 h-4 rotate-45 animate-spin" style={{ backgroundColor: '#FFC72C', opacity: 0.6, animationDuration: '8s' }} />
+          <div className="absolute bottom-1/4 right-1/4 w-3 h-3 rounded-full animate-pulse" style={{ backgroundColor: '#003D7A', opacity: 0.5 }} />
+          <div className="absolute top-1/3 right-1/5 w-5 h-5 transform rotate-45 animate-spin" style={{ backgroundColor: '#FFC72C', opacity: 0.3, animationDuration: '12s', animationDelay: '0.5s' }} />
         </div>
 
-        {/* Enhanced Floating Geometric Shapes */}
+        {/* STI Floating Elements - Enhanced with more icons */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute top-20 left-10 w-4 h-4 bg-cyan-400/60 rotate-45 animate-spin" style={{ animationDuration: '8s' }} />
-          <div className="absolute top-40 right-20 w-6 h-6 bg-purple-400/40 rounded-full animate-bounce" style={{ animationDelay: '1s' }} />
-          <div className="absolute bottom-32 left-1/4 w-3 h-3 bg-blue-400/50 rotate-12 animate-pulse" style={{ animationDelay: '2s' }} />
-          <div className="absolute top-1/2 left-5 animate-float" style={{ animationDelay: '1s' }}>
-            <svg className="w-6 h-6 text-cyan-300/40" fill="currentColor" viewBox="0 0 24 24">
+          {/* Box Icons */}
+          <div className="absolute top-20 left-10 w-4 h-4 rotate-45 animate-spin" style={{ backgroundColor: '#003D7A', opacity: 0.4, animationDuration: '8s' }} />
+          <div className="absolute top-32 right-16 w-3 h-3 rotate-12 animate-pulse" style={{ backgroundColor: '#FFC72C', opacity: 0.5, animationDelay: '1s' }} />
+          <div className="absolute bottom-32 left-1/4 w-3 h-3 rotate-12 animate-pulse" style={{ backgroundColor: '#003D7A', opacity: 0.3, animationDelay: '2s' }} />
+          <div className="absolute top-1/3 right-12 w-5 h-5 rotate-45 animate-spin" style={{ backgroundColor: '#FFC72C', opacity: 0.4, animationDuration: '10s', animationDelay: '3s' }} />
+          <div className="absolute bottom-1/4 left-16 w-4 h-4 rotate-12 animate-pulse" style={{ backgroundColor: '#003D7A', opacity: 0.3, animationDelay: '4s' }} />
+          <div className="absolute top-16 left-1/3 w-3 h-3 rotate-45 animate-spin" style={{ backgroundColor: '#FFC72C', opacity: 0.5, animationDuration: '12s', animationDelay: '5s' }} />
+          <div className="absolute bottom-16 right-1/4 w-4 h-4 rotate-12 animate-pulse" style={{ backgroundColor: '#003D7A', opacity: 0.4, animationDelay: '6s' }} />
+          <div className="absolute top-2/3 left-8 w-3 h-3 rotate-45 animate-spin" style={{ backgroundColor: '#FFC72C', opacity: 0.3, animationDuration: '9s', animationDelay: '7s' }} />
+          <div className="absolute top-40 right-20 w-6 h-6 rounded-full animate-bounce" style={{ backgroundColor: '#FFC72C', opacity: 0.5, animationDelay: '1s' }} />
+          <div className="absolute bottom-40 left-12 w-5 h-5 rotate-45 animate-spin" style={{ backgroundColor: '#003D7A', opacity: 0.4, animationDuration: '11s', animationDelay: '8s' }} />
+
+          {/* Star Icons */}
+          <div className="absolute top-1/2 left-5 floating-element" style={{ animationDelay: '1s' }}>
+            <svg className="w-6 h-6" fill="#FFC72C" style={{ opacity: 0.4 }} viewBox="0 0 24 24">
               <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
             </svg>
           </div>
-          <div className="absolute bottom-20 right-1/3 animate-float" style={{ animationDelay: '4s' }}>
-            <svg className="w-8 h-8 text-purple-300/30" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+          <div className="absolute bottom-20 right-1/3 floating-element" style={{ animationDelay: '4s' }}>
+            <svg className="w-8 h-8" fill="#003D7A" style={{ opacity: 0.3 }} viewBox="0 0 24 24">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+          </div>
+          <div className="absolute top-24 left-1/2 floating-element" style={{ animationDelay: '2s' }}>
+            <svg className="w-5 h-5" fill="#FFC72C" style={{ opacity: 0.5 }} viewBox="0 0 24 24">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+          </div>
+          <div className="absolute bottom-1/3 right-8 floating-element" style={{ animationDelay: '5s' }}>
+            <svg className="w-4 h-4" fill="#003D7A" style={{ opacity: 0.4 }} viewBox="0 0 24 24">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+          </div>
+          <div className="absolute top-1/4 right-1/4 floating-element" style={{ animationDelay: '3s' }}>
+            <svg className="w-7 h-7" fill="#FFC72C" style={{ opacity: 0.3 }} viewBox="0 0 24 24">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+          </div>
+          <div className="absolute bottom-1/2 left-1/3 floating-element" style={{ animationDelay: '6s' }}>
+            <svg className="w-5 h-5" fill="#003D7A" style={{ opacity: 0.5 }} viewBox="0 0 24 24">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+          </div>
+          <div className="absolute top-3/4 left-1/4 floating-element" style={{ animationDelay: '7s' }}>
+            <svg className="w-6 h-6" fill="#FFC72C" style={{ opacity: 0.4 }} viewBox="0 0 24 24">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+          </div>
+          <div className="absolute top-1/6 right-1/3 floating-element" style={{ animationDelay: '8s' }}>
+            <svg className="w-4 h-4" fill="#003D7A" style={{ opacity: 0.3 }} viewBox="0 0 24 24">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+          </div>
+          <div className="absolute bottom-1/6 right-1/2 floating-element" style={{ animationDelay: '9s' }}>
+            <svg className="w-5 h-5" fill="#FFC72C" style={{ opacity: 0.5 }} viewBox="0 0 24 24">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+          </div>
+          <div className="absolute top-5/6 right-1/6 floating-element" style={{ animationDelay: '10s' }}>
+            <svg className="w-6 h-6" fill="#003D7A" style={{ opacity: 0.4 }} viewBox="0 0 24 24">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
             </svg>
           </div>
         </div>
 
-        {/* Top Navigation Bar */}
-        <div className="absolute top-0 left-0 w-full flex justify-between items-center px-6 sm:px-8 lg:px-12 pt-6 sm:pt-8 pb-4 z-40">
-          {/* Logo */}
-          <div className="flex items-center">
-            <div className="relative group">
-              <div className="w-10 h-10 bg-gradient-to-br from-cyan-400 via-blue-500 to-purple-600 rounded-xl shadow-lg transform rotate-6 group-hover:rotate-12 transition-transform duration-300 animate-pulse" />
-              <div className="absolute inset-1 bg-gradient-to-br from-white/90 to-white/70 rounded-lg flex items-center justify-center transform -rotate-6 group-hover:-rotate-12 transition-transform duration-300">
-                <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
+        {/* STI Modern Navigation */}
+        <nav className="fixed top-0 left-0 right-0 z-50" style={{ backgroundColor: 'rgba(255, 255, 255, 0.98)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(229, 229, 229, 0.3)' }}>
+          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+            <div className="flex justify-between items-center h-20">
+              <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-4">
+                  <div className="p-2 rounded-xl" style={{ backgroundColor: '#F9F9F9', border: '1px solid #E5E5E5' }}>
+                    <img src="/src/STI LOGOS/STI LOGO1.png" alt="STI College" className="h-10 w-auto" />
+                  </div>
+                  <div className="hidden lg:block">
+                    <div className="text-2xl font-bold gradient-text">KenbiLearn</div>
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-center space-x-4">
+                <button
+                  className="text-sm font-semibold px-6 py-3 rounded-xl border hover:shadow-lg transition-all duration-300"
+                  style={{ color: '#003D7A', borderColor: '#E5E5E5', backgroundColor: 'white' }}
+                  onClick={() => {
+                    setIsPreviewMode(true);
+                    setShowTemplates(true);
+                  }}
+                >
+                  <span className="hidden sm:inline">Preview Themes</span>
+                  <span className="sm:hidden">Themes</span>
+                </button>
+                <UserMenuDropdown userMenuOpen={userMenuOpen} setUserMenuOpen={setUserMenuOpen} userMenuRef={userMenuRef} />
               </div>
             </div>
-            <h1 className="ml-3 text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600">KENBILEARN</h1>
           </div>
-
-          {/* Navigation Buttons */}
-          <div className="flex items-center gap-4">
-            <button
-              className="px-4 sm:px-6 py-2 sm:py-3 rounded-xl font-semibold text-sm sm:text-base bg-white/10 backdrop-blur-sm border border-white/20 text-white hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 transition-all duration-300 shadow-lg"
-              onClick={() => {
-                setIsPreviewMode(true);
-                setShowTemplates(true);
-              }}
-            >
-              <span className="hidden sm:inline">Preview Themes</span>
-              <span className="sm:hidden">Themes</span>
-            </button>
-            <UserMenuDropdown userMenuOpen={userMenuOpen} setUserMenuOpen={setUserMenuOpen} userMenuRef={userMenuRef} />
-          </div>
-        </div>
+        </nav>
 
         {/* Main Content */}
-        <div className="relative z-10 h-full flex flex-col items-center justify-center px-4 pt-20 pb-4">
+        <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 pt-24 pb-8">
           {/* Hero Section */}
-          <div className="text-center mb-6 max-w-4xl">
-            <h1 className="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 mb-4 leading-tight">
-              Transform PDFs into
+          <div className="text-center mb-12 max-w-4xl animate-fadeInUp">
+            <h1 className="text-4xl md:text-6xl font-black mb-6 leading-tight">
+              <span className="gradient-text">Transform PDFs into</span>
               <br />
-              <span className="text-white">Beautiful Presentations</span>
+              <span style={{ color: '#003D7A' }}>Beautiful Presentations</span>
             </h1>
-            <p className="text-lg text-gray-300 mb-6 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-xl mb-8 max-w-2xl mx-auto leading-relaxed" style={{ color: '#2C2C2C' }}>
               Upload your PDF documents and let our AI generate stunning PowerPoint presentations with 
-              <span className="text-cyan-400 font-semibold"> intelligent content extraction</span>
+              <span className="font-semibold" style={{ color: '#003D7A' }}> intelligent content extraction</span>
             </p>
+            <div className="flex justify-center">
+              <div className="w-24 h-1 rounded-full" style={{ backgroundColor: '#FFC72C' }}></div>
+            </div>
           </div>
 
           {/* Upload Section */}
-          <div className="w-full max-w-2xl flex-1 flex flex-col">
-            {/* 3D Upload Container */}
-            <div className="relative group flex-1 flex flex-col">
-              <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-purple-600/20 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-300" />
-              <div className="relative bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl shadow-2xl p-6 flex-1 flex flex-col">
+          <div className="w-full max-w-2xl animate-slideInRight">
+            {/* STI Modern Upload Container */}
+            <div className="relative group">
+              <div className="absolute inset-0 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-300" style={{ background: 'linear-gradient(135deg, rgba(0, 61, 122, 0.2) 0%, rgba(255, 199, 44, 0.2) 100%)' }} />
+              <div className="relative modern-card rounded-3xl p-8" style={{ border: '1px solid rgba(0, 61, 122, 0.1)' }}>
                 
                 {/* Upload Area */}
-                <label htmlFor="pdf-upload" className="block cursor-pointer flex-1">
-                  <div className="border-2 border-dashed border-white/30 rounded-2xl py-8 px-6 text-center hover:border-cyan-400/50 hover:bg-white/5 transition-all duration-300 group h-full flex flex-col justify-center">
+                <label htmlFor="pdf-upload" className="block cursor-pointer">
+                  <div className="border-2 border-dashed rounded-2xl py-12 px-6 text-center transition-all duration-300 group" style={{ borderColor: '#E5E5E5' }} onMouseEnter={e => e.target.style.borderColor = '#FFC72C'} onMouseLeave={e => e.target.style.borderColor = '#E5E5E5'}>
                     {loading ? (
                       <div className="flex flex-col items-center">
-                        <Loader2 className="animate-spin mb-3 text-cyan-400" size={40} />
-                        <span className="text-white font-semibold">
+                        <Loader2 className="animate-spin mb-4" size={48} style={{ color: '#003D7A' }} />
+                        <span className="text-lg font-semibold" style={{ color: '#003D7A' }}>
                           {imagePrompt.trim() 
                             ? "Processing PDFs and generating AI images..." 
                             : "Processing your PDFs..."
@@ -817,12 +892,12 @@ export default function HomePage() {
                       </div>
                     ) : (
                       <div className="flex flex-col items-center">
-                        <div className="mb-4 p-3 bg-white/10 rounded-full backdrop-blur-sm border border-white/20 group-hover:bg-white/20 transition-all duration-300 animate-pulse-glow">
-                          <Upload size={40} className="text-cyan-400" />
+                        <div className="mb-6 p-4 rounded-full transition-all duration-300 animate-pulse-glow" style={{ backgroundColor: '#F9F9F9', border: '2px solid #E5E5E5' }}>
+                          <Upload size={48} style={{ color: '#003D7A' }} />
                         </div>
-                        <h3 className="text-xl font-bold text-white mb-2">Upload PDF Documents</h3>
-                        <p className="text-gray-300 mb-2">Drop your files here or click to browse</p>
-                        <p className="text-sm text-gray-400">(Max 5MB each, multiple files allowed)</p>
+                        <h3 className="text-2xl font-bold mb-3" style={{ color: '#003D7A' }}>Upload PDF Documents</h3>
+                        <p className="text-lg mb-2" style={{ color: '#2C2C2C' }}>Drop your files here or click to browse</p>
+                        <p className="text-sm" style={{ color: '#666666' }}>(Max 5MB each, multiple files allowed)</p>
                       </div>
                     )}
                   </div>
@@ -839,8 +914,8 @@ export default function HomePage() {
                 </label>
 
                 {/* Image Generation Prompt */}
-                <div className="mt-4">
-                  <label className="block text-white font-semibold text-sm mb-2">
+                <div className="mt-6">
+                  <label className="block font-semibold text-sm mb-3" style={{ color: '#003D7A' }}>
                     AI Image Generation Prompt (Optional)
                   </label>
                   <div className="relative group">
@@ -849,36 +924,46 @@ export default function HomePage() {
                       value={imagePrompt}
                       onChange={e => setImagePrompt(e.target.value)}
                       placeholder="Describe images you'd like AI to generate (will be processed with PowerPoint generation)..."
-                      className="w-full px-4 py-2 bg-white/5 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 transition-all duration-300 backdrop-blur-sm text-sm"
+                      className="w-full px-4 py-3 bg-white rounded-xl border-2 transition-all duration-300 focus:outline-none focus:ring-2 focus:border-transparent text-sm"
+                      style={{ 
+                        borderColor: '#E5E5E5',
+                        color: '#2C2C2C',
+                        '--tw-ring-color': 'rgba(255, 199, 44, 0.5)'
+                      }}
+                      onFocus={e => e.target.style.borderColor = '#FFC72C'}
+                      onBlur={e => e.target.style.borderColor = '#E5E5E5'}
                       disabled={loading}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-purple-600/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                    <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" style={{ background: 'linear-gradient(135deg, rgba(0, 61, 122, 0.05) 0%, rgba(255, 199, 44, 0.05) 100%)' }} />
                   </div>
                 </div>
 
                 {/* Error Display */}
                 {error && (
-                  <div className="mt-4 p-3 bg-red-500/20 border border-red-500/30 rounded-xl text-red-300 text-center animate-pulse text-sm">
+                  <div className="mt-6 p-4 bg-red-50 border border-red-200 rounded-xl text-red-700 text-center text-sm">
                     {error}
                   </div>
                 )}
 
                 {/* Uploaded Files List */}
                 {uploadedFiles.length > 0 && (
-                  <div className="mt-4">
-                    <h3 className="text-white font-semibold mb-2 text-sm">Files Ready for Processing:</h3>
-                    <div className="space-y-1 max-h-24 overflow-y-auto">
+                  <div className="mt-6">
+                    <h3 className="font-semibold mb-3 text-sm" style={{ color: '#003D7A' }}>Files Ready for Processing:</h3>
+                    <div className="space-y-2 max-h-32 overflow-y-auto">
                       {uploadedFiles.map((file, idx) => (
-                        <div key={idx} className="flex items-center justify-between p-2 bg-white/5 rounded-lg border border-white/10 hover:bg-white/10 transition-all duration-300">
+                        <div key={idx} className="flex items-center justify-between p-3 bg-white rounded-lg border transition-all duration-300 hover:shadow-md" style={{ borderColor: '#E5E5E5' }}>
                           <div className="flex items-center">
-                            <svg className="w-4 h-4 text-red-400 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-5 h-5 mr-3" fill="#FF4444" viewBox="0 0 24 24">
                               <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" />
                             </svg>
-                            <span className="text-white truncate max-w-xs text-sm">{file.name}</span>
+                            <span className="truncate max-w-xs text-sm" style={{ color: '#2C2C2C' }}>{file.name}</span>
                           </div>
                           <button
                             onClick={() => handleRemoveFile(idx)}
-                            className="ml-2 text-gray-400 hover:text-red-400 transition-colors duration-200"
+                            className="ml-3 transition-colors duration-200"
+                            style={{ color: '#666666' }}
+                            onMouseEnter={e => e.target.style.color = '#FF4444'}
+                            onMouseLeave={e => e.target.style.color = '#666666'}
                             disabled={loading}
                           >
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -892,14 +977,18 @@ export default function HomePage() {
                 )}
 
                 {/* Action Buttons */}
-                <div className="flex flex-col sm:flex-row gap-3 mt-4">
+                <div className="flex flex-col sm:flex-row gap-4 mt-8">
                   <button
                     onClick={() => {
                       setIsPreviewMode(false);
                       setShowTemplates(true);
                     }}
                     disabled={loading || uploadedFiles.length === 0}
-                    className="flex-1 relative group py-3 px-6 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-cyan-500/50 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none animate-glow"
+                    className="flex-1 relative group py-4 px-6 text-white font-bold rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-4 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none animate-pulse-glow"
+                    style={{ 
+                      backgroundColor: '#003D7A',
+                      '--tw-ring-color': 'rgba(255, 199, 44, 0.5)'
+                    }}
                   >
                     <span className="relative z-10">
                       {loading 
@@ -907,13 +996,18 @@ export default function HomePage() {
                         : (imagePrompt.trim() ? "Generate PowerPoint + AI Images" : "Generate PowerPoint")
                       }
                     </span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-xl blur opacity-0 group-hover:opacity-75 transition-opacity duration-300" />
+                    <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-20 transition-opacity duration-300" style={{ backgroundColor: '#FFC72C' }} />
                   </button>
                   
                   <button
                     onClick={() => setUploadedFiles([])}
                     disabled={loading || uploadedFiles.length === 0}
-                    className="sm:w-auto px-6 py-3 bg-white/10 backdrop-blur-sm border border-white/20 text-white font-semibold rounded-xl shadow-xl hover:bg-white/20 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-white/30 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="sm:w-auto px-6 py-4 bg-white font-semibold rounded-xl shadow-lg border hover:shadow-xl transition-all duration-300 focus:outline-none focus:ring-4 disabled:opacity-50 disabled:cursor-not-allowed"
+                    style={{ 
+                      color: '#003D7A',
+                      borderColor: '#E5E5E5',
+                      '--tw-ring-color': 'rgba(0, 61, 122, 0.3)'
+                    }}
                   >
                     Clear All
                   </button>
@@ -938,16 +1032,19 @@ export default function HomePage() {
           </div>
         )}
 
-        {/* Template Selection Modal */}
+        {/* STI Template Selection Modal */}
         {showTemplates && (
-          <div className="fixed inset-0 flex items-center justify-center z-[9999] bg-black/60 backdrop-blur-sm p-4">
+          <div className="fixed inset-0 flex items-center justify-center z-[9999] p-4" style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)' }}>
             <div className="relative group max-w-7xl w-full max-h-[90vh]">
-              <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-purple-600/20 rounded-3xl blur-xl" />
-              <div className="relative bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl shadow-2xl overflow-hidden">
-                <div className="flex items-center justify-between px-8 pt-6 pb-4 border-b border-white/20">
-                  <h2 className="text-2xl font-bold text-white">Choose a Template</h2>
+              <div className="absolute inset-0 rounded-3xl blur-xl" style={{ background: 'linear-gradient(135deg, rgba(0, 61, 122, 0.2) 0%, rgba(255, 199, 44, 0.2) 100%)' }} />
+              <div className="relative modern-card rounded-3xl shadow-2xl overflow-hidden" style={{ border: '1px solid rgba(0, 61, 122, 0.1)' }}>
+                <div className="flex items-center justify-between px-8 pt-6 pb-4" style={{ borderBottom: '1px solid #E5E5E5' }}>
+                  <h2 className="text-2xl font-bold" style={{ color: '#003D7A' }}>Choose a Template</h2>
                   <button 
-                    className="text-gray-400 hover:text-red-400 text-2xl font-bold focus:outline-none transition-colors duration-200" 
+                    className="text-2xl font-bold focus:outline-none transition-colors duration-200" 
+                    style={{ color: '#666666' }}
+                    onMouseEnter={e => e.target.style.color = '#FF4444'}
+                    onMouseLeave={e => e.target.style.color = '#666666'}
                     onClick={() => setShowTemplates(false)}
                   >
                     ×
@@ -967,7 +1064,12 @@ export default function HomePage() {
                   </div>
                   <div className="flex justify-center mt-8">
                     <button 
-                      className="px-8 py-3 bg-white/10 backdrop-blur-sm border border-white/20 text-white font-semibold rounded-xl hover:bg-white/20 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-white/30" 
+                      className="px-8 py-3 bg-white font-semibold rounded-xl border hover:shadow-lg transition-all duration-300 focus:outline-none focus:ring-4"
+                      style={{ 
+                        color: '#003D7A',
+                        borderColor: '#E5E5E5',
+                        '--tw-ring-color': 'rgba(0, 61, 122, 0.3)'
+                      }}
                       onClick={() => setShowTemplates(false)}
                     >
                       Cancel
