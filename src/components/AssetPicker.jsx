@@ -19,15 +19,11 @@ export default function AssetPicker({ open, onClose, onSelect, onAIImageGenerate
 
   const loadGeneratedImages = () => {
     try {
-      console.log('🎨 AssetPicker: Loading generated images from localStorage...');
       const saved = localStorage.getItem('kenbilearn_generated_images');
-      console.log('🎨 AssetPicker: Raw localStorage data:', saved);
       if (saved) {
         const parsed = JSON.parse(saved);
-        console.log('🎨 AssetPicker: Parsed generated images:', parsed.length, 'images found');
         setGeneratedImages(parsed);
       } else {
-        console.log('🎨 AssetPicker: No generated images found in localStorage');
         setGeneratedImages([]);
       }
     } catch (error) {
@@ -47,14 +43,11 @@ export default function AssetPicker({ open, onClose, onSelect, onAIImageGenerate
 
   const loadPdfImages = async () => {
     try {
-      console.log('📄 AssetPicker: Loading PDF extracted images...');
       const response = await fetch('http://127.0.0.1:5000/api/extracted-images');
       if (response.ok) {
         const data = await response.json();
-        console.log('📄 AssetPicker: PDF images loaded:', data.images.length, 'images found');
         setPdfImages(data.images);
       } else {
-        console.log('📄 AssetPicker: No PDF images found');
         setPdfImages([]);
       }
     } catch (error) {
@@ -67,7 +60,6 @@ export default function AssetPicker({ open, onClose, onSelect, onAIImageGenerate
     try {
       const loadedAssets = { icons: [] };
       
-      console.log('🔍 AssetPicker: Starting dynamic asset scan...');
       
       // Define the folders to scan and their mappings
       const folderMappings = {
@@ -109,7 +101,6 @@ export default function AssetPicker({ open, onClose, onSelect, onAIImageGenerate
       
       // Scan each folder
       for (const [folderName, categoryKey] of Object.entries(folderMappings)) {
-        console.log(`🔍 Scanning folder: ${folderName}`);
         
         // Try different combinations of common names and extensions
         for (const baseName of commonFileNames) {
@@ -127,7 +118,6 @@ export default function AssetPicker({ open, onClose, onSelect, onAIImageGenerate
                     name: fileName,
                     url: url
                   });
-                  console.log(`✅ Found: ${fileName} in ${categoryKey}`);
                 }
               }
             } catch (e) {
@@ -138,7 +128,6 @@ export default function AssetPicker({ open, onClose, onSelect, onAIImageGenerate
         
       }
       
-      console.log('🎯 Final scanned assets:', loadedAssets);
       setAssets(loadedAssets);
     } catch (error) {
       console.error('Failed to load static assets:', error);
@@ -166,7 +155,6 @@ export default function AssetPicker({ open, onClose, onSelect, onAIImageGenerate
   const filteredAssets = getFilteredAssets();
 
   const handleAIImageGenerated = (generatedImage) => {
-    console.log('🎨 AssetPicker: AI image generated:', generatedImage);
     
     // Add timestamp to the generated image
     const imageWithTimestamp = {
@@ -194,7 +182,6 @@ export default function AssetPicker({ open, onClose, onSelect, onAIImageGenerate
     
     // Call the main onAIImageGenerated function to add to slide
     if (onAIImageGenerated) {
-      console.log('🎨 AssetPicker: Calling main onAIImageGenerated');
       onAIImageGenerated(imageWithTimestamp);
     }
     

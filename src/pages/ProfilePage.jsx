@@ -273,18 +273,28 @@ export default function ProfilePage() {
 
               {/* New Password */}
               <div className="space-y-2">
-                <label className="block text-white font-semibold text-sm">New Password</label>
+                <label className="block font-semibold text-sm" style={{ color: '#003D7A' }}>New Password</label>
                 <div className="relative group">
                   <input
                     type={showPassword ? 'text' : 'password'}
-                    className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 transition-all duration-300 backdrop-blur-sm pr-12"
+                    className="w-full px-4 py-3 bg-white border-2 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:border-transparent pr-12"
+                    style={{ 
+                      borderColor: '#E5E5E5',
+                      color: '#2C2C2C',
+                      '--tw-ring-color': 'rgba(255, 199, 44, 0.5)'
+                    }}
+                    onFocus={e => e.target.style.borderColor = '#FFC72C'}
+                    onBlur={e => e.target.style.borderColor = '#E5E5E5'}
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
                     placeholder="Enter new password"
                   />
                   <button 
                     type="button" 
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-cyan-400 transition-colors duration-200" 
+                    className="absolute right-3 top-1/2 -translate-y-1/2 transition-colors duration-200" 
+                    style={{ color: '#666666' }}
+                    onMouseEnter={e => e.target.style.color = '#FFC72C'}
+                    onMouseLeave={e => e.target.style.color = '#666666'}
                     onClick={() => setShowPassword(v => !v)}
                   >
                     {showPassword ? (
@@ -299,29 +309,36 @@ export default function ProfilePage() {
                       </svg>
                     )}
                   </button>
-                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-purple-600/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                  <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" style={{ background: 'linear-gradient(135deg, rgba(0, 61, 122, 0.05) 0%, rgba(255, 199, 44, 0.05) 100%)' }} />
                 </div>
               </div>
 
               {/* Confirm Password */}
               {newPassword && (
                 <div className="space-y-2">
-                  <label className="block text-white font-semibold text-sm">Confirm New Password</label>
+                  <label className="block font-semibold text-sm" style={{ color: '#003D7A' }}>Confirm New Password</label>
                   <div className="relative group">
                     <input
                       type={showPassword ? 'text' : 'password'}
-                      className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 transition-all duration-300 backdrop-blur-sm"
+                      className="w-full px-4 py-3 bg-white border-2 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:border-transparent"
+                      style={{ 
+                        borderColor: '#E5E5E5',
+                        color: '#2C2C2C',
+                        '--tw-ring-color': 'rgba(255, 199, 44, 0.5)'
+                      }}
+                      onFocus={e => e.target.style.borderColor = '#FFC72C'}
+                      onBlur={e => e.target.style.borderColor = '#E5E5E5'}
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
                       placeholder="Confirm new password"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-purple-600/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                    <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" style={{ background: 'linear-gradient(135deg, rgba(0, 61, 122, 0.05) 0%, rgba(255, 199, 44, 0.05) 100%)' }} />
                   </div>
                 </div>
               )}
 
               {passwordError && (
-                <div className="p-3 bg-red-500/20 border border-red-500/30 rounded-xl text-red-300 text-sm">
+                <div className="p-3 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm">
                   {passwordError}
                 </div>
               )}

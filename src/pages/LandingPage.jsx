@@ -217,6 +217,53 @@ const LandingPage = () => {
           <div className="absolute bottom-3/4 right-1/3 w-3 h-3 rotate-45 animate-pulse floating-element" style={{ backgroundColor: '#FFC72C', opacity: 0.5, animationDelay: '3s' }} />
           <div className="absolute top-1/8 left-3/4 w-4 h-4 rotate-45 animate-spin floating-element" style={{ backgroundColor: '#FFC72C', opacity: 0.7, animationDuration: '17s', animationDelay: '5s' }} />
           <div className="absolute bottom-1/8 right-1/4 w-2 h-2 rotate-45 animate-pulse floating-element" style={{ backgroundColor: '#FFC72C', opacity: 0.6, animationDelay: '7s' }} />
+
+          {/* Additional Geometric Shapes */}
+          {/* Star Icons */}
+          <div className="absolute top-1/3 left-1/6 rotate-slow" style={{ animationDelay: '2s' }}>
+            <svg className="w-6 h-6" fill="#FFC72C" viewBox="0 0 24 24" style={{ opacity: 0.4 }}>
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+          </div>
+          
+          <div className="absolute bottom-1/3 right-1/6 pulse-scale" style={{ animationDelay: '4s' }}>
+            <svg className="w-5 h-5" fill="#003D7A" viewBox="0 0 24 24" style={{ opacity: 0.3 }}>
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+          </div>
+
+          {/* Triangle Icons */}
+          <div className="absolute top-2/3 left-1/12 swing" style={{ animationDelay: '1s' }}>
+            <svg className="w-4 h-4" fill="#FFC72C" viewBox="0 0 24 24" style={{ opacity: 0.35 }}>
+              <path d="M12 2L2 22h20L12 2z"/>
+            </svg>
+          </div>
+
+          <div className="absolute bottom-2/3 right-1/12 bounce-crazy" style={{ animationDelay: '3s' }}>
+            <svg className="w-5 h-5" fill="#003D7A" viewBox="0 0 24 24" style={{ opacity: 0.4 }}>
+              <path d="M12 2L2 22h20L12 2z"/>
+            </svg>
+          </div>
+
+          {/* Plus/Cross Icons */}
+          <div className="absolute top-1/4 right-1/8 slide-horizontal" style={{ animationDelay: '2.5s' }}>
+            <svg className="w-4 h-4" fill="#FFC72C" viewBox="0 0 24 24" style={{ opacity: 0.3 }}>
+              <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+            </svg>
+          </div>
+
+          <div className="absolute bottom-1/4 left-1/8 rotate-slow" style={{ animationDelay: '5s' }}>
+            <svg className="w-3 h-3" fill="#003D7A" viewBox="0 0 24 24" style={{ opacity: 0.35 }}>
+              <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+            </svg>
+          </div>
+
+          {/* Hexagon Icons */}
+          <div className="absolute top-3/4 right-1/3 pulse-scale" style={{ animationDelay: '1.5s' }}>
+            <svg className="w-5 h-5" fill="#FFC72C" viewBox="0 0 24 24" style={{ opacity: 0.4 }}>
+              <path d="M17.5 3.5L22 12l-4.5 8.5h-11L2 12l4.5-8.5h11z"/>
+            </svg>
+          </div>
         </div>
         
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 pt-20">
@@ -606,6 +653,77 @@ const LandingPage = () => {
             <svg className="w-10 h-10" fill="#003D7A" viewBox="0 0 24 24">
               <path d="M21 3H3c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h6l-2 2v1h8v-1l-2-2h6c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 13H3V5h18v11z"/>
               <path d="M9 8l5 3-5 3z"/>
+            </svg>
+          </div>
+
+          {/* Additional Decorative Icons */}
+          {/* Star Shape */}
+          <div className="absolute top-32 left-32 rotate-slow opacity-20" style={{ animationDelay: '1s' }}>
+            <svg className="w-8 h-8" fill="#FFC72C" viewBox="0 0 24 24">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+          </div>
+
+          {/* Triangle */}
+          <div className="absolute top-64 right-32 pulse-scale opacity-15" style={{ animationDelay: '2.5s' }}>
+            <svg className="w-6 h-6" fill="#003D7A" viewBox="0 0 24 24">
+              <path d="M12 2L2 22h20L12 2z"/>
+            </svg>
+          </div>
+
+          {/* Circle/Dot */}
+          <div className="absolute bottom-64 right-64 bounce-crazy opacity-25" style={{ animationDelay: '1.5s' }}>
+            <svg className="w-4 h-4" fill="#FFC72C" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10"/>
+            </svg>
+          </div>
+
+          {/* Diamond Shape */}
+          <div className="absolute top-48 left-64 swing opacity-20" style={{ animationDelay: '3.5s' }}>
+            <svg className="w-7 h-7" fill="#003D7A" viewBox="0 0 24 24">
+              <path d="M12 2L2 12l10 10 10-10L12 2z"/>
+            </svg>
+          </div>
+
+          {/* Hexagon */}
+          <div className="absolute bottom-48 left-48 slide-horizontal opacity-18" style={{ animationDelay: '2s' }}>
+            <svg className="w-8 h-8" fill="#FFC72C" viewBox="0 0 24 24">
+              <path d="M17.5 3.5L22 12l-4.5 8.5h-11L2 12l4.5-8.5h11z"/>
+            </svg>
+          </div>
+
+          {/* Plus/Cross */}
+          <div className="absolute top-80 right-48 rotate-slow opacity-15" style={{ animationDelay: '4s' }}>
+            <svg className="w-6 h-6" fill="#003D7A" viewBox="0 0 24 24">
+              <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+            </svg>
+          </div>
+
+          {/* Heart Shape */}
+          <div className="absolute bottom-80 right-24 pulse-scale opacity-20" style={{ animationDelay: '0.5s' }}>
+            <svg className="w-5 h-5" fill="#FFC72C" viewBox="0 0 24 24">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+          </div>
+
+          {/* Lightning Bolt */}
+          <div className="absolute top-96 left-24 bounce-crazy opacity-22" style={{ animationDelay: '3s' }}>
+            <svg className="w-5 h-5" fill="#003D7A" viewBox="0 0 24 24">
+              <path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66.19-.34.05-.08.07-.12C8.48 10.94 10.42 7.54 13 3h1l-1 7h3.5c.49 0 .56.33.47.51l-.07.15C12.96 17.55 11 21 11 21z"/>
+            </svg>
+          </div>
+
+          {/* Flower/Petal Shape */}
+          <div className="absolute bottom-96 left-80 swing opacity-18" style={{ animationDelay: '1.8s' }}>
+            <svg className="w-6 h-6" fill="#FFC72C" viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c1.19 0 2.34-.21 3.41-.6.3-.11.49-.4.49-.72 0-.43-.35-.78-.78-.78-.22 0-.42.09-.56.24-.83.29-1.72.44-2.64.44-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6c0 .92-.15 1.81-.44 2.64-.15.14-.24.34-.24.56 0 .43.35.78.78.78.32 0 .61-.19.72-.49.39-1.07.6-2.22.6-3.41C22 6.48 17.52 2 12 2z"/>
+            </svg>
+          </div>
+
+          {/* Arrow Shape */}
+          <div className="absolute top-40 right-80 slide-horizontal opacity-16" style={{ animationDelay: '2.8s' }}>
+            <svg className="w-7 h-7" fill="#003D7A" viewBox="0 0 24 24">
+              <path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/>
             </svg>
           </div>
         </div>

@@ -57,7 +57,6 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack, p
   }, [slideExporter]);
 
   const handleSlideContainerReady = useCallback((slideContainerRef) => {
-    console.log('🎯 SlideEditor: Slide container ready callback received:', slideContainerRef);
     setCurrentSlideContainerRef(slideContainerRef);
   }, []);
 
@@ -522,24 +521,18 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack, p
   };
 
   const removeComponent = idx => {
-    console.log('🗑️ SlideEditor removeComponent called with idx:', idx);
-    console.log('Current slide components:', slides[current]?.components);
     setSlides(slides => slides.map((slide, sidx) => sidx === current ? {
       ...slide,
       components: slide.components.filter((_, i) => {
-        console.log(`Filtering component ${i}, keeping: ${i !== idx}`);
         return i !== idx;
       })
     } : slide));
   };
 
   const handleBlockDragEnd = (id, event) => {
-    console.log('🎯 SlideEditor handleBlockDragEnd:', { id, event });
     if (!event.delta) {
-      console.log('❌ No delta in event:', event);
       return;
     }
-    console.log('✅ Updating position with delta:', event.delta);
     setSlides(slides => slides.map((slide, idx) => idx === current ? {
       ...slide,
       components: slide.components.map(comp => comp.id === id ? {
@@ -641,7 +634,6 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack, p
       const previousState = history[historyIndex - 1];
       setSlides(previousState);
       setHistoryIndex(historyIndex - 1);
-      console.log('↶ Undo performed');
     }
   }, [history, historyIndex]);
 
@@ -655,7 +647,6 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack, p
       saveToHistory(slides);
       setSlides(newSlides);
       setSelectedComponentId(null);
-      console.log('🗑️ Component deleted:', selectedComponentId);
     }
   }, [selectedComponentId, slides, current, saveToHistory]);
 
@@ -669,7 +660,6 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack, p
       };
       
       localStorage.setItem('slideshow_autosave', JSON.stringify(slideshowData));
-      console.log('💾 Slideshow saved');
       
       // Show brief save confirmation
       const originalTitle = document.title;
@@ -725,7 +715,6 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack, p
         shareUrl: shareableUrl
       });
       
-      console.log('📤 Slideshow shared:', { slideshowId, shareableUrl });
     } catch (error) {
       console.error('❌ Error sharing slideshow:', error);
       setShareNotification({
@@ -910,7 +899,6 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack, p
           open={showAssetPicker}
           onClose={() => setShowAssetPicker(false)}
           onSelect={asset => {
-            console.log('🎯 SlideEditor: Asset selected:', asset);
             setShowAssetPicker(false);
             setSlides(slides => slides.map((slide, idx) => idx === current ? {
               ...slide,
@@ -930,10 +918,7 @@ export default function SlideEditor({ initialSlides, selectedTemplate, onBack, p
             } : slide));
           }}
           onAIImageGenerated={generatedImage => {
-            console.log('🎨 SlideEditor: AI image generated and adding to slide:', generatedImage);
-            // The AssetPicker already handles adding to the slide via onSelect,
-            // but we can add additional logic here if needed
-            console.log('🎨 AI-generated image automatically added to slide');
+            // The AssetPicker already handles adding to the slide via onSelect
           }}
         />
 

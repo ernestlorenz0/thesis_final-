@@ -239,7 +239,6 @@ export default function SlideCanvas({
       onDrop={onDrop}
     >
       <DndContext onDragEnd={event => {
-        console.log('🎯 DndContext onDragEnd:', event);
         if (event.active && event.delta) {
           handleBlockDragEnd(event.active.id, event);
         }

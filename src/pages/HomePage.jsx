@@ -62,14 +62,11 @@ export default function HomePage() {
 
   // Generate AI image if prompt exists
   const generateImageIfPromptExists = async () => {
-    console.log('🎨 HomePage: generateImageIfPromptExists called with prompt:', imagePrompt);
     if (!imagePrompt.trim()) {
-      console.log('🎨 HomePage: No image prompt provided, skipping image generation');
       return null; // No prompt, skip image generation
     }
 
     try {
-      console.log('🎨 HomePage: Auto-generating AI image during PowerPoint creation:', imagePrompt.trim());
       
       const response = await fetch('http://127.0.0.1:5000/generate-image', {
         method: 'POST',
@@ -97,16 +94,12 @@ export default function HomePage() {
 
         // Save to localStorage
         try {
-          console.log('🎨 HomePage: Attempting to save image to localStorage...');
           const existingImages = JSON.parse(localStorage.getItem('kenbilearn_generated_images') || '[]');
-          console.log('🎨 HomePage: Existing images in localStorage:', existingImages.length);
           const updatedImages = [generatedImage, ...existingImages];
           localStorage.setItem('kenbilearn_generated_images', JSON.stringify(updatedImages));
-          console.log('🎨 HomePage: AI image saved to localStorage during PowerPoint generation. Total images now:', updatedImages.length);
           
           // Verify it was saved
           const verification = JSON.parse(localStorage.getItem('kenbilearn_generated_images') || '[]');
-          console.log('🎨 HomePage: Verification - localStorage now contains:', verification.length, 'images');
           
           return generatedImage;
         } catch (storageError) {
@@ -148,7 +141,6 @@ export default function HomePage() {
 
   const handleSelectTemplate = async (templateIdx) => {
     const selectedThemeName = themeNames[templateIdx];
-    console.log('Template selected:', selectedThemeName, 'at index:', templateIdx);
     setSelectedTemplate(selectedThemeName);
     setShowTemplates(false);
 
@@ -295,7 +287,6 @@ export default function HomePage() {
     setLoading(true);
     setError('');
     try {
-      console.log('Starting API call to process files:', uploadedFiles.map(f => f.name));
       
       // Generate AI image if prompt exists (parallel with PDF processing)
       const imageGenerationPromise = generateImageIfPromptExists();
@@ -405,9 +396,6 @@ export default function HomePage() {
       const mainSlideLayouts = ['MainSlide1', 'MainSlide2', 'MainSlide3', 'MainSlide4', 'MainSlide5', 'MainSlide6'].filter(key => slideMapping[key]);
       
       // Debug logging
-      console.log('Selected template:', selectedThemeName);
-      console.log('Slide mapping:', slideMapping);
-      console.log('Available main slide layouts:', mainSlideLayouts);
       
       // Add title slide
       if (slideMapping['TitleSlide']) {
@@ -520,13 +508,10 @@ export default function HomePage() {
       let mainSlideIndex = 0;
       
       // Debug logging
-      console.log('All content to distribute:', allContent.length, 'items');
-      console.log('Content types:', allContent.map(c => c.type));
       
       for (let i = 0; i < allContent.length; i++) {
         const content = allContent[i];
         if (!content) {
-          console.log(`Content ${i} is null or undefined, skipping`);
           continue;
         }
         
@@ -535,14 +520,12 @@ export default function HomePage() {
         if (currentLayoutIndex === 2 && slideMapping && slideMapping['ImageSlide']) {
           // Image slide
           layout = slideMapping['ImageSlide'];
-          // console.log(`Content ${i}: Using ImageSlide layout: ${layout}`);
           currentLayoutIndex++;
         } else if (currentLayoutIndex >= 3 && currentLayoutIndex <= 8) {
           // Main slides 1, 2, 3, 4, 5, 6
           const mainSlideKey = ['MainSlide1', 'MainSlide2', 'MainSlide3', 'MainSlide4', 'MainSlide5', 'MainSlide6'][currentLayoutIndex - 3];
           if (slideMapping && slideMapping[mainSlideKey]) {
             layout = slideMapping[mainSlideKey];
-            // console.log(`Content ${i}: Using ${mainSlideKey} layout: ${layout}`);
             currentLayoutIndex++;
             if (currentLayoutIndex > 8) {
               currentLayoutIndex = 3; // Reset to MainSlide1 for repetition
@@ -550,7 +533,6 @@ export default function HomePage() {
             }
           } else {
             // Skip this slide type if not available
-            // console.log(`Content ${i}: Skipping ${mainSlideKey} - not available in mapping`);
             currentLayoutIndex++;
             if (currentLayoutIndex > 8) {
               currentLayoutIndex = 3;
@@ -559,7 +541,6 @@ export default function HomePage() {
           }
         } else {
           // Skip if no valid layout
-          // console.log(`Content ${i}: No valid layout found, skipping`);
           continue;
         }
         
@@ -633,11 +614,8 @@ export default function HomePage() {
       
       // Wait for image generation to complete and show result
       try {
-        console.log('🎨 HomePage: Waiting for image generation to complete...');
         const generatedImage = await imageGenerationPromise;
         if (generatedImage) {
-          console.log('🎨 HomePage: AI image generation completed successfully:', generatedImage);
-          console.log('🎨 HomePage: Image saved to localStorage with key: kenbilearn_generated_images');
           setImagePrompt(''); // Clear the prompt since image was generated
           
           // Show success alert
@@ -645,10 +623,8 @@ export default function HomePage() {
             alert('✅ AI image generated successfully! You can find it in the slide editor under "Assets > Images Generated"');
           }, 1000);
         } else {
-          console.log('🎨 HomePage: No image was generated (likely no prompt provided)');
         }
       } catch (imageError) {
-        console.error('🎨 HomePage: Image generation failed but continuing with presentation:', imageError);
         // Show error alert
         setTimeout(() => {
           alert('⚠️ AI image generation failed, but your presentation was created successfully. You can try generating images separately in the slide editor.');

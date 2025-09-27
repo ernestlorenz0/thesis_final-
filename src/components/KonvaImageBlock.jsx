@@ -39,12 +39,7 @@ export default function KonvaImageBlock({
       
       setImageDimensions({ width: newWidth, height: newHeight });
       
-      console.log('🖼️ Image aspect ratio calculated:', {
-        original: { width: originalWidth, height: originalHeight },
-        aspectRatio,
-        fitted: { width: newWidth, height: newHeight },
-        container: { width: maxWidth, height: maxHeight }
-      });
+      // Image aspect ratio calculated
     }
   }, [image, component.w, component.h]);
   const imageRef = useRef();

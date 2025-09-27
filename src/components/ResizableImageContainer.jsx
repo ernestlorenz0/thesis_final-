@@ -16,7 +16,6 @@ export default function ResizableImageContainer({ comp, idx, removeComponent, sl
     const handleKeyDown = (e) => {
       if (isSelected && (e.key === 'Backspace' || e.key === 'Delete')) {
         e.preventDefault();
-        console.log('🗑️ Deleting image via keyboard:', idx, comp.id);
         if (removeComponent) {
           removeComponent(idx);
         }

@@ -13,19 +13,20 @@ export default function DraggableTextBlock({ comp, idx, updateComponent, removeC
     data: { x: comp.x || 0, y: comp.y || 0 }
   });
 
-  // Handle keyboard events for deletion and editing
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (isSelected && !isEditing) {
         if (e.key === 'Backspace' || e.key === 'Delete') {
           e.preventDefault();
-          console.log('🗑️ Deleting text via keyboard:', idx, comp.id);
           if (removeComponent) {
             removeComponent(idx);
           }
         } else if (e.key === 'Enter' || e.key === 'F2') {
           e.preventDefault();
           setIsEditing(true);
+        } else if (e.key === 'Escape') {
+          e.preventDefault();
+          setIsSelected(false);
         }
       } else if (isEditing && e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();

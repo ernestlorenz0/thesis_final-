@@ -180,14 +180,6 @@ export default function KonvaSlideCanvas({
       return null;
     }
 
-    console.log(`🎨 Rendering slide ${idx}:`, {
-      slideExists: !!slide,
-      themeExists: !!Theme,
-      componentsCount: slide.components?.length || 0,
-      hasLayout: !!slide.layout,
-      layout: slide.layout,
-      availableThemeComponents: Object.keys(Theme || {})
-    });
 
     // Title slide
     if (idx === 0 && Theme.TitleSlide) {
@@ -365,12 +357,6 @@ export default function KonvaSlideCanvas({
       >
         {slides[current] ? (
           <div className="w-full h-full relative overflow-hidden">
-            {console.log(`📊 Current slide ${current}:`, {
-              slideExists: !!slides[current],
-              componentsCount: slides[current]?.components?.length || 0,
-              totalSlides: slides.length,
-              currentSlide: current
-            })}
             {/* Container for perfectly aligned theme and stage */}
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="relative" style={{ width: '960px', height: '540px' }}>

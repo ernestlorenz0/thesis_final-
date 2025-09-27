@@ -17,9 +17,6 @@ export default function AIImageGenerator({ open, onClose, onImageGenerated }) {
     setGeneratedImage(null);
 
     try {
-      console.log('🎨 AIImageGenerator: Making request to backend...');
-      console.log('🎨 AIImageGenerator: URL:', 'http://127.0.0.1:5000/generate-image');
-      console.log('🎨 AIImageGenerator: Prompt:', prompt.trim());
       
       const response = await fetch('http://127.0.0.1:5000/generate-image', {
         method: 'POST',
@@ -29,10 +26,8 @@ export default function AIImageGenerator({ open, onClose, onImageGenerated }) {
         body: JSON.stringify({ prompt: prompt.trim() }),
       });
 
-      console.log('🎨 AIImageGenerator: Response received:', response.status, response.statusText);
       
       const data = await response.json();
-      console.log('🎨 AIImageGenerator: Response data keys:', Object.keys(data));
 
       if (!response.ok) {
         throw new Error(data.error || 'Failed to generate image');
@@ -57,10 +52,7 @@ export default function AIImageGenerator({ open, onClose, onImageGenerated }) {
 
   const handleUseImage = () => {
     if (generatedImage) {
-      console.log('🎯 AIImageGenerator: handleUseImage called with:', generatedImage);
-      console.log('🎯 AIImageGenerator: onImageGenerated function:', onImageGenerated);
       onImageGenerated(generatedImage);
-      console.log('🎯 AIImageGenerator: onImageGenerated called successfully');
       onClose();
       // Reset state
       setPrompt('');
