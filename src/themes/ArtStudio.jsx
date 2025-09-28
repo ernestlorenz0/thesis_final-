@@ -59,81 +59,84 @@ export function TOCSlide({ tocData }) {
       {/* Decorative brush doodles */}
       <div className="absolute top-12 left-24 text-7xl text-orange-400/70 rotate-12">🖌️</div>
       <div className="absolute bottom-20 right-28 text-7xl text-purple-400/70 -rotate-12">🎨</div>
-
       {/* Title */}
       <h2 className="text-7xl font-bold mb-16 tracking-tight drop-shadow-lg text-[#1f1f1f] font-serif">
         {title}
       </h2>
 
-      {/* Hierarchical List with artistic styling and proper alignment */}
-      <div className="text-3xl font-semibold space-y-6 max-w-5xl z-10">
-        {sections.map((section, sectionIndex) => (
-          <div key={sectionIndex} className="space-y-3">
-            {/* Main section */}
-            <div className="flex items-center gap-6 text-gray-800 hover:text-pink-600 transition-colors duration-200">
-              <div className={`w-12 h-12 flex items-center justify-center rounded-full text-white text-xl font-bold flex-shrink-0
-                ${sectionIndex % 4 === 0 ? "bg-pink-500" : sectionIndex % 4 === 1 ? "bg-purple-500" : sectionIndex % 4 === 2 ? "bg-blue-500" : "bg-green-500"}`}>
+      {/* Two-Column Layout for TOC - Minimized to show only main sections */}
+      <div className="grid grid-cols-2 gap-20 z-10 max-w-6xl w-full">
+        {/* Left Column */}
+        <div className="space-y-10">
+          {sections.slice(0, Math.ceil(sections.length / 2)).map((section, sectionIndex) => (
+            <div key={sectionIndex} className="flex items-center gap-8 text-gray-800 hover:text-pink-600 transition-colors duration-300 group">
+              <div className={`w-20 h-20 flex items-center justify-center rounded-full text-white text-2xl font-bold flex-shrink-0 border-3 border-pink-200 group-hover:border-pink-300 shadow-lg transition-all duration-300
+                ${sectionIndex % 4 === 0 ? "bg-pink-500 group-hover:bg-pink-600" : sectionIndex % 4 === 1 ? "bg-purple-500 group-hover:bg-purple-600" : sectionIndex % 4 === 2 ? "bg-blue-500 group-hover:bg-blue-600" : "bg-green-500 group-hover:bg-green-600"}`}>
                 {sectionIndex + 1}
               </div>
-              <span className="text-3xl font-bold text-left">{section.title}</span>
+              <span className="text-5xl font-bold text-left leading-tight flex-1 group-hover:translate-x-2 transition-transform duration-300">{section.title}</span>
             </div>
-            
-            {/* Subsections with proper indentation */}
-            {section.subsections && section.subsections.length > 0 && (
-              <div className="ml-18 space-y-2">
-                {section.subsections.map((subsection, subIndex) => (
-                  <div key={subIndex} className="flex items-center gap-4 text-gray-700 hover:text-purple-600 transition-colors duration-200">
-                    <div className={`w-8 h-8 flex items-center justify-center rounded-full text-white text-sm font-semibold flex-shrink-0
-                      ${subIndex % 2 === 0 ? "bg-purple-400" : "bg-pink-400"}`}>
-                      {sectionIndex + 1}.{subIndex + 1}
-                    </div>
-                    <span className="text-2xl text-left">{subsection}</span>
-                  </div>
-                ))}
+          ))}
+        </div>
+
+        {/* Right Column */}
+        <div className="space-y-10">
+          {sections.slice(Math.ceil(sections.length / 2)).map((section, sectionIndex) => {
+            const actualIndex = Math.ceil(sections.length / 2) + sectionIndex;
+            return (
+              <div key={actualIndex} className="flex items-center gap-8 text-gray-800 hover:text-pink-600 transition-colors duration-300 group">
+                <div className={`w-20 h-20 flex items-center justify-center rounded-full text-white text-2xl font-bold flex-shrink-0 border-3 border-pink-200 group-hover:border-pink-300 shadow-lg transition-all duration-300
+                  ${actualIndex % 4 === 0 ? "bg-pink-500 group-hover:bg-pink-600" : actualIndex % 4 === 1 ? "bg-purple-500 group-hover:bg-purple-600" : actualIndex % 4 === 2 ? "bg-blue-500 group-hover:bg-blue-600" : "bg-green-500 group-hover:bg-green-600"}`}>
+                  {actualIndex + 1}
+                </div>
+                <span className="text-5xl font-bold text-left leading-tight flex-1 group-hover:translate-x-2 transition-transform duration-300">{section.title}</span>
               </div>
-            )}
-          </div>
-        ))}
+            );
+          })}
+        </div>
       </div>
     </section>
   );
 }
 
-
-// Main Slide 1
+/* ---------------- MAIN SLIDE ---------------- */
 export function MainSlide({ title, content }) {
   return (
-    <section className="relative w-[1920px] h-[1080px] bg-black text-white overflow-hidden">
-      {/* Top Orange Shape */}
-      <img
-        src="src/svgs/header-front.svg"
-        alt="top shape"
-        className="absolute top-0 w-full"
-      />
+    <section className="relative w-[1920px] h-[1080px] bg-white text-[#222] flex items-center justify-center overflow-hidden">
+      {/* Background paint strokes */}
+      <div className="absolute inset-0">
+        <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-pink-400/40 rounded-full blur-3xl mix-blend-multiply"></div>
+        <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-cyan-400/40 rounded-full blur-3xl mix-blend-multiply"></div>
+      </div>
 
-      {/* Bottom Paint */}
-      <img
-        src="src/svgs/paint-background2.svg"
-        alt="paint background"
-        className="absolute bottom-0 w-full"
-      />
-
-      {/* Content */}
-      <div className="relative z-10 flex flex-col h-full px-8 text-center">
-        {/* Title near the orange section */}
-        <h1 className="font-[BebasNeue] text-6xl mt-20">{title}</h1>
-
-        {/* Spacer pushes content lower */}
-        <div className="flex-1" />
-
-        {/* Content stays lower in black area */}
-        <p className="font-[Poppins] text-3xl translate-y-0 max-w-xl mx-auto leading-relaxed mb-60">
-          {content}
-        </p>
+      <div className="relative z-10 w-3/4 bg-white/80 backdrop-blur-sm border-4 border-pink-500 rounded-2xl p-12 text-center shadow-2xl">
+        <h2 className="text-8xl font-bold mb-8 text-pink-600">{title}</h2>
+        <p className="text-5xl leading-relaxed text-gray-800">{content}</p>
       </div>
     </section>
   );
 }
+
+// Keep old component for backward compatibility
+export function TOCSlideArtStudio({ title = "Table of Contents", items = [] }) {
+  const tocData = {
+    title,
+    sections: items.map(item => ({ title: item, subsections: [] }))
+  };
+  return <TOCSlide tocData={tocData} />;
+}
+
+const ArtStudio = { 
+  TitleSlide, 
+  MainSlide,
+  TOCSlide,
+  MainSlide2, 
+  MainSlide3, 
+  MainSlide4,
+  EndSlide 
+};
+
+export default ArtStudio;
 
 // Main Slide 2
 export function MainSlide2({ title, content }) {
@@ -155,8 +158,8 @@ export function MainSlide2({ title, content }) {
 
       {/* Text (centered) */}
       <div className="relative z-10 text-center max-w-2xl px-8">
-        <h2 className="font-[BebasNeue] text-6xl mb-10">{title}</h2>
-        <p className="font-[Poppins] text-3xl leading-relaxed">{content}</p>
+        <h2 className="font-[BebasNeue] text-7xl mb-10">{title}</h2>
+        <p className="font-[Poppins] text-4xl leading-relaxed">{content}</p>
       </div>
     </section>
   );
@@ -211,12 +214,12 @@ export function MainSlide4({ title, content }) {
 
       {/* Title on the left (black background) */}
       <div className="relative z-10 w-1/2 flex items-center justify-center px-12">
-        <h2 className="font-[BebasNeue] text-5xl text-white-400  translate-y-[-200px] translate-x-[-150px]">{title}</h2>
+        <h2 className="font-[BebasNeue] text-6xl text-white-400  translate-y-[-200px] translate-x-[-150px]">{title}</h2>
       </div>
 
       {/* Content inside half orange */}
       <div className="relative z-20 w-1/2 flex items-center px-16">
-        <p className="font-[Poppins] text-3xl leading-relaxed text-white drop-shadow-lg translate-y-[-100px] translate-x-[-70px]">
+        <p className="font-[Poppins] text-4xl leading-relaxed text-white drop-shadow-lg translate-y-[-100px] translate-x-[-70px]">
           {content}
         </p>
       </div>
@@ -252,10 +255,10 @@ export function MainSlide6({ title, content }) {
 
       {/* Text content */}
       <div className="relative z-10 flex flex-col items-center text-center px-12">
-        <h2 className="font-[BebasNeue] text-6xl mb-6 drop-shadow-lg">
+        <h2 className="text-7xl font-bold mb-6 text-white drop-shadow-lg">
           {title}
         </h2>
-        <p className="font-[Poppins] text-3xl leading-relaxed max-w-4xl">
+        <p className="text-4xl leading-relaxed text-white">
           {content}
         </p>
       </div>
@@ -294,7 +297,7 @@ export function EndSlide() {
 
         {/* Text Overlay */}
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <h1 className="text-white font-[BebasNeue] text-5xl translate-x-5 text-center leading-snug">
+          <h1 className="text-white font-[BebasNeue] text-6xl translate-x-5 text-center leading-snug">
             ENDSLIDE
           </h1>
         </div>
@@ -302,21 +305,3 @@ export function EndSlide() {
     </section>
   );
 }
-
-// Keep old component for backward compatibility
-export function TOCSlideArtStudio({ title = "Table of Contents", items = [] }) {
-  const tocData = {
-    title,
-    sections: items.map(item => ({ title: item, subsections: [] }))
-  };
-  return <TOCSlide tocData={tocData} />;
-}
-
-const ArtStudio = { TitleSlide, 
-                   MainSlide,
-                   TOCSlide,
-                   MainSlide2, 
-                   MainSlide3, 
-                   MainSlide4,
-                   EndSlide };
-export default ArtStudio;

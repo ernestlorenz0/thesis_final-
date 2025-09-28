@@ -33,116 +33,30 @@ export function TOCSlide({ tocData }) {
         {title}
       </h2>
 
-      {/* Two-Column Layout for TOC */}
-      <div className="grid grid-cols-2 gap-12 z-10 max-w-7xl w-full">
+      {/* Two-Column Layout for TOC - Simplified to show only main sections */}
+      <div className="grid grid-cols-2 gap-20 z-10 max-w-6xl w-full">
         {/* Left Column */}
-        <div className="space-y-6">
+        <div className="space-y-10">
           {sections.slice(0, Math.ceil(sections.length / 2)).map((section, sectionIndex) => (
-            <div key={sectionIndex} className="space-y-4">
-              {/* Main section */}
-              <div className="flex items-start gap-4 text-gray-200 hover:text-yellow-300 transition-colors duration-200">
-                <span className="w-10 h-10 flex items-center justify-center rounded-full border-2 border-yellow-600 text-yellow-400 font-bold flex-shrink-0 mt-1">
-                  {sectionIndex + 1}
-                </span>
-                <span className="text-3xl font-bold text-left leading-tight flex-1">{section.title}</span>
+            <div key={sectionIndex} className="flex items-center gap-8 text-gray-200 hover:text-yellow-300 transition-colors duration-300 group">
+              <div className="w-20 h-20 flex items-center justify-center rounded-full border-3 border-yellow-600 group-hover:border-yellow-500 bg-yellow-600/10 group-hover:bg-yellow-600/20 text-yellow-400 text-2xl font-bold flex-shrink-0 transition-all duration-300 shadow-lg">
+                {sectionIndex + 1}
               </div>
-              
-              {/* Categories and Terms */}
-              {(section.categories || section.subsections) && (
-                <div className="ml-14 space-y-3">
-                  {/* Handle new categories format */}
-                  {section.categories && section.categories.map((category, catIndex) => (
-                    <div key={catIndex} className="space-y-2">
-                      {/* Category name */}
-                      <div className="flex items-start gap-3 text-gray-300 hover:text-yellow-200 transition-colors duration-200">
-                        <span className="w-6 h-6 flex items-center justify-center rounded-full border border-yellow-600/60 text-yellow-400 text-xs font-semibold flex-shrink-0 mt-1">
-                          {sectionIndex + 1}.{catIndex + 1}
-                        </span>
-                        <span className="text-xl font-bold text-left leading-tight flex-1">{category.name}</span>
-                      </div>
-                      
-                      {/* Terms under category */}
-                      {category.terms && category.terms.length > 0 && (
-                        <div className="ml-9 space-y-1">
-                          {category.terms.map((term, termIndex) => (
-                            <div key={termIndex} className="flex items-center gap-2 text-gray-300 hover:text-yellow-200 transition-colors duration-200">
-                              <span className="text-yellow-400 text-sm">-</span>
-                              <span className="text-lg text-left leading-tight">{term}</span>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                  
-                  {/* Handle old subsections format for backward compatibility */}
-                  {!section.categories && section.subsections && section.subsections.map((subsection, subIndex) => (
-                    <div key={subIndex} className="flex items-start gap-3 text-gray-300 hover:text-yellow-200 transition-colors duration-200">
-                      <span className="w-6 h-6 flex items-center justify-center rounded-full border border-yellow-600/60 text-yellow-400 text-xs font-semibold flex-shrink-0 mt-1">
-                        {sectionIndex + 1}.{subIndex + 1}
-                      </span>
-                      <span className="text-lg text-left leading-tight flex-1 opacity-90">{subsection}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
+              <span className="text-5xl font-bold text-left leading-tight flex-1 group-hover:translate-x-2 transition-transform duration-300">{section.title}</span>
             </div>
           ))}
         </div>
 
         {/* Right Column */}
-        <div className="space-y-6">
+        <div className="space-y-10">
           {sections.slice(Math.ceil(sections.length / 2)).map((section, sectionIndex) => {
             const actualIndex = Math.ceil(sections.length / 2) + sectionIndex;
             return (
-              <div key={actualIndex} className="space-y-4">
-                {/* Main section */}
-                <div className="flex items-start gap-4 text-gray-200 hover:text-yellow-300 transition-colors duration-200">
-                  <span className="w-10 h-10 flex items-center justify-center rounded-full border-2 border-yellow-600 text-yellow-400 font-bold flex-shrink-0 mt-1">
-                    {actualIndex + 1}
-                  </span>
-                  <span className="text-3xl font-bold text-left leading-tight flex-1">{section.title}</span>
+              <div key={actualIndex} className="flex items-center gap-8 text-gray-200 hover:text-yellow-300 transition-colors duration-300 group">
+                <div className="w-20 h-20 flex items-center justify-center rounded-full border-3 border-yellow-600 group-hover:border-yellow-500 bg-yellow-600/10 group-hover:bg-yellow-600/20 text-yellow-400 text-2xl font-bold flex-shrink-0 transition-all duration-300 shadow-lg">
+                  {actualIndex + 1}
                 </div>
-                
-                {/* Categories and Terms */}
-                {(section.categories || section.subsections) && (
-                  <div className="ml-14 space-y-3">
-                    {/* Handle new categories format */}
-                    {section.categories && section.categories.map((category, catIndex) => (
-                      <div key={catIndex} className="space-y-2">
-                        {/* Category name */}
-                        <div className="flex items-start gap-3 text-gray-300 hover:text-yellow-200 transition-colors duration-200">
-                          <span className="w-6 h-6 flex items-center justify-center rounded-full border border-yellow-600/60 text-yellow-400 text-xs font-semibold flex-shrink-0 mt-1">
-                            {actualIndex + 1}.{catIndex + 1}
-                          </span>
-                          <span className="text-xl font-bold text-left leading-tight flex-1">{category.name}</span>
-                        </div>
-                        
-                        {/* Terms under category */}
-                        {category.terms && category.terms.length > 0 && (
-                          <div className="ml-9 space-y-1">
-                            {category.terms.map((term, termIndex) => (
-                              <div key={termIndex} className="flex items-center gap-2 text-gray-300 hover:text-yellow-200 transition-colors duration-200">
-                                <span className="text-yellow-400 text-sm">-</span>
-                                <span className="text-lg text-left leading-tight">{term}</span>
-                              </div>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                    
-                    {/* Handle old subsections format for backward compatibility */}
-                    {!section.categories && section.subsections && section.subsections.map((subsection, subIndex) => (
-                      <div key={subIndex} className="flex items-start gap-3 text-gray-300 hover:text-yellow-200 transition-colors duration-200">
-                        <span className="w-6 h-6 flex items-center justify-center rounded-full border border-yellow-600/60 text-yellow-400 text-xs font-semibold flex-shrink-0 mt-1">
-                          {actualIndex + 1}.{subIndex + 1}
-                        </span>
-                        <span className="text-lg text-left leading-tight flex-1 opacity-90">{subsection}</span>
-                      </div>
-                    ))}
-                  </div>
-                )}
+                <span className="text-5xl font-bold text-left leading-tight flex-1 group-hover:translate-x-2 transition-transform duration-300">{section.title}</span>
               </div>
             );
           })}

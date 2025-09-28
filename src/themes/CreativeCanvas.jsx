@@ -23,16 +23,6 @@ export function TOCSlide({ tocData }) {
   const title = tocData?.title || "Table of Contents";
   const sections = tocData?.sections || [];
   
-  // Convert to simple list with proper alignment
-  const items = [];
-  sections.forEach(section => {
-    items.push(section.title);
-    if (section.subsections && section.subsections.length > 0) {
-      section.subsections.forEach(sub => {
-        items.push(`  ${sub}`);
-      });
-    }
-  });
   return (
     <section className="relative w-[1920px] h-[1080px] bg-[#fafafa] text-[#1c1c1c] flex flex-col items-center justify-center overflow-hidden">
       {/* Background paint strokes */}
@@ -44,22 +34,39 @@ export function TOCSlide({ tocData }) {
       <div className="absolute bottom-1/3 left-1/4 w-56 h-56 bg-purple-300/50 rounded-full mix-blend-multiply"></div>
 
       {/* Title */}
-      <h2 className="text-6xl font-extrabold mb-16 tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-orange-500 to-yellow-500 drop-shadow-lg">
+      <h2 className="text-7xl font-extrabold mb-16 tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-orange-500 to-yellow-500 drop-shadow-lg">
         {title}
       </h2>
 
-      {/* TOC List */}
-      <ul className="text-3xl font-semibold space-y-10 max-w-4xl text-left relative z-10">
-        {items.map((item, index) => (
-          <li key={index} className="flex items-center gap-6">
-            {/* Brush stroke number marker */}
-            <span className="px-6 py-3 bg-gradient-to-r from-violet-500 to-sky-500 text-white rounded-full shadow-md">
-              {index + 1}
-            </span>
-            <span>{item}</span>
-          </li>
-        ))}
-      </ul>
+      {/* Two-Column Layout for TOC - Minimized to show only main sections */}
+      <div className="grid grid-cols-2 gap-20 z-10 max-w-6xl w-full">
+        {/* Left Column */}
+        <div className="space-y-10">
+          {sections.slice(0, Math.ceil(sections.length / 2)).map((section, sectionIndex) => (
+            <div key={sectionIndex} className="flex items-center gap-8 text-gray-800 hover:text-purple-600 transition-colors duration-300 group">
+              <div className="w-20 h-20 flex items-center justify-center bg-gradient-to-r from-violet-500 to-sky-500 group-hover:from-violet-600 group-hover:to-sky-600 text-white rounded-full shadow-lg text-2xl font-bold flex-shrink-0 border-3 border-violet-200 group-hover:border-violet-300 transition-all duration-300">
+                {sectionIndex + 1}
+              </div>
+              <span className="text-5xl font-bold text-left leading-tight flex-1 group-hover:translate-x-2 transition-transform duration-300">{section.title}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* Right Column */}
+        <div className="space-y-10">
+          {sections.slice(Math.ceil(sections.length / 2)).map((section, sectionIndex) => {
+            const actualIndex = Math.ceil(sections.length / 2) + sectionIndex;
+            return (
+              <div key={actualIndex} className="flex items-center gap-8 text-gray-800 hover:text-purple-600 transition-colors duration-300 group">
+                <div className="w-20 h-20 flex items-center justify-center bg-gradient-to-r from-violet-500 to-sky-500 group-hover:from-violet-600 group-hover:to-sky-600 text-white rounded-full shadow-lg text-2xl font-bold flex-shrink-0 border-3 border-violet-200 group-hover:border-violet-300 transition-all duration-300">
+                  {actualIndex + 1}
+                </div>
+                <span className="text-5xl font-bold text-left leading-tight flex-1 group-hover:translate-x-2 transition-transform duration-300">{section.title}</span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </section>
   );
 }
@@ -67,24 +74,40 @@ export function TOCSlide({ tocData }) {
 /* ---------------- MAIN SLIDE 1 ---------------- */
 export function MainSlide1({ title, content }) {
   return (
-    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-r from-blue-200 to-purple-200 flex overflow-hidden">
-      {/* Left angled panel */}
-      <div className="w-2/5 bg-white/90 backdrop-blur-md p-10 rotate-[-2deg] shadow-xl m-8 rounded-lg relative z-10">
-        <h2 className="text-6xl font-bold font-serif text-purple-800 mb-4">{title}</h2>
-        <p className="text-4xl font-sans text-gray-800 leading-relaxed">{content}</p>
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-br from-pink-100 via-purple-50 to-blue-100 text-gray-800 flex items-center justify-center overflow-hidden">
+      {/* Creative background elements */}
+      <div className="absolute inset-0">
+        <div className="absolute top-20 left-20 w-64 h-64 bg-gradient-to-br from-pink-400/30 to-orange-400/30 rounded-full blur-2xl"></div>
+        <div className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-to-br from-violet-400/30 to-sky-400/30 rounded-full blur-2xl"></div>
       </div>
 
-      {/* Right abstract paint area */}
-      <div className="flex-1 relative">
-        <div className="absolute inset-0 bg-gradient-to-tl from-pink-300/50 to-yellow-200/40 rotate-3"></div>
-      </div>
-
-      <div className="absolute bottom-[300px] right-32 w-[800px] items-center justify-center">
-        <img src="src/svgs/creative.svg" alt="creative" />
+      <div className="relative z-10 w-3/4 bg-white/80 backdrop-blur-sm border-4 border-gradient-to-r from-violet-500 to-sky-500 rounded-2xl p-12 text-center shadow-2xl">
+        <h2 className="text-8xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-orange-500 to-yellow-500">{title}</h2>
+        <p className="text-5xl leading-relaxed text-gray-700">{content}</p>
       </div>
     </section>
   );
 }
+
+// Keep old component for backward compatibility
+export function TOCSlideCreativeCanvas({ title = "Table of Contents", items = [] }) {
+  const tocData = {
+    title,
+    sections: items.map(item => ({ title: item, subsections: [] }))
+  };
+  return <TOCSlide tocData={tocData} />;
+}
+
+const CreativeCanvas = {
+  TitleSlide,
+  TOCSlide,
+  MainSlide1,
+  MainSlide2,
+  MainSlide3,
+  EndSlide,
+};
+
+export default CreativeCanvas;
 
 /* ---------------- MAIN SLIDE 2 ---------------- */
 export function MainSlide2({ title, content }) {
@@ -95,8 +118,8 @@ export function MainSlide2({ title, content }) {
 
       {/* Floating framed card */}
       <div className="relative z-10 bg-white/90 p-12 rounded-3xl border-[6px] border-cyan-400 shadow-2xl rotate-1 max-w-3xl">
-        <h2 className="text-7xl font-extrabold text-cyan-700 mb-6">{title}</h2>
-        <p className="text-4xl text-gray-800 leading-relaxed">{content}</p>
+        <h2 className="text-8xl font-extrabold text-cyan-700 mb-6">{title}</h2>
+        <p className="text-5xl text-gray-800 leading-relaxed">{content}</p>
       </div>
     </section>
   );
@@ -112,8 +135,8 @@ export function MainSlide3({ title, content }) {
 
       {/* Content card */}
       <div className="relative z-10 m-auto bg-white/90 p-12 rounded-2xl border-4 border-purple-400 shadow-lg max-w-3xl text-center">
-        <h2 className="text-7xl font-bold text-purple-800 mb-4">{title}</h2>
-        <p className="text-4xl text-gray-800 leading-relaxed">{content}</p>
+        <h2 className="text-8xl font-bold text-purple-800 mb-4">{title}</h2>
+        <p className="text-5xl text-gray-800 leading-relaxed">{content}</p>
       </div>
     </section>
   );
@@ -130,8 +153,8 @@ export function MainSlide4({ title, content }) {
 
       {/* Text column */}
       <div className="relative z-10 w-1/2 pl-24">
-        <h2 className="text-7xl font-extrabold text-pink-700 mb-8">{title}</h2>
-        <p className="text-3xl text-gray-800 leading-relaxed">{content}</p>
+        <h2 className="text-8xl font-extrabold text-pink-700 mb-8">{title}</h2>
+        <p className="text-4xl text-gray-800 leading-relaxed">{content}</p>
       </div>
 
       {/* Decorative doodle area */}
@@ -151,13 +174,13 @@ export function MainSlide5({ title, content }) {
       <div className="absolute inset-0 bg-gradient-to-br from-yellow-200/60 via-pink-200/40 to-purple-200/40 rotate-2"></div>
 
       {/* Title up top */}
-      <h2 className="relative z-10 text-8xl font-bold text-yellow-600 mb-8">{title}</h2>
+      <h2 className="relative z-10 text-9xl font-bold text-yellow-600 mb-8">{title}</h2>
 
       {/* Divider bar */}
       <div className="relative z-10 w-2/3 h-2 bg-gradient-to-r from-pink-400 to-yellow-400 rounded-full mb-10"></div>
 
       {/* Content text */}
-      <p className="relative z-10 text-4xl text-gray-700 leading-relaxed max-w-5xl text-center">
+      <p className="relative z-10 text-5xl text-gray-700 leading-relaxed max-w-5xl text-center">
         {content}
       </p>
     </section>
@@ -173,8 +196,8 @@ export function MainSlide6({ title, content }) {
     <section className="relative w-[1920px] h-[1080px] bg-gradient-to-tl from-blue-100 via-cyan-100 to-purple-100 grid grid-cols-2 items-center px-24 overflow-hidden">
       {/* Left column with text */}
       <div className="z-10">
-        <h2 className="text-7xl font-extrabold text-blue-700 mb-8">{title}</h2>
-        <p className="text-4xl text-gray-800 leading-relaxed">{content}</p>
+        <h2 className="text-8xl font-extrabold text-blue-700 mb-8">{title}</h2>
+        <p className="text-5xl text-gray-800 leading-relaxed">{content}</p>
       </div>
 
       {/* Right column with icons */}
@@ -228,23 +251,3 @@ export function EndSlide() {
     </section>
   );
 }
-
-// Keep old component for backward compatibility
-export function TOCSlideCreativeCanvas({ title = "Table of Contents", items = [] }) {
-  const tocData = {
-    title,
-    sections: items.map(item => ({ title: item, subsections: [] }))
-  };
-  return <TOCSlide tocData={tocData} />;
-}
-
-const CreativeCanvas = {
-  TitleSlide,
-  TOCSlide,
-  MainSlide1,
-  MainSlide2,
-  MainSlide3,
-  ImageSlide,
-  EndSlide,
-};
-export default CreativeCanvas;

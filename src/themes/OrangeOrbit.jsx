@@ -42,62 +42,34 @@ export function TOCSlide({ tocData }) {
         {title}
       </h2>
 
-      {/* Categories and Terms */}
-      <div className="text-3xl font-light space-y-6 max-w-5xl w-full z-10">
-        {sections.map((section, sectionIndex) => (
-          <div key={sectionIndex} className="space-y-4">
-            {/* Main section */}
-            <div className="flex items-start gap-6 text-gray-200 hover:text-orange-300 transition-colors duration-200">
-              <div className={`w-12 h-12 flex items-center justify-center rounded-full text-white text-xl font-bold shadow-[0_0_20px_rgba(251,146,60,0.6)] flex-shrink-0 mt-1
-                ${sectionIndex % 3 === 0 ? "bg-gradient-to-r from-orange-500 to-yellow-400" : sectionIndex % 3 === 1 ? "bg-gradient-to-r from-orange-400 to-red-500" : "bg-gradient-to-r from-yellow-400 to-orange-600"}`}>
+      {/* Two-Column Layout for TOC - Simplified to show only main sections */}
+      <div className="grid grid-cols-2 gap-20 z-10 max-w-6xl w-full">
+        {/* Left Column */}
+        <div className="space-y-10">
+          {sections.slice(0, Math.ceil(sections.length / 2)).map((section, sectionIndex) => (
+            <div key={sectionIndex} className="flex items-center gap-8 text-gray-200 hover:text-orange-300 transition-colors duration-300 group">
+              <div className="w-20 h-20 flex items-center justify-center rounded-full bg-gradient-to-r from-orange-500 to-yellow-400 group-hover:from-orange-400 group-hover:to-yellow-300 text-white text-2xl font-bold flex-shrink-0 shadow-[0_0_20px_rgba(251,146,60,0.6)] group-hover:shadow-[0_0_30px_rgba(251,146,60,0.8)] transition-all duration-300">
                 {sectionIndex + 1}
               </div>
-              <span className="text-3xl font-bold text-left leading-tight flex-1">{section.title}</span>
+              <span className="text-5xl font-bold text-left leading-tight flex-1 group-hover:translate-x-2 transition-transform duration-300">{section.title}</span>
             </div>
+          ))}
+        </div>
 
-            {/* Categories and Terms */}
-            {(section.categories || section.subsections) && (
-              <div className="ml-18 space-y-4">
-                {/* Handle new categories format */}
-                {section.categories && section.categories.map((category, catIndex) => (
-                  <div key={catIndex} className="space-y-2">
-                    {/* Category name */}
-                    <div className="flex items-start gap-4 text-orange-200 hover:text-yellow-300 transition-colors duration-200">
-                      <div className={`w-8 h-8 flex items-center justify-center rounded-full text-white text-sm font-semibold shadow-[0_0_15px_rgba(251,146,60,0.4)] flex-shrink-0 mt-1
-                        ${catIndex % 2 === 0 ? "bg-gradient-to-r from-orange-400 to-yellow-400" : "bg-gradient-to-r from-yellow-400 to-orange-500"}`}>
-                        {sectionIndex + 1}.{catIndex + 1}
-                      </div>
-                      <span className="text-2xl font-bold text-left leading-tight flex-1">{category.name}</span>
-                    </div>
-                    
-                    {/* Terms under category */}
-                    {category.terms && category.terms.length > 0 && (
-                      <div className="ml-12 space-y-1">
-                        {category.terms.map((term, termIndex) => (
-                          <div key={termIndex} className="flex items-center gap-3 text-orange-100 hover:text-yellow-200 transition-colors duration-200">
-                            <span className="text-orange-400 text-lg">-</span>
-                            <span className="text-xl text-left leading-tight">{term}</span>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                ))}
-                
-                {/* Handle old subsections format for backward compatibility */}
-                {!section.categories && section.subsections && section.subsections.map((subsection, subIndex) => (
-                  <div key={subIndex} className="flex items-start gap-4 text-orange-200 hover:text-yellow-300 transition-colors duration-200">
-                    <div className={`w-8 h-8 flex items-center justify-center rounded-full text-white text-sm font-semibold shadow-[0_0_15px_rgba(251,146,60,0.4)] flex-shrink-0 mt-1
-                      ${subIndex % 2 === 0 ? "bg-gradient-to-r from-orange-400 to-yellow-400" : "bg-gradient-to-r from-yellow-400 to-orange-500"}`}>
-                      {sectionIndex + 1}.{subIndex + 1}
-                    </div>
-                    <span className="text-2xl text-left leading-tight flex-1">{subsection}</span>
-                  </div>
-                ))}
+        {/* Right Column */}
+        <div className="space-y-10">
+          {sections.slice(Math.ceil(sections.length / 2)).map((section, sectionIndex) => {
+            const actualIndex = Math.ceil(sections.length / 2) + sectionIndex;
+            return (
+              <div key={actualIndex} className="flex items-center gap-8 text-gray-200 hover:text-orange-300 transition-colors duration-300 group">
+                <div className="w-20 h-20 flex items-center justify-center rounded-full bg-gradient-to-r from-orange-500 to-yellow-400 group-hover:from-orange-400 group-hover:to-yellow-300 text-white text-2xl font-bold flex-shrink-0 shadow-[0_0_20px_rgba(251,146,60,0.6)] group-hover:shadow-[0_0_30px_rgba(251,146,60,0.8)] transition-all duration-300">
+                  {actualIndex + 1}
+                </div>
+                <span className="text-5xl font-bold text-left leading-tight flex-1 group-hover:translate-x-2 transition-transform duration-300">{section.title}</span>
               </div>
-            )}
-          </div>
-        ))}
+            );
+          })}
+        </div>
       </div>
     </section>
   );

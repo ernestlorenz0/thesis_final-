@@ -52,124 +52,55 @@ export function TOCSlide({ tocData }) {
         </span>
       </h2>
 
-      {/* Two-Column Layout for TOC */}
-      <div className="grid grid-cols-2 gap-12 z-10 max-w-7xl w-full px-20">
+      {/* Two-Column Layout for TOC - Minimized to show only main sections */}
+      <div className="grid grid-cols-2 gap-20 z-10 max-w-6xl w-full px-20">
         {/* Left Column */}
-        <div className="space-y-6">
+        <div className="space-y-10">
           {sections.slice(0, Math.ceil(sections.length / 2)).map((section, sectionIndex) => (
-            <div key={sectionIndex} className="space-y-3">
-              {/* Main section */}
-              <div className="flex items-start gap-4 text-gray-200 hover:text-cyan-300 transition-colors duration-200">
-                <div className="w-10 h-10 flex items-center justify-center rounded-sm bg-[#0b0b0d] border border-white/10 shadow-inner flex-shrink-0 mt-1">
-                  <div className={`text-sm font-semibold bg-clip-text text-transparent bg-gradient-to-r ${grad}`}>
-                    {String(sectionIndex + 1).padStart(2, "0")}
-                  </div>
+            <div key={sectionIndex} className="flex items-center gap-8 text-gray-200 hover:text-cyan-300 transition-colors duration-300 group">
+              <div className="w-20 h-20 flex items-center justify-center rounded-sm bg-[#0b0b0d] border-3 border-white/20 group-hover:border-cyan-400/40 shadow-inner flex-shrink-0 transition-all duration-300">
+                <div className={`text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r ${grad} group-hover:scale-110 transition-transform duration-300`}>
+                  {String(sectionIndex + 1).padStart(2, "0")}
                 </div>
-                <span className="text-2xl font-mono font-bold text-left leading-tight flex-1">{section.title}</span>
               </div>
-              
-              {/* Categories and Terms */}
-              {(section.categories || section.subsections) && (
-                <div className="ml-14 space-y-3">
-                  {/* Handle new categories format */}
-                  {section.categories && section.categories.map((category, catIndex) => (
-                    <div key={catIndex} className="space-y-2">
-                      {/* Category name */}
-                      <div className="flex items-start gap-3 text-gray-300 hover:text-green-300 transition-colors duration-200">
-                        <div className="w-6 h-6 flex items-center justify-center rounded-sm bg-[#0b0b0d] border border-green-500/30 text-green-400 text-xs font-mono flex-shrink-0 mt-1">
-                          {sectionIndex + 1}.{catIndex + 1}
-                        </div>
-                        <span className="text-lg font-mono font-bold text-left leading-tight flex-1">{category.name}</span>
-                      </div>
-                      
-                      {/* Terms under category */}
-                      {category.terms && category.terms.length > 0 && (
-                        <div className="ml-9 space-y-1">
-                          {category.terms.map((term, termIndex) => (
-                            <div key={termIndex} className="flex items-center gap-2 text-gray-400 hover:text-cyan-200 transition-colors duration-200">
-                              <span className="text-cyan-400 text-sm font-mono">{'>'}</span>
-                              <span className="text-base font-mono text-left leading-tight">{term}</span>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                  
-                  {/* Handle old subsections format for backward compatibility */}
-                  {!section.categories && section.subsections && section.subsections.map((subsection, subIndex) => (
-                    <div key={subIndex} className="flex items-start gap-3 text-gray-300 hover:text-green-300 transition-colors duration-200">
-                      <div className="w-6 h-6 flex items-center justify-center rounded-sm bg-[#0b0b0d] border border-green-500/30 text-green-400 text-xs font-mono flex-shrink-0 mt-1">
-                        {sectionIndex + 1}.{subIndex + 1}
-                      </div>
-                      <span className="text-base font-mono text-left leading-tight flex-1">{subsection}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
+              <span className="text-5xl font-mono font-bold text-left leading-tight flex-1 group-hover:translate-x-2 transition-transform duration-300">{section.title}</span>
             </div>
           ))}
         </div>
 
         {/* Right Column */}
-        <div className="space-y-6">
+        <div className="space-y-10">
           {sections.slice(Math.ceil(sections.length / 2)).map((section, sectionIndex) => {
             const actualIndex = Math.ceil(sections.length / 2) + sectionIndex;
             return (
-              <div key={actualIndex} className="space-y-3">
-                {/* Main section */}
-                <div className="flex items-start gap-4 text-gray-200 hover:text-cyan-300 transition-colors duration-200">
-                  <div className="w-10 h-10 flex items-center justify-center rounded-sm bg-[#0b0b0d] border border-white/10 shadow-inner flex-shrink-0 mt-1">
-                    <div className={`text-sm font-semibold bg-clip-text text-transparent bg-gradient-to-r ${grad}`}>
-                      {String(actualIndex + 1).padStart(2, "0")}
-                    </div>
+              <div key={actualIndex} className="flex items-center gap-8 text-gray-200 hover:text-cyan-300 transition-colors duration-300 group">
+                <div className="w-20 h-20 flex items-center justify-center rounded-sm bg-[#0b0b0d] border-3 border-white/20 group-hover:border-cyan-400/40 shadow-inner flex-shrink-0 transition-all duration-300">
+                  <div className={`text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r ${grad} group-hover:scale-110 transition-transform duration-300`}>
+                    {String(actualIndex + 1).padStart(2, "0")}
                   </div>
-                  <span className="text-2xl font-mono font-bold text-left leading-tight flex-1">{section.title}</span>
                 </div>
-                
-                {/* Categories and Terms */}
-                {(section.categories || section.subsections) && (
-                  <div className="ml-14 space-y-3">
-                    {/* Handle new categories format */}
-                    {section.categories && section.categories.map((category, catIndex) => (
-                      <div key={catIndex} className="space-y-2">
-                        {/* Category name */}
-                        <div className="flex items-start gap-3 text-gray-300 hover:text-green-300 transition-colors duration-200">
-                          <div className="w-6 h-6 flex items-center justify-center rounded-sm bg-[#0b0b0d] border border-green-500/30 text-green-400 text-xs font-mono flex-shrink-0 mt-1">
-                            {actualIndex + 1}.{catIndex + 1}
-                          </div>
-                          <span className="text-lg font-mono font-bold text-left leading-tight flex-1">{category.name}</span>
-                        </div>
-                        
-                        {/* Terms under category */}
-                        {category.terms && category.terms.length > 0 && (
-                          <div className="ml-9 space-y-1">
-                            {category.terms.map((term, termIndex) => (
-                              <div key={termIndex} className="flex items-center gap-2 text-gray-400 hover:text-cyan-200 transition-colors duration-200">
-                                <span className="text-cyan-400 text-sm font-mono">{'>'}</span>
-                                <span className="text-base font-mono text-left leading-tight">{term}</span>
-                              </div>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                    
-                    {/* Handle old subsections format for backward compatibility */}
-                    {!section.categories && section.subsections && section.subsections.map((subsection, subIndex) => (
-                      <div key={subIndex} className="flex items-start gap-3 text-gray-300 hover:text-green-300 transition-colors duration-200">
-                        <div className="w-6 h-6 flex items-center justify-center rounded-sm bg-[#0b0b0d] border border-green-500/30 text-green-400 text-xs font-mono flex-shrink-0 mt-1">
-                          {actualIndex + 1}.{subIndex + 1}
-                        </div>
-                        <span className="text-base font-mono text-left leading-tight flex-1">{subsection}</span>
-                      </div>
-                    ))}
-                  </div>
-                )}
+                <span className="text-5xl font-mono font-bold text-left leading-tight flex-1 group-hover:translate-x-2 transition-transform duration-300">{section.title}</span>
               </div>
             );
           })}
         </div>
+      </div>
+    </section>
+  );
+}
+
+export function MainSlide({ title, content }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-[#050607] text-white flex items-center justify-center overflow-hidden">
+      {/* Subtle grid / matrix background */}
+      <div className="absolute inset-0 opacity-20 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:48px_48px]"></div>
+
+      {/* Faint glowing diagonal band */}
+      <div className="absolute -left-80 -top-40 w-[900px] h-[900px] rounded-full bg-gradient-to-br opacity-40 blur-[160px] from-indigo-800 via-transparent to-transparent"></div>
+
+      <div className="relative z-10 w-3/4 bg-[#0b0b0d]/80 backdrop-blur-sm border border-white/10 rounded-lg p-12 text-center shadow-2xl">
+        <h2 className="text-8xl font-mono font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-500">{title}</h2>
+        <p className="text-5xl leading-relaxed font-mono">{content}</p>
       </div>
     </section>
   );

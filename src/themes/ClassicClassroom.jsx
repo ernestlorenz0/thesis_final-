@@ -20,16 +20,6 @@ export function TOCSlide({ tocData }) {
   const title = tocData?.title || "Table of Contents";
   const sections = tocData?.sections || [];
   
-  // Convert to simple list for Classic Classroom
-  const items = [];
-  sections.forEach(section => {
-    items.push(section.title);
-    if (section.subsections && section.subsections.length > 0) {
-      section.subsections.forEach(sub => {
-        items.push(`  ${sub}`);
-      });
-    }
-  });
   return (
     <section className="relative w-[1920px] h-[1080px] bg-[#2f3e46] text-white flex flex-col items-center justify-center overflow-hidden">
       {/* Chalkboard background effect */}
@@ -39,26 +29,42 @@ export function TOCSlide({ tocData }) {
       {/* Wooden frame */}
       <div className="absolute inset-0 border-[20px] border-[#5d4037] rounded-xl shadow-2xl"></div>
 
-      {/* Title like chalk writing */}
-      <h2 className="text-6xl font-bold mb-16 tracking-wide text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.2)] font-serif">
+      {/* Title */}
+      <h2 className="text-6xl font-bold text-[#EAD7B7] mb-16 drop-shadow-lg font-serif z-10">
         {title}
       </h2>
 
-      {/* TOC Items */}
-      <ul className="text-3xl space-y-8 max-w-3xl text-left px-12 font-serif">
-        {items.map((item, index) => (
-          <li
-            key={index}
-            className="flex items-center gap-6 text-gray-100 hover:text-white transition duration-300"
-          >
-            {/* Chalk-style number */}
-            <span className="w-12 h-12 flex items-center justify-center rounded-full bg-[#5d4037]/80 border-2 border-white/40 text-white font-bold shadow-md">
-              {index + 1}
-            </span>
-            <span className="italic">{item}</span>
-          </li>
-        ))}
-      </ul>
+      {/* Two-Column Layout for TOC - Minimized to show only main sections */}
+      <div className="grid grid-cols-2 gap-20 z-10 max-w-6xl w-full">
+        {/* Left Column */}
+        <div className="space-y-10">
+          {sections.slice(0, Math.ceil(sections.length / 2)).map((section, sectionIndex) => (
+            <div key={sectionIndex} className="flex items-center gap-8 text-[#EAD7B7] hover:text-[#F5E6A3] transition-colors duration-300 group">
+              <div className={`w-20 h-20 flex items-center justify-center rounded-full text-white text-2xl font-bold flex-shrink-0 border-3 border-[#EAD7B7]/40 group-hover:border-[#F5E6A3]/60 transition-all duration-300 shadow-lg
+                ${sectionIndex % 4 === 0 ? "bg-[#5d4037]" : sectionIndex % 4 === 1 ? "bg-[#8d6e63]" : sectionIndex % 4 === 2 ? "bg-[#a1887f]" : "bg-[#bcaaa4]"}`}>
+                {sectionIndex + 1}
+              </div>
+              <span className="text-5xl font-bold text-left leading-tight flex-1 font-serif group-hover:translate-x-2 transition-transform duration-300">{section.title}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* Right Column */}
+        <div className="space-y-10">
+          {sections.slice(Math.ceil(sections.length / 2)).map((section, sectionIndex) => {
+            const actualIndex = Math.ceil(sections.length / 2) + sectionIndex;
+            return (
+              <div key={actualIndex} className="flex items-center gap-8 text-[#EAD7B7] hover:text-[#F5E6A3] transition-colors duration-300 group">
+                <div className={`w-20 h-20 flex items-center justify-center rounded-full text-white text-2xl font-bold flex-shrink-0 border-3 border-[#EAD7B7]/40 group-hover:border-[#F5E6A3]/60 transition-all duration-300 shadow-lg
+                  ${actualIndex % 4 === 0 ? "bg-[#5d4037]" : actualIndex % 4 === 1 ? "bg-[#8d6e63]" : actualIndex % 4 === 2 ? "bg-[#a1887f]" : "bg-[#bcaaa4]"}`}>
+                  {actualIndex + 1}
+                </div>
+                <span className="text-5xl font-bold text-left leading-tight flex-1 font-serif group-hover:translate-x-2 transition-transform duration-300">{section.title}</span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </section>
   );
 }
@@ -80,8 +86,8 @@ export function MainSlide({ title, content }) {
       <GraduationCap className="absolute top-1/4 left-1/2 w-28 h-28 text-white/10 -translate-x-1/2" />
 
       <div className="relative z-10 w-3/4 bg-[#0D3B36] border-4 border-[#EAD7B7] rounded-lg p-8 text-center shadow-lg">
-        <h2 className="font-[HedvigLettersSerif] text-5xl mb-4">{title}</h2>
-        <p className="text-3xl leading-relaxed">{content}</p>
+        <h2 className="font-[HedvigLettersSerif] text-6xl mb-4">{title}</h2>
+        <p className="text-4xl leading-relaxed">{content}</p>
       </div>
     </section>
   );
@@ -103,8 +109,8 @@ export function MainSlide2({ title, content, imageUrl }) {
         <img src="src/svgs/classroom.svg" alt="classroom_img"/>
       </div>
       <div className="relative z-10 w-1/2 p-8">
-        <h2 className="font-[HedvigLettersSerif] text-7xl mb-4 translate-y-[-50px]">{title}</h2>
-        <p className="text-4xl leading-relaxed">{content}</p>
+        <h2 className="font-[HedvigLettersSerif] text-8xl mb-4 translate-y-[-50px]">{title}</h2>
+        <p className="text-5xl leading-relaxed">{content}</p>
       </div>
     </section>
   );
@@ -122,8 +128,8 @@ export function MainSlide3({ title, content, imageUrl }) {
       <Ruler className="absolute bottom-32 right-16 w-28 h-28 text-[#EAD7B7]/20" />
 
       <div className="relative z-10 w-1/2 p-8 text-right">
-        <h2 className="font-[HedvigLettersSerif] text-7xl mb-4 translate-y-[-100px]">{title}</h2>
-        <p className="text-4xl leading-relaxed">{content}</p>
+        <h2 className="font-[HedvigLettersSerif] text-8xl mb-4 translate-y-[-100px]">{title}</h2>
+        <p className="text-5xl leading-relaxed">{content}</p>
       </div>
       <div className="relative mr-20 z-10 w-[800px] h-4/5flex items-center justify-center">
         <img src="src/svgs/classroom1.svg" alt="classroom1" className="w-[700px]"/>
@@ -145,8 +151,8 @@ export function MainSlide4({ title, content, imageUrl }) {
 
       <div className="relative z-10 w-5/6 h-5/6  flex flex-col items-center justify-center">
         <div className="absolute left-1/2 -translate-x-1/2 text-center text-white  px-4 py-2 rounded">
-            {title && <h2 className="font-[HedvigLettersSerif] text-7xl mb-20">{title}</h2>}
-            {content && <p className="text-4xl">{content}</p>}
+            {title && <h2 className="font-[HedvigLettersSerif] text-8xl mb-20">{title}</h2>}
+            {content && <p className="text-5xl">{content}</p>}
           </div>
       </div>
     </section>
@@ -178,10 +184,10 @@ export function MainSlide6({ title, content }) {
 
       {/* Blackboard-style card */}
       <div className="relative z-10 max-w-[70%] text-center border-[14px] border-[#EAD7B7] rounded-2xl p-16 bg-white shadow-2xl">
-        <h2 className="font-[HedvigLettersSerif] text-5xl mb-6 text-[#0D3B36]">
+        <h2 className="font-[HedvigLettersSerif] text-6xl mb-6 text-[#0D3B36]">
           {title || "Key Concept"}
         </h2>
-        <p className="font-[HedvigLettersSerif] text-2xl leading-relaxed text-[#222]">
+        <p className="font-[HedvigLettersSerif] text-3xl leading-relaxed text-[#222]">
           {content ||
             "This is a central highlighted concept, styled as if it were written on a framed classroom blackboard."}
         </p>

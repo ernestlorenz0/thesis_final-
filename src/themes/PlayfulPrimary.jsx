@@ -42,116 +42,31 @@ export function TOCSlide({ tocData }) {
         {title}
       </h2>
 
-      {/* Two-Column Layout for TOC */}
-      <div className="grid grid-cols-2 gap-12 z-10 max-w-7xl w-full">
+      {/* Two-Column Layout for TOC - Minimized to show only main sections */}
+      <div className="grid grid-cols-2 gap-20 z-10 max-w-6xl w-full">
         {/* Left Column */}
-        <div className="space-y-6">
+        <div className="space-y-10">
           {sections.slice(0, Math.ceil(sections.length / 2)).map((section, sectionIndex) => (
-            <div key={sectionIndex} className="space-y-3">
-              {/* Main section with fun emoji markers */}
-              <div className="flex items-start gap-4 hover:text-orange-600 transition-colors duration-200">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-r from-orange-400 to-pink-500 flex items-center justify-center text-white font-bold text-lg shadow-lg flex-shrink-0 mt-1">
-                  {sectionIndex + 1}
-                </div>
-                <span className="text-3xl font-bold text-left leading-tight flex-1">{section.title}</span>
+            <div key={sectionIndex} className="flex items-center gap-8 hover:text-orange-600 transition-colors duration-300 group">
+              <div className="w-20 h-20 rounded-full bg-gradient-to-r from-orange-400 to-pink-500 group-hover:from-orange-500 group-hover:to-pink-600 flex items-center justify-center text-white font-bold text-2xl shadow-lg flex-shrink-0 border-3 border-orange-200 group-hover:border-orange-300 transition-all duration-300">
+                {sectionIndex + 1}
               </div>
-              
-              {/* Categories and Terms */}
-              {(section.categories || section.subsections) && (
-                <div className="ml-14 space-y-3">
-                  {/* Handle new categories format */}
-                  {section.categories && section.categories.map((category, catIndex) => (
-                    <div key={catIndex} className="space-y-2">
-                      {/* Category name */}
-                      <div className="flex items-start gap-3 hover:text-pink-600 transition-colors duration-200">
-                        <div className="w-6 h-6 rounded-full bg-gradient-to-r from-pink-300 to-purple-400 flex items-center justify-center text-white font-semibold text-xs shadow-md flex-shrink-0 mt-1">
-                          {sectionIndex + 1}.{catIndex + 1}
-                        </div>
-                        <span className="text-xl font-bold text-left leading-tight flex-1">{category.name}</span>
-                      </div>
-                      
-                      {/* Terms under category */}
-                      {category.terms && category.terms.length > 0 && (
-                        <div className="ml-9 space-y-1">
-                          {category.terms.map((term, termIndex) => (
-                            <div key={termIndex} className="flex items-center gap-2 text-gray-700 hover:text-orange-500 transition-colors duration-200">
-                              <span className="text-orange-400 text-sm">-</span>
-                              <span className="text-lg text-left leading-tight">{term}</span>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                  
-                  {/* Handle old subsections format for backward compatibility */}
-                  {!section.categories && section.subsections && section.subsections.map((subsection, subIndex) => (
-                    <div key={subIndex} className="flex items-start gap-3 hover:text-pink-600 transition-colors duration-200">
-                      <div className="w-6 h-6 rounded-full bg-gradient-to-r from-pink-300 to-purple-400 flex items-center justify-center text-white font-semibold text-xs shadow-md flex-shrink-0 mt-1">
-                        {sectionIndex + 1}.{subIndex + 1}
-                      </div>
-                      <span className="text-lg text-left leading-tight flex-1">{subsection}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
+              <span className="text-5xl font-bold text-left leading-tight flex-1 group-hover:translate-x-2 transition-transform duration-300">{section.title}</span>
             </div>
           ))}
         </div>
 
         {/* Right Column */}
-        <div className="space-y-6">
+        <div className="space-y-10">
           {sections.slice(Math.ceil(sections.length / 2)).map((section, sectionIndex) => {
             const actualIndex = Math.ceil(sections.length / 2) + sectionIndex;
             return (
-              <div key={actualIndex} className="space-y-3">
-                {/* Main section with fun emoji markers */}
-                <div className="flex items-start gap-4 hover:text-orange-600 transition-colors duration-200">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-r from-orange-400 to-pink-500 flex items-center justify-center text-white font-bold text-lg shadow-lg flex-shrink-0 mt-1">
-                    {actualIndex + 1}
-                  </div>
-                  <span className="text-3xl font-bold text-left leading-tight flex-1">{section.title}</span>
+              <div key={actualIndex} className="flex items-center gap-8 hover:text-orange-600 transition-colors duration-300 group">
+                <div className={`w-20 h-20 rounded-full text-white text-2xl font-bold shadow-lg flex-shrink-0 border-3 border-orange-200 group-hover:border-orange-300 transition-all duration-300
+                  ${actualIndex % 4 === 0 ? "bg-gradient-to-r from-orange-400 to-pink-500 group-hover:from-orange-500 group-hover:to-pink-600" : actualIndex % 4 === 1 ? "bg-gradient-to-r from-pink-400 to-purple-500 group-hover:from-pink-500 group-hover:to-purple-600" : actualIndex % 4 === 2 ? "bg-gradient-to-r from-purple-400 to-red-500 group-hover:from-purple-500 group-hover:to-red-600" : "bg-gradient-to-r from-red-400 to-orange-500 group-hover:from-red-500 group-hover:to-orange-600"}`}>
+                  {actualIndex + 1}
                 </div>
-                
-                {/* Categories and Terms */}
-                {(section.categories || section.subsections) && (
-                  <div className="ml-14 space-y-3">
-                    {/* Handle new categories format */}
-                    {section.categories && section.categories.map((category, catIndex) => (
-                      <div key={catIndex} className="space-y-2">
-                        {/* Category name */}
-                        <div className="flex items-start gap-3 hover:text-pink-600 transition-colors duration-200">
-                          <div className="w-6 h-6 rounded-full bg-gradient-to-r from-pink-300 to-purple-400 flex items-center justify-center text-white font-semibold text-xs shadow-md flex-shrink-0 mt-1">
-                            {actualIndex + 1}.{catIndex + 1}
-                          </div>
-                          <span className="text-xl font-bold text-left leading-tight flex-1">{category.name}</span>
-                        </div>
-                        
-                        {/* Terms under category */}
-                        {category.terms && category.terms.length > 0 && (
-                          <div className="ml-9 space-y-1">
-                            {category.terms.map((term, termIndex) => (
-                              <div key={termIndex} className="flex items-center gap-2 text-gray-700 hover:text-orange-500 transition-colors duration-200">
-                                <span className="text-orange-400 text-sm">-</span>
-                                <span className="text-lg text-left leading-tight">{term}</span>
-                              </div>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                    
-                    {/* Handle old subsections format for backward compatibility */}
-                    {!section.categories && section.subsections && section.subsections.map((subsection, subIndex) => (
-                      <div key={subIndex} className="flex items-start gap-3 hover:text-pink-600 transition-colors duration-200">
-                        <div className="w-6 h-6 rounded-full bg-gradient-to-r from-pink-300 to-purple-400 flex items-center justify-center text-white font-semibold text-xs shadow-md flex-shrink-0 mt-1">
-                          {actualIndex + 1}.{subIndex + 1}
-                        </div>
-                        <span className="text-lg text-left leading-tight flex-1">{subsection}</span>
-                      </div>
-                    ))}
-                  </div>
-                )}
+                <span className="text-5xl font-bold text-left leading-tight flex-1 group-hover:translate-x-2 transition-transform duration-300">{section.title}</span>
               </div>
             );
           })}
@@ -161,6 +76,26 @@ export function TOCSlide({ tocData }) {
   );
 }
 
+export function MainSlide({ title, content }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-[#fff9e6] text-gray-900 flex items-center justify-center overflow-hidden">
+      {/* Background playful blobs */}
+      <div className="absolute -top-20 -left-20 w-[400px] h-[400px] bg-pink-300 rounded-full blur-[120px] opacity-50"></div>
+      <div className="absolute bottom-0 right-0 w-[450px] h-[450px] bg-yellow-300 rounded-full blur-[140px] opacity-50"></div>
+      <div className="absolute top-1/3 left-2/3 w-[300px] h-[300px] bg-cyan-300 rounded-full blur-[100px] opacity-50"></div>
+
+      {/* Fun doodles */}
+      <div className="absolute top-20 left-32 text-5xl text-yellow-400">⭐</div>
+      <div className="absolute bottom-28 right-32 text-5xl text-pink-400">✏️</div>
+      <div className="absolute top-2/3 left-16 text-4xl text-cyan-400">🎨</div>
+
+      <div className="relative z-10 w-3/4 bg-white/80 backdrop-blur-sm border-4 border-pink-300 rounded-3xl p-12 text-center shadow-2xl">
+        <h2 className="text-8xl font-extrabold text-pink-500 mb-8 drop-shadow-lg">{title}</h2>
+        <p className="text-5xl leading-relaxed text-gray-800">{content}</p>
+      </div>
+    </section>
+  );
+}
 
 /* Main Slide 1 - Title + underline + content */
 export function MainSlide1({ title, content }) {

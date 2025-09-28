@@ -40,116 +40,30 @@ export function TOCSlide({ tocData }) {
         {title}
       </h2>
 
-      {/* Two-Column Layout for TOC */}
-      <div className="grid grid-cols-2 gap-12 z-10 max-w-7xl w-full">
+      {/* Two-Column Layout for TOC - Minimized to show only main sections */}
+      <div className="grid grid-cols-2 gap-20 z-10 max-w-6xl w-full">
         {/* Left Column */}
-        <div className="space-y-6">
+        <div className="space-y-10">
           {sections.slice(0, Math.ceil(sections.length / 2)).map((section, sectionIndex) => (
-            <div key={sectionIndex} className="space-y-4">
-              {/* Main section */}
-              <div className="flex items-start gap-4 hover:text-[#8b5e3c] transition-colors duration-200">
-                <span className="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-br from-[#d4af37] to-[#a67c00] text-white font-bold shadow-md flex-shrink-0 mt-1">
-                  {sectionIndex + 1}
-                </span>
-                <span className="text-3xl font-bold text-left leading-tight flex-1">{section.title}</span>
-              </div>
-              
-              {/* Categories and Terms */}
-              {(section.categories || section.subsections) && (
-                <div className="ml-14 space-y-3">
-                  {/* Handle new categories format */}
-                  {section.categories && section.categories.map((category, catIndex) => (
-                    <div key={catIndex} className="space-y-2">
-                      {/* Category name */}
-                      <div className="flex items-start gap-3 hover:text-[#b08d57] transition-colors duration-200">
-                        <span className="w-6 h-6 flex items-center justify-center rounded-full bg-gradient-to-br from-[#b08d57] to-[#8b5e3c] text-white text-xs font-semibold flex-shrink-0 mt-1">
-                          {sectionIndex + 1}.{catIndex + 1}
-                        </span>
-                        <span className="text-xl font-bold text-left leading-tight flex-1">{category.name}</span>
-                      </div>
-                      
-                      {/* Terms under category */}
-                      {category.terms && category.terms.length > 0 && (
-                        <div className="ml-9 space-y-1">
-                          {category.terms.map((term, termIndex) => (
-                            <div key={termIndex} className="flex items-center gap-2 text-[#8b5e3c] hover:text-[#b08d57] transition-colors duration-200">
-                              <span className="text-[#d4af37] text-sm">-</span>
-                              <span className="text-lg text-left leading-tight">{term}</span>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                  
-                  {/* Handle old subsections format for backward compatibility */}
-                  {!section.categories && section.subsections && section.subsections.map((subsection, subIndex) => (
-                    <div key={subIndex} className="flex items-start gap-3 hover:text-[#b08d57] transition-colors duration-200">
-                      <span className="w-6 h-6 flex items-center justify-center rounded-full bg-gradient-to-br from-[#b08d57] to-[#8b5e3c] text-white text-xs font-semibold flex-shrink-0 mt-1">
-                        {sectionIndex + 1}.{subIndex + 1}
-                      </span>
-                      <span className="text-lg text-left leading-tight flex-1 opacity-90">{subsection}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
+            <div key={sectionIndex} className="flex items-center gap-8 hover:text-[#8b5e3c] transition-colors duration-300 group">
+              <span className="w-20 h-20 flex items-center justify-center rounded-full bg-gradient-to-br from-[#d4af37] to-[#a67c00] group-hover:from-[#e6c547] group-hover:to-[#b8860b] text-white font-bold text-2xl shadow-lg border-3 border-amber-200 group-hover:border-amber-300 flex-shrink-0 transition-all duration-300">
+                {sectionIndex + 1}
+              </span>
+              <span className="text-5xl font-bold text-left leading-tight flex-1 group-hover:translate-x-2 transition-transform duration-300">{section.title}</span>
             </div>
           ))}
         </div>
 
         {/* Right Column */}
-        <div className="space-y-6">
+        <div className="space-y-10">
           {sections.slice(Math.ceil(sections.length / 2)).map((section, sectionIndex) => {
             const actualIndex = Math.ceil(sections.length / 2) + sectionIndex;
             return (
-              <div key={actualIndex} className="space-y-4">
-                {/* Main section */}
-                <div className="flex items-start gap-4 hover:text-[#8b5e3c] transition-colors duration-200">
-                  <span className="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-br from-[#d4af37] to-[#a67c00] text-white font-bold shadow-md flex-shrink-0 mt-1">
-                    {actualIndex + 1}
-                  </span>
-                  <span className="text-3xl font-bold text-left leading-tight flex-1">{section.title}</span>
-                </div>
-                
-                {/* Categories and Terms */}
-                {(section.categories || section.subsections) && (
-                  <div className="ml-14 space-y-3">
-                    {/* Handle new categories format */}
-                    {section.categories && section.categories.map((category, catIndex) => (
-                      <div key={catIndex} className="space-y-2">
-                        {/* Category name */}
-                        <div className="flex items-start gap-3 hover:text-[#b08d57] transition-colors duration-200">
-                          <span className="w-6 h-6 flex items-center justify-center rounded-full bg-gradient-to-br from-[#b08d57] to-[#8b5e3c] text-white text-xs font-semibold flex-shrink-0 mt-1">
-                            {actualIndex + 1}.{catIndex + 1}
-                          </span>
-                          <span className="text-xl font-bold text-left leading-tight flex-1">{category.name}</span>
-                        </div>
-                        
-                        {/* Terms under category */}
-                        {category.terms && category.terms.length > 0 && (
-                          <div className="ml-9 space-y-1">
-                            {category.terms.map((term, termIndex) => (
-                              <div key={termIndex} className="flex items-center gap-2 text-[#8b5e3c] hover:text-[#b08d57] transition-colors duration-200">
-                                <span className="text-[#d4af37] text-sm">-</span>
-                                <span className="text-lg text-left leading-tight">{term}</span>
-                              </div>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                    
-                    {/* Handle old subsections format for backward compatibility */}
-                    {!section.categories && section.subsections && section.subsections.map((subsection, subIndex) => (
-                      <div key={subIndex} className="flex items-start gap-3 hover:text-[#b08d57] transition-colors duration-200">
-                        <span className="w-6 h-6 flex items-center justify-center rounded-full bg-gradient-to-br from-[#b08d57] to-[#8b5e3c] text-white text-xs font-semibold flex-shrink-0 mt-1">
-                          {actualIndex + 1}.{subIndex + 1}
-                        </span>
-                        <span className="text-lg text-left leading-tight flex-1 opacity-90">{subsection}</span>
-                      </div>
-                    ))}
-                  </div>
-                )}
+              <div key={actualIndex} className="flex items-center gap-8 hover:text-[#8b5e3c] transition-colors duration-300 group">
+                <span className="w-20 h-20 flex items-center justify-center rounded-full bg-gradient-to-br from-[#d4af37] to-[#a67c00] group-hover:from-[#e6c547] group-hover:to-[#b8860b] text-white font-bold text-2xl shadow-lg border-3 border-amber-200 group-hover:border-amber-300 flex-shrink-0 transition-all duration-300">
+                  {actualIndex + 1}
+                </span>
+                <span className="text-5xl font-bold text-left leading-tight flex-1 group-hover:translate-x-2 transition-transform duration-300">{section.title}</span>
               </div>
             );
           })}
@@ -159,25 +73,41 @@ export function TOCSlide({ tocData }) {
   );
 }
 
-/* Main Slide 1 – Left gold column, right parchment content */
+/* ---------------- MAIN SLIDE 1 ---------------- */
 export function MainSlide1({ title, content }) {
   return (
-    <section className="w-[1920px] h-[1080px] flex">
-      {/* Gold sidebar */}
-      <div className="w-1/3 bg-gradient-to-b from-yellow-800 to-yellow-500 flex items-center justify-center">
-        <h2 className="text-5xl font-serif font-bold text-yellow-100 text-center px-4">
-          {title}
-        </h2>
-      </div>
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-br from-[#f5f1e8] to-[#e8dcc6] text-[#5a3d2b] flex items-center justify-center overflow-hidden">
+      {/* Decorative elements */}
+      <div className="absolute top-20 left-20 w-40 h-40 rounded-full bg-gradient-to-br from-[#d4af37]/30 to-[#a67c00]/30 blur-2xl"></div>
+      <div className="absolute bottom-20 right-20 w-56 h-56 rounded-full bg-gradient-to-br from-[#b08d57]/30 to-[#8b5e3c]/30 blur-2xl"></div>
 
-      {/* Content area */}
-      <div className="flex-1 bg-gradient-to-br from-yellow-50 to-yellow-100 p-16 flex items-center">
-        <p className="text-3xl font-serif leading-relaxed text-gray-900">{content}</p>
+      <div className="relative z-10 w-3/4 bg-[#f9f6f0]/90 backdrop-blur-sm border-4 border-[#d4af37] rounded-2xl p-12 text-center shadow-2xl">
+        <h2 className="text-8xl font-serif font-bold mb-8 text-[#5a3d2b]">{title}</h2>
+        <p className="text-5xl leading-relaxed text-[#8b5e3c]">{content}</p>
       </div>
     </section>
   );
 }
 
+// Keep old component for backward compatibility
+export function TOCSlideHistoryHeritage({ title = "Table of Contents", items = [] }) {
+  const tocData = {
+    title,
+    sections: items.map(item => ({ title: item, subsections: [] }))
+  };
+  return <TOCSlide tocData={tocData} />;
+}
+
+const HistoryHeritage = {
+  TitleSlide,
+  TOCSlide,
+  MainSlide1,
+  MainSlide2,
+  MainSlide3,
+  EndSlide,
+};
+
+export default HistoryHeritage;
 
 /* Main Slide 2 – Framed parchment with top banner */
 export function MainSlide2({ title, content }) {
@@ -357,23 +287,4 @@ export function EndSlide({ message }) {
   );
 }
 
-// Keep old component for backward compatibility
-export function TOCSlideHistoryHeritage({ title = "Table of Contents", items = [] }) {
-  const tocData = {
-    title,
-    sections: items.map(item => ({ title: item, subsections: [] }))
-  };
-  return <TOCSlide tocData={tocData} />;
-}
 
-const HistoryHeritage = {
-  TitleSlide,
-  TOCSlide,
-  MainSlide1,
-  MainSlide2,
-  MainSlide3,
-  ImageSlide,
-  EndSlide,
-};
-
-export default HistoryHeritage;

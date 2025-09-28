@@ -39,33 +39,34 @@ export function TOCSlide({ tocData }) {
         {title}
       </h2>
 
-      {/* Hierarchical List */}
-      <div className="text-2xl font-light space-y-6 max-w-5xl w-full text-left z-10">
-        {sections.map((section, sectionIndex) => (
-          <div key={sectionIndex} className="space-y-3">
-            {/* Main section */}
-            <div className="flex items-start gap-4 hover:text-blue-600 transition-colors duration-200">
-              <span className="w-8 h-8 flex items-center justify-center rounded-full bg-blue-500 text-white text-sm font-bold flex-shrink-0 mt-1">
+      {/* Two-Column Layout for TOC - Minimized to show only main sections */}
+      <div className="grid grid-cols-2 gap-20 z-10 max-w-6xl w-full">
+        {/* Left Column */}
+        <div className="space-y-10">
+          {sections.slice(0, Math.ceil(sections.length / 2)).map((section, sectionIndex) => (
+            <div key={sectionIndex} className="flex items-center gap-8 hover:text-blue-600 transition-colors duration-300 group">
+              <span className="w-20 h-20 flex items-center justify-center rounded-full bg-blue-500 group-hover:bg-blue-600 text-white text-2xl font-bold flex-shrink-0 border-3 border-blue-200 group-hover:border-blue-300 transition-all duration-300 shadow-lg">
                 {sectionIndex + 1}
               </span>
-              <span className="flex-1 text-left leading-tight font-semibold">{section.title}</span>
+              <span className="flex-1 text-left leading-tight font-semibold text-5xl group-hover:translate-x-2 transition-transform duration-300">{section.title}</span>
             </div>
-            
-            {/* Subsections */}
-            {section.subsections && section.subsections.length > 0 && (
-              <div className="ml-12 space-y-2">
-                {section.subsections.map((subsection, subIndex) => (
-                  <div key={subIndex} className="flex items-start gap-3 hover:text-indigo-600 transition-colors duration-200">
-                    <span className="w-6 h-6 flex items-center justify-center rounded-full bg-indigo-400 text-white text-xs font-semibold flex-shrink-0 mt-1">
-                      {sectionIndex + 1}.{subIndex + 1}
-                    </span>
-                    <span className="text-lg text-left leading-tight flex-1 opacity-90">{subsection}</span>
-                  </div>
-                ))}
+          ))}
+        </div>
+
+        {/* Right Column */}
+        <div className="space-y-10">
+          {sections.slice(Math.ceil(sections.length / 2)).map((section, sectionIndex) => {
+            const actualIndex = Math.ceil(sections.length / 2) + sectionIndex;
+            return (
+              <div key={actualIndex} className="flex items-center gap-8 hover:text-blue-600 transition-colors duration-300 group">
+                <span className="w-20 h-20 flex items-center justify-center rounded-full bg-blue-500 group-hover:bg-blue-600 text-white text-2xl font-bold flex-shrink-0 border-3 border-blue-200 group-hover:border-blue-300 transition-all duration-300 shadow-lg">
+                  {actualIndex + 1}
+                </span>
+                <span className="flex-1 text-left leading-tight font-semibold text-5xl group-hover:translate-x-2 transition-transform duration-300">{section.title}</span>
               </div>
-            )}
-          </div>
-        ))}
+            );
+          })}
+        </div>
       </div>
     </section>
   );
@@ -76,13 +77,13 @@ export function MainSlide1({ title, content }) {
   return (
     <section className="relative w-[1920px] h-[1080px] bg-white flex flex-col px-20 py-16">
       {/* Header with divider */}
-      <h2 className="text-6xl font-serif font-bold text-blue-900 mb-2">
+      <h2 className="text-7xl font-serif font-bold text-blue-900 mb-2">
         {title}
       </h2>
       <div className="h-[3px] w-24 bg-blue-700 mb-6"></div>
 
       {/* Content */}
-      <p className="text-3xl font-sans text-gray-800 leading-relaxed">
+      <p className="text-4xl font-sans text-gray-800 leading-relaxed">
         {content}
       </p>
     </section>
@@ -110,15 +111,15 @@ export function MainSlide2({ title, content }) {
 /* ---------------- MAIN SLIDE 3 ---------------- */
 export function MainSlide3({ title, content }) {
   return (
-    <section className="relative w-[1920px] h-[1080px] bg-white flex">
+    <section className="relative w-[1920px] h-[1080px] bg-white flex px-24 py-16">
       {/* Left sidebar accent */}
       <div className="w-8 bg-blue-900"></div>
 
-      <div className="flex-1 flex flex-col justify-center px-16">
-        <h2 className="text-6xl font-serif font-bold text-blue-900 mb-4">
+      <div className="flex-1 flex flex-col justify-center">
+        <h2 className="text-7xl font-serif font-semibold text-gray-900 mb-6">
           {title}
         </h2>
-        <p className="text-3xl font-sans text-gray-800 leading-relaxed">
+        <p className="text-4xl font-sans text-gray-800 leading-relaxed">
           {content}
         </p>
       </div>
@@ -132,14 +133,14 @@ export function MainSlide4({ title, content }) {
     <section className="relative w-[1920px] h-[1080px] bg-gradient-to-r from-gray-50 to-white flex items-center px-24 py-16">
       <div className="max-w-5xl">
         {/* Title with underline accent */}
-        <h2 className="text-6xl font-serif font-bold text-blue-900 mb-4">
+        <h2 className="text-7xl font-serif font-bold text-blue-900 mb-4">
           {title}
         </h2>
         <div className="h-[4px] w-32 bg-blue-700 mb-10 rounded"></div>
 
         {/* Elegant content box */}
         <div className="bg-white border border-gray-200 shadow-lg rounded-lg p-12">
-          <p className="text-3xl font-sans text-gray-800 leading-relaxed">
+          <p className="text-4xl font-sans text-gray-800 leading-relaxed">
             {content}
           </p>
         </div>
@@ -153,14 +154,14 @@ export function MainSlide5({ title, content }) {
   return (
     <section className="relative w-[1920px] h-[1080px] bg-white px-24 py-16 flex flex-col">
       {/* Header */}
-      <h2 className="text-6xl font-serif font-bold text-blue-900 mb-4">
+      <h2 className="text-7xl font-serif font-bold text-blue-900 mb-4">
         {title}
       </h2>
       <div className="h-[3px] w-28 bg-blue-700 mb-10"></div>
 
       {/* Split layout with diagonal design accent */}
       <div className="grid grid-cols-2 gap-12 items-center">
-        <p className="text-3xl font-sans text-gray-800 leading-relaxed">
+        <p className="text-4xl font-sans text-gray-800 leading-relaxed">
           {content}
         </p>
 
@@ -183,13 +184,13 @@ export function MainSlide6({ title, points }) {
       {/* Header with side bar accent */}
       <div className="flex items-center mb-10">
         <div className="w-3 h-20 bg-blue-700 mr-6 rounded"></div>
-        <h2 className="text-6xl font-serif font-bold text-blue-900">
+        <h2 className="text-7xl font-serif font-bold text-blue-900">
           {title}
         </h2>
       </div>
 
       {/* Bullet points with subtle icon + divider line */}
-      <ul className="space-y-8 text-3xl font-sans text-gray-800 leading-relaxed max-w-5xl">
+      <ul className="space-y-8 text-4xl font-sans text-gray-800 leading-relaxed max-w-5xl">
         {points && points.length > 0 ? (
           points.map((point, i) => (
             <li
