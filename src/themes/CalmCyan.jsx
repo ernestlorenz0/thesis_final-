@@ -1,5 +1,5 @@
 import React from "react";
-import { Zap, Rocket, Sparkles, BookAudio, Layers, Globe} from "lucide-react";
+import { Zap, Rocket, List, Layers, Globe } from "lucide-react";
 
 export function TitleSlide({ title, subtitle }) {
   return (
@@ -57,8 +57,8 @@ export function MainSlide({ title, content }) {
 
       {/* Content box */}
       <div className="relative z-10 w-1/2 bg-white shadow-lg rounded-lg p-12 ml-[300px]">
-        <h2 className="text-6xl font-semibold text-gray-800 mb-6">{title}</h2>
-        <p className="text-2xl text-gray-700 leading-relaxed">{content}</p>
+        <h2 className="text-7xl font-semibold text-gray-800 mb-6">{title}</h2>
+        <p className="text-4xl text-gray-700 leading-relaxed">{content}</p>
       </div>
     </section>
   );
@@ -97,7 +97,7 @@ export function MainSlide2({ title, content }) {
       <div className="absolute top-1/3 right-1/4 w-32 h-32 bg-cyan-300/40 rotate-12 rounded-lg"></div>
 
       {/* Title */}
-      <h2 className="relative z-10 text-6xl font-bold text-white mb-6 drop-shadow-lg">
+      <h2 className="relative z-10 text-7xl font-bold text-white mb-6 drop-shadow-lg">
         {title}
       </h2>
 
@@ -105,7 +105,7 @@ export function MainSlide2({ title, content }) {
       <div className="relative z-10 h-[5px] w-44 bg-cyan-400 mx-auto mb-12 rounded-full"></div>
 
       {/* Content */}
-      <p className="relative z-10 text-2xl text-gray-200 max-w-4xl leading-relaxed">
+      <p className="relative z-10 text-4xl text-gray-200 max-w-4xl leading-relaxed">
         {content}
       </p>
 
@@ -118,12 +118,13 @@ export function MainSlide2({ title, content }) {
           <Rocket size={48} className="text-cyan-300" />
         </div>
         <div className="w-28 h-28 bg-cyan-400/30 rounded-2xl flex items-center justify-center">
-          <Sparkles size={48} className="text-cyan-300" />
+          <List size={48} className="text-cyan-300" />
         </div>
       </div>
     </section>
   );
 }
+
 
 
 export function MainSlide3({ title, content }) {
@@ -152,7 +153,7 @@ export function MainSlide3({ title, content }) {
             <Layers size={48} className="text-cyan-600" />
           </div>
           <div className="w-32 h-32 flex items-center justify-center rounded-2xl bg-cyan-200/40 shadow-md">
-            <BookAudio size={48} className="text-cyan-600" />
+            <Rocket size={48} className="text-cyan-600" />
           </div>
           <div className="w-32 h-32 flex items-center justify-center rounded-2xl bg-cyan-200/40 shadow-md">
             <Globe size={48} className="text-cyan-600" />
@@ -163,12 +164,13 @@ export function MainSlide3({ title, content }) {
   );
 }
 
+
 export function MainSlide4({ title, content }) {
   return (
     <section className="w-[1920px] h-[1080px] flex">
       {/* Left white with cyan wave */}
       <div className="w-1/2 bg-white flex items-center justify-center p-10">
-      <img src="src/svgs/thesis1.svg" alt="thesis" />
+      <img src="src/pngs/thesis1.png" alt="thesis" />
       </div>
       {/* Right navy side */}
       <div className="w-1/2 bg-[#2c3e50] flex flex-col items-center justify-center p-10">

@@ -168,8 +168,8 @@ export function MainSlide({ title, content }) {
       <Sun className="absolute top-1/2 right-16 w-28 h-28 text-amber-600 opacity-25 drop-shadow-md" />
 
       <div className="relative z-10 max-w-3xl">
-        <h2 className="font-[HedvigLettersSerif] text-6xl text-[#2b6cb0] mb-4">{title}</h2>
-        <p className="text-gray-800 text-3xl leading-relaxed">{content}</p>
+        <h2 className="font-[HedvigLettersSerif] text-7xl text-[#2b6cb0] mb-4">{title}</h2>
+        <p className="text-gray-800 text-4xl leading-relaxed">{content}</p>
       </div>
     </section>
   );
@@ -178,12 +178,12 @@ export function MainSlide({ title, content }) {
 export function MainSlide2({ title, content, imageUrl }) {
   return (
     <section className="relative w-[1920px] h-[1080px] bg-[#ebf8ff] overflow-hidden flex">
-      <div className="w-1/2 flex flex-col justify-center p-10">
+      <div className="w-1/2 flex flex-col justify-center p-10 ml-20">
         <h2 className="font-[HedvigLettersSerif] text-7xl text-[#2b6cb0] mb-4">{title}</h2>
         <p className="text-gray-800 text-4xl leading-relaxed">{content}</p>
       </div>
       <div className="w-1/2 flex items-center justify-center p-4">
-        <img src="src/svgs/learning2.svg" alt="learning" className="w-[700px]"/>
+        <img src="src/pngs/learning2.png" alt="learning" className="w-[700px]"/>
       </div>
     </section>
   );
@@ -193,9 +193,9 @@ export function MainSlide3({ title, content, imageUrl }) {
   return (
     <section className="relative w-[1920px] h-[1080px] bg-[#ebf8ff] overflow-hidden flex">
       <div className="w-1/2 flex items-center justify-center p-4">
-        <img src="src/svgs/booklover.svg" alt="booklover" className="w-[700px]"/>
+        <img src="src/pngs/booklover.png" alt="booklover" className="w-[700px]"/>
       </div>
-      <div className="w-1/2 flex flex-col justify-center p-10 text-right">
+      <div className="w-1/2 flex flex-col justify-center p-10 text-right mr-20">
         <h2 className="font-[HedvigLettersSerif] text-7xl text-[#2b6cb0] mb-4">{title}</h2>
         <p className="text-gray-800 text-4xl leading-relaxed">{content}</p>
       </div>
@@ -214,7 +214,7 @@ export function MainSlide4({ title, content }) {
         {/* Decorative Diagonal Ribbon */}
         <div className="absolute -left-20 bottom-10 w-[350px] h-[80px] bg-sky-500/30 rotate-12 rounded-xl"></div>
 
-        <h2 className="font-[HedvigLettersSerif] text-5xl font-bold mb-6 drop-shadow-lg relative z-10">
+        <h2 className="font-[HedvigLettersSerif] text-7xl font-bold mb-6 drop-shadow-lg relative z-10">
           {title}
         </h2>
 
@@ -241,7 +241,7 @@ export function MainSlide4({ title, content }) {
         <div className="absolute top-1/3 left-1/4 w-32 h-32 border-4 border-sky-300/40 rounded-full"></div>
         <div className="absolute bottom-1/4 right-1/4 w-40 h-40 rotate-45 border-4 border-blue-400/30"></div>
 
-        <p className="text-3xl text-gray-700 leading-relaxed max-w-3xl text-center drop-shadow-sm relative z-10">
+        <p className="text-4xl text-gray-700 leading-relaxed max-w-3xl text-center drop-shadow-sm relative z-10">
           {content}
         </p>
       </div>
@@ -265,17 +265,16 @@ export function MainSlide5({ title, content }) {
 
       {/* ===== Center Content ===== */}
       <div className="relative z-10 text-center max-w-4xl">
-        <h2 className="font-[HedvigLettersSerif] text-6xl text-[#2b6cb0] mb-6 drop-shadow-md">
+        <h2 className="font-[HedvigLettersSerif] text-7xl text-[#2b6cb0] mb-6 drop-shadow-md">
           {title}
         </h2>
-        <p className="text-3xl text-gray-800 leading-relaxed drop-shadow-sm">
+        <p className="text-4xl text-gray-800 leading-relaxed drop-shadow-sm">
           {content}
         </p>
       </div>
     </section>
   );
 }
-
 
 export function EndSlide() {
   return (

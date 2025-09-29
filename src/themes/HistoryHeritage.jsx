@@ -1,5 +1,5 @@
 import React from "react";
-import { Landmark, Scroll,ScrollText, BookOpen, Feather, Hourglass, Crown } from "lucide-react";
+import { Landmark, Scroll, BookOpen, Feather, Hourglass, ScrollText, Crown } from "lucide-react";
 
 /* Title Slide – Split diagonal gold panel */
 export function TitleSlide({ title, subtitle }) {
@@ -159,7 +159,6 @@ export function TOCSlide({ tocData }) {
   );
 }
 
-/* Main Slide 1 – Left gold column, right parchment content */
 export function MainSlide1({ title, content }) {
   return (
     <section className="relative w-[1920px] h-[1080px] flex overflow-hidden">
@@ -169,7 +168,7 @@ export function MainSlide1({ title, content }) {
         <Crown className="absolute top-12 left-1/2 -translate-x-1/2 w-20 h-20 text-yellow-200/30" />
         <Landmark className="absolute bottom-12 left-1/2 -translate-x-1/2 w-24 h-24 text-yellow-200/20" />
 
-        <h2 className="relative z-10 text-5xl font-serif font-bold text-yellow-100 text-center px-8 drop-shadow-lg">
+        <h2 className="relative z-10 text-6xl font-serif font-bold text-yellow-100 text-center px-8 drop-shadow-lg">
           {title}
         </h2>
       </div>
@@ -182,7 +181,7 @@ export function MainSlide1({ title, content }) {
 
         {/* Content box */}
         <div className="relative z-10 bg-white/70 border-4 border-yellow-800 rounded-2xl shadow-xl p-12 max-w-4xl">
-          <p className="text-3xl font-serif leading-relaxed text-gray-900">
+          <p className="text-4xl font-serif leading-relaxed text-gray-900">
             {content}
           </p>
 
@@ -193,6 +192,27 @@ export function MainSlide1({ title, content }) {
     </section>
   );
 }
+
+
+// Keep old component for backward compatibility
+export function TOCSlideHistoryHeritage({ title = "Table of Contents", items = [] }) {
+  const tocData = {
+    title,
+    sections: items.map(item => ({ title: item, subsections: [] }))
+  };
+  return <TOCSlide tocData={tocData} />;
+}
+
+const HistoryHeritage = {
+  TitleSlide,
+  TOCSlide,
+  MainSlide1,
+  MainSlide2,
+  MainSlide3,
+  EndSlide,
+};
+
+export default HistoryHeritage;
 
 export function MainSlide2({ title, content }) {
   return (
@@ -217,7 +237,7 @@ export function MainSlide2({ title, content }) {
 
       {/* Content */}
       <div className="relative z-10 max-w-5xl bg-white/70 border-4 border-yellow-800 rounded-xl p-10 shadow-md">
-        <p className="text-3xl font-serif leading-relaxed">{content}</p>
+        <p className="text-4xl font-serif leading-relaxed">{content}</p>
         {/* Decorative underline */}
         <div className="mt-8 h-1.5 w-52 bg-gradient-to-r from-yellow-800 to-yellow-500 rounded-full" />
       </div>
@@ -247,7 +267,7 @@ export function MainSlide3({ title, content }) {
       <div className="relative z-10 flex w-full h-full">
         {/* Title sidebar */}
         <div className="w-1/3 flex items-center justify-center bg-yellow-900/40 border-r-4 border-yellow-700/50 relative">
-          <h2 className="text-5xl font-serif font-bold text-yellow-100 text-center px-6 drop-shadow-lg">
+          <h2 className="text-7xl font-serif font-bold text-yellow-100 text-center px-6 drop-shadow-lg">
             {title}
           </h2>
           {/* Ornamental icon top corner */}
@@ -257,7 +277,7 @@ export function MainSlide3({ title, content }) {
         {/* Content area */}
         <div className="flex-1 flex items-center p-20 relative">
           <div className="bg-white/10 p-12 rounded-xl border-4 border-yellow-300/40 shadow-lg max-w-4xl">
-            <p className="text-3xl font-serif leading-relaxed text-yellow-50">
+            <p className="text-4xl font-serif leading-relaxed text-yellow-50">
               {content}
             </p>
             {/* Decorative underline */}
@@ -391,14 +411,3 @@ export function TOCSlideHistoryHeritage({ title = "Table of Contents", items = [
   };
   return <TOCSlide tocData={tocData} />;
 }
-
-const HistoryHeritage = {
-  TitleSlide,
-  TOCSlide,
-  MainSlide1,
-  MainSlide2,
-  MainSlide3,
-  EndSlide,
-};
-
-export default HistoryHeritage;

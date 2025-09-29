@@ -170,9 +170,9 @@ export function MainSlide1({ title, content }) {
       <div className="absolute w-32 h-32 bg-pink-300 rounded-full opacity-20 top-8 left-8"></div>
       <div className="absolute w-48 h-48 bg-blue-300 rotate-45 opacity-20 bottom-8 right-12"></div>
 
-      <h2 className="text-6xl font-bold font-sans mb-4 z-10">{title}</h2>
+      <h2 className="text-7xl font-bold font-sans mb-4 z-10">{title}</h2>
       <div className="h-2 w-40 bg-playful-900 rounded-full mb-6 z-10"></div>
-      <p className="text-3xl font-sans leading-relaxed text-center max-w-5xl z-10">
+      <p className="text-4xl font-sans leading-relaxed text-center max-w-5xl z-10">
         {content}
       </p>
     </section>
@@ -188,11 +188,11 @@ export function MainSlide2({ title, content, imageUrl }) {
       <div className="absolute w-52 h-52 bg-green-300 rotate-12 opacity-20 bottom-0 left-10"></div>
 
       <div className="flex-1 pr-12 z-10">
-        <h2 className="text-6xl font-bold font-sans mb-8">{title}</h2>
-        <p className="text-3xl font-sans leading-relaxed">{content}</p>
+        <h2 className="text-7xl font-bold font-sans mb-8">{title}</h2>
+        <p className="text-4xl font-sans leading-relaxed">{content}</p>
       </div>
       <div className="flex-1 flex items-center justify-center z-10">
-        <img src="src/svgs/puzzle.svg" alt="puzzle" />
+        <img src="src/pngs/puzzle.png" alt="puzzle" />
       </div>
     </section>
   );
@@ -228,7 +228,7 @@ export function MainSlide3({ title, content }) {
 
         {/* Content Card */}
         <div className="mt-12 bg-white p-12 rounded-[3rem] border-[8px] border-playful-600 shadow-2xl relative max-w-3xl">
-          <p className="text-3xl text-gray-900 leading-relaxed font-medium">
+          <p className="text-4xl text-gray-900 leading-relaxed font-medium">
             {content ||
               "Here’s a slide with strong geometric visuals: big colorful blobs, a triangle, zigzag stripe, and dotted circle. They make the background unmistakable while the text stays readable."}
           </p>
@@ -277,8 +277,8 @@ export function MainSlide5({ title, content }) {
 
       {/* Speech bubble */}
       <div className="relative z-10 max-w-4xl bg-white rounded-3xl shadow-2xl border-8 border-playful-700 p-12 text-center text-playful-900 font-sans">
-        <h2 className="text-6xl font-extrabold mb-6">{title}</h2>
-        <p className="text-3xl leading-relaxed">{content}</p>
+        <h2 className="text-7xl font-extrabold mb-6">{title}</h2>
+        <p className="text-4xl leading-relaxed">{content}</p>
 
         {/* Tail of bubble */}
         <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[40px] border-r-[40px] border-t-[40px] border-l-transparent border-r-transparent border-t-white drop-shadow-lg"></div>
@@ -317,7 +317,7 @@ export function MainSlide6() {
 }
 
 /* End Slide */
-export function EndSlide({ message }) {
+export function EndSlide() {
   return (
     <section className="relative w-[1920px] h-[1080px] bg-gradient-to-tr from-playful-400 to-playful-200 flex flex-col items-center justify-center text-playful-900 animate-fade-in overflow-hidden">
       {/* Shapes */}
@@ -325,7 +325,6 @@ export function EndSlide({ message }) {
       <div className="absolute w-56 h-56 bg-pink-400 rotate-12 opacity-20 bottom-12 right-12"></div>
 
       <h2 className="text-7xl font-extrabold font-sans mb-6 z-10">Thank You</h2>
-      <p className="text-3xl font-sans opacity-90 z-10">🎨✨</p>
     </section>
   );
 }

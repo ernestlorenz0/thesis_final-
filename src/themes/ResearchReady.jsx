@@ -78,12 +78,12 @@ export function MainSlide1({ title, content }) {
     <section className="relative w-[1920px] h-[1080px] bg-white flex flex-col px-20 py-16">
       <Watermark type="book" />
 
-      <h2 className="text-6xl font-serif font-bold text-blue-900 mb-2">
+      <h2 className="text-7xl font-serif font-bold text-blue-900 mb-2">
         {title}
       </h2>
       <div className="h-[3px] w-24 bg-blue-700 mb-6"></div>
 
-      <p className="text-3xl font-sans text-gray-800 leading-relaxed">
+      <p className="text-4xl font-sans text-gray-800 leading-relaxed">
         {content}
       </p>
     </section>
@@ -97,11 +97,11 @@ export function MainSlide2({ title, content }) {
       <Watermark type="flask" />
 
       <div className="max-w-4xl w-full">
-        <h2 className="text-6xl font-serif font-semibold text-gray-900 mb-6">
+        <h2 className="text-7xl font-serif font-semibold text-gray-900 mb-6">
           {title}
         </h2>
         <div className="border-l-4 border-blue-700 pl-6">
-          <p className="text-3xl font-sans text-gray-800 leading-relaxed">
+          <p className="text-4xl font-sans text-gray-800 leading-relaxed">
             {content}
           </p>
         </div>
@@ -119,7 +119,7 @@ export function MainSlide3({ title, content }) {
       <div className="w-8 bg-blue-900"></div>
 
       <div className="flex-1 flex flex-col justify-center px-16">
-        <h2 className="text-6xl font-serif font-bold text-blue-900 mb-4">
+        <h2 className="text-7xl font-serif font-bold text-blue-900 mb-4">
           {title}
         </h2>
         <p className="text-3xl font-sans text-gray-800 leading-relaxed">
@@ -137,7 +137,7 @@ export function MainSlide4({ title, content }) {
       <Watermark type="idea" />
 
       <div className="max-w-5xl">
-        <h2 className="text-6xl font-serif font-bold text-blue-900 mb-4">
+        <h2 className="text-7xl font-serif font-bold text-blue-900 mb-4">
           {title}
         </h2>
         <div className="h-[4px] w-32 bg-blue-700 mb-10 rounded"></div>
@@ -162,13 +162,13 @@ export function MainSlide5({ title, content }) {
       </div>
 
       {/* Header with divider */}
-      <h2 className="text-6xl font-serif font-bold text-blue-900 mb-4 relative z-10">
+      <h2 className="text-7xl font-serif font-bold text-blue-900 mb-4 relative z-10">
         {title}
       </h2>
       <div className="h-[3px] w-28 bg-blue-700 mb-10 relative z-10"></div>
 
       {/* Content */}
-      <p className="text-3xl font-sans text-gray-800 leading-relaxed max-w-5xl relative z-10">
+      <p className="text-4xl font-sans text-gray-800 leading-relaxed max-w-5xl relative z-10">
         {content}
       </p>
     </section>

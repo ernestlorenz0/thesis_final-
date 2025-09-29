@@ -186,7 +186,7 @@ export function MainSlide2({ title, content, imageUrl }) {
     <section className="relative w-[1920px] h-[1080px] flex bg-gradient-to-r from-blue-950 to-gray-900 text-white">
       {/* Left image */}
       <div className="w-1/2 flex items-center justify-center bg-gradient-to-r from-blue-700/30 to-transparent">
-        <img src="src/svgs/server.svg" alt="server" className="w-[700px]"/>
+        <img src="src/pngs/server.png" alt="server" className="w-[700px]"/>
       </div>
 
       {/* Right text */}

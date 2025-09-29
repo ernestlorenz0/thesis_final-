@@ -117,7 +117,7 @@ export function MainSlide({ title, content }) {
       {/* Content Section (Right side framed like art) */}
       <div className="flex-1 flex items-center justify-center">
         <div className="relative bg-white/10 p-12 rounded-xl shadow-[0_0_30px_rgba(255,255,255,0.1)] border-[6px] border-yellow-400">
-          <p className="font-[Poppins] text-3xl leading-relaxed text-gray-100 max-w-xl text-center">
+          <p className="font-[Poppins] text-4xl leading-relaxed text-gray-100 max-w-xl text-center">
             {content}
           </p>
           {/* Subtle corner accents */}
@@ -131,6 +131,27 @@ export function MainSlide({ title, content }) {
   );
 }
 
+
+// Keep old component for backward compatibility
+export function TOCSlideArtStudio({ title = "Table of Contents", items = [] }) {
+  const tocData = {
+    title,
+    sections: items.map(item => ({ title: item, subsections: [] }))
+  };
+  return <TOCSlide tocData={tocData} />;
+}
+
+const ArtStudio = { 
+  TitleSlide, 
+  MainSlide,
+  TOCSlide,
+  MainSlide2, 
+  MainSlide3, 
+  MainSlide4,
+  EndSlide 
+};
+
+export default ArtStudio;
 
 export function MainSlide2({ title, content }) {
   return (
@@ -159,7 +180,7 @@ export function MainSlide2({ title, content }) {
         <h2 className="font-[BebasNeue] text-7xl mb-10 text-orange-400 drop-shadow-[0_0_25px_rgba(255,150,50,0.8)]">
           {title}
         </h2>
-        <p className="font-[Poppins] text-3xl leading-relaxed text-gray-100">
+        <p className="font-[Poppins] text-4xl leading-relaxed text-gray-100">
           {content}
         </p>
       </div>
@@ -228,7 +249,7 @@ export function MainSlide4({ title, content }) {
 
       {/* Content area (on orange side) */}
       <div className="relative z-20 w-1/2 flex items-center px-16">
-        <p className="font-[Poppins] text-3xl leading-relaxed text-white drop-shadow-xl -translate-y-20 -translate-x-16 max-w-xl">
+        <p className="font-[Poppins] text-5xl leading-relaxed text-white drop-shadow-xl -translate-y-20 -translate-x-16 max-w-xl">
           {content}
         </p>
       </div>
@@ -315,21 +336,3 @@ export function EndSlide() {
     </section>
   );
 }
-
-// Keep old component for backward compatibility
-export function TOCSlideArtStudio({ title = "Table of Contents", items = [] }) {
-  const tocData = {
-    title,
-    sections: items.map(item => ({ title: item, subsections: [] }))
-  };
-  return <TOCSlide tocData={tocData} />;
-}
-
-const ArtStudio = { TitleSlide, 
-                   MainSlide,
-                   TOCSlide,
-                   MainSlide2, 
-                   MainSlide3, 
-                   MainSlide4,
-                   EndSlide };
-export default ArtStudio;

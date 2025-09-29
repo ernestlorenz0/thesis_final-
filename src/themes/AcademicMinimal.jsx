@@ -1,5 +1,5 @@
 import React from "react";
-import { GraduationCap, BookOpen, PenTool } from "lucide-react";
+import { BookOpen, GraduationCap, PenTool } from "lucide-react";
 
 export function TitleSlide({ title, subtitle, imageUrl }) {
   return (
@@ -43,7 +43,7 @@ export function TOCSlide({ tocData }) {
       <div className="absolute inset-12 border border-gray-300 rounded-lg"></div>
 
       {/* Title */}
-      <h2 className="text-5xl font-serif font-bold text-gray-800 mb-16 tracking-wide">
+      <h2 className="text-6xl font-serif font-bold text-gray-800 mb-16 tracking-wide">
         {title}
       </h2>
 
@@ -92,31 +92,12 @@ export function TOCSlideAcademic({ title = "Table of Contents", items = [] }) {
   return <TOCSlide tocData={tocData} />;
 }
 
-export function ContentSlide({ title, content }) {
-  return (
-    <section className="w-[1920px] h-[1080px] bg-white flex flex-col p-24">
-      <h2 className="font-merriweather font-bold text-6xl mb-8 text-black">{title}</h2>
-      <p className="font-lato font-light text-3xl leading-relaxed text-black">{content}</p>
-    </section>
-  );
-}
-
-export function ContentSlideText({ title, content }) {
-  return (
-    <section className="w-[1920px] h-[1080px] bg-white flex flex-col p-24">
-      <h2 className="font-merriweather font-bold text-6xl mb-8 text-black">{title}</h2>
-      <p className="font-lato font-light text-3xl leading-relaxed text-black">{content}</p>
-    </section>
-  );
-}
-
-
-export function MainSlide({ title, content, imageUrl }) {
+export function MainSlide({ title, content }) {
   return (
     <section className="w-[1920px] h-[1080px] bg-white flex p-16 gap-12">
       {/* Text Section */}
       <div className="flex-1 flex flex-col justify-center max-w-[60%]">
-        <h2 className="font-merriweather font-bold text-5xl mt-[-300px] text-black leading-snug">
+        <h2 className="font-merriweather font-bold text-7xl mt-[-300px] text-black leading-snug">
           {title}
         </h2>
         <p className="font-lato font-light text-3xl leading-relaxed text-black break-words">
@@ -181,7 +162,7 @@ export function MainSlide2({ title, content, onTitleClick, onContentClick }) {
 
       {/* Title */}
       <h2
-        className="relative z-10 font-merriweather font-bold text-6xl mb-4 text-gray-900 cursor-pointer p-2 transition-all duration-200"
+        className="relative z-10 font-merriweather font-bold text-7xl mb-4 text-gray-900 cursor-pointer p-2 transition-all duration-200"
         onClick={handleTitleClick}
         onDoubleClick={handleTitleClick}
       >
@@ -193,7 +174,7 @@ export function MainSlide2({ title, content, onTitleClick, onContentClick }) {
 
       {/* Content area */}
       <p
-        className="relative z-10 font-lato font-light text-3xl max-w-4xl leading-relaxed text-gray-800 cursor-pointer hover:bg-gray-50 hover:shadow-md rounded-xl p-6 transition-all duration-200"
+        className="relative z-10 font-lato font-light text-4xl max-w-4xl leading-relaxed text-gray-800 cursor-pointer hover:bg-gray-50 hover:shadow-md rounded-xl p-6 transition-all duration-200"
         onClick={handleContentClick}
         onDoubleClick={handleContentClick}
       >
@@ -265,8 +246,6 @@ export function MainSlide6({ title, content }) {
 
 const AcademicMinimal = { TitleSlide, 
                           TOCSlide, 
-                          ContentSlide, 
-                          ContentSlideText, 
                           MainSlide, MainSlide1, MainSlide2, MainSlide4, MainSlide6,
                           EndSlide };
 export default AcademicMinimal;

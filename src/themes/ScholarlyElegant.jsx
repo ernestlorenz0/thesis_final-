@@ -195,7 +195,7 @@ export function MainSlide2({ title, content }) {
         <div className="text-4xl font-serif leading-relaxed">{content}</div>
       </div>
       <div className="flex-1 flex items-center justify-center">
-        <img src="src/svgs/abroad.svg" alt="abroad" className="w-[700px]"/>
+        <img src="src/pngs/abroad.png" alt="abroad" className="w-[700px]"/>
       </div>
     </section>
   );
@@ -250,7 +250,7 @@ export function MainSlide4({ title, content }) {
 
       {/* Right */}
       <div className="flex-1 px-24 py-20 z-10 flex items-center">
-        <img src="src/svgs/studying1.svg" alt="studying1" className="w-[700px]"/>
+        <img src="src/pngs/studying1.png" alt="studying1" className="w-[700px]"/>
       </div>
     </section>
   );

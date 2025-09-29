@@ -197,7 +197,7 @@ export function MainSlide2({ title, content }) {
       </div>
 
       <div className="absolute right-20 top-30">
-        <img src="src/svgs/working.svg" alt="working" className="w-[700px]"/>
+        <img src="src/pngs/working.png" alt="working" className="w-[700px]"/>
       </div>
     </section>
   );

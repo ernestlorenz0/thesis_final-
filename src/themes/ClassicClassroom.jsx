@@ -114,7 +114,7 @@ export function MainSlide2({ title, content, imageUrl }) {
       <Ruler className="absolute bottom-32 right-16 w-28 h-28 text-[#EAD7B7]/20" />
 
       <div className="relative ml-20 z-10 w-[800px] h-4/5 flex items-center justify-center">
-        <img src="src/svgs/classroom.svg" alt="classroom_img"/>
+        <img src="src/pngs/classroom.png" alt="classroom_img"/>
       </div>
       <div className="relative z-10 w-1/2 p-8">
         <h2 className="font-[HedvigLettersSerif] text-7xl mb-4 translate-y-[-50px]">{title}</h2>
@@ -140,7 +140,7 @@ export function MainSlide3({ title, content, imageUrl }) {
         <p className="text-4xl leading-relaxed">{content}</p>
       </div>
       <div className="relative mr-20 z-10 w-[800px] h-4/5flex items-center justify-center">
-        <img src="src/svgs/classroom1.svg" alt="classroom1" className="w-[700px]"/>
+        <img src="src/pngs/classroom1.png" alt="classroom1" className="w-[700px]"/>
       </div>
     </section>
   );
@@ -196,11 +196,11 @@ export function MainSlide6({ title, content }) {
         {/* Decorative top accent line */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2/3 h-[6px] bg-gradient-to-r from-[#FFD166] via-[#EAD7B7] to-[#FFD166] rounded-full -translate-y-3" />
 
-        <h2 className="font-[HedvigLettersSerif] text-6xl mb-8 text-[#0D3B36] drop-shadow-md">
+        <h2 className="font-[HedvigLettersSerif] text-7xl mb-8 text-[#0D3B36] drop-shadow-md">
           {title || "Key Concept"}
         </h2>
 
-        <p className="font-[HedvigLettersSerif] text-3xl leading-relaxed text-[#1c1c1c] tracking-wide">
+        <p className="font-[HedvigLettersSerif] text-4xl leading-relaxed text-[#1c1c1c] tracking-wide">
           {content ||
             "This is a central highlighted concept, styled as if it were written on a framed classroom blackboard."}
         </p>
@@ -211,9 +211,6 @@ export function MainSlide6({ title, content }) {
     </section>
   );
 }
-
-
-
 
 
 export function EndSlide() {

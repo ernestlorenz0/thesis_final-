@@ -193,6 +193,30 @@ export function MainSlide1({ title, content }) {
   );
 }
 
+// Keep old component for backward compatibility
+export function TOCSlideLanguageLab({ title = "Table of Contents", items = [] }) {
+  const tocData = {
+    title,
+    sections: items.map(item => ({ title: item, subsections: [] }))
+  };
+  return <TOCSlide tocData={tocData} />;
+}
+
+const LanguageLab = {
+  TitleSlide,
+  TOCSlide,
+  MainSlide1,
+  MainSlide2,
+  MainSlide3,
+  MainSlide4,
+  MainSlide5,
+  MainSlide6,
+  ImageSlide,
+  EndSlide,
+};
+
+export default LanguageLab;
+
 export function MainSlide2({ title, content }) {
   return (
     <section className="relative w-[1920px] h-[1080px] bg-gradient-to-tr from-blue-100 via-indigo-100 to-purple-100 flex items-center justify-center overflow-hidden">
@@ -207,10 +231,10 @@ export function MainSlide2({ title, content }) {
 
       {/* Card area */}
       <div className="relative z-10 bg-white shadow-2xl rounded-3xl p-16 max-w-4xl border-8 border-indigo-200">
-        <h2 className="text-6xl font-bold mb-8 text-blue-900 text-center">
+        <h2 className="text-7xl font-bold mb-8 text-blue-900 text-center">
           {title}
         </h2>
-        <p className="text-3xl leading-relaxed text-gray-800 text-center">
+        <p className="text-4xl leading-relaxed text-gray-800 text-center">
           {content}
         </p>
       </div>
@@ -233,7 +257,7 @@ export function MainSlide3({ title, content }) {
       </div>
 
       <div className="absolute mt-[200px] bottom-30 right-0 w-[700px] h-[600px] mr-20">
-        <img src="src/svgs/speech.svg" alt="math"/>
+        <img src="src/pngs/speech.png" alt="math"/>
       </div>
     </section>
   );
@@ -288,26 +312,64 @@ export function MainSlide5({ title, content }) {
   );
 }
 
-/* Main Slide 6 – Diagonal split with layered accents */
 export function MainSlide6({ title, content }) {
   return (
-    <section className="relative w-[1920px] h-[1080px] flex bg-gradient-to-tr from-pink-100 via-purple-100 to-blue-100 overflow-hidden">
-      {/* Decorative background shapes */}
-      <div className="absolute -top-24 -left-24 w-[600px] h-[600px] bg-pink-300/30 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-blue-300/20 rounded-full blur-2xl"></div>
-      
-      {/* Diagonal accent bar */}
-      <div className="absolute inset-0 bg-gradient-to-r from-pink-200/60 to-transparent transform -skew-y-6"></div>
+    <section className="relative w-[1920px] h-[1080px] flex items-center bg-gradient-to-tr from-pink-100 via-purple-100 to-blue-100 overflow-hidden">
+      {/* Decorative glowing blobs */}
+      <div className="absolute -top-32 -left-32 w-[650px] h-[650px] bg-pink-300/30 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-0 right-0 w-[520px] h-[520px] bg-blue-300/25 rounded-full blur-2xl"></div>
+      <div className="absolute top-1/3 right-1/4 w-[280px] h-[280px] bg-purple-300/30 rounded-full blur-2xl"></div>
 
-      {/* Content */}
-      <div className="relative z-10 flex flex-col justify-center px-32 max-w-5xl">
-        <h2 className="text-7xl font-bold text-gray-900 mb-6">{title}</h2>
-        <p className="text-4xl leading-relaxed text-gray-800">{content}</p>
+      {/* Diagonal accent overlay */}
+      <div className="absolute inset-0 bg-gradient-to-r from-pink-200/50 to-transparent transform -skew-y-6"></div>
+
+      {/* Floating faded icons */}
+      <FaRegCommentDots className="absolute top-20 left-1/3 text-[140px] text-pink-400/20 animate-bounce-slow" />
+      <MdTranslate className="absolute bottom-28 right-1/3 text-[150px] text-blue-500/20 animate-pulse" />
+      <PiTextTBold className="absolute top-1/2 right-10 text-[120px] text-purple-500/20 animate-spin-slow" />
+
+      {/* Left content */}
+      <div className="relative z-10 flex flex-col justify-center px-32 max-w-4xl">
+        <h2 className="text-7xl font-bold text-gray-900 mb-8 drop-shadow-sm">
+          {title}
+        </h2>
+        <p className="text-4xl leading-relaxed text-gray-800 drop-shadow-sm">
+          {content}
+        </p>
       </div>
 
-      <div className="absolute mt-[160px] bottom-30 right-0 w-[700px] h-[600px] mr-20">
-        <img src="src/svgs/talking.svg" alt="math"/>
+      {/* Right illustration */}
+      <div className="relative z-10 w-[650px] h-[600px] mr-20 flex items-center justify-center">
+        <img
+          src="src/pngs/talking.png"
+          alt="talking illustration"
+          className="w-full h-full object-contain drop-shadow-2xl"
+        />
       </div>
+    </section>
+  );
+}
+
+/* Image Slide – Dictionary style card */
+export function ImageSlide({ title, imageUrl }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-white flex flex-col items-center justify-center text-gray-900">
+      {/* Border frame */}
+      <div className="absolute inset-8 border-4 border-blue-700 rounded-lg"></div>
+
+      {imageUrl ? (
+        <img
+          src={imageUrl}
+          alt="language visual"
+          className="relative z-10 max-h-[400px] object-contain mb-6 shadow-lg rounded-md border-4 border-pink-400"
+        />
+      ) : (
+        <div className="relative z-10 w-[640px] h-[360px] flex items-center justify-center text-gray-400 border-4 border-blue-700">
+          No Image
+        </div>
+      )}
+
+      <h3 className="relative z-10 text-2xl font-bold mt-2">{title}</h3>
     </section>
   );
 }
@@ -335,14 +397,3 @@ export function TOCSlideLanguageLab({ title = "Table of Contents", items = [] })
   };
   return <TOCSlide tocData={tocData} />;
 }
-
-const LanguageLab = {
-  TitleSlide,
-  TOCSlide,
-  MainSlide1,
-  MainSlide2,
-  MainSlide3,
-  EndSlide,
-};
-
-export default LanguageLab;

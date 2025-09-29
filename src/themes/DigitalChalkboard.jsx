@@ -236,7 +236,7 @@ export function MainSlide4({ title, content }) {
       </div>
 
       <div className="absolute flex-1 pl-16 z-10 ml-[1000px]">
-        <img src="src/svgs/Elearning.svg" alt="Elearning1" className="w-[700px] border-none"/>
+        <img src="src/pngs/Elearning.png" alt="Elearning1" className="w-[700px] border-none"/>
       </div>
     </section>
   );
@@ -263,7 +263,7 @@ export function MainSlide5({ title, content }) {
 
       {/* Right column */}
       <div className="flex-1 pl-16 z-10">
-        <img src="src/svgs/Elearning1.svg" alt="Elearning1" className="w-[700px] border-none"/>
+        <img src="src/pngs/Elearning1.png" alt="Elearning1" className="w-[700px] border-none"/>
       </div>
     </section>
   );

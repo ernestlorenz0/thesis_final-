@@ -176,6 +176,25 @@ export function TOCSlide({ tocData }) {
   );
 }
 
+export function MainSlide({ title, content }) {
+  return (
+    <section className="relative w-[1920px] h-[1080px] bg-gradient-to-br from-[#fff9c4] via-[#fff176] to-[#fdd835] text-[#2b2b2b] flex items-center justify-center overflow-hidden">
+      {/* Background playful blobs */}
+      <div className="absolute top-16 left-10 w-64 h-64 bg-yellow-300/40 rounded-full blur-2xl"></div>
+      <div className="absolute bottom-24 right-24 w-72 h-72 bg-orange-300/40 rounded-full blur-2xl"></div>
+
+      {/* Doodle accents */}
+      <div className="absolute top-32 right-1/4 text-6xl rotate-12 text-orange-500/70">✨</div>
+      <div className="absolute bottom-32 left-1/4 text-6xl -rotate-12 text-pink-500/70">⭐</div>
+
+      <div className="relative z-10 w-3/4 bg-white/80 backdrop-blur-sm border-4 border-yellow-400 rounded-3xl p-12 text-center shadow-2xl">
+        <h2 className="text-8xl font-extrabold text-orange-600 mb-8 drop-shadow-lg">{title}</h2>
+        <p className="text-5xl leading-relaxed text-gray-800">{content}</p>
+      </div>
+    </section>
+  );
+}
+
 export function MainSlide1({ title, content }) {
   return (
     <section className="relative w-[1920px] h-[1080px] flex overflow-hidden bg-yellow-100">
@@ -196,7 +215,7 @@ export function MainSlide1({ title, content }) {
         {/* Curved divider that blends yellow shades */}
         <div className="absolute inset-y-0 left-0 w-[120%] bg-gradient-to-r from-yellow-200 via-yellow-100 to-yellow-50 rounded-l-[50%]"></div>
         
-        <p className="relative z-10 text-4xl text-yellow-900 leading-relaxed max-w-3xl font-light">
+        <p className="relative z-10 text-5xl text-yellow-900 leading-relaxed max-w-3xl font-light">
           {content}
         </p>
       </div>
@@ -270,7 +289,7 @@ export function MainSlide4({ title, content }) {
       </div>
 
       <div className="absolute right-20 top-0 w-1/3 h-full flex items-center justify-center">
-        <img src="src/svgs/bulb.svg" alt="bulb" />
+        <img src="src/pngs/bulb.png" alt="bulb" />
       </div>
     </section>
   );
@@ -320,7 +339,7 @@ export function EndSlide() {
   return (
     <section className="relative w-[1920px] h-[1080px] bg-gradient-to-tr from-yellow-400 to-orange-300 flex items-center justify-center">
       <h1 className="text-6xl font-extrabold text-white drop-shadow-lg">
-        Thank You 🌞
+        Thank You
       </h1>
     </section>
   );

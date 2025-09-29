@@ -244,7 +244,7 @@ export function MainSlide2({ title, content, imageUrl }) {
 
       {/* Right side image */}
       <div className="w-1/2 flex items-center justify-center p-6">
-        <img src="src/svgs/engineer.svg" alt="engineer" className="w-[600px]"/>
+        <img src="src/pngs/engineer.png" alt="engineer" className="w-[600px]"/>
       </div>
     </section>
   );

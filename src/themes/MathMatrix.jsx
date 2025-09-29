@@ -232,7 +232,7 @@ export function MainSlide2({ title, content }) {
       </div>
 
       <div className="absolute bottom-30 right-0 w-[700px] h-[600px] mr-20">
-        <img src="src/svgs/math.svg" alt="math"/>
+        <img src="src/pngs/math.png" alt="math"/>
       </div>
     </section>
   );
@@ -256,7 +256,7 @@ export function MainSlide3({ title, content }) {
       </div>
 
       <div className="absolute bottom-30 right-0 w-[700px] h-[600px] mr-20">
-        <img src="src/svgs/math1.svg" alt="math"/>
+        <img src="src/pngs/math1.png" alt="math"/>
       </div>
     </section>
   );

@@ -26,10 +26,10 @@ export function MainSlide1({ title, content }) {
 
       {/* Content side */}
       <div className="flex-1 p-16 flex flex-col justify-center">
-        <h2 className="text-5xl text-black font-bold font-bold border-b-2 border-green-500 pb-4 mb-6 translate-y-[-200px]">
+        <h2 className="text-6xl text-black font-bold font-bold border-b-2 border-green-500 pb-4 mb-6 translate-y-[-200px]">
           {title}
         </h2>
-        <p className="text-3xl text-black font-light leading-relaxed translate-y-[-150px]">{content}</p>
+        <p className="text-4xl text-black font-light leading-relaxed translate-y-[-150px]">{content}</p>
       </div>
     </section>
   );

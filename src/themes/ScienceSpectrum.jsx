@@ -196,7 +196,7 @@ export function MainSlide2({ title, content }) {
         <p className="text-3xl leading-relaxed text-gray-100">{content}</p>
       </div>
       <div className="flex-1 flex items-center justify-center">
-        <img src="src/svgs/chemistrylab.svg" alt="chemistrylab" className="w-[700px]"/>
+        <img src="src/pngs/chemistrylab.png" alt="chemistrylab" className="w-[700px]"/>
       </div>
     </section>
   );
@@ -223,7 +223,7 @@ export function MainSlide4({ title, content, imageUrl }) {
     <section className="relative w-[1920px] h-[1080px] bg-gradient-to-r from-blue-800 via-purple-700 to-pink-600 text-white flex overflow-hidden">
       {/* Left image area */}
       <div className="w-1/2 flex items-center justify-center">
-        <img src="src/svgs/sciencelab.svg" alt="sciencelab" className="w-[600px]"/>
+        <img src="src/pngs/sciencelab.png" alt="sciencelab" className="w-[600px]"/>
       </div>
       {/* Right text area */}
       <div className="w-1/2 flex flex-col justify-center px-20">
