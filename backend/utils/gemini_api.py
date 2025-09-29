@@ -9,10 +9,11 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 try:
     from app import GEMINI_API_KEY
 except ImportError:
-    GEMINI_API_KEY = "AIzaSyC5cVZm3uW9KjuEW1OV_HPI9PlteSkxz-g"
+    GEMINI_API_KEY = "AIzaSyCnExQzZGEEpUhGZJ8KVYqvhQ0eKe5KILA"
 
 GEMINI_IMAGE_MODEL = 'models/imagen-3'
-GEMINI_API_URL = f"https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash-001:generateContent?key={GEMINI_API_KEY}"
+GEMINI_API_URL = f"https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash-lite-001:generateContent?key={GEMINI_API_KEY}"
+
 
 def generate_image_from_prompt(prompt):
     genai.configure(api_key=GEMINI_API_KEY)

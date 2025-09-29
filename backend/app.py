@@ -8,7 +8,7 @@ import base64
 
 # API Keys
 HUGGINGFACE_API_KEY = ""
-GEMINI_API_KEY = "AIzaSyC5cVZm3uW9KjuEW1OV_HPI9PlteSkxz-g"
+GEMINI_API_KEY = "AIzaSyCnExQzZGEEpUhGZJ8KVYqvhQ0eKe5KILA"
 
 app = Flask(__name__, static_folder='static')
 CORS(app)
@@ -28,18 +28,10 @@ def serve_extracted_image(filename):
 def serve_generated_image(filename):
     return send_from_directory(os.path.join(os.path.dirname(__file__), 'generated_images'), filename)
 
-@app.route('/generate-image', methods=['POST'])
-def generate_image():
-
-    data = request.get_json()
-    # Support both 'topic' and 'prompt' for backward compatibility
-    topic = data.get('topic') or data.get('prompt')
-    if not topic:
-        return jsonify({'error': 'Missing topic or prompt for image generation'}), 400
-
+def generate_huggingface_image(prompt):
+    """Helper function to generate image using Hugging Face API"""
     try:
-        print("🎨 Generating Hugging Face Image for topic:", topic)
-        prompt = topic
+        print(f"🎨 Generating Hugging Face Image for prompt: {prompt}")
         headers = {
             'Authorization': f'Bearer {HUGGINGFACE_API_KEY}',
             'Content-Type': 'application/json',
@@ -92,7 +84,7 @@ def generate_image():
                 continue
         if not response or response.status_code != 200:
             print(f"❌ All models failed. Last error: {last_error}")
-            return jsonify({'error': f'All models failed. Last error: {last_error}'}), 500
+            raise Exception(f'All models failed. Last error: {last_error}')
 
         # Handle both JSON (base64) and raw image bytes
         import base64
@@ -108,11 +100,11 @@ def generate_image():
                 else:
                     error_msg = f'Unexpected JSON response format: {json_data}'
                     print(f"❌ {error_msg}")
-                    return jsonify({'error': error_msg}), 500
+                    raise Exception(error_msg)
             except Exception as e:
                 error_msg = f'Failed to parse JSON response: {str(e)}'
                 print(f"❌ {error_msg}")
-                return jsonify({'error': error_msg}), 500
+                raise Exception(error_msg)
         else:
             image_bytes = response.content
 
@@ -130,10 +122,27 @@ def generate_image():
         image_base64 = base64.b64encode(image_bytes).decode('utf-8')
         image_url = request.url_root.rstrip('/') + f"/generated_images/{unique_filename}"
         
-        return jsonify({
+        return {
             'image_base64': image_base64,
-            'image_url': image_url
-        })
+            'image_url': image_url,
+            'filename': unique_filename
+        }
+        
+    except Exception as e:
+        print(f"❌ Error in generate_huggingface_image: {str(e)}")
+        raise e
+
+@app.route('/generate-image', methods=['POST'])
+def generate_image():
+    data = request.get_json()
+    # Support both 'topic' and 'prompt' for backward compatibility
+    topic = data.get('topic') or data.get('prompt')
+    if not topic:
+        return jsonify({'error': 'Missing topic or prompt for image generation'}), 400
+
+    try:
+        result = generate_huggingface_image(topic)
+        return jsonify(result)
         
     except requests.exceptions.Timeout:
         error_msg = "Request timed out. The image generation is taking longer than expected."
@@ -228,22 +237,99 @@ def upload_pdf():
                 if t['term'] not in seen:
                     deduped_terms.append(t)
                     seen.add(t['term'])
-            # Summarize the main topic for image prompt
-            summary_prompt = "Summarize the main topic of the following terms for an academic presentation image prompt: " + ", ".join([t['term'] for t in deduped_terms])
-            from utils.gemini_api import generate_image_from_prompt
-            import logging
-            image_b64 = None
-            # Image generation is now handled by the frontend via the /generate-image endpoint
+            
             # Generate Table of Contents from the full text
             print("📋 Generating Table of Contents...")
             toc_result = generate_table_of_contents(text)
             print(f"✅ TOC generated with {len(toc_result.get('sections', []))} sections")
             
+            # AUTOMATIC IMAGE GENERATION for first 2 terms
+            auto_generated_images = []
+            if len(deduped_terms) >= 2:
+                print("🎨 Starting automatic image generation for first 2 terms...")
+                try:
+                    # Generate images for first 2 terms
+                    for i in range(2):
+                        term = deduped_terms[i]
+                        prompt = f"Educational illustration of {term['term']}"
+                        print(f"🖼️ Generating image {i+1}/2 for term: {term['term']}")
+                        
+                        try:
+                            # TESTING MODE: Use mock images instead of real generation
+                            TESTING_MODE = False  # Set to False for real image generation
+                            
+                            if TESTING_MODE:
+                                # Create a simple colored rectangle as mock image
+                                import base64
+                                from PIL import Image, ImageDraw, ImageFont
+                                import io
+                                
+                                # Create a 400x300 colored image with text
+                                img = Image.new('RGB', (400, 300), color=['#FF6B6B', '#4ECDC4'][i])
+                                draw = ImageDraw.Draw(img)
+                                
+                                # Add text to the image
+                                try:
+                                    # Try to use a default font
+                                    font = ImageFont.load_default()
+                                except:
+                                    font = None
+                                
+                                text = f"MOCK IMAGE\nTerm {i+1}: {term['term'][:20]}..."
+                                draw.text((20, 100), text, fill='white', font=font)
+                                
+                                # Convert to base64
+                                buffer = io.BytesIO()
+                                img.save(buffer, format='PNG')
+                                mock_image_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8')
+                                
+                                auto_generated_images.append({
+                                    'term_index': i,
+                                    'term_name': term['term'],
+                                    'term_definition': term['definition'],
+                                    'image_base64': mock_image_base64,
+                                    'image_url': f'data:image/png;base64,{mock_image_base64}',
+                                    'filename': f'mock_image_{i+1}.png',
+                                    'target_slide': f'slide_{i+4}',  # slide 4 and 5
+                                    'prompt': prompt,
+                                    'generated_at': __import__('datetime').datetime.now().isoformat(),
+                                    'is_mock': True
+                                })
+                                print(f"✅ Created mock image for term: {term['term']}")
+                            else:
+                                # Real image generation
+                                image_result = generate_huggingface_image(prompt)
+                                auto_generated_images.append({
+                                    'term_index': i,
+                                    'term_name': term['term'],
+                                    'term_definition': term['definition'],
+                                    'image_base64': image_result['image_base64'],
+                                    'image_url': image_result['image_url'],
+                                    'filename': image_result['filename'],
+                                    'target_slide': f'slide_{i+4}',  # slide 4 and 5
+                                    'prompt': prompt,
+                                    'generated_at': __import__('datetime').datetime.now().isoformat()
+                                })
+                                print(f"✅ Successfully generated image for term: {term['term']}")
+                        except Exception as img_error:
+                            print(f"❌ Failed to generate image for term {term['term']}: {str(img_error)}")
+                            # Continue without this image - graceful fallback
+                            continue
+                    
+                    print(f"🎉 Automatic image generation completed! Generated {len(auto_generated_images)} images")
+                except Exception as e:
+                    print(f"❌ Error in automatic image generation: {str(e)}")
+                    # Continue without images - graceful fallback
+                    auto_generated_images = []
+            else:
+                print("ℹ️ Less than 2 terms found, skipping automatic image generation")
+            
             results.append({
                 'filename': file.filename, 
                 'terms': deduped_terms, 
                 'extracted_images': extracted_images,
-                'toc': toc_result
+                'toc': toc_result,
+                'auto_generated_images': auto_generated_images
             })
         except Exception as e:
             results.append({'filename': file.filename, 'error': str(e)})
