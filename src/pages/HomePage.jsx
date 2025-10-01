@@ -6,6 +6,7 @@ import { User, Upload, Settings, HelpCircle, LogOut, Loader2 } from 'lucide-reac
 import Reveal from 'reveal.js'; // For future integration, placeholder for now
 import { themeComponents as themeRegistry, themeNames } from '../utils/themes';
 import { saveHistoryItem } from '../firebaseAuth';
+import { getAuth } from 'firebase/auth';
 import SlideEditor from './SlideEditor';
 import UserMenuDropdown from '../components/UserMenuDropdown';
 import TemplateThumbnail from '../components/TemplateThumbnail';
@@ -224,8 +225,7 @@ export default function HomePage() {
 
           if (layoutName === 'TitleSlide') {
             slide.components = [
-              { id: 'title', type: 'title', content: selectedThemeName + ' — Title' },
-              { id: 'subtitle', type: 'paragraph', content: 'Subtitle placeholder' }
+              { id: 'title', type: 'title', content: selectedThemeName + ' — Title' }
             ];
           } else if (layoutName === 'TOCSlide') {
             slide.components = [
@@ -392,15 +392,26 @@ export default function HomePage() {
       
       // Debug logging
       
-      // Add title slide
+      // Add title slide with subtitle "Created by <username>" if available
       if (slideMapping['TitleSlide']) {
         const firstFileName = data.results && data.results.length > 0 ? data.results[0].filename.replace(/\.pdf$/i, '') : 'Generated Presentation';
+        let createdBySubtitle = '';
+        try {
+          const auth = getAuth();
+          const user = auth?.currentUser;
+          const displayName = (user && (user.displayName || user.email || '').split('@')[0]) || '';
+          if (displayName) {
+            createdBySubtitle = `Created by ${displayName}`;
+          }
+        } catch (_) {
+          // ignore if auth is unavailable
+        }
         slides.push({
           id: `title-${firstFileName}-${Date.now()}`,
           layout: slideMapping['TitleSlide'],
           components: [
             { id: 'title', type: 'title', content: firstFileName.replace(/\.pdf$/i, '').trim() },
-            { id: 'subtitle', type: 'paragraph', content: 'Created from uploaded PDFs' },
+            ...(createdBySubtitle ? [{ id: 'subtitle', type: 'paragraph', content: createdBySubtitle }] : [])
           ],
         });
       }
@@ -502,16 +513,26 @@ export default function HomePage() {
       const autoImages = allAutoImages || [];
       console.log(`🖼️ Auto-generated images available for injection: ${autoImages.length}`);
       
+      // Extract terms first to ensure consistent assignment
+      const termDefinitions = allContent.filter(content => content.type === 'term_definition');
+      const otherContent = allContent.filter(content => content.type !== 'term_definition');
+      
+      console.log(`🎯 Found ${termDefinitions.length} terms and ${otherContent.length} other content items`);
+      
       // Distribute content across slides following the sequence
       let currentLayoutIndex = 2; // Start after TitleSlide and TOCSlide
       let mainSlideIndex = 0;
       let termSlideCount = 0; // Track which term slide we're on
+      let processedTerms = 0; // Track how many terms we've processed
+      const usedTermTitles = new Set(); // Track prioritized terms to avoid duplicates
       
       for (let i = 0; i < allContent.length; i++) {
         const content = allContent[i];
         if (!content) {
           continue;
         }
+        
+        console.log(`🔍 Processing content ${i}: type=${content.type}, currentLayoutIndex=${currentLayoutIndex}`);
         
         let layout;
         
@@ -526,6 +547,7 @@ export default function HomePage() {
           
           if (slideMapping && slideMapping[slideKey]) {
             layout = slideMapping[slideKey];
+            console.log(`📋 Assigned slideKey=${slideKey}, layout=${layout}, currentLayoutIndex=${currentLayoutIndex}`);
             currentLayoutIndex++;
             if (currentLayoutIndex > 8) {
               currentLayoutIndex = 4; // Reset to MainSlide2 for repetition (skip MainSlide only)
@@ -551,16 +573,20 @@ export default function HomePage() {
           components: []
         };
         
-        // Track if this slide should get an auto-generated image
+        // Track if this slide should get an auto-generated image and prioritize terms
         let autoImageIndex = -1;
-        if (layout === slideMapping['ImageSlide']) {
-          // ImageSlide gets 1st auto-generated image
+        let shouldGetTerm = false;
+        
+        if (layout === slideMapping['ImageSlide'] && processedTerms === 0 && termDefinitions.length > 0) {
+          // ImageSlide gets 1st term and 1st auto-generated image
           autoImageIndex = 0;
-          console.log(`📍 ImageSlide detected - will get auto-image ${autoImageIndex + 1}`);
-        } else if (layout === slideMapping['MainSlide1']) {
-          // MainSlide1 gets 2nd auto-generated image  
+          shouldGetTerm = true;
+          console.log(`📍 ImageSlide detected - will get 1st term and auto-image ${autoImageIndex + 1}`);
+        } else if (layout === slideMapping['MainSlide1'] && processedTerms === 1 && termDefinitions.length > 1) {
+          // MainSlide1 gets 2nd term and 2nd auto-generated image  
           autoImageIndex = 1;
-          console.log(`📍 MainSlide1 detected - will get auto-image ${autoImageIndex + 1}`);
+          shouldGetTerm = true;
+          console.log(`📍 MainSlide1 detected - will get 2nd term and auto-image ${autoImageIndex + 1}`);
         }
         
         // Helper function to clean content
@@ -576,56 +602,91 @@ export default function HomePage() {
             .trim();
         };
 
-        // Add content based on type
-        if (content.type === 'title') {
+        // Add content - prioritize terms for ImageSlide and MainSlide1
+        if (shouldGetTerm && processedTerms < termDefinitions.length) {
+          // Use prioritized term instead of current content
+          const termContent = termDefinitions[processedTerms];
+          console.log(`📝 Adding prioritized term ${processedTerms + 1} to slide with layout=${layout}: "${cleanContent(termContent.title)}"`);
+          
           slide.components.push({
-            id: `title-${i}`,
+            id: `term-title-${processedTerms}`,
             type: 'title',
-            content: cleanContent(content.content)
+            content: cleanContent(termContent.title)
           });
-        } else if (content.type === 'paragraph') {
           slide.components.push({
-            id: `paragraph-${i}`,
+            id: `term-definition-${processedTerms}`,
             type: 'paragraph',
-            content: cleanContent(content.content)
-          });
-        } else if (content.type === 'image') {
-          slide.components.push({
-            id: `image-${i}`,
-            type: 'image',
-            content: content.content
-          });
-        } else if (content.type === 'term_definition') {
-          // Add both title and paragraph for term definitions
-          slide.components.push({
-            id: `term-title-${i}`,
-            type: 'title',
-            content: cleanContent(content.title)
-          });
-          slide.components.push({
-            id: `term-definition-${i}`,
-            type: 'paragraph',
-            content: cleanContent(content.content)
+            content: cleanContent(termContent.content)
           });
           
-          // INJECT AUTO-GENERATED IMAGE based on slide layout
-          if (autoImageIndex >= 0 && autoImages.length > autoImageIndex) {
-            const autoImage = autoImages[autoImageIndex];
-            if (autoImage && autoImage.image_base64) {
-              const imageUrl = `data:image/png;base64,${autoImage.image_base64}`;
+          usedTermTitles.add(cleanContent(termContent.title));
+          processedTerms++; // Increment processed terms counter
+        } else {
+          // Add content based on type
+          if (content.type === 'title') {
+            slide.components.push({
+              id: `title-${i}`,
+              type: 'title',
+              content: cleanContent(content.content)
+            });
+          } else if (content.type === 'paragraph') {
+            slide.components.push({
+              id: `paragraph-${i}`,
+              type: 'paragraph',
+              content: cleanContent(content.content)
+            });
+          } else if (content.type === 'image') {
+            slide.components.push({
+              id: `image-${i}`,
+              type: 'image',
+              content: content.content
+            });
+          } else if (content.type === 'term_definition') {
+            // Only add if not already processed as prioritized term
+            const termTitle = cleanContent(content.title);
+            if (usedTermTitles.has(termTitle)) {
+              console.log(`⏭️ Skipping duplicate term already used in prioritized slides: "${termTitle}"`);
+            } else {
+              console.log(`📝 Adding regular term to slide with layout=${layout}: "${termTitle}"`);
               slide.components.push({
-                id: `auto-image-${autoImageIndex}`,
-                type: 'auto_generated_image',
-                content: imageUrl,
-                termName: autoImage.term_name,
-                termIndex: autoImage.term_index,
-                isAutoGenerated: true
+                id: `term-title-${i}`,
+                type: 'title',
+                content: termTitle
               });
-              console.log(`✅ Injected auto-generated image ${autoImageIndex + 1} for term: ${autoImage.term_name} in layout: ${layout}`);
+              slide.components.push({
+                id: `term-definition-${i}`,
+                type: 'paragraph',
+                content: cleanContent(content.content)
+              });
             }
           }
         }
         
+        // INJECT AUTO-GENERATED IMAGE based on slide layout
+        if (autoImageIndex >= 0 && autoImages.length > autoImageIndex) {
+          const autoImage = autoImages[autoImageIndex];
+          if (autoImage && autoImage.image_base64) {
+            const imageUrl = `data:image/png;base64,${autoImage.image_base64}`;
+            slide.components.push({
+              id: `auto-image-${autoImageIndex}`,
+              type: 'auto_generated_image',
+              content: imageUrl,
+              termName: autoImage.term_name,
+              termIndex: autoImage.term_index,
+              isAutoGenerated: true
+            });
+            console.log(`✅ Injected auto-generated image ${autoImageIndex + 1} for term: ${autoImage.term_name} in layout: ${layout}`);
+          }
+        }
+        
+        // Skip slides that would render as "Untitled" (no title/paragraph)
+        const hasTitle = slide.components.some(c => c.type === 'title' && String(c.content || '').trim().length > 0);
+        const hasParagraph = slide.components.some(c => c.type === 'paragraph' && String(c.content || '').trim().length > 0);
+        if (!hasTitle && !hasParagraph) {
+          console.log(`🗑️ Skipping slide without title/paragraph to avoid 'Untitled' slides. layout=${layout}`);
+          continue;
+        }
+
         slides.push(slide);
       }
       
@@ -904,16 +965,11 @@ export default function HomePage() {
                   />
                 </label>
 
-                {/* Image Generation Prompt */}
+                {/* Image Generation Notice */}
                 <div className="mt-6">
-                  <label className="block font-semibold text-sm mb-3" style={{ color: '#003D7A' }}>
-                    AI Image Generation Prompt (Optional)
-                  </label>
-                  {/* Manual image generation removed - now handled automatically */}
                   <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 text-center">
-                    <div className="text-blue-700 font-medium mb-2">🎨 Automatic Image Generation</div>
-                    <div className="text-blue-600 text-sm">
-                      Images will be generated automatically for the first two terms from your PDF
+                    <div className="text-blue-700 text-sm">
+                      Images will be generated automatically for your content.
                     </div>
                   </div>
                 </div>

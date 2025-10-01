@@ -256,7 +256,7 @@ def upload_pdf():
                         
                         try:
                             # TESTING MODE: Use mock images instead of real generation
-                            TESTING_MODE = False  # Set to False for real image generation
+                            TESTING_MODE = True  # Set to False for real image generation
                             
                             if TESTING_MODE:
                                 # Create a simple colored rectangle as mock image
